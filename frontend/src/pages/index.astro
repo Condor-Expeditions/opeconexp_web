@@ -1,4 +1,6 @@
 ---
+//index.astro
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const heroImages = [
@@ -76,14 +78,16 @@ const testimonials = [
 
 <BaseLayout title="Condor Expeditions - Turismo de Aventura en Ecuador">
   <!-- Hero Section -->
-  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+  <section class="relative h-screen flex items-center justify-center overflow-hidden mt-16">
     <div class="absolute inset-0 z-0">
       <!-- Background Images Slideshow -->
-      {heroImages.map((image, index) => (
-        <div class={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} style={`background-image: url('${image.url}')`}>
-          <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-        </div>
-      ))}
+      <div id="hero-slideshow" class="slideshow-container">
+        {heroImages.map((image, index) => (
+          <div class={`slideshow-image absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} style={`background-image: url('${image.url}')`}>
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+          </div>
+        ))}
+      </div>
     </div>
 
     <div class="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
@@ -294,19 +298,30 @@ const testimonials = [
 
 <script>
   // Hero slideshow functionality
-  const images = document.querySelectorAll('.absolute.inset-0');
+  const slideshowContainer = document.getElementById('hero-slideshow');
+  const images = slideshowContainer ? slideshowContainer.querySelectorAll('.slideshow-image') : [];
   let currentImage = 0;
 
   function changeImage() {
+    if (images.length === 0) return;
+
+    // Hide current image
     images[currentImage].classList.remove('opacity-100');
     images[currentImage].classList.add('opacity-0');
 
+    // Move to next image
     currentImage = (currentImage + 1) % images.length;
 
+    // Show next image
     images[currentImage].classList.remove('opacity-0');
     images[currentImage].classList.add('opacity-100');
   }
 
-  // Change image every 5 seconds
-  setInterval(changeImage, 5000);
+  // Start slideshow only if images are found
+  if (images.length > 0) {
+    // Change image every 5 seconds
+    setInterval(changeImage, 5000);
+  } else {
+    console.warn('Hero slideshow: No images found. Check that the slideshow container and images are properly rendered.');
+  }
 </script>
