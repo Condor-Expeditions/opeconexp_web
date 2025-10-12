@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "tours": "Tours",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "language": "Idioma",
+    "currency": "Moneda",
+    "theme": "Tema",
+    "toggleMenu": "Alternar menú"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "common": {
+    "welcome": "Bienvenido a Condor Expeditions",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  }
+}
