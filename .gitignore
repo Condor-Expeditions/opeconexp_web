@@ -1,1 +1,185 @@
-# crea el gitnore de python y pnpm
+# ============================================================
+# 🌍 GLOBAL SETTINGS
+# ============================================================
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.old
+*.orig
+*.rej
+*.seed
+*.pid
+
+# Archivos de entorno y configuración privada
+.env
+.env.*
+*.env
+!.env.example
+
+# Configuración de IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Archivos de compresión
+*.zip
+*.tar.gz
+*.7z
+*.rar
+
+# ============================================================
+# 🚀 FRONTEND (ASTRO + TAILWIND + PREACT + PNPM)
+# ============================================================
+
+# Dependencias y builds
+/frontend/node_modules/
+/frontend/.astro/
+/frontend/dist/
+/frontend/build/
+/frontend/.output/
+/frontend/.vercel/
+/frontend/.netlify/
+/frontend/.svelte-kit/
+/frontend/.next/
+/frontend/out/
+
+# Archivos de lock (opcional mantener solo 1)
+frontend/package-lock.json
+frontend/yarn.lock
+# Si usas pnpm:
+!/frontend/pnpm-lock.yaml
+
+# Archivos de configuración local
+/frontend/.env
+/frontend/.env.*
+/frontend/.DS_Store
+/frontend/.eslintcache
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/pnpm-debug.log*
+/frontend/.parcel-cache/
+/frontend/.cache/
+/frontend/.turbo/
+/frontend/.vite/
+
+# Tailwind y CSS builds
+/frontend/postcss.config.js
+/frontend/tailwind.config.js
+
+# Archivos generados temporalmente
+/frontend/temp/
+/frontend/tmp/
+
+# ============================================================
+# 🐍 BACKEND (DJANGO + DJANGO-NINJA + RESTFRAMEWORK + CELERY)
+# ============================================================
+
+# Entornos virtuales
+/backend/venv/
+/backend/.venv/
+/backend/env/
+/backend/.env
+/backend/.env.*
+
+# Archivos de compilación Python
+/backend/__pycache__/
+/backend/**/*.py[cod]
+/backend/*$py.class
+/backend/*.py[cod]
+
+# Archivos temporales o de caché
+/backend/.pytest_cache/
+/backend/.mypy_cache/
+/backend/.ruff_cache/
+/backend/.coverage
+/backend/coverage.xml
+/backend/htmlcov/
+/backend/.tox/
+/backend/.nox/
+/backend/.benchmarks/
+/backend/logs/
+/backend/*.log
+/backend/debug.log
+
+# Archivos generados por Django
+/backend/db.sqlite3
+/backend/*.db
+/backend/media/
+backend/staticfiles/
+/backend/static_cdn/
+/backend/static_root/
+/backend/static/
+backend/media_cdn/
+/backend/tmp/
+/backend/backups/
+/backend/migrations/__pycache__/
+/backend/migrations/*.pyc
+/backend/local_settings.py
+
+# Celery
+/backend/celerybeat-schedule
+/backend/celerybeat.pid
+/backend/*.celerybeat-schedule
+/backend/*.pid
+/backend/celerybeat.db
+
+# Redis (datos locales)
+/backend/dump.rdb
+/backend/redis-data/
+/backend/redis.conf
+
+# Archivos generados por herramientas
+/backend/*.egg-info/
+/backend/*.egg
+/backend/build/
+/backend/dist/
+/backend/deploy/
+/backend/.ninja_log
+/backend/.ninja_deps
+
+# ============================================================
+# ⚙️ UV (GESTOR DE PAQUETES PYTHON)
+# ============================================================
+/backend/.uv/
+/backend/.uv_cache/
+/backend/.uv-lock.json
+/backend/.uv.toml.lock
+
+# ============================================================
+# 🐳 DOCKER / DEPLOYMENT
+# ============================================================
+docker-compose.override.yml
+.dockerignore
+Dockerfile
+*.pid
+*.seed
+*.bak
+*.old
+
+# ============================================================
+# 🧪 TESTING / CI
+# ============================================================
+/coverage/
+/reports/
+/test-results/
+/backend/tests/__pycache__/
+/backend/tests/.pytest_cache/
+/frontend/coverage/
+/frontend/jest-results/
+/frontend/test-results/
+
+# ============================================================
+# 🗂️ OTRAS CARPETAS TEMPORALES / BUILD
+# ============================================================
+.cache/
+tmp/
+temp/
+build/
+dist/
+out/
