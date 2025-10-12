@@ -1,0 +1,76 @@
+INFO 2025-10-10 11:07:19,725 autoreload 20000 29968 Watching for file changes with StatReloader
+INFO 2025-10-10 11:38:21,893 autoreload 18532 7608 Watching for file changes with StatReloader
+INFO 2025-10-10 11:39:31,710 autoreload 18532 7608 D:\Coders\CondorExpeditionsWeb\backend\api\__init__.py changed, reloading.
+INFO 2025-10-10 11:39:32,767 autoreload 35192 41544 Watching for file changes with StatReloader
+INFO 2025-10-10 11:39:40,756 autoreload 33180 32744 Watching for file changes with StatReloader
+INFO 2025-10-10 11:42:28,207 autoreload 28208 24924 Watching for file changes with StatReloader
+INFO 2025-10-10 11:49:09,008 autoreload 33180 32744 D:\Coders\CondorExpeditionsWeb\backend\api\__init__.py changed, reloading.
+INFO 2025-10-10 11:49:38,680 autoreload 20200 23704 Watching for file changes with StatReloader
+INFO 2025-10-10 12:01:21,336 autoreload 20200 23704 D:\Coders\CondorExpeditionsWeb\backend\api\api.py changed, reloading.
+INFO 2025-10-10 12:01:22,446 autoreload 42600 48576 Watching for file changes with StatReloader
+INFO 2025-10-10 12:01:54,196 autoreload 42600 48576 D:\Coders\CondorExpeditionsWeb\backend\api\urls.py changed, reloading.
+INFO 2025-10-10 12:01:55,680 autoreload 30448 48280 Watching for file changes with StatReloader
+INFO 2025-10-10 12:02:07,860 autoreload 30448 48280 D:\Coders\CondorExpeditionsWeb\backend\api\__init__.py changed, reloading.
+INFO 2025-10-10 12:02:08,898 autoreload 49016 47332 Watching for file changes with StatReloader
+INFO 2025-10-10 12:05:37,561 autoreload 38328 48404 Watching for file changes with StatReloader
+INFO 2025-10-10 12:05:54,090 autoreload 34636 47388 Watching for file changes with StatReloader
+INFO 2025-10-10 12:08:01,605 autoreload 32384 48228 Watching for file changes with StatReloader
+INFO 2025-10-10 12:08:40,885 autoreload 34636 47388 D:\Coders\CondorExpeditionsWeb\backend\users\admin.py changed, reloading.
+INFO 2025-10-10 12:08:41,210 autoreload 32384 48228 D:\Coders\CondorExpeditionsWeb\backend\users\admin.py changed, reloading.
+INFO 2025-10-10 12:08:41,414 autoreload 49016 47332 D:\Coders\CondorExpeditionsWeb\backend\users\admin.py changed, reloading.
+INFO 2025-10-10 12:08:41,544 autoreload 38328 48404 D:\Coders\CondorExpeditionsWeb\backend\users\admin.py changed, reloading.
+INFO 2025-10-10 12:08:41,942 autoreload 46232 9560 Watching for file changes with StatReloader
+INFO 2025-10-10 12:08:42,305 autoreload 38056 48768 Watching for file changes with StatReloader
+INFO 2025-10-10 12:08:42,513 autoreload 7412 13080 Watching for file changes with StatReloader
+INFO 2025-10-10 12:08:42,640 autoreload 40256 45692 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:00,173 autoreload 7412 13080 D:\Coders\CondorExpeditionsWeb\backend\bookings\admin.py changed, reloading.
+INFO 2025-10-10 12:09:00,390 autoreload 40256 45692 D:\Coders\CondorExpeditionsWeb\backend\bookings\admin.py changed, reloading.
+INFO 2025-10-10 12:09:00,823 autoreload 46232 9560 D:\Coders\CondorExpeditionsWeb\backend\bookings\admin.py changed, reloading.
+INFO 2025-10-10 12:09:01,154 autoreload 38056 48768 D:\Coders\CondorExpeditionsWeb\backend\bookings\admin.py changed, reloading.
+INFO 2025-10-10 12:09:01,176 autoreload 49024 48548 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:01,355 autoreload 14648 45200 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:01,880 autoreload 15284 40036 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:02,277 autoreload 41432 27884 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:11,646 autoreload 15284 40036 D:\Coders\CondorExpeditionsWeb\backend\payments\admin.py changed, reloading.
+INFO 2025-10-10 12:09:11,982 autoreload 41432 27884 D:\Coders\CondorExpeditionsWeb\backend\payments\admin.py changed, reloading.
+INFO 2025-10-10 12:09:12,177 autoreload 49024 48548 D:\Coders\CondorExpeditionsWeb\backend\payments\admin.py changed, reloading.
+INFO 2025-10-10 12:09:12,325 autoreload 14648 45200 D:\Coders\CondorExpeditionsWeb\backend\payments\admin.py changed, reloading.
+INFO 2025-10-10 12:09:12,774 autoreload 40692 33904 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:13,109 autoreload 38788 32208 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:13,324 autoreload 22444 36976 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:13,474 autoreload 39044 42440 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:27,061 autoreload 40692 33904 D:\Coders\CondorExpeditionsWeb\backend\tours\admin.py changed, reloading.
+INFO 2025-10-10 12:09:27,364 autoreload 38788 32208 D:\Coders\CondorExpeditionsWeb\backend\tours\admin.py changed, reloading.
+INFO 2025-10-10 12:09:27,563 autoreload 22444 36976 D:\Coders\CondorExpeditionsWeb\backend\tours\admin.py changed, reloading.
+INFO 2025-10-10 12:09:27,673 autoreload 39044 42440 D:\Coders\CondorExpeditionsWeb\backend\tours\admin.py changed, reloading.
+INFO 2025-10-10 12:09:28,121 autoreload 40924 6196 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:28,428 autoreload 40532 38544 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:28,636 autoreload 45520 35712 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:28,765 autoreload 21604 48532 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:50,461 autoreload 40924 6196 D:\Coders\CondorExpeditionsWeb\backend\communities\admin.py changed, reloading.
+INFO 2025-10-10 12:09:50,642 autoreload 40532 38544 D:\Coders\CondorExpeditionsWeb\backend\communities\admin.py changed, reloading.
+INFO 2025-10-10 12:09:50,867 autoreload 45520 35712 D:\Coders\CondorExpeditionsWeb\backend\communities\admin.py changed, reloading.
+INFO 2025-10-10 12:09:50,976 autoreload 21604 48532 D:\Coders\CondorExpeditionsWeb\backend\communities\admin.py changed, reloading.
+INFO 2025-10-10 12:09:51,486 autoreload 30844 4008 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:51,739 autoreload 48240 41152 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:51,980 autoreload 36136 49028 Watching for file changes with StatReloader
+INFO 2025-10-10 12:09:52,132 autoreload 37004 13080 Watching for file changes with StatReloader
+INFO 2025-10-10 13:13:24,755 autoreload 48240 41152 D:\Coders\CondorExpeditionsWeb\backend\condor_expeditions\settings.py changed, reloading.
+INFO 2025-10-10 13:13:24,930 autoreload 36136 49028 D:\Coders\CondorExpeditionsWeb\backend\condor_expeditions\settings.py changed, reloading.
+INFO 2025-10-10 13:13:24,940 autoreload 37004 13080 D:\Coders\CondorExpeditionsWeb\backend\condor_expeditions\settings.py changed, reloading.
+INFO 2025-10-10 13:13:25,065 autoreload 30844 4008 D:\Coders\CondorExpeditionsWeb\backend\condor_expeditions\settings.py changed, reloading.
+INFO 2025-10-10 13:13:25,841 autoreload 48540 41440 Watching for file changes with StatReloader
+INFO 2025-10-10 13:13:26,042 autoreload 1632 30304 Watching for file changes with StatReloader
+INFO 2025-10-10 13:13:26,063 autoreload 48940 48464 Watching for file changes with StatReloader
+INFO 2025-10-10 13:13:26,159 autoreload 34168 30368 Watching for file changes with StatReloader
+INFO 2025-10-10 13:14:20,637 autoreload 48424 35444 Watching for file changes with StatReloader
+INFO 2025-10-10 13:17:51,011 autoreload 47584 17324 Watching for file changes with StatReloader
+WARNING 2025-10-10 13:19:07,384 log 48424 40068 Not Found: /
+WARNING 2025-10-10 13:19:07,385 basehttp 48424 40068 "GET / HTTP/1.1" 404 2655
+WARNING 2025-10-10 13:19:08,076 log 48424 40068 Not Found: /favicon.ico
+WARNING 2025-10-10 13:19:08,077 basehttp 48424 40068 "GET /favicon.ico HTTP/1.1" 404 2706
+INFO 2025-10-10 13:19:12,670 basehttp 48424 40068 "GET /api HTTP/1.1" 301 0
+WARNING 2025-10-10 13:19:12,686 log 48424 13216 Not Found: /api/
+WARNING 2025-10-10 13:19:12,688 basehttp 48424 13216 "GET /api/ HTTP/1.1" 404 7821
+INFO 2025-10-10 13:19:17,060 basehttp 48424 13216 "GET /api/docs HTTP/1.1" 200 997
+INFO 2025-10-10 13:19:17,943 basehttp 48424 13216 "GET /api/openapi.json HTTP/1.1" 200 10955

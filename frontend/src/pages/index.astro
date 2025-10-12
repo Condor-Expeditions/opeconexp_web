@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const heroImages = [
+  {
+    url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    alt: "Montañas de los Andes"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    alt: "Selva amazónica"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    alt: "Islas Galápagos"
+  }
+];
+
+const featuredTours = [
+  {
+    id: 1,
+    title: "Expedición al Cotopaxi",
+    location: "Parque Nacional Cotopaxi",
+    duration: "2 días",
+    difficulty: "Moderado",
+    price: 150,
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 2,
+    title: "Tour Comunitario Saraguro",
+    location: "Provincia de Loja",
+    duration: "3 días",
+    difficulty: "Fácil",
+    price: 200,
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 3,
+    title: "Aventura en Galápagos",
+    location: "Islas Galápagos",
+    duration: "5 días",
+    difficulty: "Moderado",
+    price: 800,
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  }
+];
+
+const testimonials = [
+  {
+    name: "María González",
+    location: "España",
+    comment: "Una experiencia inolvidable. Los guías son profesionales y las comunidades locales son increíbles.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    name: "Carlos Mendoza",
+    location: "México",
+    comment: "El tour al Cotopaxi superó todas mis expectativas. Muy bien organizado y seguro.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+  },
+  {
+    name: "Ana Silva",
+    location: "Brasil",
+    comment: "La atención personalizada y el respeto por las comunidades locales es admirable.",
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+  }
+];
+---
+
+<BaseLayout title="Condor Expeditions - Turismo de Aventura en Ecuador">
+  <!-- Hero Section -->
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <!-- Background Images Slideshow -->
+      {heroImages.map((image, index) => (
+        <div class={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} style={`background-image: url('${image.url}')`}>
+          <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+      ))}
+    </div>
+
+    <div class="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 font-serif">
+        Descubre el
+        <span class="text-primary-400 block">Ecuador Auténtico</span>
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
+        Vive experiencias únicas de turismo de aventura y naturaleza,
+        conectando con comunidades locales y descubriendo la belleza de los Andes,
+        la Amazonía y las Islas Galápagos.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/tours" class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-lg">
+          Explorar Tours
+        </a>
+        <a href="/comunidades" class="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold transition-all">
+          Conocer Comunidades
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          ¿Por qué elegir Condor Expeditions?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Somos especialistas en crear experiencias auténticas y sostenibles
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">Experiencia Local</h3>
+          <p class="text-gray-600">
+            Trabajamos directamente con comunidades indígenas y locales,
+            ofreciendo experiencias auténticas y contribuyendo al desarrollo sostenible.
+          </p>
+        </div>
+
+        <div class="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+          <div class="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">Aventura Segura</h3>
+          <p class="text-gray-600">
+            Todos nuestros tours cuentan con guías certificados,
+            equipos de seguridad y protocolos estrictos para tu tranquilidad.
+          </p>
+        </div>
+
+        <div class="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+          <div class="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-4">Turismo Responsable</h3>
+          <p class="text-gray-600">
+            Promovemos el turismo sostenible que beneficia a las comunidades
+            locales y protege el medio ambiente para las generaciones futuras.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Tours Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Tours Destacados
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Descubre nuestras experiencias más populares y mejor calificadas
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {featuredTours.map((tour) => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div class="relative">
+              <img src={tour.image} alt={tour.title} class="w-full h-48 object-cover" />
+              <div class="absolute top-4 right-4 bg-primary-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                ${tour.price}
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">{tour.title}</h3>
+              <div class="flex items-center text-gray-600 mb-2">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                </svg>
+                {tour.location}
+              </div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-sm text-gray-600">{tour.duration}</span>
+                <span class="text-sm bg-gray-100 px-2 py-1 rounded">{tour.difficulty}</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="flex text-yellow-400">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <svg class={`w-4 h-4 ${i < Math.floor(tour.rating) ? 'text-yellow-400' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <span class="ml-1 text-sm text-gray-600">{tour.rating}</span>
+                </div>
+                <a href={`/tours/${tour.id}`} class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                  Ver Detalles
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href="/tours" class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors inline-flex items-center">
+          Ver Todos los Tours
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Lo que dicen nuestros viajeros
+        </h2>
+        <p class="text-xl text-gray-600">
+          Experiencias reales de personas que han vivido aventuras con nosotros
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {testimonials.map((testimonial) => (
+          <div class="bg-gray-50 p-8 rounded-xl">
+            <div class="flex items-center mb-4">
+              <img src={testimonial.image} alt={testimonial.name} class="w-12 h-12 rounded-full mr-4" />
+              <div>
+                <h4 class="font-semibold text-gray-900">{testimonial.name}</h4>
+                <p class="text-gray-600 text-sm">{testimonial.location}</p>
+              </div>
+            </div>
+            <p class="text-gray-700 mb-4 italic">"{testimonial.comment}"</p>
+            <div class="flex text-yellow-400">
+              {Array.from({ length: testimonial.rating }, (_, i) => (
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-primary-600">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        ¿Listo para tu próxima aventura?
+      </h2>
+      <p class="text-xl text-primary-100 mb-8">
+        Únete a miles de viajeros que han descubierto la magia de Ecuador con nosotros.
+        Reserva ahora y crea recuerdos inolvidables.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/tours" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+          Explorar Tours
+        </a>
+        <a href="/contacto" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+          Contactar Ahora
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Hero slideshow functionality
+  const images = document.querySelectorAll('.absolute.inset-0');
+  let currentImage = 0;
+
+  function changeImage() {
+    images[currentImage].classList.remove('opacity-100');
+    images[currentImage].classList.add('opacity-0');
+
+    currentImage = (currentImage + 1) % images.length;
+
+    images[currentImage].classList.remove('opacity-0');
+    images[currentImage].classList.add('opacity-100');
+  }
+
+  // Change image every 5 seconds
+  setInterval(changeImage, 5000);
+</script>

@@ -1,0 +1,269 @@
+services:
+  # Base de datos PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: condor-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: condor_expeditions
+      POSTGRES_USER: condor_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-condor_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U condor_user -d condor_expeditions"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - condor-network
+
+  # Base de datos MongoDB
+  mongodb:
+    image: mongo:7-jammy
+    container_name: condor-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD:-admin_password}
+      MONGO_INITDB_DATABASE: condor_expeditions
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "${MONGODB_PORT:-27017}:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - condor-network
+
+  # Redis para Celery
+  redis:
+    image: redis:7-alpine
+    container_name: condor-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - condor-network
+
+  # Aplicación Backend (Django)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: condor-backend
+    restart: unless-stopped
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=condor_expeditions
+      - DB_USER=condor_user
+      - DB_PASSWORD=${DB_PASSWORD:-condor_password}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_NAME=condor_expeditions
+      - MONGODB_USER=${MONGODB_USER:-admin}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD:-admin_password}
+      - REDIS_URL=redis://redis:6379/0
+      - EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+      - EMAIL_HOST=${EMAIL_HOST:-smtp.gmail.com}
+      - EMAIL_PORT=${EMAIL_PORT:-587}
+      - EMAIL_USE_TLS=True
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+      - PAYPAL_MODE=${PAYPAL_MODE:-sandbox}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
+      - AWS_S3_REGION_NAME=${AWS_S3_REGION_NAME:-us-east-1}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost}
+      - DJANGO_SETTINGS_MODULE=condor_expeditions.settings
+    volumes:
+      - ./backend:/app
+      - staticfiles:/app/staticfiles
+      - mediafiles:/app/media
+      - ./logs:/app/logs
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - condor-network
+
+  # Aplicación Frontend (Astro)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+    container_name: condor-frontend
+    restart: unless-stopped
+    environment:
+      - PUBLIC_API_URL=${PUBLIC_API_URL:-http://localhost:8000/api/v1}
+      - PUBLIC_STRIPE_KEY=${PUBLIC_STRIPE_KEY:-pk_test_placeholder}
+      - NODE_ENV=production
+    volumes:
+      - ./frontend/dist:/app/dist:ro
+    depends_on:
+      - backend
+    networks:
+      - condor-network
+
+  # Celery Worker
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: condor-celery-worker
+    restart: unless-stopped
+    command: uv run celery -A condor_expeditions worker --loglevel=info
+    environment:
+      - DB_HOST=db
+      - MONGODB_HOST=mongodb
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+      - mongodb
+      - redis
+      - backend
+    networks:
+      - condor-network
+
+  # Celery Beat (tareas programadas)
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: condor-celery-beat
+    restart: unless-stopped
+    command: uv run celery -A condor_expeditions beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    environment:
+      - DB_HOST=db
+      - MONGODB_HOST=mongodb
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - condor-network
+
+  # Nginx como proxy reverso y servidor de archivos estáticos
+  nginx:
+    image: nginx:alpine
+    container_name: condor-nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+      - "${SSL_PORT:-443}:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - staticfiles:/var/www/static:ro
+      - mediafiles:/var/www/media:ro
+      - ./frontend/dist:/var/www/frontend:ro
+    depends_on:
+      - backend
+      - frontend
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - condor-network
+
+  # PgAdmin (opcional, para gestión de PostgreSQL)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: condor-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@condorexpeditions.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin_password}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    depends_on:
+      - db
+    networks:
+      - condor-network
+    profiles:
+      - dev
+
+  # Mongo Express (opcional, para gestión de MongoDB)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: condor-mongo-express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USER:-admin}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASSWORD:-admin_password}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_USER:-admin}:${MONGODB_PASSWORD:-admin_password}@mongodb:27017/
+      ME_CONFIG_BASICAUTH: false
+    ports:
+      - "${MONGO_EXPRESS_PORT:-8081}:8081"
+    depends_on:
+      - mongodb
+    networks:
+      - condor-network
+    profiles:
+      - dev
+
+# Volúmenes nombrados
+volumes:
+  postgres_data:
+    driver: local
+  mongodb_data:
+    driver: local
+  redis_data:
+    driver: local
+  staticfiles:
+    driver: local
+  mediafiles:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+# Redes
+networks:
+  condor-network:
+    driver: bridge

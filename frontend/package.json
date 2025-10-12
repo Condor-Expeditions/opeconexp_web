@@ -1,0 +1,39 @@
+{
+  "name": "condor-expeditions-frontend",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^3.0.0",
+    "@astrojs/tailwind": "^5.0.0",
+    "@preact/preset-vite": "^2.5.0",
+    "@preact/signals": "^2.3.2",
+    "@stripe/stripe-js": "^1.54.0",
+    "astro": "^3.0.0",
+    "axios": "^1.4.0",
+    "clsx": "^1.2.1",
+    "date-fns": "^2.30.0",
+    "framer-motion": "^10.12.0",
+    "i18next": "23.7.0",
+    "leaflet": "^1.9.0",
+    "lucide-preact": "^0.263.0",
+    "pannellum": "^2.5.0",
+    "preact": "^10.16.0",
+    "preact-i18next": "^11.8.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.0"
+  }
+}

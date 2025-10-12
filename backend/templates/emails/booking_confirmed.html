@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva Confirmada - Condor Expeditions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: white;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            color: #007bff;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .booking-details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .detail-value {
+            color: #212529;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .highlight {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🦅 Condor Expeditions</div>
+            <h1>¡Reserva Confirmada!</h1>
+        </div>
+
+        <p>Hola <strong>{{ user.first_name }}</strong>,</p>
+
+        <p>¡Excelente noticia! Su reserva ha sido confirmada exitosamente. Estamos emocionados por su próxima aventura con nosotros.</p>
+
+        <div class="booking-details">
+            <h2>Detalles de su Reserva</h2>
+
+            <div class="detail-row">
+                <span class="detail-label">Código de Reserva:</span>
+                <span class="detail-value">{{ booking.booking_code }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Tour:</span>
+                <span class="detail-value">{{ booking.tour.title }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Fecha de Salida:</span>
+                <span class="detail-value">{{ booking.schedule.departure_date }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Participantes:</span>
+                <span class="detail-value">{{ booking.number_of_participants }}</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Total Pagado:</span>
+                <span class="detail-value">${{ booking.total_price }}</span>
+            </div>
+        </div>
+
+        <div class="highlight">
+            <h3>📋 Próximos Pasos</h3>
+            <ul>
+                <li>Le enviaremos información adicional 7 días antes de la fecha de salida</li>
+                <li>Recibirá un recordatorio 24 horas antes del tour</li>
+                <li>Puede gestionar su reserva en cualquier momento desde su panel de usuario</li>
+                <li>Contacte con nosotros si necesita hacer cambios en su reserva</li>
+            </ul>
+        </div>
+
+        <p>¿Necesita ayuda? Nuestro equipo está aquí para asistirle:</p>
+        <ul>
+            <li>📧 Email: info@condorexpeditions.com</li>
+            <li>📱 Teléfono: +593 999 999 999</li>
+            <li>💬 WhatsApp: +593 999 999 999</li>
+        </ul>
+
+        <div class="footer">
+            <p>
+                <strong>Condor Expeditions</strong><br>
+                Turismo de aventura y naturaleza en Ecuador<br>
+                www.condorexpeditions.com
+            </p>
+            <p>
+                Este es un mensaje automático, por favor no responda directamente.
+                Para contactarnos, use los canales oficiales mencionados arriba.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
