@@ -1,7 +1,7 @@
 # Astro Starter Kit: Minimal
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm create astro@latest --template minimal
 ```
 
 > 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
