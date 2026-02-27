@@ -1,0 +1,34 @@
+---
+import "../styles/global.css";
+import BaseHead from "@/components/shared/BaseHead";
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  articleDate?: string;
+  viewTransition?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogImage: image,
+  articleDate,
+  viewTransition = true,
+} = Astro.props;
+---
+
+<html lang="es">
+  <BaseHead
+    title={title}
+    description={description}
+    ogImage={image}
+    articleDate={articleDate}
+    viewTransition={viewTransition}
+  />
+
+  <body class="font-sans bg-background-light text-primary-black">
+    <slot />
+  </body>
+</html>
