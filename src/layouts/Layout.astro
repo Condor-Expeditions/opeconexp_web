@@ -8,6 +8,7 @@ export interface Props {
 	ogImage?: string;
 	articleDate?: string;
 	viewTransition?: boolean;
+  lang?: "es" | "en";
 }
 
 const {
@@ -16,10 +17,11 @@ const {
 	ogImage: image,
 	articleDate,
 	viewTransition = true,
+  lang = "es",
 } = Astro.props;
 ---
 
-<html lang="es">
+<html lang={lang}>
   <BaseHead
     title={title}
     description={description}

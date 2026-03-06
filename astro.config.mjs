@@ -9,6 +9,13 @@ export default defineConfig({
 		? "http://localhost:4321"
 		: "https://condorexpedition.com/",
 	integrations: [],
+	i18n: {
+		defaultLocale: "es",
+		locales: ["es", "en"],
+		routing: {
+			prefixDefaultLocale: false,
+		}
+	},
 	vite: {
 		plugins: [tailwindcss()],
 	},
