@@ -1,0 +1,66 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export type RadioSize = "sm" | "md" | "lg";
+
+export interface Props extends HTMLAttributes<"input"> {
+	label?: string;
+	name: string;
+	value: string;
+	size?: RadioSize;
+	checked?: boolean;
+	disabled?: boolean;
+	class?: string;
+}
+
+const {
+	label,
+	name,
+	value,
+	size = "md",
+	checked = false,
+	disabled = false,
+	class: className = "",
+	...rest
+} = Astro.props;
+
+const sizeClasses: Record<RadioSize, string> = {
+	sm: "h-3.5 w-3.5",
+	md: "h-4 w-4",
+	lg: "h-5 w-5",
+};
+
+const labelSizeClasses: Record<RadioSize, string> = {
+	sm: "text-sm",
+	md: "text-sm",
+	lg: "text-base",
+};
+
+const radioClasses = [
+	"shrink-0 rounded-full border border-input bg-background text-primary transition-colors duration-200",
+	"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+	"disabled:cursor-not-allowed disabled:opacity-50",
+	"accent-primary cursor-pointer",
+	sizeClasses[size],
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<label class:list={["inline-flex items-center gap-2", disabled && "cursor-not-allowed opacity-50", !disabled && "cursor-pointer"]}>
+	<input
+		type="radio"
+		name={name}
+		value={value}
+		class={radioClasses}
+		checked={checked}
+		disabled={disabled}
+		{...rest}
+	/>
+	{label && (
+		<span class:list={[labelSizeClasses[size], "text-foreground select-none"]}>
+			{label}
+		</span>
+	)}
+</label>

@@ -1,0 +1,50 @@
+---
+export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
+
+export interface Props {
+	src?: string;
+	alt?: string;
+	fallback?: string;
+	size?: AvatarSize;
+	class?: string;
+}
+
+const {
+	src,
+	alt = "",
+	fallback,
+	size = "md",
+	class: className = "",
+} = Astro.props;
+
+const sizeClasses: Record<AvatarSize, string> = {
+	xs: "h-6 w-6 text-xs",
+	sm: "h-8 w-8 text-sm",
+	md: "h-10 w-10 text-sm",
+	lg: "h-14 w-14 text-lg",
+	xl: "h-20 w-20 text-xl",
+};
+
+const baseClasses =
+	"relative shrink-0 overflow-hidden rounded-full";
+
+const classes = [baseClasses, sizeClasses[size], className]
+	.filter(Boolean)
+	.join(" ");
+
+const initials = fallback || alt?.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase() || "?";
+---
+
+<span class={classes}>
+	{src ? (
+		<img
+			src={src}
+			alt={alt}
+			class="aspect-square h-full w-full object-cover"
+		/>
+	) : (
+		<span class="flex h-full w-full items-center justify-center bg-muted text-muted-foreground font-medium">
+			{initials}
+		</span>
+	)}
+</span>

@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export type InputSize = "sm" | "md" | "lg";
+
+export interface Props extends HTMLAttributes<"input"> {
+	size?: InputSize;
+	error?: boolean;
+	errorMessage?: string;
+	disabled?: boolean;
+	class?: string;
+}
+
+const {
+	size = "md",
+	error = false,
+	errorMessage,
+	disabled = false,
+	class: className = "",
+	...rest
+} = Astro.props;
+
+const baseClasses =
+	"flex w-full border bg-background text-foreground transition-colors duration-200 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+
+const sizeClasses: Record<InputSize, string> = {
+	sm: "h-8 px-2.5 text-sm rounded-md",
+	md: "h-10 px-3 text-sm rounded-md",
+	lg: "h-12 px-4 text-base rounded-lg",
+};
+
+const stateClasses = error
+	? "border-destructive focus-visible:ring-destructive"
+	: "border-input";
+
+const classes = [baseClasses, sizeClasses[size], stateClasses, className]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div class="w-full">
+	<input class={classes} disabled={disabled} {...rest} />
+	{error && errorMessage && (
+		<p class="mt-1.5 text-sm text-destructive">{errorMessage}</p>
+	)}
+</div>

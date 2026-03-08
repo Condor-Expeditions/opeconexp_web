@@ -1,54 +1,76 @@
 ---
+import Button from "../Button.astro";
+import Container from "@/components/shared/Container";
+import Dropdown from "@/components/ui/Dropdown";
+import DropdownItem from "@/components/ui/DropdownItem";
+import { ROUTES } from "@/data/routes";
+// import DropdownDivider from "@/components/ui/DropdownDivider";
+
 export interface Props {
   logoSrc?: string;
   logoAlt?: string;
-  items?: { label: string; href: string }[];
 }
-const {
-  logoSrc = "/logo.svg",
-  logoAlt = "Logo",
-  items,
-} = Astro.props as Props;
-
-const defaultItems = [
-  { label: "Inicio", href: "/" },
-  { label: "Servicios", href: "/servicios" },
-  { label: "Nosotros", href: "/nosotros" },
-  { label: "Contacto", href: "/contacto" },
-];
-const navItems = items ?? defaultItems;
+const { logoSrc = "/logo.svg", logoAlt = "Logo" } = Astro.props as Props;
 ---
 
-<header class="bg-white shadow-sm sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2">
-      <img src={logoSrc} alt={logoAlt} class="h-8 w-auto" />
-      <span class="text-lg font-semibold">Condor Expeditions</span>
-    </a>
+<header class="bg-white">
+  <div class="border-b border-gray-300/40 relative">
+    <Container class="flex items-center justify-between">
+      <a href="/" class="">
+        <img src={logoSrc} alt={logoAlt} class="w-auto h-24" />
+      </a>
 
-    <!-- Mobile menu toggle -->
-    <input id="header-menu" type="checkbox" class="hidden" />
-<label for="header-menu" class="md:hidden text-2xl p-2 select-none" aria-label="Abrir menu">☰</label>
+      <!-- Desktop Section -->
+      <section class="flex flex-row gap-5">
+        <!-- Email -->
+        <div>
+          <p class="text-sm">¿Tiene preguntas? Escríbanos</p>
+          <Button
+            href="mailto:info@condorexpedition.com"
+            variant="link"
+            class="text-base! no-underline! text-black! hover:text-primary!"
+          >
+            info@condorexpedition.com
+          </Button>
+        </div>
+        <!-- Separator -->
+        <div class="border-l border-gray-300/40 h-12"></div>
+        <!-- Phone -->
+        <div>
+          <p class="text-sm">¿Prefiere llamarnos?</p>
+          <Button
+            href="tel:+593987654321"
+            variant="link"
+            class="text-base! no-underline! text-black! hover:text-primary!"
+          >
+            +593 987 654 321
+          </Button>
+        </div>
 
-    <!-- Desktop navigation -->
-    <nav class="hidden md:flex gap-6" aria-label="Main navigation">
-      {navItems.map((item) => (
-        <a href={item.href} class="text-primary-black hover:text-primary-red">{item.label}</a>
-      ))}
-    </nav>
-
-    <!-- Mobile navigation (revealed when the checkbox is checked) -->
-    <nav class="mobile-nav hidden md:hidden absolute top-full left-0 w-full bg-white shadow-md" aria-label="Main mobile">
-      <div class="px-4 py-2 flex flex-col space-y-2">
-        {navItems.map((item) => (
-          <a href={item.href} class="px-2 py-2 rounded hover:bg-gray-100">{item.label}</a>
-        ))}
-      </div>
-    </nav>
+        <Button variant="primary" class="rounded-full!">
+          <a href="/contacto">Reservar</a>
+        </Button>
+      </section>
+    </Container>
   </div>
+  <!-- Navigation -->
+  <nav class="py-3 border-b border-gray-300/40 w-full">
+    <Container class="flex justify-between items-center gap-8">
+      <div class="flex gap-1">
+        {
+          ROUTES.map((route) => (
+            <Button href={route.href} variant="ghost" class="text-base!">
+              {route.label}
+            </Button>
+          ))
+        }
+      </div>
 
-  <style>
-    /* Show mobile menu when toggle is active */
-    #header-menu:checked ~ .mobile-nav { display: flex; }
-  </style>
+      <Dropdown align="right" width="md" class="[&_button]:border-none!">
+        <span slot="trigger">ES</span>
+
+        <DropdownItem href="/en">English</DropdownItem>
+      </Dropdown>
+    </Container>
+  </nav>
 </header>

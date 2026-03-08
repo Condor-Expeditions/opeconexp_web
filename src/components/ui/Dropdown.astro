@@ -1,0 +1,68 @@
+---
+const {
+  align = "left",
+  width = "auto",
+  class: className = "",
+} = Astro.props;
+
+const alignMap: Record<string, string> = {
+  left: "left-0",
+  right: "right-0",
+  center: "left-1/2 -translate-x-1/2",
+};
+
+const widthMap: Record<string, string> = {
+  auto: "min-w-[12rem]",
+  sm: "w-40",
+  md: "w-56",
+  lg: "w-72",
+  full: "w-full",
+};
+
+const alignClass = alignMap[align] || alignMap.left;
+const widthClass = widthMap[width] || widthMap.auto;
+---
+
+<div class:list={["dropdown-root group relative inline-block", className]}>
+  <!-- Trigger -->
+  <button
+    type="button"
+    class="dropdown-trigger inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium bg-background text-foreground border border-border hover:bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer"
+    aria-haspopup="true"
+  >
+    <slot name="trigger">Opciones</slot>
+
+    <!-- Chevron con rotación en hover -->
+    <svg
+      class="h-4 w-4 text-muted-foreground transition-transform duration-300 ease-out group-hover:rotate-180"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </button>
+
+  <!-- Panel: zona invisible de enlace para que no se cierre al mover el mouse -->
+  <div class="invisible absolute left-0 h-2 w-full group-hover:visible"></div>
+
+  <!-- Panel del dropdown -->
+  <div
+    class:list={[
+      "dropdown-panel absolute z-50 mt-2 rounded-lg border border-border bg-background shadow-lg",
+      "opacity-0 translate-y-2 scale-95 pointer-events-none invisible",
+      "transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+      "group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-hover:pointer-events-auto group-hover:visible",
+      alignClass,
+      widthClass,
+    ]}
+  >
+    <div class="py-1.5">
+      <slot />
+    </div>
+  </div>
+</div>

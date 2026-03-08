@@ -1,0 +1,52 @@
+---
+export type BadgeVariant =
+	| "primary"
+	| "secondary"
+	| "outline"
+	| "destructive"
+	| "success"
+	| "warning"
+	| "muted";
+export type BadgeSize = "sm" | "md" | "lg";
+
+export interface Props {
+	variant?: BadgeVariant;
+	size?: BadgeSize;
+	class?: string;
+}
+
+const { variant = "primary", size = "md", class: className = "" } = Astro.props;
+
+const baseClasses =
+	"inline-flex items-center font-medium transition-colors duration-200 border";
+
+const variantClasses: Record<BadgeVariant, string> = {
+	primary: "bg-primary text-white border-transparent",
+	secondary: "bg-secondary text-white border-transparent",
+	outline: "bg-transparent text-foreground border-border",
+	destructive:
+		"bg-destructive text-destructive-foreground border-transparent",
+	success: "bg-success text-success-foreground border-transparent",
+	warning: "bg-warning text-warning-foreground border-transparent",
+	muted: "bg-accent text-accent-foreground border-transparent",
+};
+
+const sizeClasses: Record<BadgeSize, string> = {
+	sm: "px-2 py-0.5 text-xs rounded",
+	md: "px-2.5 py-0.5 text-xs rounded-md",
+	lg: "px-3 py-1 text-sm rounded-md",
+};
+
+const classes = [
+	baseClasses,
+	variantClasses[variant],
+	sizeClasses[size],
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<span class={classes}>
+	<slot />
+</span>

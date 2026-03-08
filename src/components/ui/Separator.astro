@@ -1,0 +1,26 @@
+---
+export type SeparatorOrientation = "horizontal" | "vertical";
+
+export interface Props {
+	orientation?: SeparatorOrientation;
+	class?: string;
+}
+
+const {
+	orientation = "horizontal",
+	class: className = "",
+} = Astro.props;
+
+const baseClasses = "shrink-0 bg-border";
+
+const orientationClasses: Record<SeparatorOrientation, string> = {
+	horizontal: "h-px w-full",
+	vertical: "h-full w-px",
+};
+
+const classes = [baseClasses, orientationClasses[orientation], className]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div role="separator" aria-orientation={orientation} class={classes}></div>
