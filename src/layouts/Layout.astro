@@ -2,6 +2,7 @@
 import BaseHead from "@/components/shared/BaseHead";
 import Header from "@/components/ui/header/Header";
 import "../styles/global.css";
+import SizeIndicator from "@/components/utilities/SizeIndicator";
 
 export interface Props {
 	title: string;
@@ -34,5 +35,6 @@ const {
   <body class="font-sans bg-background-light text-primary-black">
     <Header />
     <slot />
+    <SizeIndicator />
   </body>
 </html>
