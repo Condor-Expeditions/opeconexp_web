@@ -1,0 +1,54 @@
+---
+export interface Props {
+  logoSrc?: string;
+  logoAlt?: string;
+  items?: { label: string; href: string }[];
+}
+const {
+  logoSrc = "/logo.svg",
+  logoAlt = "Logo",
+  items,
+} = Astro.props as Props;
+
+const defaultItems = [
+  { label: "Inicio", href: "/" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Nosotros", href: "/nosotros" },
+  { label: "Contacto", href: "/contacto" },
+];
+const navItems = items ?? defaultItems;
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <img src={logoSrc} alt={logoAlt} class="h-8 w-auto" />
+      <span class="text-lg font-semibold">Condor Expeditions</span>
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <input id="header-menu" type="checkbox" class="hidden" />
+<label for="header-menu" class="md:hidden text-2xl p-2 select-none" aria-label="Abrir menu">☰</label>
+
+    <!-- Desktop navigation -->
+    <nav class="hidden md:flex gap-6" aria-label="Main navigation">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-primary-black hover:text-primary-red">{item.label}</a>
+      ))}
+    </nav>
+
+    <!-- Mobile navigation (revealed when the checkbox is checked) -->
+    <nav class="mobile-nav hidden md:hidden absolute top-full left-0 w-full bg-white shadow-md" aria-label="Main mobile">
+      <div class="px-4 py-2 flex flex-col space-y-2">
+        {navItems.map((item) => (
+          <a href={item.href} class="px-2 py-2 rounded hover:bg-gray-100">{item.label}</a>
+        ))}
+      </div>
+    </nav>
+  </div>
+
+  <style>
+    /* Show mobile menu when toggle is active */
+    #header-menu:checked ~ .mobile-nav { display: flex; }
+  </style>
+</header>

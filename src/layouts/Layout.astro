@@ -1,6 +1,7 @@
 ---
-import "../styles/global.css";
 import BaseHead from "@/components/shared/BaseHead";
+import Header from "@/components/ui/header/Header";
+import "../styles/global.css";
 
 export interface Props {
 	title: string;
@@ -8,7 +9,7 @@ export interface Props {
 	ogImage?: string;
 	articleDate?: string;
 	viewTransition?: boolean;
-  lang?: "es" | "en";
+	lang?: "es" | "en";
 }
 
 const {
@@ -17,7 +18,7 @@ const {
 	ogImage: image,
 	articleDate,
 	viewTransition = true,
-  lang = "es",
+	lang = "es",
 } = Astro.props;
 ---
 
@@ -31,6 +32,7 @@ const {
   />
 
   <body class="font-sans bg-background-light text-primary-black">
+    <Header />
     <slot />
   </body>
 </html>
