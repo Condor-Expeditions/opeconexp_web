@@ -1,22 +1,18 @@
 ---
-const {
-  align = "left",
-  width = "auto",
-  class: className = "",
-} = Astro.props;
+const { align = "left", width = "auto", class: className = "" } = Astro.props;
 
 const alignMap: Record<string, string> = {
-  left: "left-0",
-  right: "right-0",
-  center: "left-1/2 -translate-x-1/2",
+	left: "left-0",
+	right: "right-0",
+	center: "left-1/2 -translate-x-1/2",
 };
 
 const widthMap: Record<string, string> = {
-  auto: "min-w-[12rem]",
-  sm: "w-40",
-  md: "w-56",
-  lg: "w-72",
-  full: "w-full",
+	auto: "min-w-[12rem]",
+	sm: "w-40",
+	md: "w-56",
+	lg: "w-72",
+	full: "w-full",
 };
 
 const alignClass = alignMap[align] || alignMap.left;

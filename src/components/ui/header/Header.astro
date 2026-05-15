@@ -1,14 +1,14 @@
 ---
-import Button from "../Button.astro";
 import Container from "@/components/shared/Container";
 import Dropdown from "@/components/ui/Dropdown";
 import DropdownItem from "@/components/ui/DropdownItem";
 import { ROUTES } from "@/data/routes";
+import Button from "../Button.astro";
 // import DropdownDivider from "@/components/ui/DropdownDivider";
 
 export interface Props {
-  logoSrc?: string;
-  logoAlt?: string;
+	logoSrc?: string;
+	logoAlt?: string;
 }
 const { logoSrc = "/logo.svg", logoAlt = "Logo" } = Astro.props as Props;
 ---

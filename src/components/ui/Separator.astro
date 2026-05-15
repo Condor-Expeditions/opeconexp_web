@@ -6,10 +6,7 @@ export interface Props {
 	class?: string;
 }
 
-const {
-	orientation = "horizontal",
-	class: className = "",
-} = Astro.props;
+const { orientation = "horizontal", class: className = "" } = Astro.props;
 
 const baseClasses = "shrink-0 bg-border";
 

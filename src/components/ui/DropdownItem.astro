@@ -1,28 +1,33 @@
 ---
 const {
-  href,
-  variant = "default",
-  disabled = false,
-  class: className = "",
-  ...rest
+	href,
+	variant = "default",
+	disabled = false,
+	class: className = "",
+	...rest
 } = Astro.props;
 
 const variantMap: Record<string, string> = {
-  default: "text-foreground hover:bg-accent hover:text-accent-foreground",
-  destructive: "text-destructive hover:bg-destructive/10",
-  success: "text-success hover:bg-success/10",
+	default: "text-foreground hover:bg-accent hover:text-accent-foreground",
+	destructive: "text-destructive hover:bg-destructive/10",
+	success: "text-success hover:bg-success/10",
 };
 
 const baseClasses =
-  "flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors duration-150 cursor-pointer outline-none focus-visible:bg-accent";
+	"flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors duration-150 cursor-pointer outline-none focus-visible:bg-accent";
 
 const disabledClasses = disabled
-  ? "opacity-50 pointer-events-none cursor-not-allowed"
-  : "";
+	? "opacity-50 pointer-events-none cursor-not-allowed"
+	: "";
 
-const classes = [baseClasses, variantMap[variant] || variantMap.default, disabledClasses, className]
-  .filter(Boolean)
-  .join(" ");
+const classes = [
+	baseClasses,
+	variantMap[variant] || variantMap.default,
+	disabledClasses,
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
 
 const Tag = href ? "a" : "button";
 ---

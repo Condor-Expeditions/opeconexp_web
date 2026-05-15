@@ -12,8 +12,10 @@
 
 	/* Font Families */
 	--font-family-sans: DMSans, ui-sans-serif, system-ui, sans-serif;
-	--font-family-lexend-deca: "Lexend Deca", ui-sans-serif, system-ui, sans-serif;
-	--font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	--font-family-lexend-deca:
+		"Lexend Deca", ui-sans-serif, system-ui, sans-serif;
+	--font-family-mono:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
 	/* Animations */
 	--animate-accordion-down: accordion-down 0.2s ease-out;
@@ -23,7 +25,7 @@
 	--color-background: #ffffff;
 	--color-foreground: #000000;
 
-	--color-primary: #8B1D22;
+	--color-primary: #8b1d22;
 	--color-primary-foreground: #ffffff;
 
 	--color-secondary: #000000;
@@ -46,7 +48,7 @@
 
 	--color-border: #e5e5e5;
 	--color-input: #e5e5e5;
-	--color-ring: #8B1D22;
+	--color-ring: #8b1d22;
 
 	--radius: 0.5rem;
 }

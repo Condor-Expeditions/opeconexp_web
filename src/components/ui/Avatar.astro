@@ -25,14 +25,21 @@ const sizeClasses: Record<AvatarSize, string> = {
 	xl: "h-20 w-20 text-xl",
 };
 
-const baseClasses =
-	"relative shrink-0 overflow-hidden rounded-full";
+const baseClasses = "relative shrink-0 overflow-hidden rounded-full";
 
 const classes = [baseClasses, sizeClasses[size], className]
 	.filter(Boolean)
 	.join(" ");
 
-const initials = fallback || alt?.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase() || "?";
+const initials =
+	fallback ||
+	alt
+		?.split(" ")
+		.map((w) => w[0])
+		.join("")
+		.slice(0, 2)
+		.toUpperCase() ||
+	"?";
 ---
 
 <span class={classes}>
