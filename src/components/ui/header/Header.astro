@@ -13,64 +13,34 @@ export interface Props {
 const { logoSrc = "/logo.svg", logoAlt = "Logo" } = Astro.props as Props;
 ---
 
-<header class="bg-white">
-  <div class="border-b border-gray-300/40 relative">
-    <Container class="flex items-center justify-between">
-      <a href="/" class="">
-        <img src={logoSrc} alt={logoAlt} class="w-auto h-24" />
-      </a>
+<header class="bg-white fixed w-full z-50 border-b border-gray-300/40">
+  <Container class="flex items-center justify-between">
+    <a href="/" class="">
+      <img src={logoSrc} alt={logoAlt} class="w-auto h-24" />
+    </a>
 
-      <!-- Desktop Section -->
-      <section class="flex flex-row gap-5">
-        <!-- Email -->
-        <div>
-          <p class="text-sm">¿Tiene preguntas? Escríbanos</p>
-          <Button
-            href="mailto:info@condorexpedition.com"
-            variant="link"
-            class="text-base! no-underline! text-black! hover:text-primary!"
-          >
-            info@condorexpedition.com
+    <!-- Navigation -->
+    <nav class="py-3 flex gap-1 flex-1 px-10">
+      {
+        ROUTES.map((route) => (
+          <Button href={route.href} variant="ghost" class="text-base!">
+            {route.label}
           </Button>
-        </div>
-        <!-- Separator -->
-        <div class="border-l border-gray-300/40 h-12"></div>
-        <!-- Phone -->
-        <div>
-          <p class="text-sm">¿Prefiere llamarnos?</p>
-          <Button
-            href="tel:+593987654321"
-            variant="link"
-            class="text-base! no-underline! text-black! hover:text-primary!"
-          >
-            +593 987 654 321
-          </Button>
-        </div>
+        ))
+      }
+    </nav>
 
-        <Button variant="primary" class="rounded-full!">
-          <a href="/contacto">Reservar</a>
-        </Button>
-      </section>
-    </Container>
-  </div>
-  <!-- Navigation -->
-  <nav class="py-3 border-b border-gray-300/40 w-full">
-    <Container class="flex justify-between items-center gap-8">
-      <div class="flex gap-1">
-        {
-          ROUTES.map((route) => (
-            <Button href={route.href} variant="ghost" class="text-base!">
-              {route.label}
-            </Button>
-          ))
-        }
-      </div>
-
+    <div>
       <Dropdown align="right" width="md" class="[&_button]:border-none!">
         <span slot="trigger">ES</span>
 
         <DropdownItem href="/en">English</DropdownItem>
       </Dropdown>
-    </Container>
-  </nav>
+
+      <!-- Desktop Section -->
+      <Button variant="primary" class="rounded-full!">
+        <a href="/contacto">Reservar</a>
+      </Button>
+    </div>
+  </Container>
 </header>
