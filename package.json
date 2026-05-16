@@ -1,6 +1,9 @@
 {
 	"name": "opeconexp_web",
 	"type": "module",
+	"engines": {
+		"node": ">=24.14.0"
+	},
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",
