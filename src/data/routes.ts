@@ -1,27 +1,22 @@
 export const ROUTES = [
 	{
-		label: "Inicio",
-		href: "/",
-		component: "link",
+		id: "explora",
+		label: "Explora",
+		href: "/explora",
 	},
 	{
+		id: "destinos",
 		label: "Destinos",
 		href: "/destinos",
-		component: "dropdown",
 	},
 	{
-		label: "Experiencias",
-		href: "/experiencias",
-		component: "dropdown",
-	},
-	{
+		id: "nosotros",
 		label: "Nosotros",
 		href: "/nosotros",
-		component: "link",
 	},
 	{
+		id: "contacto",
 		label: "Contacto",
 		href: "/contacto",
-		component: "link",
 	},
 ];

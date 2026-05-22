@@ -108,7 +108,7 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
   <AstroFont
     config={[
       {
-        name: "Cinzel",
+        name: "Red Hat Text",
         src: [
           {
             style: "normal",
@@ -116,17 +116,17 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
               process.cwd(),
               "public",
               "fonts",
-              "Cinzel-VariableFont.ttf"
+              "RedHatText-VariableFont.woff2"
             ),
           },
         ],
-        preload: false,
+        preload: true,
         display: "swap",
         selector: "body",
         fallback: "sans-serif",
       },
       {
-        name: "DMSans",
+        name: "Give You Glory",
         src: [
           {
             style: "normal",
@@ -134,14 +134,14 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
               process.cwd(),
               "public",
               "fonts",
-              "DMSans-VariableFont.ttf"
+              "GiveYouGlory-Regular.woff2"
             ),
           },
         ],
         preload: false,
         display: "swap",
-        selector: "body",
-        fallback: "sans-serif",
+        selector: "h1, h2, h3, h4, h5, h6",
+        fallback: "serif",
       },
     ]}
   />

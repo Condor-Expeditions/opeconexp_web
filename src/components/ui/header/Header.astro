@@ -1,29 +1,33 @@
 ---
+import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container";
 import Dropdown from "@/components/ui/Dropdown";
 import DropdownItem from "@/components/ui/DropdownItem";
 import { ROUTES } from "@/data/routes";
+import { MENU_DATA } from "@/data/menuData";
 import Button from "../Button.astro";
-// import DropdownDivider from "@/components/ui/DropdownDivider";
 
 export interface Props {
-	logoSrc?: string;
-	logoAlt?: string;
+  logoSrc?: string;
+  logoAlt?: string;
 }
-const { logoSrc = "/logo.svg", logoAlt = "Logo" } = Astro.props as Props;
+
+const { explora } = MENU_DATA;
 ---
 
-<header class="bg-white fixed w-full z-50 border-b border-gray-300/40">
+<header
+  class="bg-transparent hover:bg-white transition-colors duration-300 fixed w-full z-50 group"
+>
   <Container class="flex items-center justify-between">
     <a href="/" class="">
-      <img src={logoSrc} alt={logoAlt} class="w-auto h-24" />
+      <Logo class="w-auto h-24 py-2" />
     </a>
 
     <!-- Navigation -->
-    <nav class="py-3 flex gap-1 flex-1 px-10">
+    <nav id="header-nav" class="py-3 flex gap-1 flex-1 px-10 [&_a]:text-white group-hover:[&_a]:text-primary">
       {
         ROUTES.map((route) => (
-          <Button href={route.href} variant="ghost" class="text-base!">
+          <Button id={route.id} href={route.href} variant="ghost" size="lg" class="">
             {route.label}
           </Button>
         ))
@@ -43,4 +47,35 @@ const { logoSrc = "/logo.svg", logoAlt = "Logo" } = Astro.props as Props;
       </Button>
     </div>
   </Container>
+
+<Container>
+    <div id="explora-submenu" class="hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t border-gray-100 py-6">
+      <div class="grid grid-cols-3 gap-4">
+        {explora.map((item) => (
+          <a href={item.href} class="group flex items-center gap-4 p-3 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-200 transition-all duration-300">
+            <img
+              src={item.image.src}
+              alt={item.title}
+              class="w-24 h-24 rounded-xl object-cover group-hover:scale-105 transition-transform duration-500 shrink-0"
+            />
+            <div class="flex flex-col justify-center min-w-0">
+              <span class="inline-block w-fit px-2 py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-1">
+                {item.type}
+              </span>
+              <h3 class="font-semibold text-sm text-gray-800 leading-tight group-hover:text-primary-red transition-colors line-clamp-2">
+                {item.title}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </Container>
 </header>
+
+<script>
+  import { HeaderController } from "./HeaderController";
+
+  const headerController = new HeaderController();
+  headerController.init();
+</script>
