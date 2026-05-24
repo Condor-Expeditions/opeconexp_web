@@ -13,10 +13,12 @@ export interface Props {
 }
 
 const { explora } = MENU_DATA;
+
+const aspectPattern = ["aspect-[4/3]", "aspect-square", "aspect-[3/4]"];
 ---
 
 <header
-  class="bg-transparent hover:bg-white transition-colors duration-300 fixed w-full z-50 group"
+  class="bg-transparent hover:bg-secondary transition-colors duration-300 fixed w-full z-50 group"
 >
   <Container class="flex items-center justify-between">
     <a href="/" class="">
@@ -24,7 +26,7 @@ const { explora } = MENU_DATA;
     </a>
 
     <!-- Navigation -->
-    <nav id="header-nav" class="py-3 flex gap-1 flex-1 px-10 [&_a]:text-white group-hover:[&_a]:text-primary">
+    <nav id="header-nav" class="py-3 flex gap-1 flex-1 px-10 [&_a]:text-white group-hover:[&_a]:text-black">
       {
         ROUTES.map((route) => (
           <Button id={route.id} href={route.href} variant="ghost" size="lg" class="">
@@ -35,11 +37,11 @@ const { explora } = MENU_DATA;
     </nav>
 
     <div>
-      <Dropdown align="right" width="md" class="[&_button]:border-none!">
+      <!-- <Dropdown align="right" width="md" class="[&_button]:border-none!">
         <span slot="trigger">ES</span>
 
         <DropdownItem href="/en">English</DropdownItem>
-      </Dropdown>
+      </Dropdown> -->
 
       <!-- Desktop Section -->
       <Button variant="primary" class="rounded-full!">
@@ -49,22 +51,22 @@ const { explora } = MENU_DATA;
   </Container>
 
 <Container>
-    <div id="explora-submenu" class="hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t border-gray-100 py-6">
-      <div class="grid grid-cols-3 gap-4">
-        {explora.map((item) => (
-          <a href={item.href} class="group flex items-center gap-4 p-3 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg border border-transparent hover:border-gray-200 transition-all duration-300">
+    <div id="explora-submenu" class="pb-5">
+      <div class="grid grid-cols-4 grid-rows-2 gap-2">
+        {explora.map((item, index) => (
+          <a href={item.href} class={`group flex items-center gap-4 p-3 transition-all duration-300 relative ${item.gridConfig}`}>
             <img
               src={item.image.src}
               alt={item.title}
-              class="w-24 h-24 rounded-xl object-cover group-hover:scale-105 transition-transform duration-500 shrink-0"
+              class="rounded-lg object-cover shrink-0 absolute inset-0 h-full w-full"
             />
-            <div class="flex flex-col justify-center min-w-0">
-              <span class="inline-block w-fit px-2 py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-1">
-                {item.type}
-              </span>
-              <h3 class="font-semibold text-sm text-gray-800 leading-tight group-hover:text-primary-red transition-colors line-clamp-2">
+            <div class="flex flex-col justify-center min-w-0 absolute bottom-0 left-0 right-0 p-4">
+              <h3 class="font-semibold text-sm text-white leading-tight group-hover:text-primary-red transition-colors line-clamp-2">
                 {item.title}
               </h3>
+              <p class="inline-block w-fit py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-1">
+                {item.type}
+              </p>
             </div>
           </a>
         ))}

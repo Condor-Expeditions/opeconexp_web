@@ -1,66 +1,58 @@
-import { MENU_IMAGES } from "./menuImages";
+import azuay from "@/assets/menu/destinos/azuay.jpg";
+import canar from "@/assets/menu/destinos/canar.jpg";
+
+import aventuraParqueNacionalElCajas from "@/assets/menu/tours/aventura-parque-nacional-el-cajas.jpg";
+import ingapirca from "@/assets/menu/tours/ingapirca.jpg";
+import walkingTourCuenca from "@/assets/menu/tours/walking-tour-cuenca.webp";
+import walkingTourGastronomico from "@/assets/menu/tours/walking-tour-gastronomico.webp";
+import parqueNacionalElCajas from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
+import chorroDeGiron from "@/assets/menu/tours/chorro-de-giron.jpg";
 
 export const MENU_DATA = {
 	explora: [
 		{
 			title: "Ingapirca, Gualaceo y Chordeleg",
 			type: "Historia y Cultura",
-			image: MENU_IMAGES.explora[0],
+			image: ingapirca,
 			href: "/destinos/ingapirca-gualaceo-chordeleg",
+			gridConfig: "row-span-2 min-h-[400px]",
 		},
 		{
 			title: "Centro Cultural de Cuenca",
 			type: "Historia y Cultura",
-			image: MENU_IMAGES.explora[1],
+			image: walkingTourCuenca,
 			href: "/destinos/walking-tour-cuenca",
+			gridConfig: "row-span-2",
 		},
 		{
 			title: "Cuenca Gastronómico",
 			type: "Gastronomía",
-			image: MENU_IMAGES.explora[2],
+			image: walkingTourGastronomico,
 			href: "/destinos/walking-tour-gastronomico",
 		},
 		{
 			title: "Conoce El Parque Nacional El Cajas",
 			type: "Naturaleza y Aventura",
-			image: MENU_IMAGES.explora[3],
+			image: parqueNacionalElCajas,
 			href: "/destinos/parque-nacional-el-cajas",
 		},
 		{
 			title: "Aventura en El Parque Nacional El Cajas",
 			type: "Naturaleza y Aventura",
-			image: MENU_IMAGES.explora[4],
+			image: aventuraParqueNacionalElCajas,
 			href: "/destinos/aventura-parque-nacional-el-cajas",
 		},
 		{
 			title: "El Chorro de Girón",
 			type: "Naturaleza y Aventura",
-			image: MENU_IMAGES.explora[5],
+			image: chorroDeGiron,
 			href: "/destinos/chorro-de-giron",
-		},
-		{
-			title: "Guachapala y Andacocha",
-			type: "Cultura, Naturaleza y Aventura",
-			image: MENU_IMAGES.explora[6],
-			href: "/destinos/guachapala-andacocha",
-		},
-		{
-			title: "Conoce Deleg",
-			type: "Cultura, Naturaleza y Aventura",
-			image: MENU_IMAGES.explora[7],
-			href: "/destinos/conoce-deleg",
-		},
-		{
-			title: "Mira Cuenca",
-			type: "Cultura, Naturaleza y Aventura",
-			image: MENU_IMAGES.explora[8],
-			href: "/destinos/mira-cuenca",
 		},
 	],
 	destinos: [
 		{
 			title: "Azuay",
-			image: MENU_IMAGES.destinos[0],
+			image: azuay,
 			href: "/destinos/azuay",
 			places: [
 				{
@@ -96,7 +88,7 @@ export const MENU_DATA = {
 		},
 		{
 			title: "Cañar",
-			image: MENU_IMAGES.destinos[1],
+			image: canar,
 			href: "/destinos/canar",
 			places: [
 				{

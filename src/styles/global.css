@@ -11,9 +11,8 @@
 	--breakpoint-3xl: 1920px;
 
 	/* Font Families */
-	--font-family-sans: DMSans, ui-sans-serif, system-ui, sans-serif;
-	--font-family-lexend-deca:
-		"Lexend Deca", ui-sans-serif, system-ui, sans-serif;
+	--font-family-sans: "Red Hat Text", ui-sans-serif, system-ui, sans-serif;
+	--font-family-display: "Give You Glory", cursive;
 	--font-family-mono:
 		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
