@@ -1,0 +1,55 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Container from "../../components/shared/Container.astro";
+import TourCard from "../../components/sections/TourCard.astro";
+import { tours } from "../../data/tours";
+
+const categories = ["Nature", "Culture", "Adventure", "Half day", "Full day"];
+
+const title = "Explore";
+const subtitle =
+	"Discover our expeditions designed to connect you with the best of Ecuador.";
+---
+
+<Layout
+	title={title}
+	description="Discover Condor Expeditions' 6 tours: Extremo Girón, Cajas Express, Ruta del Sol y la Plata, and more. Book your adventure in Cuenca, Ecuador."
+	lang="en"
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<Container>
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{title}</h1>
+			<p class="text-lg text-white/70 max-w-2xl">{subtitle}</p>
+		</Container>
+	</section>
+
+	<section class="section-padding bg-background">
+		<Container>
+			<!-- Filters -->
+			<div class="flex flex-wrap gap-2 mb-10">
+				<a
+					href="/en/explora"
+					class="px-4 py-2 text-sm font-medium rounded-full bg-primary text-white"
+				>
+					All
+				</a>
+				{
+					categories.map((cat) => (
+						<a
+							href={`/en/explora?category=${cat.toLowerCase().replace(/\s+/g, "-")}`}
+							class="px-4 py-2 text-sm font-medium rounded-full bg-crema text-foreground hover:bg-primary hover:text-white transition-colors"
+						>
+							{cat}
+						</a>
+					))
+				}
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+				{tours.map((tour) => (
+					<TourCard tour={tour} lang="en" />
+				))}
+			</div>
+		</Container>
+	</section>
+</Layout>

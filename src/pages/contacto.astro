@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactSection from "../components/sections/ContactSection.astro";
+import FAQSection from "../components/sections/FAQSection.astro";
+
+const title = "Contacto";
+---
+
+<Layout
+	title={title}
+	description="Contacta a Condor Expeditions para reservar tu tour o resolver dudas. Estamos disponibles por WhatsApp, teléfono y correo electrónico."
+	lang="es"
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<div class="mx-auto max-w-[92%] sm:max-w-[85%]">
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{title}</h1>
+			<p class="text-lg text-white/70 max-w-2xl">
+				Estamos aquí para ayudarte a planificar tu próxima aventura. Escríbenos y te responderemos en menos de 24 horas.
+			</p>
+		</div>
+	</section>
+	<ContactSection lang="es" />
+	<FAQSection lang="es" />
+</Layout>

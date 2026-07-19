@@ -1,0 +1,65 @@
+---
+import Container from "@/components/shared/Container";
+import Button from "@/components/ui/Button";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const title = isEnglish ? "Ready for Your Adventure?" : "¿Listo para tu aventura?";
+const subtitle = isEnglish
+	? "Book today and discover why hundreds of travelers choose Condor Expeditions."
+	: "Reserva hoy y descubre por qué cientos de viajeros eligen Condor Expeditions.";
+const cta = isEnglish ? "Book Now" : "Reservar ahora";
+const ctaHref = isEnglish ? "/en/contacto" : "/contacto";
+---
+
+<section class="relative py-20 md:py-28 bg-primary-red overflow-hidden">
+	<div class="absolute inset-0 opacity-10">
+		<svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+			<defs>
+				<pattern id="cta-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+					<circle cx="2" cy="2" r="1" fill="currentColor"/>
+				</pattern>
+			</defs>
+			<rect width="100" height="100" fill="url(#cta-pattern)"/>
+		</svg>
+	</div>
+	<Container>
+		<div class="relative z-10 text-center max-w-3xl mx-auto animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+				{title}
+			</h2>
+			<p class="text-lg md:text-xl text-white/90 mb-8">
+				{subtitle}
+			</p>
+			<Button
+				variant="secondary"
+				size="xl"
+				class="rounded-full!"
+				href={ctaHref}
+			>
+				{cta}
+			</Button>
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

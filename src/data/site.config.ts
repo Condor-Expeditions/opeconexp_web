@@ -28,52 +28,52 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	author: "SIMTEC Ecuador",
+	author: "Condor Expeditions",
 	companyName: "Condor Expeditions",
 	seo: {
 		description:
-			"SIMTEC es una empresa dedicada a la mantenimiento, instalación, reparación y venta de equipos para la automatización y seguridad del hogar.",
+			"Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala. Ecuador: Vive lo que otros solo visitan.",
 	},
 	companyInfo: {
-		address: "Calle Mallorca y Av. España Cuenca, Ecuador",
-		scheduleWeekdays: "Lunes a Viernes de 07:30h a 19:00h",
-		scheduleWeekends: "Sábados de 08:00h a 14:00h",
+		address: "Cuenca, Azuay, Ecuador",
+		scheduleWeekdays: "Lunes a Domingo de 08:00h a 18:00h",
+		scheduleWeekends: "Fines de semana: salidas programadas",
 		whatsApp:
-			"https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20SIMTEC",
+			"https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
 		phone: {
 			name: "+593 98 600 6849",
 			href: "tel:+593986006849",
 		},
 		email: {
-			name: "simtec.oficial@gmail.com",
-			href: "mailto:simtec.oficial@gmail.com",
+			name: "info@condorexpedition.com",
+			href: "mailto:info@condorexpedition.com",
 		},
 		location: "https://maps.app.goo.gl/skhR8ofDDeLaU8XCA",
 	},
 	socials: [
 		{
 			name: "Facebook",
-			href: "https://www.facebook.com/profile.php?id=100090573176748",
+			href: "https://www.facebook.com/CondorExpeditionsCuenca",
 			icon: "facebook",
 		},
 		{
 			name: "Instagram",
-			href: "https://www.instagram.com/simtecuador/",
+			href: "https://www.instagram.com/condorexpeditionscuenca",
 			icon: "instagram",
 		},
 		{
 			name: "TikTok",
-			href: "https://www.tiktok.com/@simtecuador",
+			href: "https://www.tiktok.com/@condorexpeditionscuenca",
 			icon: "tiktok",
 		},
 		{
 			name: "YouTube",
-			href: "https://www.youtube.com/@simtecuador",
+			href: "https://www.youtube.com/@condorexpeditionscuenca",
 			icon: "youtube",
 		},
 		{
 			name: "WhatsApp",
-			href: "https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20SIMTEC",
+			href: "https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
 			icon: "whatsapp",
 		},
 	],

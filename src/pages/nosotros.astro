@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AboutSection from "../components/sections/AboutSection.astro";
+import CTASection from "../components/sections/CTASection.astro";
+
+const title = "Nosotros";
+---
+
+<Layout
+	title={title}
+	description="Conoce a Condor Expeditions: nuestra misión, valores y equipo de guías locales apasionados por el turismo responsable en Ecuador."
+	lang="es"
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<div class="mx-auto max-w-[92%] sm:max-w-[85%]">
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{title}</h1>
+			<p class="text-lg text-white/70 max-w-2xl">
+				Somos una operadora turística nacida en Cuenca, con el propósito de compartir la magia del Austro ecuatoriano con el mundo.
+			</p>
+		</div>
+	</section>
+	<AboutSection lang="es" />
+	<CTASection lang="es" />
+</Layout>

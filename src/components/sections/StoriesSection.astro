@@ -1,0 +1,114 @@
+---
+import Container from "@/components/shared/Container";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const title = isEnglish ? "Travel Stories" : "Historias de Viaje";
+
+const stories = isEnglish
+	? [
+			{
+				category: "Nature",
+				title: "The Mystery of El Cajas",
+				excerpt:
+					"Between fog and glacial lagoons, the páramo reveals its secrets to those who walk with patience and respect.",
+				image: "/assets/menu/tours/parque-nacional-el-cajas.jpg",
+			},
+			{
+				category: "Culture",
+				title: "Ingapirca: Where Two Worlds Meet",
+				excerpt:
+					"The largest archaeological complex in Ecuador is a living testimony to the encounter between the Inca and Cañari cultures.",
+				image: "/assets/menu/tours/ingapirca.jpg",
+			},
+			{
+				category: "Gastronomy",
+				title: "Flavors of the Austro",
+				excerpt:
+					"From mote pillo to hornado, the cuisine of Azuay is an essential part of the travel experience in southern Ecuador.",
+				image: "/assets/menu/tours/mira-cuenca.jpg",
+			},
+		]
+	: [
+			{
+				category: "Naturaleza",
+				title: "El misterio del Cajas",
+				excerpt:
+					"Entre la niebla y las lagunas glaciares, el páramo revela sus secretos a quienes caminan con paciencia y respeto.",
+				image: "/assets/menu/tours/parque-nacional-el-cajas.jpg",
+			},
+			{
+				category: "Cultura",
+				title: "Ingapirca: donde dos mundos se encuentran",
+				excerpt:
+					"El complejo arqueológico más grande del Ecuador es un testimonio vivo del encuentro entre las culturas inca y cañari.",
+				image: "/assets/menu/tours/ingapirca.jpg",
+			},
+			{
+				category: "Gastronomía",
+				title: "Sabores del Austro",
+				excerpt:
+					"Del mote pillo al hornado, la cocina del Azuay es parte esencial de la experiencia de viaje en el sur del Ecuador.",
+				image: "/assets/menu/tours/mira-cuenca.jpg",
+			},
+		];
+---
+
+<section class="section-padding bg-background">
+	<Container>
+		<div class="text-center mb-12 md:mb-16 animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h2>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+			{
+				stories.map((story, index) => (
+					<article class={`group img-zoom rounded-xl overflow-hidden bg-white shadow-sm border border-border animate-on-scroll stagger-${Math.min(index + 1, 5)}`}>
+						<div class="relative aspect-[16/10] overflow-hidden">
+							<img
+								src={story.image}
+								alt={story.title}
+								class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+								loading="lazy"
+							/>
+							<div class="absolute top-3 left-3">
+								<span class="inline-block px-2.5 py-1 text-xs font-semibold bg-primary-red text-white rounded-full">
+									{story.category}
+								</span>
+							</div>
+						</div>
+						<div class="p-5 md:p-6">
+							<h3 class="text-lg font-semibold text-foreground mb-2 group-hover:text-primary-red transition-colors">
+								{story.title}
+							</h3>
+							<p class="text-sm text-muted-foreground leading-relaxed">
+								{story.excerpt}
+							</p>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

@@ -1,0 +1,89 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Container from "../../components/shared/Container.astro";
+import { destinations, getDestinationsByRegion } from "../../data/destinations";
+
+const azuayDestinations = getDestinationsByRegion("Azuay");
+const canarDestinations = getDestinationsByRegion("Cañar");
+
+const title = "Destinations";
+const subtitle =
+	"Explore the most iconic places in the Ecuadorian Austro, from glacial lagoons to archaeological complexes.";
+---
+
+<Layout
+	title={title}
+	description="Discover Condor Expeditions' destinations: El Cajas National Park, Ingapirca, El Chorro de Girón, Déleg, Guachapala, Gualaceo and Chordeleg."
+	lang="en"
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<Container>
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{title}</h1>
+			<p class="text-lg text-white/70 max-w-2xl">{subtitle}</p>
+		</Container>
+	</section>
+
+	<section class="section-padding bg-background">
+		<Container>
+			<!-- Azuay -->
+			<div class="mb-16">
+				<h2 class="text-2xl md:text-3xl font-semibold text-foreground mb-8">Azuay</h2>
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+					{azuayDestinations.map((dest) => (
+						<a
+							href={`/en/destinos/${dest.slug}`}
+							class="group relative overflow-hidden rounded-xl img-zoom min-h-[280px]"
+						>
+							<img
+								src={dest.image || "/assets/menu/tours/mira-cuenca.jpg"}
+								alt={dest.name}
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+								loading="lazy"
+							/>
+							<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+							<div class="absolute bottom-0 left-0 right-0 p-5">
+								<h3 class="text-xl font-semibold text-white mb-1">{dest.name}</h3>
+								{dest.coordinates && (
+									<p class="text-xs text-white/60 font-mono">{dest.coordinates}</p>
+								)}
+								<p class="text-sm text-white/80 mt-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+									{dest.shortDescription}
+								</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+
+			<!-- Cañar -->
+			<div>
+				<h2 class="text-2xl md:text-3xl font-semibold text-foreground mb-8">Cañar</h2>
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+					{canarDestinations.map((dest) => (
+						<a
+							href={`/en/destinos/${dest.slug}`}
+							class="group relative overflow-hidden rounded-xl img-zoom min-h-[280px]"
+						>
+							<img
+								src={dest.image || "/assets/menu/tours/mira-cuenca.jpg"}
+								alt={dest.name}
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+								loading="lazy"
+							/>
+							<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+							<div class="absolute bottom-0 left-0 right-0 p-5">
+								<h3 class="text-xl font-semibold text-white mb-1">{dest.name}</h3>
+								{dest.coordinates && (
+									<p class="text-xs text-white/60 font-mono">{dest.coordinates}</p>
+								)}
+								<p class="text-sm text-white/80 mt-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+									{dest.shortDescription}
+								</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</Container>
+	</section>
+</Layout>

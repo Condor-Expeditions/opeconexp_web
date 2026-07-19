@@ -1,0 +1,169 @@
+---
+import Container from "@/components/shared/Container";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Textarea from "@/components/ui/Textarea";
+import Select from "@/components/ui/Select";
+import Label from "@/components/ui/Label";
+import { siteConfig } from "@/data/site.config";
+import { tours } from "@/data/tours";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const title = isEnglish ? "Contact Us" : "Contacto";
+const subtitle = isEnglish
+	? "Have questions or ready to book? Write to us and we will respond within 24 hours."
+	: "¿Tienes preguntas o estás listo para reservar? Escríbenos y te responderemos en menos de 24 horas.";
+
+const formLabels = {
+	name: isEnglish ? "Name" : "Nombre",
+	email: isEnglish ? "Email" : "Correo electrónico",
+	tour: isEnglish ? "Tour of interest" : "Tour de interés",
+	message: isEnglish ? "Message" : "Mensaje",
+	submit: isEnglish ? "Send Message" : "Enviar mensaje",
+};
+
+const tourOptions = tours.map((t) => ({
+	value: t.name,
+	label: t.name,
+}));
+
+const contactCards = [
+	{
+		icon: "M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z",
+		label: isEnglish ? "Phone / WhatsApp" : "Teléfono / WhatsApp",
+		value: siteConfig.companyInfo.phone.name,
+		href: siteConfig.companyInfo.phone.href,
+	},
+	{
+		icon: "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6",
+		label: "Email",
+		value: siteConfig.companyInfo.email.name,
+		href: siteConfig.companyInfo.email.href,
+	},
+	{
+		icon: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z M12 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z",
+		label: isEnglish ? "Address" : "Dirección",
+		value: siteConfig.companyInfo.address,
+		href: siteConfig.companyInfo.location,
+	},
+	{
+		icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+		label: isEnglish ? "Schedule" : "Horario",
+		value: siteConfig.companyInfo.scheduleWeekdays,
+		href: null,
+	},
+];
+---
+
+<section class="section-padding bg-background">
+	<Container>
+		<div class="text-center mb-12 md:mb-16 animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h2>
+			<p class="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+		</div>
+
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+			<!-- Form -->
+			<div class="animate-on-scroll">
+				<form class="space-y-5" onsubmit="event.preventDefault();">
+					<div>
+						<Label for="contact-name">{formLabels.name}</Label>
+						<Input id="contact-name" name="name" type="text" placeholder={formLabels.name} required />
+					</div>
+					<div>
+						<Label for="contact-email">{formLabels.email}</Label>
+						<Input id="contact-email" name="email" type="email" placeholder={formLabels.email} required />
+					</div>
+					<div>
+						<Label for="contact-tour">{formLabels.tour}</Label>
+						<Select
+							id="contact-tour"
+							name="tour"
+							options={tourOptions}
+							placeholder={isEnglish ? "Select a tour" : "Selecciona un tour"}
+						/>
+					</div>
+					<div>
+						<Label for="contact-message">{formLabels.message}</Label>
+						<Textarea id="contact-message" name="message" placeholder={formLabels.message} rows={5} required />
+					</div>
+					<Button variant="primary" size="lg" fullWidth type="submit">
+						{formLabels.submit}
+					</Button>
+				</form>
+			</div>
+
+			<!-- Contact Info + Map placeholder -->
+			<div class="space-y-6 animate-on-scroll stagger-2">
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+					{
+						contactCards.map((card) => (
+							<div class="p-4 rounded-xl bg-crema border border-border">
+								<div class="flex items-start gap-3">
+									<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+										<svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d={card.icon} />
+										</svg>
+									</div>
+									<div>
+										<p class="text-xs text-muted uppercase tracking-wide">{card.label}</p>
+										{card.href ? (
+											<a href={card.href} class="text-sm font-medium text-foreground hover:text-primary-red transition-colors">
+												{card.value}
+											</a>
+										) : (
+											<p class="text-sm font-medium text-foreground">{card.value}</p>
+										)}
+									</div>
+								</div>
+							</div>
+						))
+					}
+				</div>
+
+				<!-- Map placeholder -->
+				<div class="rounded-xl overflow-hidden border border-border bg-crema h-64 md:h-80 flex items-center justify-center">
+					<div class="text-center">
+						<svg class="w-12 h-12 text-secondary mx-auto mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+							<circle cx="12" cy="10" r="3"/>
+						</svg>
+						<p class="text-sm text-muted-foreground">
+							{isEnglish ? "Cuenca, Azuay, Ecuador" : "Cuenca, Azuay, Ecuador"}
+						</p>
+						<a
+							href={siteConfig.companyInfo.location}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-sm text-primary hover:underline mt-1 inline-block"
+						>
+							{isEnglish ? "Open in Google Maps" : "Abrir en Google Maps"}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

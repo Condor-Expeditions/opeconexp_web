@@ -1,0 +1,73 @@
+---
+import Container from "@/components/shared/Container";
+import TourCard from "./TourCard.astro";
+import { tours } from "@/data/tours";
+
+export interface Props {
+	featured?: boolean;
+	count?: number;
+	lang?: "es" | "en";
+}
+
+const { featured = false, count = 6, lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const displayTours = featured ? tours.slice(0, 3) : tours.slice(0, count);
+
+const title = isEnglish ? "Our Tours" : "Nuestros Tours";
+const subtitle = isEnglish
+	? "Authentic experiences designed to connect you with Ecuador."
+	: "Experiencias auténticas diseñadas para conectarte con Ecuador.";
+const viewAll = isEnglish ? "View all tours" : "Ver todos los tours";
+const viewAllHref = isEnglish ? "/en/explora" : "/explora";
+---
+
+<section class="section-padding bg-background">
+	<Container>
+		<div class="text-center mb-12 md:mb-16 animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h2>
+			<p class="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+		</div>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+			{
+				displayTours.map((tour, index) => (
+					<div class={`animate-on-scroll stagger-${Math.min(index + 1, 5)}`}>
+						<TourCard tour={tour} lang={lang} />
+					</div>
+				))
+			}
+		</div>
+
+		{featured && (
+			<div class="text-center mt-12 animate-on-scroll">
+				<a
+					href={viewAllHref}
+					class="inline-flex items-center gap-2 text-primary font-medium hover:underline underline-offset-4"
+				>
+					{viewAll}
+					<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M5 12h14"/>
+						<path d="m12 5 7 7-7 7"/>
+					</svg>
+				</a>
+			</div>
+		)}
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

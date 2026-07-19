@@ -1,83 +1,484 @@
 ---
 import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container";
-import Dropdown from "@/components/ui/Dropdown";
-import DropdownItem from "@/components/ui/DropdownItem";
 import { ROUTES } from "@/data/routes";
 import { MENU_DATA } from "@/data/menuData";
 import Button from "../Button.astro";
 
 export interface Props {
-  logoSrc?: string;
-  logoAlt?: string;
+	lang?: "es" | "en";
 }
 
+const { lang = "es" } = Astro.props;
 const { explora } = MENU_DATA;
+const isEnglish = lang === "en";
+const currentPath = Astro.url.pathname;
 
-const aspectPattern = ["aspect-[4/3]", "aspect-square", "aspect-[3/4]"];
+const translations: Record<string, Record<string, string>> = {
+	es: {
+		explora: "Explora",
+		destinos: "Destinos",
+		nosotros: "Nosotros",
+		contacto: "Contacto",
+		reserve: "Reservar",
+		language: "Idioma",
+		close: "Cerrar",
+		menu: "Menú",
+		exploreTours: "Nuestras expediciones",
+	},
+	en: {
+		explora: "Explore",
+		destinos: "Destinations",
+		nosotros: "About",
+		contacto: "Contact",
+		reserve: "Book Now",
+		language: "Language",
+		close: "Close",
+		menu: "Menu",
+		exploreTours: "Our expeditions",
+	},
+};
+
+const t = translations[lang];
+
+const localizedRoutes = ROUTES.map((route) => ({
+	...route,
+	id: route.id,
+	href: isEnglish ? `/en${route.href}` : route.href,
+	label: t[route.label.toLowerCase()],
+	key: route.label.toLowerCase(),
+	isActive: currentPath === (isEnglish ? `/en${route.href}` : route.href),
+	isExplora: route.label.toLowerCase() === "explora",
+}));
+
+const homeHref = isEnglish ? "/en/" : "/";
+const contactHref = isEnglish ? "/en/contacto" : "/contacto";
+
+function getAlternateLangHref(targetLang: "es" | "en"): string {
+	if (targetLang === "es") {
+		return currentPath.replace(/^\/en/, "") || "/";
+	}
+	if (currentPath.startsWith("/en")) {
+		return currentPath;
+	}
+	return `/en${currentPath}`;
+}
+
+const esHref = getAlternateLangHref("es");
+const enHref = getAlternateLangHref("en");
 ---
 
 <header
-  class="bg-transparent hover:bg-secondary transition-colors duration-300 fixed w-full z-50 group"
+	id="site-header"
+	class="header-top fixed top-0 left-0 right-0 z-50 transition-all duration-300"
 >
-  <Container class="flex items-center justify-between">
-    <a href="/" class="">
-      <Logo class="w-auto h-24 py-2" />
-    </a>
+	<div class="header-contrast-guard pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
+	<section id="header-landscape">
+		<Container>
+			<div class="flex items-center justify-between py-3 lg:py-4">
+				<a
+					href={homeHref}
+					class="relative z-10 flex items-center"
+					aria-label="Condor Expeditions Home"
+				>
+					<Logo class="w-auto h-14 md:h-20 lg:h-24 py-1" />
+				</a>
 
-    <!-- Navigation -->
-    <nav id="header-nav" class="py-3 flex gap-1 flex-1 px-10 [&_a]:text-white group-hover:[&_a]:text-black">
-      {
-        ROUTES.map((route) => (
-          <Button id={route.id} href={route.href} variant="ghost" size="lg" class="">
-            {route.label}
-          </Button>
-        ))
-      }
-    </nav>
+				<!-- Desktop Navigation -->
+				<nav
+					id="header-nav"
+					class="hidden lg:flex items-center gap-1 flex-1 px-8 xl:px-12"
+					aria-label={t.language}
+				>
+					{
+						localizedRoutes.map((route) => (
+							<a
+								id={route.id}
+								href={route.href}
+								data-mega-trigger={route.isExplora ? "explora" : undefined}
+								aria-haspopup={route.isExplora ? "true" : undefined}
+								aria-expanded={route.isExplora ? "false" : undefined}
+								class:list={[
+									"nav-link relative px-4 py-2 text-sm xl:text-base font-medium uppercase tracking-wide transition-colors duration-200 rounded-md",
+									"text-white hover:text-primary-red",
+									{ "text-primary-red": route.isActive },
+								]}
+							>
+								{route.label}
+								{route.isActive && (
+									<span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary-red rounded-full" />
+								)}
+							</a>
+						))
+					}
+				</nav>
 
-    <div>
-      <!-- <Dropdown align="right" width="md" class="[&_button]:border-none!">
-        <span slot="trigger">ES</span>
+				<div class="flex items-center gap-2 md:gap-4">
+					<!-- Language Toggle -->
+					<div class="relative hidden md:block group/lang">
+						<button
+							type="button"
+							class="lang-toggle inline-flex items-center gap-1.5 px-2 py-1.5 text-white hover:text-primary-red transition-colors duration-200 text-sm font-medium uppercase tracking-wide"
+							aria-haspopup="true"
+							aria-expanded="false"
+						>
+							<svg
+								class="h-4 w-4"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<circle cx="12" cy="12" r="10" />
+								<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+								<path d="M2 12h20" />
+							</svg>
+							<span>{isEnglish ? "EN" : "ES"}</span>
+							<svg
+								class="h-3 w-3 transition-transform duration-200 group-hover/lang:rotate-180"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="m6 9 6 6 6-6" />
+							</svg>
+						</button>
+						<div
+							class="absolute right-0 top-full mt-2 rounded-xl border border-border bg-white shadow-xl opacity-0 translate-y-2 scale-95 pointer-events-none invisible transition-all duration-200 ease-out group-hover/lang:opacity-100 group-hover/lang:translate-y-0 group-hover/lang:scale-100 group-hover/lang:pointer-events-auto group-hover/lang:visible z-50 min-w-[10rem] overflow-hidden"
+						>
+							<div class="py-1">
+								<a
+									href={esHref}
+									class:list={[
+										"flex items-center justify-between px-4 py-2.5 text-sm text-foreground hover:bg-accent/10 hover:text-primary-red transition-colors",
+										{ "font-semibold text-primary-red": !isEnglish },
+									]}
+								>
+									<span>Español</span>
+									{!isEnglish && (
+										<svg
+											class="h-4 w-4 text-primary-red"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<polyline points="20 6 9 17 4 12" />
+										</svg>
+									)}
+								</a>
+								<a
+									href={enHref}
+									class:list={[
+										"flex items-center justify-between px-4 py-2.5 text-sm text-foreground hover:bg-accent/10 hover:text-primary-red transition-colors",
+										{ "font-semibold text-primary-red": isEnglish },
+									]}
+								>
+									<span>English</span>
+									{isEnglish && (
+										<svg
+											class="h-4 w-4 text-primary-red"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<polyline points="20 6 9 17 4 12" />
+										</svg>
+									)}
+								</a>
+							</div>
+						</div>
+					</div>
 
-        <DropdownItem href="/en">English</DropdownItem>
-      </Dropdown> -->
+					<!-- Desktop CTA -->
+					<div class="hidden lg:block">
+						<Button href={contactHref} variant="primary" size="md" class="rounded-full px-6">
+							{t.reserve}
+						</Button>
+					</div>
 
-      <!-- Desktop Section -->
-      <Button variant="primary" class="rounded-full!">
-        <a href="/contacto">Reservar</a>
-      </Button>
-    </div>
-  </Container>
+					<!-- Mobile Hamburger -->
+					<button
+						id="mobile-menu-toggle"
+						type="button"
+						class="lg:hidden inline-flex items-center justify-center p-2 text-white hover:text-primary-red transition-colors duration-200"
+						aria-label={t.menu}
+						aria-expanded="false"
+						aria-controls="mobile-menu"
+					>
+						<svg
+							id="hamburger-icon"
+							class="h-7 w-7"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M4 6h16M4 12h16M4 18h16"
+							/>
+						</svg>
+						<svg
+							id="close-icon"
+							class="h-7 w-7 hidden"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M6 18L18 6M6 6l12 12"
+							/>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</Container>
 
-<Container>
-    <div id="explora-submenu" class="pb-5">
-      <div class="grid grid-cols-4 grid-rows-2 gap-2">
-        {explora.map((item, index) => (
-          <a href={item.href} class={`group flex items-center gap-4 p-3 transition-all duration-300 relative ${item.gridConfig}`}>
-            <img
-              src={item.image.src}
-              alt={item.title}
-              class="rounded-lg object-cover shrink-0 absolute inset-0 h-full w-full"
-            />
-            <div class="flex flex-col justify-center min-w-0 absolute bottom-0 left-0 right-0 p-4">
-              <h3 class="font-semibold text-sm text-white leading-tight group-hover:text-primary-red transition-colors line-clamp-2">
-                {item.title}
-              </h3>
-              <p class="inline-block w-fit py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-1">
-                {item.type}
-              </p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </Container>
+		<!-- Desktop Mega Menu -->
+		<div
+			id="explora-nav-submenu"
+			class="mega-menu-closed hidden lg:block border-t border-white/10"
+			aria-label={t.exploreTours}
+		>
+			<Container>
+				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 py-5">
+					{
+						explora.map((item) => (
+							<a
+								href={isEnglish ? `/en${item.href}` : item.href}
+								class="group relative flex flex-col justify-end h-44 rounded-xl overflow-hidden"
+							>
+								<img
+									src={item.image.src}
+									alt={item.title}
+									class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+									loading="lazy"
+								/>
+								<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+								<div class="relative p-4">
+									<p class="inline-block px-2 py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-2">
+										{item.type}
+									</p>
+									<h3 class="font-semibold text-white text-sm leading-tight group-hover:text-primary-red transition-colors">
+										{item.title}
+									</h3>
+								</div>
+							</a>
+						))
+					}
+				</div>
+			</Container>
+		</div>
+	</section>
+
+	<!-- Mobile Menu -->
+	<div
+		id="mobile-menu"
+		class="lg:hidden fixed inset-0 top-0 bg-white z-[60] transform -translate-x-full transition-transform duration-300 ease-out overflow-y-auto pb-safe"
+		aria-hidden="true"
+		aria-label={t.menu}
+	>
+		<div class="flex items-center justify-between px-4 py-3 border-b border-border">
+			<a href={homeHref} aria-label="Condor Expeditions Home">
+				<Logo class="w-auto h-14 py-1" />
+			</a>
+			<div class="flex items-center gap-3">
+				<div class="flex items-center rounded-lg border border-border overflow-hidden">
+					<a
+						href={esHref}
+						class:list={[
+							"px-3 py-1.5 text-sm font-medium transition-colors",
+							{ "bg-primary-red text-white": !isEnglish },
+							{ "text-foreground hover:bg-accent/10": isEnglish },
+						]}
+					>
+						ES
+					</a>
+					<a
+						href={enHref}
+						class:list={[
+							"px-3 py-1.5 text-sm font-medium transition-colors",
+							{ "bg-primary-red text-white": isEnglish },
+							{ "text-foreground hover:bg-accent/10": !isEnglish },
+						]}
+					>
+						EN
+					</a>
+				</div>
+				<button
+					id="mobile-menu-close"
+					type="button"
+					class="p-2 text-foreground hover:text-primary-red transition-colors"
+					aria-label={t.close}
+				>
+					<svg
+						class="h-8 w-8"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M6 18L18 6M6 6l12 12"
+						/>
+					</svg>
+				</button>
+			</div>
+		</div>
+
+		<div class="px-4 py-6 space-y-6 pb-32 min-h-[calc(100vh-72px)]">
+			<nav class="flex flex-col">
+				{
+					localizedRoutes.map((route) => (
+						<a
+							href={route.href}
+							class:list={[
+								"text-lg font-medium py-3 border-b border-border transition-colors",
+								{ "text-primary-red": route.isActive },
+								{ "text-foreground hover:text-primary-red": !route.isActive },
+							]}
+						>
+							{route.label}
+						</a>
+					))
+				}
+			</nav>
+
+			<div>
+				<p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+					{t.exploreTours}
+				</p>
+				<div class="grid grid-cols-1 gap-2">
+					{
+						explora.map((item) => (
+							<a
+								href={isEnglish ? `/en${item.href}` : item.href}
+								class="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/10 transition-colors"
+							>
+								<img
+									src={item.image.src}
+									alt={item.title}
+									class="w-14 h-14 object-cover rounded-md shrink-0"
+									loading="lazy"
+								/>
+								<div>
+									<p class="font-medium text-foreground text-sm leading-tight">
+										{item.title}
+									</p>
+									<p class="text-xs text-muted-foreground mt-0.5">{item.type}</p>
+								</div>
+							</a>
+						))
+					}
+				</div>
+			</div>
+
+			<div>
+				<Button href={contactHref} variant="primary" fullWidth class="rounded-full">
+					{t.reserve}
+				</Button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		import { HeaderController } from "./HeaderController";
+		const headerController = new HeaderController();
+		headerController.init();
+	</script>
+
+	<style>
+		.header-top {
+			background-color: transparent;
+		}
+
+		.header-top .header-contrast-guard {
+			background: linear-gradient(
+				to bottom,
+				rgb(0 0 0 / 0.45) 0%,
+				rgb(0 0 0 / 0.25) 45%,
+				transparent 100%
+			);
+			transition: opacity 0.3s ease;
+		}
+
+		.header-scrolled .header-contrast-guard {
+			opacity: 0;
+		}
+
+		.header-top .nav-link,
+		.header-top .lang-toggle {
+			color: #ffffff;
+		}
+
+		.header-top .nav-link:hover,
+		.header-top .lang-toggle:hover {
+			color: var(--color-primary);
+		}
+
+		.header-top a[aria-label="Condor Expeditions Home"] svg {
+			filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.6));
+		}
+
+		.header-scrolled {
+			background-color: rgb(255 255 255 / 0.95);
+			backdrop-filter: blur(12px);
+			box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+			border-bottom: 1px solid var(--color-border);
+		}
+
+		.header-scrolled .nav-link,
+		.header-scrolled .lang-toggle {
+			color: var(--color-foreground);
+		}
+
+		.header-scrolled .nav-link:hover,
+		.header-scrolled .lang-toggle:hover {
+			color: var(--color-primary);
+		}
+
+		.header-scrolled #mobile-menu-toggle {
+			color: var(--color-foreground);
+		}
+
+		.header-scrolled #mobile-menu-toggle:hover {
+			color: var(--color-primary);
+		}
+
+		.mega-menu-open {
+			max-height: 500px;
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.mega-menu-closed {
+			max-height: 0;
+			opacity: 0;
+			visibility: hidden;
+		}
+	</style>
 </header>
-
-<script>
-  import { HeaderController } from "./HeaderController";
-
-  const headerController = new HeaderController();
-  headerController.init();
-</script>

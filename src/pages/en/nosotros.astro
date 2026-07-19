@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import AboutSection from "../../components/sections/AboutSection.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+
+const title = "About";
+---
+
+<Layout
+	title={title}
+	description="Meet Condor Expeditions: our mission, values, and team of passionate local guides committed to responsible tourism in Ecuador."
+	lang="en"
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<div class="mx-auto max-w-[92%] sm:max-w-[85%]">
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{title}</h1>
+			<p class="text-lg text-white/70 max-w-2xl">
+				We are a tour operator born in Cuenca with the purpose of sharing the magic of the Ecuadorian Austro with the world.
+			</p>
+		</div>
+	</section>
+	<AboutSection lang="en" />
+	<CTASection lang="en" />
+</Layout>

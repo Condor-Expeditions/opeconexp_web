@@ -1,0 +1,88 @@
+---
+import Container from "@/components/shared/Container";
+import { destinations } from "@/data/destinations";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const featuredDestinations = destinations.slice(0, 5);
+
+const title = isEnglish ? "Featured Destinations" : "Destinos Destacados";
+const subtitle = isEnglish
+	? "Discover the most iconic places in the Ecuadorian Austro."
+	: "Descubre los lugares más icónicos del Austro ecuatoriano.";
+const viewAll = isEnglish ? "All destinations" : "Todos los destinos";
+const viewAllHref = isEnglish ? "/en/destinos" : "/destinos";
+---
+
+<section class="section-padding bg-crema">
+	<Container>
+		<div class="text-center mb-12 md:mb-16 animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h2>
+			<p class="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+		</div>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+			{
+				featuredDestinations.map((dest, index) => (
+					<a
+						href={isEnglish ? `/en/destinos/${dest.slug}` : `/destinos/${dest.slug}`}
+						class={`group relative overflow-hidden rounded-xl img-zoom animate-on-scroll stagger-${Math.min(index + 1, 5)} ${index === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[300px] lg:min-h-[500px]" : "min-h-[240px]"}`}
+					>
+						<img
+							src={dest.image || "/assets/menu/tours/mira-cuenca.jpg"}
+							alt={dest.name}
+							class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+							loading="lazy"
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+						<div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+							<h3 class="text-xl md:text-2xl font-semibold text-white mb-1">
+								{dest.name}
+							</h3>
+							{dest.coordinates && (
+								<p class="text-xs text-white/70 font-mono mb-2">{dest.coordinates}</p>
+							)}
+							<p class="text-sm text-white/80 leading-relaxed max-w-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+								{dest.shortDescription}
+							</p>
+						</div>
+					</a>
+				))
+			}
+		</div>
+
+		<div class="text-center mt-12 animate-on-scroll">
+			<a
+				href={viewAllHref}
+				class="inline-flex items-center gap-2 text-primary font-medium hover:underline underline-offset-4"
+			>
+				{viewAll}
+				<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M5 12h14"/>
+					<path d="m12 5 7 7-7 7"/>
+				</svg>
+			</a>
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

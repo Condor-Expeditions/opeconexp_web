@@ -1,0 +1,23 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DestinationDetail from "../../components/sections/DestinationDetail.astro";
+import { destinations, getDestinationBySlug } from "../../data/destinations";
+
+export async function getStaticPaths() {
+	return destinations.map((destination) => ({
+		params: { slug: destination.slug },
+		props: { destination },
+	}));
+}
+
+const { destination } = Astro.props;
+---
+
+<Layout
+	title={destination.name}
+	description={destination.shortDescription}
+	ogImage={destination.image}
+	lang="es"
+>
+	<DestinationDetail destination={destination} lang="es" />
+</Layout>

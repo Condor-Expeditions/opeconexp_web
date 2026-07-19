@@ -1,11 +1,24 @@
 ---
-import Hero from "../components/Hero.astro";
 import Layout from "../layouts/Layout.astro";
+import HeroSection from "../components/sections/HeroSection.astro";
+import TrustPillars from "../components/sections/TrustPillars.astro";
+import ToursGrid from "../components/sections/ToursGrid.astro";
+import DestinationsGrid from "../components/sections/DestinationsGrid.astro";
+import TestimonialsSection from "../components/sections/TestimonialsSection.astro";
+import StoriesSection from "../components/sections/StoriesSection.astro";
+import CTASection from "../components/sections/CTASection.astro";
 ---
 
 <Layout
-  title="Inicio"
-  description="Condor Expeditions es una operadora de turismo de aventura especializada en expediciones personalizadas en Ecuador."
+	title="Inicio"
+	description="Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala."
+	lang="es"
 >
-  <Hero />
+	<HeroSection lang="es" />
+	<TrustPillars lang="es" />
+	<ToursGrid featured={true} lang="es" />
+	<DestinationsGrid lang="es" />
+	<TestimonialsSection lang="es" />
+	<StoriesSection lang="es" />
+	<CTASection lang="es" />
 </Layout>

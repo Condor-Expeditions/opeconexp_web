@@ -1,5 +1,6 @@
 .env
 /.vercel/
+/.omo/
 # build output
 dist/
 # generated types

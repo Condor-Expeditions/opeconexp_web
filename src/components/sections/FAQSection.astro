@@ -1,0 +1,116 @@
+---
+import Container from "@/components/shared/Container";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const title = isEnglish ? "Frequently Asked Questions" : "Preguntas Frecuentes";
+
+const faqs = isEnglish
+	? [
+			{
+				q: "How do I book a tour?",
+				a: "You can book through our contact form, by WhatsApp, or by calling us directly. We will confirm availability and send you payment instructions.",
+			},
+			{
+				q: "What is the cancellation policy?",
+				a: "You can reschedule or cancel up to 24 hours before the tour with a full refund. Cancellations within 24 hours are subject to review.",
+			},
+			{
+				q: "Are the tours suitable for children?",
+				a: "Most of our tours are suitable for children over 5 years old. The 'Extremo Girón' tour has activities designed for the whole family.",
+			},
+			{
+				q: "What should I bring?",
+				a: "We recommend comfortable shoes, warm clothing, sunscreen, water, and a camera. Each tour page has a specific list of what to bring.",
+			},
+			{
+				q: "Do you offer private tours?",
+				a: "Yes, we can customize any tour for private groups, companies, or special events. Contact us for a personalized quote.",
+			},
+			{
+				q: "Is transportation included?",
+				a: "Yes, all our tours include round-trip transportation from Cuenca. We pick you up at designated meeting points.",
+			},
+		]
+	: [
+			{
+				q: "¿Cómo reservo un tour?",
+				a: "Puedes reservar a través de nuestro formulario de contacto, por WhatsApp o llamándonos directamente. Confirmaremos disponibilidad y te enviaremos instrucciones de pago.",
+			},
+			{
+				q: "¿Cuál es la política de cancelación?",
+				a: "Puedes reprogramar o cancelar hasta 24 horas antes del tour con reembolso completo. Las cancelaciones dentro de las 24 horas están sujetas a revisión.",
+			},
+			{
+				q: "¿Los tours son aptos para niños?",
+				a: "La mayoría de nuestros tours son aptos para niños mayores de 5 años. El tour 'Extremo Girón' tiene actividades diseñadas para toda la familia.",
+			},
+			{
+				q: "¿Qué debo llevar?",
+				a: "Recomendamos zapatos cómodos, ropa de abrigo, bloqueador solar, agua y una cámara. Cada página de tour tiene una lista específica de qué llevar.",
+			},
+			{
+				q: "¿Ofrecen tours privados?",
+				a: "Sí, podemos personalizar cualquier tour para grupos privados, empresas o eventos especiales. Contáctanos para una cotización personalizada.",
+			},
+			{
+				q: "¿El transporte está incluido?",
+				a: "Sí, todos nuestros tours incluyen transporte ida y vuelta desde Cuenca. Te recogemos en los puntos de encuentro designados.",
+			},
+		];
+---
+
+<section class="section-padding bg-crema">
+	<Container>
+		<div class="text-center mb-12 md:mb-16 animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h2>
+		</div>
+
+		<div class="max-w-3xl mx-auto space-y-3">
+			{
+				faqs.map((faq, index) => (
+					<details class="group bg-white rounded-xl border border-border overflow-hidden animate-on-scroll" style={`transition-delay: ${index * 80}ms`}>
+						<summary class="flex items-center justify-between gap-4 p-5 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset">
+							<span class="font-medium text-foreground text-sm md:text-base">{faq.q}</span>
+							<svg
+								class="w-5 h-5 text-muted shrink-0 transition-transform duration-200 group-open:rotate-180"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="m6 9 6 6 6-6" />
+							</svg>
+						</summary>
+						<div class="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
+							{faq.a}
+						</div>
+					</details>
+				))
+			}
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

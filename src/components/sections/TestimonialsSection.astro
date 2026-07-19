@@ -1,0 +1,108 @@
+---
+import Container from "@/components/shared/Container";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const title = isEnglish ? "What Travelers Say" : "Lo que dicen nuestros viajeros";
+
+const testimonials = isEnglish
+	? [
+			{
+				quote:
+					"An unforgettable experience. The guides know every corner of El Cajas and make you feel part of the landscape. Highly recommended!",
+				name: "María Fernanda López",
+				origin: "Colombia",
+				initials: "MF",
+			},
+			{
+				quote:
+					"Girón exceeded all my expectations. The extreme activities are safe, exciting, and the local food is spectacular. I will definitely return.",
+				name: "James Anderson",
+				origin: "United States",
+				initials: "JA",
+			},
+			{
+				quote:
+					"Ingapirca with Condor Expeditions is not just a tour, it is a journey through time. The guide's historical knowledge is impressive.",
+				name: "Carla Müller",
+				origin: "Germany",
+				initials: "CM",
+			},
+		]
+	: [
+			{
+				quote:
+					"Una experiencia inolvidable. Los guías conocen cada rincón del Cajas y te hacen sentir parte del paisaje. ¡Altamente recomendado!",
+				name: "María Fernanda López",
+				origin: "Colombia",
+				initials: "MF",
+			},
+			{
+				quote:
+					"Girón superó todas mis expectativas. Las actividades extremas son seguras, emocionantes y la comida local es espectacular. Volveré sin duda.",
+				name: "James Anderson",
+				origin: "Estados Unidos",
+				initials: "JA",
+			},
+			{
+				quote:
+					"Ingapirca con Condor Expeditions no es solo un tour, es un viaje en el tiempo. El conocimiento histórico del guía es impresionante.",
+				name: "Carla Müller",
+				origin: "Alemania",
+				initials: "CM",
+			},
+		];
+---
+
+<section class="section-padding bg-crema">
+	<Container>
+		<div class="text-center mb-12 md:mb-16 animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h2>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+			{
+				testimonials.map((t, index) => (
+					<div class={`bg-white rounded-xl p-6 md:p-8 shadow-sm border border-border animate-on-scroll stagger-${Math.min(index + 1, 5)}`}>
+						<div class="flex items-center gap-4 mb-4">
+							<div class="w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold shrink-0">
+								{t.initials}
+							</div>
+							<div>
+								<p class="font-semibold text-foreground text-sm">{t.name}</p>
+								<p class="text-xs text-muted">{t.origin}</p>
+							</div>
+						</div>
+						<svg class="w-6 h-6 text-primary/30 mb-2" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+						</svg>
+						<p class="text-sm text-muted-foreground leading-relaxed italic">
+							{t.quote}
+						</p>
+					</div>
+				))
+			}
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

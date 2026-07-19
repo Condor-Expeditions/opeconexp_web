@@ -1,21 +1,21 @@
 export const ROUTES = [
 	{
-		id: "explora",
+		id: "explora-nav",
 		label: "Explora",
 		href: "/explora",
 	},
 	{
-		id: "destinos",
+		id: "destinos-nav",
 		label: "Destinos",
 		href: "/destinos",
 	},
 	{
-		id: "nosotros",
+		id: "nosotros-nav",
 		label: "Nosotros",
 		href: "/nosotros",
 	},
 	{
-		id: "contacto",
+		id: "contacto-nav",
 		label: "Contacto",
 		href: "/contacto",
 	},

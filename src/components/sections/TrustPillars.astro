@@ -1,0 +1,102 @@
+---
+import Container from "@/components/shared/Container";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const pillars = isEnglish
+	? [
+			{
+				title: "Certified Local Guides",
+				desc: "Experts who know every trail, story, and secret of the region.",
+				icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+			},
+			{
+				title: "Small Groups",
+				desc: "Intimate experiences with personalized attention on every expedition.",
+				icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75",
+			},
+			{
+				title: "Responsible Tourism",
+				desc: "We respect nature, support local communities, and travel sustainably.",
+				icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+			},
+			{
+				title: "Flexible Booking",
+				desc: "Easy rescheduling and transparent policies for your peace of mind.",
+				icon: "M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z",
+			},
+		]
+	: [
+			{
+				title: "Guías locales certificados",
+				desc: "Expertos que conocen cada sendero, historia y secreto de la región.",
+				icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+			},
+			{
+				title: "Grupos reducidos",
+				desc: "Experiencias íntimas con atención personalizada en cada expedición.",
+				icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75",
+			},
+			{
+				title: "Turismo responsable",
+				desc: "Respetamos la naturaleza, apoyamos comunidades locales y viajamos sosteniblemente.",
+				icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+			},
+			{
+				title: "Reserva flexible",
+				desc: "Reprogramación fácil y políticas transparentes para tu tranquilidad.",
+				icon: "M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z",
+			},
+		];
+---
+
+<section class="section-padding-sm bg-background border-y border-border">
+	<Container>
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
+			{
+				pillars.map((pillar, index) => (
+					<div class={`text-center animate-on-scroll stagger-${Math.min(index + 1, 5)}`}>
+						<div class="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+							<svg
+								class="w-7 h-7 text-primary"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d={pillar.icon} />
+							</svg>
+						</div>
+						<h3 class="text-lg font-semibold text-foreground mb-2">{pillar.title}</h3>
+						<p class="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
+							{pillar.desc}
+						</p>
+					</div>
+				))
+			}
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>

@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ContactSection from "../../components/sections/ContactSection.astro";
+import FAQSection from "../../components/sections/FAQSection.astro";
+
+const title = "Contact";
+---
+
+<Layout
+	title={title}
+	description="Contact Condor Expeditions to book your tour or ask questions. We are available via WhatsApp, phone, and email."
+	lang="en"
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<div class="mx-auto max-w-[92%] sm:max-w-[85%]">
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{title}</h1>
+			<p class="text-lg text-white/70 max-w-2xl">
+				We are here to help you plan your next adventure. Write to us and we will respond within 24 hours.
+			</p>
+		</div>
+	</section>
+	<ContactSection lang="en" />
+	<FAQSection lang="en" />
+</Layout>

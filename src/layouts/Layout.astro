@@ -1,8 +1,9 @@
 ---
 import BaseHead from "@/components/shared/BaseHead";
 import Header from "@/components/ui/header/Header";
+import Footer from "@/components/ui/footer/Footer";
+import WhatsAppFloat from "@/components/ui/WhatsAppFloat";
 import "../styles/global.css";
-import SizeIndicator from "@/components/utilities/SizeIndicator";
 
 export interface Props {
 	title: string;
@@ -32,9 +33,10 @@ const {
     viewTransition={viewTransition}
   />
 
-  <body class="font-sans bg-background-light text-primary-black">
-    <Header />
+  <body class="font-sans bg-background text-foreground">
+    <Header lang={lang} />
     <slot />
-    <SizeIndicator />
+    <Footer lang={lang} />
+    <WhatsAppFloat />
   </body>
 </html>

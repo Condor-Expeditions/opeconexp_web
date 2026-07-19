@@ -1,0 +1,106 @@
+---
+import Container from "@/components/shared/Container";
+import Button from "@/components/ui/Button";
+import { tours } from "@/data/tours";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const slogan = isEnglish
+	? "Ecuador: Live what others only visit."
+	: "Ecuador: Vive lo que otros solo visitan.";
+
+const searchPlaceholder = isEnglish ? "Choose a tour..." : "Elige un tour...";
+const searchBtn = isEnglish ? "Search" : "Buscar";
+const trustText = isEnglish
+	? "⭐ 4.9 on Google · +500 travelers"
+	: "⭐ 4.9 en Google · +500 viajeros";
+
+const tourOptions = tours.map((t) => ({
+	value: isEnglish ? `/en/tours/${t.slug}` : `/tours/${t.slug}`,
+	label: t.name,
+}));
+---
+
+<section class="relative min-h-screen w-full overflow-hidden">
+	<video
+		id="hero-video"
+		autoplay
+		loop
+		muted
+		playsinline
+		class="absolute inset-0 w-full h-full object-cover"
+		aria-hidden="true"
+	></video>
+
+	<div class="absolute inset-0 bg-black/30"></div>
+
+	<div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12 text-center text-white">
+		<Container>
+			<div class="max-w-4xl mx-auto animate-on-scroll">
+				<h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-6 leading-tight">
+					{slogan}
+				</h1>
+
+				<!-- Search Bar -->
+				<div class="mt-8 flex flex-col sm:flex-row items-stretch gap-3 max-w-xl mx-auto">
+					<div class="relative flex-1">
+						<select
+							id="hero-tour-select"
+							class="w-full h-12 px-4 pr-10 text-base bg-white/90 backdrop-blur-sm text-black rounded-lg border-0 appearance-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+							aria-label={searchPlaceholder}
+						>
+							<option value="" disabled selected>{searchPlaceholder}</option>
+							{
+								tourOptions.map((opt) => (
+									<option value={opt.value}>{opt.label}</option>
+								))
+							}
+						</select>
+						<svg
+							class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-black/60"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="m6 9 6 6 6-6" />
+						</svg>
+					</div>
+					<Button
+						variant="primary"
+						size="lg"
+						class="rounded-lg! shrink-0"
+						onclick="const s=document.getElementById('hero-tour-select');if(s&&s.value)window.location.href=s.value;"
+					>
+						{searchBtn}
+					</Button>
+				</div>
+
+				<!-- Trust Badge -->
+				<div class="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-sm font-medium">
+					{trustText}
+				</div>
+			</div>
+		</Container>
+	</div>
+</section>
+
+<script>
+	const video = document.getElementById("hero-video") as HTMLVideoElement;
+
+	function setVideoSrc() {
+		const isMobile = window.innerWidth < 768;
+		video.src = isMobile ? "/videos/portrait_hero.mp4" : "/videos/landscape_hero.mp4";
+	}
+
+	setVideoSrc();
+	window.addEventListener("resize", setVideoSrc);
+</script>

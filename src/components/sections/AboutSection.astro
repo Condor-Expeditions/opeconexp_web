@@ -1,0 +1,109 @@
+---
+import Container from "@/components/shared/Container";
+
+export interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+const title = isEnglish ? "About Us" : "Nosotros";
+const missionTitle = isEnglish ? "Our Mission" : "Nuestra Misión";
+const missionText = isEnglish
+	? "To connect travelers with the authentic essence of Ecuador through responsible, safe, and memorable expeditions. We believe tourism can be a force for good — for nature, for communities, and for those who dare to explore."
+	: "Conectar a los viajeros con la esencia auténtica del Ecuador a través de expediciones responsables, seguras y memorables. Creemos que el turismo puede ser una fuerza para el bien: para la naturaleza, para las comunidades y para quienes se atreven a explorar.";
+
+const pillars = isEnglish
+	? [
+			{ title: "Passion for Nature", desc: "We protect and celebrate the ecosystems that make Ecuador unique." },
+			{ title: "Local Roots", desc: "Our guides are locals who grew up among these mountains and stories." },
+			{ title: "Safety First", desc: "Every expedition is planned with rigorous safety protocols." },
+			{ title: "Authentic Experiences", desc: "We avoid mass tourism. Every trip is personal and unique." },
+		]
+	: [
+			{ title: "Pasión por la naturaleza", desc: "Protegemos y celebramos los ecosistemas que hacen único al Ecuador." },
+			{ title: "Raíces locales", desc: "Nuestros guías son locales que crecieron entre estas montañas e historias." },
+			{ title: "Seguridad primero", desc: "Cada expedición se planifica con rigurosos protocolos de seguridad." },
+			{ title: "Experiencias auténticas", desc: "Evitamos el turismo masivo. Cada viaje es personal y único." },
+		];
+
+const teamTitle = isEnglish ? "Our Team" : "Nuestro Equipo";
+const teamText = isEnglish
+	? "A group of guides, naturalists, and dreamers committed to showing the best of the Ecuadorian Austro."
+	: "Un grupo de guías, naturalistas y soñadores comprometidos con mostrar lo mejor del Austro ecuatoriano.";
+---
+
+<section class="section-padding bg-background">
+	<Container>
+		<div class="text-center mb-12 md:mb-16 animate-on-scroll">
+			<h2 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h2>
+		</div>
+
+		<!-- Mission -->
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-20 md:mb-28">
+			<div class="animate-on-scroll">
+				<img
+					src="/assets/menu/tours/parque-nacional-el-cajas.jpg"
+					alt="Condor Expeditions"
+					class="w-full h-[400px] md:h-[500px] object-cover rounded-xl"
+					loading="lazy"
+				/>
+			</div>
+			<div class="animate-on-scroll stagger-2">
+				<h3 class="text-2xl md:text-3xl font-semibold text-foreground mb-4">{missionTitle}</h3>
+				<p class="text-base md:text-lg text-muted-foreground leading-relaxed">{missionText}</p>
+			</div>
+		</div>
+
+		<!-- Pillars -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20 md:mb-28">
+			{
+				pillars.map((pillar, index) => (
+					<div class={`p-6 rounded-xl bg-crema animate-on-scroll stagger-${Math.min(index + 1, 5)}`}>
+						<h4 class="text-lg font-semibold text-foreground mb-2">{pillar.title}</h4>
+						<p class="text-sm text-muted-foreground leading-relaxed">{pillar.desc}</p>
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Team placeholder -->
+		<div class="text-center animate-on-scroll">
+			<h3 class="text-2xl md:text-3xl font-semibold text-foreground mb-4">{teamTitle}</h3>
+			<p class="text-base text-muted-foreground max-w-2xl mx-auto mb-8">{teamText}</p>
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+				{
+					[1, 2, 3, 4].map((_, i) => (
+						<div class="flex flex-col items-center">
+							<div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-secondary/20 flex items-center justify-center mb-3">
+								<svg class="w-10 h-10 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+									<circle cx="12" cy="7" r="4"/>
+								</svg>
+							</div>
+							<p class="text-sm font-medium text-foreground">Guía {i + 1}</p>
+							<p class="text-xs text-muted">Condor Expeditions</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</Container>
+</section>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("is-visible");
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+	);
+
+	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>
