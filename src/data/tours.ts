@@ -269,8 +269,8 @@ export const tours: Tour[] = [
 			general: "$30,00 p/p",
 			special: "$25,00 p/p",
 		},
-		image: "/assets/menu/tours/mira-cuenca.jpg",
-		heroImage: "/assets/menu/tours/mira-cuenca.jpg",
+		image: "/assets/menu/tours/ruta-artesano.jpg",
+		heroImage: "/assets/menu/tours/ruta-artesano.jpg",
 		badge: "Medio día",
 	},
 	{
