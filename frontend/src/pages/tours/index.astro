@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TourCard from '../../components/TourCard.tsx';
+import { toursService } from '../../lib/api';
+
+// Obtener tours desde la API
+const toursResponse = await toursService.getTours();
+const tours = toursResponse.success && Array.isArray(toursResponse.data) ? toursResponse.data : [];
+
+// Datos de ejemplo para desarrollo (quitar cuando la API esté lista)
+const sampleTours = [
+  {
+    id: '1',
+    title: 'Machu Picchu Trek Clásico',
+    location: 'Cusco, Perú',
+    duration: '4 días',
+    difficulty: 'Moderado',
+    price: 450,
+    rating: 4.8,
+    image: '/images/tours/machu-picchu.jpg',
+    description: 'Descubre la ciudad perdida de los Incas en esta aventura inolvidable.',
+    category: 'trekking'
+  },
+  {
+    id: '2',
+    title: 'Amazonas Adventure',
+    location: 'Iquitos, Perú',
+    duration: '5 días',
+    difficulty: 'Desafiante',
+    price: 680,
+    rating: 4.9,
+    image: '/images/tours/amazonas.jpg',
+    description: 'Explora la selva amazónica y conoce su increíble biodiversidad.',
+    category: 'nature'
+  },
+  {
+    id: '3',
+    title: 'Valle Sagrado Cultural',
+    location: 'Cusco, Perú',
+    duration: '2 días',
+    difficulty: 'Fácil',
+    price: 180,
+    rating: 4.6,
+    image: '/images/tours/valle-sagrado.jpg',
+    description: 'Conoce las tradiciones y cultura viva de los pueblos andinos.',
+    category: 'cultural'
+  },
+  {
+    id: '4',
+    title: 'Huayna Picchu Escalada',
+    location: 'Cusco, Perú',
+    duration: '1 día',
+    difficulty: 'Extremo',
+    price: 320,
+    rating: 4.9,
+    image: '/images/tours/huayna-picchu.jpg',
+    description: 'Sube a la cima de Huayna Picchu para vistas espectaculares.',
+    category: 'adventure'
+  },
+  {
+    id: '5',
+    title: 'Lago Titicaca Mágico',
+    location: 'Puno, Perú',
+    duration: '3 días',
+    difficulty: 'Moderado',
+    price: 290,
+    rating: 4.7,
+    image: '/images/tours/lago-titicaca.jpg',
+    description: 'Navega por el lago navegable más alto del mundo.',
+    category: 'cultural'
+  },
+  {
+    id: '6',
+    title: 'Aves del Manu Photo Tour',
+    location: 'Manu, Perú',
+    duration: '6 días',
+    difficulty: 'Moderado',
+    price: 850,
+    rating: 4.9,
+    image: '/images/tours/manu-birds.jpg',
+    description: 'Captura imágenes únicas de aves exóticas en su hábitat natural.',
+    category: 'photography'
+  }
+];
+
+const displayTours = tours.length > 0 ? tours : sampleTours;
+---
+
+<BaseLayout title="Tours - Condor Expeditions">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            Nuestros Tours
+          </h1>
+          <p class="text-xl md:text-2xl text-primary-100 max-w-3xl mx-auto">
+            Descubre experiencias inolvidables en los destinos más espectaculares de América Latina
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tours Grid -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          Todos nuestros tours
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400">
+          Elige entre nuestras {displayTours.length} experiencias cuidadosamente diseñadas
+        </p>
+      </div>
+
+      {displayTours.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayTours.map((tour) => (
+            <TourCard
+              id={tour.id}
+              title={tour.title}
+              location={tour.location}
+              duration={tour.duration}
+              difficulty={tour.difficulty}
+              price={tour.price}
+              rating={tour.rating}
+              image={tour.image}
+              description={tour.description}
+              client:load
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <div class="text-gray-500 dark:text-gray-400">
+            <svg class="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+            <h3 class="text-lg font-medium mb-2">No hay tours disponibles</h3>
+            <p>Estamos trabajando en nuevas experiencias. ¡Vuelve pronto!</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>

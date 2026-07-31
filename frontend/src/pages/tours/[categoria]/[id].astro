@@ -1,0 +1,327 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { toursService } from '../../../lib/api';
+import { TOUR_CATEGORIES } from '../../../lib/constants';
+
+export async function getStaticPaths() {
+  const allPaths: Array<{params: {categoria: string, id: string}, props: {tourId: string, categoryId: string}}> = [];
+
+  // Generar rutas para cada categoría y tour de ejemplo
+  const sampleTours = [
+    { id: '1', category: 'trekking' },
+    { id: '2', category: 'trekking' },
+    { id: '3', category: 'cultural' },
+    { id: '4', category: 'cultural' },
+    { id: '5', category: 'adventure' },
+    { id: '6', category: 'adventure' },
+    { id: '7', category: 'nature' },
+    { id: '8', category: 'photography' },
+    { id: '9', category: 'family' }
+  ];
+
+  sampleTours.forEach(tour => {
+    allPaths.push({
+      params: { categoria: tour.category, id: tour.id },
+      props: { tourId: tour.id, categoryId: tour.category }
+    });
+  });
+
+  return allPaths;
+}
+
+const { categoria, id } = Astro.params;
+
+// Obtener detalles del tour desde la API
+const tourResponse = await toursService.getTour(id);
+const tour = tourResponse.success ? tourResponse.data : null;
+
+// Datos de ejemplo para desarrollo (quitar cuando la API esté lista)
+const getSampleTourDetails = (tourId: string, categoryId: string) => {
+  const tours: Record<string, any> = {
+    '1': {
+      id: '1',
+      title: 'Machu Picchu Trek Clásico',
+      location: 'Cusco, Perú',
+      duration: '4 días',
+      difficulty: 'Moderado',
+      price: 450,
+      rating: 4.8,
+      image: '/images/tours/machu-picchu.jpg',
+      images: [
+        '/images/tours/machu-picchu.jpg',
+        '/images/tours/camino-inca-1.jpg',
+        '/images/tours/camino-inca-2.jpg'
+      ],
+      description: 'Descubre la ciudad perdida de los Incas en esta aventura inolvidable por el clásico Camino Inca.',
+      fullDescription: `
+        <p>Este tour te lleva por el famoso Camino Inca hasta la majestuosa ciudadela de Machu Picchu. Durante 4 días y 3 noches, caminarás por antiguos senderos incas, cruzarás pasos de montaña y descubrirás sitios arqueológicos impresionantes.</p>
+
+        <h3>Itinerario:</h3>
+        <ul>
+          <li><strong>Día 1:</strong> Traslado desde Cusco hasta el km 82. Inicio del trek con visita a sitios incas menores.</li>
+          <li><strong>Día 2:</strong> Ascenso al paso de Warmiwanusca (Dead Woman\'s Pass) a 4,200m. Noche en Pacaymayo.</li>
+          <li><strong>Día 3:</strong> Visita a las ruinas de Runkurakay y llegada al pueblo de Winay Wayna.</li>
+          <li><strong>Día 4:</strong> Llegada a Machu Picchu al amanecer. Tour guiado completo de la ciudadela.</li>
+        </ul>
+
+        <h3>Incluye:</h3>
+        <ul>
+          <li>Guía profesional certificado</li>
+          <li>Todas las comidas durante el trek</li>
+          <li>Equipo de camping (tienda, sleeping bag)</li>
+          <li>Porteadores para equipo personal</li>
+          <li>Entrada a Machu Picchu</li>
+          <li>Tren de regreso a Cusco</li>
+        </ul>
+      `,
+      category: 'trekking',
+      highlights: [
+        'Camina por el auténtico Camino Inca',
+        'Llega a Machu Picchu al amanecer',
+        'Visita sitios arqueológicos exclusivos',
+        'Experimenta la cultura Quechua viva'
+      ],
+      included: [
+        'Guía profesional',
+        'Todas las comidas',
+        'Equipo de camping',
+        'Porteadores',
+        'Entradas',
+        'Transporte'
+      ],
+      notIncluded: [
+        'Vuelos internacionales',
+        'Seguro de viaje',
+        'Propinas',
+        'Equipo personal'
+      ],
+      requirements: [
+        'Buena condición física',
+        'Edad mínima 12 años',
+        'Pasaporte vigente',
+        'Seguro médico obligatorio'
+      ]
+    },
+    '2': {
+      id: '2',
+      title: 'Amazonas Adventure',
+      location: 'Iquitos, Perú',
+      duration: '5 días',
+      difficulty: 'Desafiante',
+      price: 680,
+      rating: 4.9,
+      image: '/images/tours/amazonas.jpg',
+      images: [
+        '/images/tours/amazonas.jpg',
+        '/images/tours/amazonas-1.jpg',
+        '/images/tours/amazonas-2.jpg'
+      ],
+      description: 'Explora la selva amazónica y conoce su increíble biodiversidad en esta aventura inolvidable.',
+      fullDescription: `
+        <p>Sumérgete en el corazón de la Amazonía peruana en esta expedición de 5 días. Descubre la increíble biodiversidad de la selva tropical, navega por ríos caudalosos y conoce comunidades indígenas.</p>
+
+        <h3>Itinerario:</h3>
+        <ul>
+          <li><strong>Día 1:</strong> Llegada a Iquitos y traslado al lodge en la selva.</li>
+          <li><strong>Día 2:</strong> Excursión de observación de aves y caminata por la selva.</li>
+          <li><strong>Día 3:</strong> Visita a comunidades indígenas y pesca tradicional.</li>
+          <li><strong>Día 4:</strong> Navegación por el río Amazonas y búsqueda de delfines rosados.</li>
+          <li><strong>Día 5:</strong> Regreso a Iquitos y vuelo de salida.</li>
+        </ul>
+      `,
+      category: 'nature',
+      highlights: [
+        'Más de 200 especies de aves',
+        'Encuentro con comunidades indígenas',
+        'Navegación por el río Amazonas',
+        'Observación de delfines rosados'
+      ],
+      included: [
+        'Guía naturalista',
+        'Todas las comidas',
+        'Alojamiento en lodge',
+        'Transporte fluvial',
+        'Equipo de observación'
+      ],
+      notIncluded: [
+        'Vuelos a Iquitos',
+        'Bebidas alcohólicas',
+        'Equipo personal'
+      ],
+      requirements: [
+        'Vacunas contra fiebre amarilla',
+        'Repelente de insectos',
+        'Ropa adecuada para selva'
+      ]
+    }
+  };
+
+  return tours[tourId] || null;
+};
+
+const tourData = tour || getSampleTourDetails(id, categoria);
+const category = TOUR_CATEGORIES.find(cat => cat.id === categoria);
+
+if (!tour) {
+  return new Response('Tour no encontrado', { status: 404 });
+}
+---
+
+<BaseLayout title={`${tourData.title} - Condor Expeditions`}>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
+    <!-- Hero Section -->
+    <div class="relative h-96 bg-cover bg-center" style={`background-image: url('${tourData.image}')`}>
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-end">
+        <div class="text-white pb-8">
+          <div class="flex items-center mb-2">
+            <span class="text-2xl mr-2">{category?.icon}</span>
+            <span class="text-sm uppercase tracking-wide">{category?.nameEs}</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">{tourData.title}</h1>
+          <div class="flex items-center space-x-4 text-lg">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              {tourData.location}
+            </div>
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              {tourData.duration}
+            </div>
+            <div class="flex items-center">
+              <div class={`px-2 py-1 rounded text-xs font-semibold ${
+                tourData.difficulty === 'Fácil' ? 'bg-green-100 text-green-800' :
+                tourData.difficulty === 'Moderado' ? 'bg-yellow-100 text-yellow-800' :
+                tourData.difficulty === 'Desafiante' ? 'bg-orange-100 text-orange-800' :
+                'bg-red-100 text-red-800'
+              }`}>
+                {tourData.difficulty}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2">
+          <!-- Description -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Descripción</h2>
+            <div class="prose dark:prose-invert max-w-none" set:html={tourData.fullDescription}></div>
+          </div>
+
+          <!-- Image Gallery -->
+          {tourData.images && tourData.images.length > 1 && (
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
+              <h2 class="text-2xl font-bold mb-4">Galería de Imágenes</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {tourData.images.slice(1).map((image: string, index: number) => (
+                  <img
+                    src={image}
+                    alt={`${tourData.title} - Imagen ${index + 2}`}
+                    class="rounded-lg object-cover h-48 w-full hover:opacity-90 transition-opacity cursor-pointer"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Highlights -->
+          {tourData.highlights && (
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
+              <h2 class="text-2xl font-bold mb-4">Lo destacado</h2>
+              <ul class="space-y-2">
+                {tourData.highlights.map((highlight: string) => (
+                  <li class="flex items-center">
+                    <svg class="w-5 h-5 text-primary-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <!-- Booking Card -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 sticky top-24">
+            <div class="text-center mb-6">
+              <div class="text-3xl font-bold text-primary-600 mb-2">
+                ${tourData.price}
+                <span class="text-lg font-normal text-gray-600 dark:text-gray-400">USD</span>
+              </div>
+              <div class="flex items-center justify-center mb-4">
+                <div class="flex text-yellow-400 mr-2">
+                  {Array.from({ length: 5 }, (_, i: number) => (
+                    <svg
+                      class={`w-4 h-4 ${i < Math.floor(tourData.rating) ? 'text-yellow-400' : 'text-gray-300'}`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+                <span class="text-sm text-gray-600 dark:text-gray-400">({tourData.rating})</span>
+              </div>
+            </div>
+
+            <button class="w-full bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg text-lg font-medium transition-colors mb-4">
+              Reservar Ahora
+            </button>
+
+            <div class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <div class="flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Cancelación gratuita hasta 48h antes
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Guía profesional incluido
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Equipo completo proporcionado
+              </div>
+            </div>
+          </div>
+
+          <!-- Requirements -->
+          {tourData.requirements && (
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mt-6">
+              <h3 class="text-lg font-semibold mb-4">Requisitos</h3>
+              <ul class="space-y-2 text-sm">
+                {tourData.requirements.map((requirement: string) => (
+                  <li class="flex items-start">
+                    <svg class="w-4 h-4 mr-2 mt-0.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    {requirement}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

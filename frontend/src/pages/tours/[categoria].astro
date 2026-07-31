@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TourCard from '../../components/TourCard.tsx';
+import TourFilters from '../../components/TourFilters.tsx';
+import { toursService } from '../../lib/api';
+import { TOUR_CATEGORIES, DIFFICULTY_LEVELS, ACTIVITY_TYPES } from '../../lib/constants';
+
+export async function getStaticPaths() {
+  return TOUR_CATEGORIES.map((category) => ({
+    params: { categoria: category.id },
+    props: { category },
+  }));
+}
+
+const { categoria } = Astro.params;
+const { category } = Astro.props;
+
+// Obtener tours filtrados por categoría
+const toursResponse = await toursService.getTours({ category: categoria });
+const tours = toursResponse.success && Array.isArray(toursResponse.data) ? toursResponse.data : [];
+
+// Datos de ejemplo filtrados por categoría (quitar cuando la API esté lista)
+const getSampleToursByCategory = (categoryId: string) => {
+  const allSampleTours = [
+    {
+      id: '1',
+      title: 'Machu Picchu Trek Clásico',
+      location: 'Cusco, Perú',
+      duration: '4 días',
+      difficulty: 'Moderado',
+      price: 450,
+      rating: 4.8,
+      image: '/images/tours/machu-picchu.jpg',
+      description: 'Descubre la ciudad perdida de los Incas en esta aventura inolvidable.',
+      category: 'trekking'
+    },
+    {
+      id: '2',
+      title: 'Camino Inca Express',
+      location: 'Cusco, Perú',
+      duration: '2 días',
+      difficulty: 'Moderado',
+      price: 280,
+      rating: 4.7,
+      image: '/images/tours/camino-inca.jpg',
+      description: 'Versión corta del clásico Camino Inca hacia Machu Picchu.',
+      category: 'trekking'
+    },
+    {
+      id: '3',
+      title: 'Valle Sagrado Cultural',
+      location: 'Cusco, Perú',
+      duration: '2 días',
+      difficulty: 'Fácil',
+      price: 180,
+      rating: 4.6,
+      image: '/images/tours/valle-sagrado.jpg',
+      description: 'Conoce las tradiciones y cultura viva de los pueblos andinos.',
+      category: 'cultural'
+    },
+    {
+      id: '4',
+      title: 'Lago Titicaca Mágico',
+      location: 'Puno, Perú',
+      duration: '3 días',
+      difficulty: 'Moderado',
+      price: 290,
+      rating: 4.7,
+      image: '/images/tours/lago-titicaca.jpg',
+      description: 'Navega por el lago navegable más alto del mundo.',
+      category: 'cultural'
+    },
+    {
+      id: '5',
+      title: 'Huayna Picchu Escalada',
+      location: 'Cusco, Perú',
+      duration: '1 día',
+      difficulty: 'Extremo',
+      price: 320,
+      rating: 4.9,
+      image: '/images/tours/huayna-picchu.jpg',
+      description: 'Sube a la cima de Huayna Picchu para vistas espectaculares.',
+      category: 'adventure'
+    },
+    {
+      id: '6',
+      title: 'Rafting en el Urubamba',
+      location: 'Cusco, Perú',
+      duration: '1 día',
+      difficulty: 'Desafiante',
+      price: 120,
+      rating: 4.8,
+      image: '/images/tours/rafting-urubamba.jpg',
+      description: 'Emocionante descenso por los rápidos del río Urubamba.',
+      category: 'adventure'
+    }
+  ];
+
+  return allSampleTours.filter(tour => tour.category === categoryId);
+};
+
+const displayTours = tours.length > 0 ? tours : getSampleToursByCategory(categoria);
+---
+
+<BaseLayout title={`${category.nameEs} - Tours - Condor Expeditions`}>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center">
+          <div class="flex items-center justify-center mb-4">
+            <span class="text-4xl mr-3">{category.icon}</span>
+            <h1 class="text-4xl md:text-5xl font-bold">
+              Tours de {category.nameEs}
+            </h1>
+          </div>
+          <p class="text-xl md:text-2xl text-primary-100 max-w-3xl mx-auto">
+            {category.description}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters and Tours Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Filters -->
+      <div class="mb-8">
+        <TourFilters
+          categories={TOUR_CATEGORIES}
+          difficultyLevels={DIFFICULTY_LEVELS}
+          activityTypes={ACTIVITY_TYPES}
+          client:load
+        />
+      </div>
+
+      <!-- Results Info -->
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          Tours disponibles
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400">
+          {displayTours.length} tour{displayTours.length !== 1 ? 's' : ''} encontrado{displayTours.length !== 1 ? 's' : ''} en la categoría {category.nameEs}
+        </p>
+      </div>
+
+      <!-- Tours Grid -->
+      {displayTours.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayTours.map((tour) => (
+            <TourCard
+              id={tour.id}
+              title={tour.title}
+              location={tour.location}
+              duration={tour.duration}
+              difficulty={tour.difficulty}
+              price={tour.price}
+              rating={tour.rating}
+              image={tour.image}
+              description={tour.description}
+              client:load
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <div class="text-gray-500 dark:text-gray-400">
+            <svg class="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-.881-5.712-2.291" />
+            </svg>
+            <h3 class="text-lg font-medium mb-2">No hay tours disponibles</h3>
+            <p class="mb-4">No encontramos tours en esta categoría con los filtros seleccionados.</p>
+            <a href="/tours" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50 border-primary-600">
+              Ver todos los tours
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>

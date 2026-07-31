@@ -7,9 +7,9 @@
 import { signal, computed } from '@preact/signals';
 import type { Language, Currency, Theme } from './types';
 import {
-  DEFAULT_LANGUAGE,
-  DEFAULT_CURRENCY,
-  DEFAULT_THEME,
+  DEFAULTLANGUAGE,
+  DEFAULTCURRENCY,
+  DEFAULTTHEME,
   PREFERENCES_STORAGE_KEY,
 } from '../lib/constants';
 
@@ -56,9 +56,9 @@ const savePreferences = (preferences: StoredPreferences): void => {
 const initializePreferences = (): StoredPreferences => {
   const stored = getStoredPreferences();
   return {
-    language: stored?.language || DEFAULT_LANGUAGE,
-    currency: stored?.currency || DEFAULT_CURRENCY,
-    theme: stored?.theme || DEFAULT_THEME,
+    language: stored?.language || DEFAULTLANGUAGE,
+    currency: stored?.currency || DEFAULTCURRENCY,
+    theme: stored?.theme || DEFAULTTHEME,
   };
 };
 

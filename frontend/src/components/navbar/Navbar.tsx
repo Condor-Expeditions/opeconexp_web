@@ -5,6 +5,7 @@ import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
 import CurrencySelector from './CurrencySelector';
+import TourDropdown from '../ui/TourDropdown';
 import { initializeFromStorage, isInitialized } from '../../stores/preferencesStore';
 
 const NavbarSkeleton = () => (
@@ -35,6 +36,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isI18nReady, setIsI18nReady] = useState(i18n.isInitialized);
+  const [isTourDropdownOpen, setIsTourDropdownOpen] = useState(false);
 
   useEffect(() => {
     // Initialize preferences from localStorage
@@ -77,12 +79,26 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a
-              href="/tours"
-              className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors"
+            <div
+              className="relative"
+              onMouseEnter={() => setIsTourDropdownOpen(true)}
+              onMouseLeave={() => setIsTourDropdownOpen(false)}
             >
-              {t('nav.tours')}
-            </a>
+              <a
+                href="/tours"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors flex items-center"
+              >
+                {t('nav.tours')}
+                <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </a>
+              <TourDropdown
+                isOpen={isTourDropdownOpen}
+                onMouseEnter={() => setIsTourDropdownOpen(true)}
+                onMouseLeave={() => setIsTourDropdownOpen(false)}
+              />
+            </div>
             <a
               href="/about"
               className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors"
