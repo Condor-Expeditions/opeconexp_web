@@ -183,3 +183,6 @@ temp/
 build/
 dist/
 out/
+.hermes/AGENTS.md
+/frontend/.bin/
+/frontend/.pnpm/
