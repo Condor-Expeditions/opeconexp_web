@@ -21,23 +21,36 @@ const waLink = `${company.contact.whatsapp}%0AQuiero%20más%20información%20de%
   title={`${exp.title} — Experiencias`}
   description={`${exp.title}: ${exp.duration}, dificultad ${exp.difficulty}. ${exp.includes}`}
 >
-  <!-- Breadcrumb + Hero -->
-  <section class="pt-28 pb-10 bg-gradient-to-b from-primary-50 to-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <nav class="text-xs text-muted-foreground mb-4" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-primary transition-colors">Inicio</a>
-        <span class="mx-1">/</span>
-        <a href="/experiencias" class="hover:text-primary transition-colors">Experiencias</a>
-        <span class="mx-1">/</span>
-        <a href={`/experiencias#${cat.id}`} class="hover:text-primary transition-colors">{cat.name}</a>
-      </nav>
-      <div class="flex flex-wrap items-center gap-3 mb-3">
-        <span class="text-xs font-semibold bg-primary-50 text-primary px-3 py-1 rounded-full">⏱ {exp.duration}</span>
-        <span class="text-xs font-semibold bg-accent-light text-accent px-3 py-1 rounded-full">{exp.difficulty}</span>
-        <span class="text-xs font-semibold bg-nature-light text-nature px-3 py-1 rounded-full">{cat.name}</span>
+  <!-- Hero con video de fondo -->
+  <section class="relative min-h-[60vh] w-full overflow-hidden">
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+      <source src="/videos/landscape_hero.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <div class="relative z-10 min-h-[60vh] flex flex-col items-start justify-end px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="mx-auto max-w-7xl w-full">
+        <nav class="text-xs text-white/70 mb-6" aria-label="Breadcrumb">
+          <a href="/" class="hover:text-white transition-colors">Inicio</a>
+          <span class="mx-1">/</span>
+          <a href="/experiencias" class="hover:text-white transition-colors">Experiencias</a>
+          <span class="mx-1">/</span>
+          <a href={`/experiencias#${cat.id}`} class="hover:text-white transition-colors">{cat.name}</a>
+        </nav>
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="text-xs font-semibold bg-white/20 text-white px-3 py-1 rounded-full">⏱ {exp.duration}</span>
+          <span class="text-xs font-semibold bg-accent/80 text-white px-3 py-1 rounded-full">{exp.difficulty}</span>
+          <span class="text-xs font-semibold bg-white/20 text-white px-3 py-1 rounded-full">{cat.name}</span>
+        </div>
+        <h1 class="font-display text-4xl md:text-6xl text-white mb-4 max-w-4xl">{exp.title}</h1>
+        <p class="text-white/80 text-lg max-w-3xl">{exp.includes}</p>
       </div>
-      <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">{exp.title}</h1>
-      <p class="text-muted-foreground text-lg max-w-3xl">{exp.includes}</p>
     </div>
   </section>
 

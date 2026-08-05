@@ -22,21 +22,35 @@ const waLink = `${company.contact.whatsapp}%0AI%20want%20more%20info%20about%3A%
   title={`${exp.title} — Experiences`}
   description={`${exp.title}: ${exp.duration}, difficulty ${exp.difficulty}. ${exp.includes}`}
 >
-  <section class="pt-28 pb-10 bg-gradient-to-b from-primary-50 to-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <nav class="text-xs text-muted-foreground mb-4" aria-label="Breadcrumb">
-        <a href="/en/" class="hover:text-primary transition-colors">Home</a>
-        <span class="mx-1">/</span>
-        <a href="/en/experiencias" class="hover:text-primary transition-colors">Experiences</a>
-        <span class="mx-1">/</span>
-        <span>{cat.name}</span>
-      </nav>
-      <div class="flex flex-wrap items-center gap-3 mb-3">
-        <span class="text-xs font-semibold bg-primary-50 text-primary px-3 py-1 rounded-full">⏱ {exp.duration}</span>
-        <span class="text-xs font-semibold bg-accent-light text-accent px-3 py-1 rounded-full">{exp.difficulty}</span>
+  <!-- Hero with video background -->
+  <section class="relative min-h-[60vh] w-full overflow-hidden">
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+      <source src="/videos/landscape_hero.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <div class="relative z-10 min-h-[60vh] flex flex-col items-start justify-end px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="mx-auto max-w-7xl w-full">
+        <nav class="text-xs text-white/70 mb-6" aria-label="Breadcrumb">
+          <a href="/en/" class="hover:text-white transition-colors">Home</a>
+          <span class="mx-1">/</span>
+          <a href="/en/experiencias" class="hover:text-white transition-colors">Experiences</a>
+          <span class="mx-1">/</span>
+          <span class="text-white/50">{cat.name}</span>
+        </nav>
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="text-xs font-semibold bg-white/20 text-white px-3 py-1 rounded-full">⏱ {exp.duration}</span>
+          <span class="text-xs font-semibold bg-accent/80 text-white px-3 py-1 rounded-full">{exp.difficulty}</span>
+        </div>
+        <h1 class="font-display text-4xl md:text-6xl text-white mb-4 max-w-4xl">{exp.title}</h1>
+        <p class="text-white/80 text-lg max-w-3xl">{exp.includes}</p>
       </div>
-      <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">{exp.title}</h1>
-      <p class="text-muted-foreground text-lg max-w-3xl">{exp.includes}</p>
     </div>
   </section>
 
