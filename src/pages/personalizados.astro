@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import company from "../data/company.json";
+---
+
+<Layout title="Personalizados" description="Diseña tu expedición a medida en Ecuador. Tú eliges destino, ritmo, nivel y fechas. Guías expertos y equipos certificados.">
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <span class="text-accent font-display text-sm uppercase tracking-widest">A Tu Medida</span>
+      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">Diseña tu Expedición</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
+        Cuéntanos qué tipo de experiencia buscas y armaremos el tour perfecto para ti. 
+        Sin prisas, sin paquetes predefinidos.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 bg-white">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <form class="space-y-5" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
+        <input type="hidden" name="_subject" value="Solicitud de Tour Personalizado — Cóndor Expeditions" />
+        <input type="hidden" name="_next" value="/gracias" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-semibold text-foreground mb-1.5" for="name">Nombre</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-border rounded-lg bg-white text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="Tu nombre completo" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-foreground mb-1.5" for="email">Email</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-border rounded-lg bg-white text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="tu@email.com" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-foreground mb-1.5" for="destino">Destino deseado</label>
+          <select id="destino" name="destino" class="w-full px-4 py-3 border border-border rounded-lg bg-white text-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+            <option value="">Selecciona</option>
+            <option value="cuenca">Cuenca y alrededores</option>
+            <option value="azuay">Provincia del Azuay</option>
+            <option value="andes">Andes Ecuatorianos</option>
+            <option value="amazonia">Amazonía</option>
+            <option value="costa">Costa del Pacífico</option>
+            <option value="galapagos">Islas Galápagos</option>
+            <option value="multi">Multi-destino (combinación)</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-semibold text-foreground mb-1.5" for="dias">Días estimados</label>
+            <input type="number" id="dias" name="dias" min="1" max="30" class="w-full px-4 py-3 border border-border rounded-lg bg-white text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="Ej: 5" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-foreground mb-1.5" for="viajeros">Viajeros</label>
+            <input type="number" id="viajeros" name="viajeros" min="1" class="w-full px-4 py-3 border border-border rounded-lg bg-white text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="Ej: 2" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-foreground mb-1.5" for="intereses">Tipo de experiencia que buscas</label>
+          <textarea id="intereses" name="intereses" rows="4" class="w-full px-4 py-3 border border-border rounded-lg bg-white text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none transition resize-y" placeholder="Cuéntanos qué te gustaría hacer: trekking, cultura, naturaleza, aventura, relax... y cualquier preferencia especial."></textarea>
+        </div>
+
+        <button type="submit" class="inline-block px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full text-lg shadow-md transition-colors">
+          Solicitar Cotización
+        </button>
+      </form>
+
+      <div class="mt-12 bg-background rounded-xl p-6 text-center">
+        <p class="text-sm text-muted-foreground mb-2">También puedes contactarnos directamente</p>
+        <a href={company.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
+          💬 Chatear por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

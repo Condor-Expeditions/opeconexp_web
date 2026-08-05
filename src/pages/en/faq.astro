@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import company from "../../data/company.json";
+
+const faqs = [
+  { q: "What's included in the tour price?", a: "Each tour specifies what's included. Generally: guide, transportation, meals and basic equipment. Flights are not included unless stated." },
+  { q: "Do I need prior experience?", a: "No. We have tours for all levels — from beginner to advanced. Check the difficulty level on each tour's page." },
+  { q: "Can I cancel or reschedule?", a: "You can cancel up to 48 hours before at no cost. Free rescheduling up to 24 hours before." },
+  { q: "Do you offer travel insurance?", a: "All our tours include personal accident insurance. For cancellation or extended coverage we can advise you." },
+  { q: "Do guides speak English?", a: "Yes — all guides are bilingual (Spanish-English). French, German or Portuguese guides available on request." },
+  { q: "What's the group size?", a: "Small groups: up to 12 people. For custom tours the minimum is 2 travelers." },
+  { q: "What gear do I need?", a: "We'll send a recommended gear list upon booking confirmation. Technical gear (harnesses, helmets, poles) is provided by us." },
+  { q: "How do I book?", a: "Book directly from the tour detail page (WhatsApp), fill out our contact form, or message us on WhatsApp." },
+];
+---
+
+<Layout lang="en" title="Frequently Asked Questions" description="Answers to common questions about tours, booking, gear and policies at Condor Expeditions.">
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">Frequently Asked Questions</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
+        Everything you need before your next expedition.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-14">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="space-y-3">
+        {faqs.map((faq) => (
+          <details class="group bg-white rounded-xl border border-border/60 overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-display font-bold text-foreground hover:text-primary transition-colors">
+              <span>{faq.q}</span>
+              <svg class="w-5 h-5 text-muted-foreground group-open:rotate-180 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="px-6 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-3">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <div class="mt-12 bg-background rounded-xl p-6 text-center">
+        <p class="font-display font-bold text-foreground mb-2">Still have questions?</p>
+        <p class="text-sm text-muted-foreground mb-4">Write to us and we'll reply within 24 hours.</p>
+        <a href={company.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full transition-colors">
+          💬 Ask via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

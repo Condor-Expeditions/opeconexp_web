@@ -1,0 +1,62 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import tours from "../../../data/tours.json";
+import company from "../../../data/company.json";
+
+const regionLabels: Record<string, string> = { cuenca: "Cuenca", azuay: "Azuay", ecuador: "Ecuador" };
+
+export function getStaticPaths() {
+  const regions = ["cuenca", "azuay", "ecuador"] as const;
+  return regions.map((region) => ({
+    params: { region },
+    props: { region },
+  }));
+}
+
+const { region } = Astro.props;
+const filtered = tours.tours.filter((t) => t.region === region);
+const label = regionLabels[region] ?? "Ecuador";
+const waLink = `${company.contact.whatsapp}%0AI%20want%20info%20about%20tours%20in%20${label}`;
+---
+
+<Layout lang="en" title={`Tours in ${label}`} description={`Discover the best tours in ${label}, Ecuador. Hiking, culture, adventure and nature excursions.`}>
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">Tours in {label}</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
+        {filtered.length} expeditions to discover the most fascinating corners of {label}.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-14">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filtered.map((tour) => (
+          <a href={`/en/tours/${tour.slug}`} class="block group bg-background-alt rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow">
+            <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{tour.titleEn}</h3>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">⏱ {tour.duration}</span>
+              <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{tour.difficulty}</span>
+            </div>
+            <p class="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-3">{tour.includes}</p>
+            <div class="flex items-center justify-between mt-4">
+              <span class="font-display text-xl font-bold text-primary">From ${tour.priceFrom}</span>
+              <span class="text-xs font-semibold text-accent uppercase tracking-wider">View tour →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-dark text-center">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-2xl md:text-3xl text-white mb-4">Looking for something else?</h2>
+      <p class="text-dark-foreground/70 mb-6">We design fully customized tours for your group.</p>
+      <a href="/en/personalizados" class="inline-flex px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
+        Design Your Custom Tour
+      </a>
+    </div>
+  </section>
+</Layout>

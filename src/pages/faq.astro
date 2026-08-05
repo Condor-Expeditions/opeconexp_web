@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import company from "../data/company.json";
+
+const faqs = [
+  { q: "¿Qué incluye el precio del tour?", a: "Cada tour especifica qué incluye en su ficha. Generalmente incluye guía, transporte, alimentación y equipo básico. Los vuelos no están incluidos salvo que se indique lo contrario." },
+  { q: "¿Necesito experiencia previa para los tours de trekking o montañismo?", a: "No. Tenemos tours para todos los niveles, desde principiantes hasta avanzados. En la ficha de cada tour encontrarás la dificultad indicada." },
+  { q: "¿Puedo cancelar o reprogramar mi reserva?", a: "Sí. Puedes cancelar hasta 48 horas antes sin costo. Reprogramaciones gratuitas hasta 24 horas antes." },
+  { q: "¿Ofrecen seguros de viaje?", a: "Todos nuestros tours incluyen seguro de accidentes personales. Para seguros de cancelación o cobertura extendida, podemos asesorarte." },
+  { q: "¿Los guías hablan inglés?", a: "Sí, todos nuestros guías son bilingües (español-inglés). También podemos coordinar guías en francés, alemán o portugués bajo petición." },
+  { q: "¿Cuántas personas van por grupo?", a: "Grupos reducidos de máximo 12 personas. Para tours personalizados el mínimo es 2 viajeros." },
+  { q: "¿Qué equipo necesito llevar?", a: "Te enviaremos una lista de equipo recomendado al confirmar tu reserva. El equipo técnico (arneses, cascos, bastones) lo proveemos nosotros." },
+  { q: "¿Cómo hago la reserva?", a: "Puedes reservar directamente desde la ficha del tour (WhatsApp), llenando el formulario de contacto, o escribiéndonos a nuestro WhatsApp." },
+];
+---
+
+<Layout title="Preguntas Frecuentes" description="Respuestas a las preguntas más comunes sobre tours, reservas, equipo y políticas de Cóndor Expeditions.">
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">Preguntas Frecuentes</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
+        Todo lo que necesitas saber antes de tu próxima expedición.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-14">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="space-y-3">
+        {faqs.map((faq, i) => (
+          <details class="group bg-white rounded-xl border border-border/60 overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-display font-bold text-foreground hover:text-primary transition-colors">
+              <span>{faq.q}</span>
+              <svg class="w-5 h-5 text-muted-foreground group-open:rotate-180 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <div class="px-6 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-3">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <div class="mt-12 bg-background rounded-xl p-6 text-center">
+        <p class="font-display font-bold text-foreground mb-2">¿No encuentras tu pregunta?</p>
+        <p class="text-sm text-muted-foreground mb-4">Escríbenos y te responderemos en menos de 24 horas.</p>
+        <a href={company.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full transition-colors">
+          💬 Preguntar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
