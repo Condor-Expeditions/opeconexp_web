@@ -76,14 +76,26 @@ export const NAV: NavItem[] = [
 		],
 	},
 	{
+		id: "quienes-somos",
+		label: "Quiénes Somos",
+		labelEn: "About Us",
+		type: "link",
+		href: "/nosotros",
+	},
+	{
+		id: "contacto",
+		label: "Contacto",
+		labelEn: "Contact",
+		type: "link",
+		href: "/contacto",
+	},
+	{
 		id: "mas",
 		label: "Más",
 		labelEn: "More",
 		type: "dropdown",
 		children: [
-			{ id: "quienes-somos", label: "Quiénes Somos", labelEn: "About Us", type: "link", href: "/nosotros" },
 			{ id: "faq", label: "Preguntas Frecuentes", labelEn: "FAQ", type: "link", href: "/faq" },
-			{ id: "contacto", label: "Contacto", labelEn: "Contact", type: "link", href: "/contacto" },
 		],
 	},
 ]
