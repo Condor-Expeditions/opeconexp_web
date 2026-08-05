@@ -1,43 +1,71 @@
-# Astro Starter Kit: Minimal
+# opeconexp_web — Cóndor Expeditions
 
-```sh
-pnpm create astro@latest --template minimal
+Sitio web de la operadora turística **Cóndor Expeditions** (`opeconexp` =
+**Ope**radora **Con**dor **Exp**editions). Construido con **Astro 5** + **React 19**
++ **Tailwind CSS 3**.
+
+> Estado: en desarrollo temprano (landing base con Hero). Rama de trabajo: `dev`.
+
+---
+
+## Stack
+
+- **Astro 5** (output estático)
+- **React 19** (`@astrojs/react`) para islas interactivas
+- **Tailwind CSS 3** (`@astrojs/tailwind`) — tema en `tailwind.config.mjs`
+  (colores de marca: `primary-red #8B1D20`, `primary-black`, `background-light`;
+  fuente `Montserrat`)
+- Íconos: `lucide-react`
+- **Gestor de paquetes: pnpm**
+
+---
+
+## Requisitos
+
+- **Node** >= 18
+- **[pnpm](https://pnpm.io/)**
+
+---
+
+## Instalación y comandos
+
+```bash
+pnpm install        # instala dependencias
+pnpm dev            # dev server en http://localhost:4321
+pnpm build          # build de producción -> ./dist/
+pnpm preview        # previsualiza el build
+pnpm astro ...      # CLI de Astro (astro add, astro check, etc.)
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> **Nota (este host Windows):** el `PYTHONPATH` de Hermes no afecta a Node, pero
+> si `pnpm build` falla con `ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY`, corre
+> con `CI=true` delante (`CI=true pnpm build`) o invoca astro directo:
+> `node_modules/.bin/astro build`.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/
+  pages/index.astro      página principal (ruta /)
+  components/Hero.astro   sección hero
+  layouts/MainLayout.astro
+  styles/global.css
+public/                   assets estáticos (logo.svg, etc.)
+astro.config.mjs          integraciones: tailwind() + react()
+tailwind.config.mjs       tema de marca
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Astro expone cada `.astro`/`.md` de `src/pages/` como una ruta según su nombre
+de archivo. Los assets estáticos van en `public/`.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Notas de mantenimiento
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Config de Tailwind unificada en **`tailwind.config.mjs`** (se eliminó un
+  `tailwind.config.js` duplicado idéntico — jul 2026).
+- Un clon de terceros `HeadlessX` que estaba incrustado por error en `src/` se
+  movió a `D:/Coders/03_tools/HeadlessX` (no pertenece al sitio — jul 2026).
+- Despliegue: Vercel (`.vercel/` ignorado en git).
