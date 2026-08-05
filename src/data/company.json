@@ -11,9 +11,9 @@
     "address": "Cuenca, Ecuador",
     "scheduleWeekdays": "Lunes a Viernes de 08:00h a 18:00h",
     "scheduleWeekends": "Sábados de 09:00h a 13:00h",
-    "phone": { "name": "+593 98 600 6849", "href": "tel:+593986006849" },
+    "phone": { "name": "+593 99 590 0614", "href": "tel:+593995900614" },
     "email": { "name": "info@condorexpedition.com", "href": "mailto:info@condorexpedition.com" },
-    "whatsapp": "https://wa.me/593986006849?text=Hola,%20quiero%20información%20de%20expediciones",
+    "whatsapp": "https://wa.me/593995900614?text=Hola,%20quiero%20información%20de%20expediciones",
     "maps": "https://maps.app.goo.gl/ze7uN4dYkhENdh767"
   },
   "socials": [
@@ -21,6 +21,6 @@
     { "name": "Instagram", "href": "https://www.instagram.com/condorexpeditions/", "icon": "instagram" },
     { "name": "TikTok", "href": "https://www.tiktok.com/@condorexpeditions", "icon": "tiktok" },
     { "name": "YouTube", "href": "https://www.youtube.com/@condorexpeditions", "icon": "youtube" },
-    { "name": "WhatsApp", "href": "https://wa.me/593986006849", "icon": "whatsapp" }
+    { "name": "WhatsApp", "href": "https://wa.me/593995900614", "icon": "whatsapp" }
   ]
 }
