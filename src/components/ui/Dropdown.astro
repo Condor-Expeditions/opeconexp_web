@@ -1,5 +1,5 @@
 ---
-const { align = "left", width = "auto", class: className = "" } = Astro.props;
+const { align = "left", width = "auto", class: className = "", triggerClass: tClass = "" } = Astro.props;
 
 const alignMap: Record<string, string> = {
 	left: "left-0",
@@ -23,7 +23,10 @@ const widthClass = widthMap[width] || widthMap.auto;
   <!-- Trigger -->
   <button
     type="button"
-    class="dropdown-trigger inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium bg-background text-foreground border border-border hover:bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer"
+    class:list={[
+      "dropdown-trigger inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer",
+      tClass || "px-4 py-2 bg-background text-foreground border border-border hover:bg-accent",
+    ]}
     aria-haspopup="true"
   >
     <slot name="trigger">Opciones</slot>
