@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe. Vuelve al inicio o contáctanos."
+>
+  <section class="min-h-[70vh] flex items-center justify-center py-16">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+      <span class="font-display text-[10rem] md:text-[12rem] font-bold text-primary/10 leading-none block">404</span>
+      <h1 class="font-display text-3xl md:text-5xl text-foreground mb-4 -mt-8">
+        Página no encontrada
+      </h1>
+      <p class="text-muted-foreground text-lg mb-8 max-w-md mx-auto">
+        La ruta que buscas no existe o fue movida. Mientras tanto, sueña con tu próxima aventura.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/" class="px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
+          Volver al Inicio
+        </a>
+        <a href="/tours" class="px-8 py-4 border-2 border-primary text-primary font-semibold rounded-full transition-colors">
+          Explorar Tours
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
