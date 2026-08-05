@@ -15,12 +15,18 @@ import { testimonials } from "@/data/content";
       {
         testimonials.map((t) => (
           <div class="bg-dark-muted rounded-xl p-6 flex flex-col">
+            <div class="flex text-amber-400 text-sm mb-3" aria-label={`${t.stars} de 5 estrellas`}>
+              {Array.from({ length: t.stars }).map((_, i) => (
+                <span key={i}>★</span>
+              ))}
+            </div>
             <p class="text-dark-foreground/80 text-sm leading-relaxed mb-6 flex-1 italic">
               &ldquo;{t.text}&rdquo;
             </p>
-            <div>
+            <div class="border-t border-white/10 pt-4">
               <p class="font-display font-bold text-white text-sm">{t.name}</p>
-              <p class="text-xs text-primary-300">{t.country} — {t.expedition}</p>
+              <p class="text-xs text-primary-300">{t.city}, {t.country}</p>
+              <p class="text-xs text-dark-foreground/50 mt-1">Expedición: {t.expedition}</p>
             </div>
           </div>
         ))

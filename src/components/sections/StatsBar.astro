@@ -8,11 +8,49 @@ import { stats } from "@/data/content";
       {
         stats.map((s) => (
           <div>
-            <p class="font-display text-3xl md:text-4xl font-extrabold">{s.value}</p>
-            <p class="text-primary-200 text-sm mt-1">{s.label}</p>
+            <p class="font-display text-3xl md:text-5xl font-bold mb-2">
+              <span class="stat-counter" data-target={s.value}>{s.value.toLocaleString("en-US")}</span><span>{s.suffix}</span>
+            </p>
+            <p class="text-primary-foreground/80 text-sm">{s.label}</p>
           </div>
         ))
       }
     </div>
   </div>
 </section>
+
+<script>
+  const counters = document.querySelectorAll<HTMLElement>(".stat-counter");
+
+  function animateCounter(el: HTMLElement) {
+    const target = Number(el.dataset.target ?? 0);
+    const duration = 1500;
+    const start = performance.now();
+
+    function step(now: number) {
+      const progress = Math.min((now - start) / duration, 1);
+      // easeOutCubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target).toLocaleString("en-US");
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    counters.forEach((c) => observer.observe(c));
+  } else {
+    counters.forEach((c) => animateCounter(c));
+  }
+</script>
