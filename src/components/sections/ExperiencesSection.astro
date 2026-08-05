@@ -1,0 +1,45 @@
+---
+import { experiences } from "@/data/content";
+---
+
+<section id="experiencias-destacadas" class="section-padding bg-background">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-accent font-display text-sm uppercase tracking-widest">Vive la Aventura</span>
+      <h2 class="font-display text-3xl md:text-5xl mt-3 mb-4 text-foreground">
+        Experiencias Épicas
+      </h2>
+      <p class="text-muted-foreground text-lg leading-relaxed">
+        Trekking, rafting, escalada y exploración. Elige tu desafío.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        experiences.map((exp) => (
+          <a href={`/experiencias#${exp.category}`} class="group">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300">
+              <div class="h-48 bg-gradient-to-br from-primary-200 to-primary-500 flex items-center justify-center">
+                <span class="font-display text-6xl text-white/20">{exp.title.charAt(0)}</span>
+              </div>
+              <div class="p-5">
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-accent bg-accent-light px-2 py-0.5 rounded-full">
+                    {exp.category}
+                  </span>
+                  <span class="text-xs text-muted-foreground">{exp.duration}</span>
+                  <span class="text-xs text-muted-foreground">·</span>
+                  <span class="text-xs text-muted-foreground">{exp.difficulty}</span>
+                </div>
+                <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                  {exp.title}
+                </h3>
+                <p class="text-sm text-muted-foreground leading-relaxed">{exp.description}</p>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
