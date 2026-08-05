@@ -1,0 +1,80 @@
+{
+  "destinations": [
+    {
+      "name": "Andes Ecuatorianos",
+      "slug": "andes",
+      "description": "Trekking en el volcán Cototín, ascenso al Chimborazo, y la majestuosa Avenida de los Volcanes.",
+      "image": "/images/destinos/andes.jpg",
+      "alt": "Vista panorámica del Cotopaxi al amanecer",
+      "highlight": "5,897 m",
+      "tag": "Montaña"
+    },
+    {
+      "name": "Amazonía",
+      "slug": "amazonia",
+      "description": "Expediciones en la selva del Yasuní y Cuyabeno, encuentro con la biodiversidad más rica del planeta.",
+      "image": "/images/destinos/amazonia.jpg",
+      "alt": "Río amazónico rodeado de selva densa",
+      "tag": "Selva"
+    },
+    {
+      "name": "Costa del Pacífico",
+      "slug": "costa",
+      "description": "Avistamiento de ballenas en Puerto López, surf en Montañita, y bosque nublado de Mindo.",
+      "image": "/images/destinos/costa.jpg",
+      "alt": "Playa al atardecer con acantilados verdes",
+      "tag": "Costa"
+    },
+    {
+      "name": "Islas Galápagos",
+      "slug": "galapagos",
+      "description": "Navegación entre islas, snorkel con leones marinos y tortugas, senderismo volcánico.",
+      "image": "/images/destinos/galapagos.jpg",
+      "alt": "Tortuga gigante de Galápagos en su hábitat",
+      "tag": "Islas"
+    }
+  ],
+  "regiones": [
+    {
+      "slug": "andes",
+      "name": "Andes Ecuatorianos",
+      "description": "La majestuosa cordillera de los Andes atraviesa Ecuador ofreciendo algunos de los paisajes más impresionantes del planeta.",
+      "items": [
+        { "name": "Cotopaxi", "elevation": "5,897 m", "description": "El volcán activo más alto del mundo. Ascenso técnico con glaciares." },
+        { "name": "Chimborazo", "elevation": "6,263 m", "description": "El punto más cercano al sol debido a la protuberancia ecuatorial." },
+        { "name": "Quilotoa", "elevation": "3,914 m", "description": "Laguna cratérica de color esmeralda. Trekking circular de 3 días." },
+        { "name": "Cajas", "elevation": "4,450 m", "description": "Parque Nacional con más de 200 lagunas de origen glaciar cerca de Cuenca." }
+      ]
+    },
+    {
+      "slug": "amazonia",
+      "name": "Amazonía",
+      "description": "La selva tropical más biodiversa del planeta, hogar de miles de especies y comunidades indígenas.",
+      "destinations": [
+        { "name": "Yasuní", "desc": "Reserva de Biosfera UNESCO con la mayor concentración de especies por m²." },
+        { "name": "Cuyabeno", "desc": "Sistema de 14 lagunas interconectadas ideal para expedición en canoa." },
+        { "name": "Tena", "desc": "Capital del rafting ecuatoriano. Rápidos clase III-IV en los ríos Jatunyaku y Misahuallí." }
+      ]
+    },
+    {
+      "slug": "costa",
+      "name": "Costa del Pacífico",
+      "description": "Playas infinitas, bosques húmedos tropicales y una de las mejores temporadas de avistamiento de ballenas del mundo.",
+      "destinations": [
+        { "name": "Puerto López", "description": "Avistamiento de ballenas jorobaras (junio-septiembre) y Parque Nacional Machalilla." },
+        { "name": "Mindo", "description": "Bosque nublado con más de 500 especies de aves. Paraíso para birdwatchers." },
+        { "name": "Montañita", "description": "Surf de clase mundial, cultura playera y vida nocturna." }
+      ]
+    },
+    {
+      "slug": "galapagos",
+      "name": "Islas Galápagos",
+      "description": "El mejor laboratorio viviente del planeta. Encuentros únicos con fauna que no le tiene miedo al ser humano.",
+      "destinations": [
+        { "name": "San Cristóbal", "description": "Leones marinos en la plaza central, snorkel en León dormido." },
+        { "name": "Isabela", "description": "Túneles de lava, pingüinos ecuatoriales y tortugas gigantes." },
+        { "name": "Santa Cruz", "description": "Estación Charles Darwin, cráteres Los Gemelos y tortugas en estado natural." }
+      ]
+    }
+  ]
+}

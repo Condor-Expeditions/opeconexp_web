@@ -1,0 +1,110 @@
+{
+  "categories": [
+    {
+      "id": "trekking",
+      "name": "Trekking & Senderismo",
+      "icon": "🥾",
+      "description": "Desde caminatas suaves hasta ascensos técnicos a más de 5,000 metros.",
+      "experiences": [
+        {
+          "title": "Ascenso al Cotopaxi",
+          "duration": "2 días",
+          "difficulty": "Intermedio-Avanzado",
+          "includes": "Guía ASEGUIM, equipo técnico, transporte 4x4, refrigerio, noche en refugio"
+        },
+        {
+          "title": "Trekking Quilotoa Loop",
+          "duration": "3 días",
+          "difficulty": "Moderado",
+          "includes": "Guía nativo, hospedaje en cabañas, todas las comidas, bastón de trekking"
+        },
+        {
+          "title": "Travesía Sangay",
+          "duration": "5 días",
+          "difficulty": "Avanzado",
+          "includes": "Guía especializado, porteadores, carpas, comidas completas, GPS con beacon"
+        }
+      ]
+    },
+    {
+      "id": "rafting",
+      "name": "Rafting y Kayak",
+      "icon": "🛶",
+      "description": "Rápidos para todos los niveles en ríos de la Amazonía y los Andes.",
+      "experiences": [
+        {
+          "title": "Rafting Río Jatunyaku — Clase III+",
+          "duration": "1 día",
+          "difficulty": "Intermedio",
+          "includes": "Guía IRF certificado, equipo completo, almuerzo, fotos y video, seguro"
+        },
+        {
+          "title": "Kayaking en el Lago San Retablo",
+          "duration": "1 día",
+          "difficulty": "Principiante",
+          "includes": "Kayak doble o simple, chaleco salvavidas, curso rápido, guía, box lunch"
+        }
+      ]
+    },
+    {
+      "id": "montanismo",
+      "name": "Montañismo y Escalada",
+      "icon": "🧗",
+      "description": "Escalada en roca y hielo para todos los niveles, con certificaciones internacionales de seguridad.",
+      "experiences": [
+        {
+          "title": "Escalada en Roca de Cojitambo",
+          "duration": "1 día",
+          "difficulty": "Todos los niveles (5.7 a 5.12b)",
+          "includes": "Equipo Petzel o Black Diamond, zapatos de escalada, curso de seguridad, guía certificado"
+        },
+        {
+          "title": "Ascot al Chimborazo",
+          "duration": "3 días",
+          "difficulty": "Muy avanzado",
+          "includes": "Guía ASEGO alto montaña, todo equipo técnico, material de hielo, arnés, oxígeno suplementario"
+        }
+      ]
+    },
+    {
+      "id": "selva",
+      "name": "Expediciones de Selva",
+      "icon": "🐒",
+      "description": "Inmersión completa en la selva amazónica: navegación, camping silvestre y avistamiento de fauna.",
+      "experiences": [
+        {
+          "title": "Cuyabeno 4 Días",
+          "duration": "4 días",
+          "difficulty": "Suave-Moderado",
+          "includes": "Canoa de mortero, camping, guía kichwa, alimentación, paddle de exploración, night walk"
+        },
+        {
+          "title": "Yasuní: Experiencia Wao Teredo",
+          "duration": "5 días",
+          "difficulty": "Moderado",
+          "includes": "Convivencia con waorani, navegación, camping, fogata, guía nativo"
+        }
+      ]
+    },
+    {
+      "id": "cultural",
+      "name": "Cultural y Comunitario",
+      "icon": "🏛️",
+      "description": "Vive la cultura ecuatoriana: mercados, ruinas incas, gastronomía ancestral y vida comunitaria.",
+      "experiences": [
+        {
+          "title": "Ruta de Mercados: Otavala",
+          "duration": "1 día",
+          "difficulty": "Fácil",
+          "includes": "Guía bilingüe, transporte, almuerzo, visita a Peguche y Cascada de Peguche"
+        },
+        {
+          "title": "Ingaprica & Canción de la Tierra",
+          "duration": "1 día",
+          "difficulty": "Fácil",
+          "includes": "Guía arqueólogo, ruinas incas y cañari, ceremonia Wiñac Pacha Mama, museo"
+        }
+      ]
+    }
+  ]
+}

@@ -31,14 +31,15 @@ const {
     ogImage={image}
     articleDate={articleDate}
     viewTransition={viewTransition}
+    lang={lang}
   />
 
   <body>
-    <Header />
+    <Header lang={lang} />
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
     {
       import.meta.env.DEV && <SizeIndicator />
     }

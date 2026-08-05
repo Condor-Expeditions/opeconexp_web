@@ -1,0 +1,49 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const regiones = [
+  { slug: "andes", name: "Andes", description: "The mighty Andes range offers some of the most breathtaking landscapes on Earth." },
+  { slug: "amazonia", name: "Amazon", description: "The planet's most biodiverse tropical rainforest, home to thousands of species and indigenous communities." },
+  { slug: "costa", name: "Pacific Coast", description: "Endless beaches, tropical cloud forests, and one of the world's best whale-watching seasons." },
+  { slug: "galapagos", name: "Galapagos Islands", description: "The world's best living laboratory. Unique encounters with fearless wildlife." },
+];
+---
+
+<Layout
+  lang="en"
+  title="Destinations"
+  description="Explore Ecuador's most stunning destinations with Condor Expeditions: Anden, Amazon, Pacific Coast and Galapagos Islands."
+>
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <span class="text-accent font-display text-sm uppercase tracking-widest">Discover Ecuador</span>
+      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">Our Destinations</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
+        Four worlds, one adventure. From Andean peaks to Pacific depths.
+      </p>
+    </div>
+  </section>
+
+  {
+    regiones.map((region) => (
+      <section id={region.slug} class="py-16 even:bg-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="font-display text-2xl md:text-3xl text-foreground mb-4">{region.name}</h2>
+          <p class="text-muted-foreground text-lg mb-8 max-w-3xl">{region.desc}</p>
+          <div class="h-48 bg-gradient-to-br from-primary/20 to-primary-50 rounded-xl flex items-center justify-center">
+            <span class="font-display text-4xl text-primary/30">{region.name} awaits</span>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="py-16 bg-dark text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl text-white mb-4">Want to explore?</h2>
+      <a href="/en/contacto" class="inline-flex px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
+        Contact us
+      </a>
+    </div>
+  </section>
+</Layout>
