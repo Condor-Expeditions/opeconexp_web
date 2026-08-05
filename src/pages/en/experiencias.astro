@@ -1,46 +1,20 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import experiencias from "../../data/experiencias.json";
 
-const categories = [
-  {
-    id: "trekking", name: "Trekking & Hiking", icon: "🥾",
-    description: "From gentle walks to technical ascents above 5,000 meters.",
-    items: [
-      { title: "Cotopaxi Ascend", duration: "2 days", difficulty: "Intermediate-Advanced", includes: "ASEGYIM guide, technical gear, 4x4 transport, snacks, refuge night" },
-      { title: "Quilotoa Loop", duration: "3 days", difficulty: "Moderate", includes: "Native guide, cabin lodging, all meals, trekking pole" },
-    ]
-  },
-  {
-    id: "rafting", name: "Rafting & Kayaking", icon: "🛶",
-    description: "Whitewater for every level in rivers of the Amazon and Andes.",
-    items: [
-      { title: "Jatunyaku River Rafting — Class III+", duration: "1 day", difficulty: "Intermediate", includes: "IRF certified guide, full equipment, lunch, photos & video, insurance" },
-      { title: "Sea Kayaking Lake", duration: "1 day", difficulty: "Beginner", includes: "Single or double kayak, life jacket, quick course, lunch box" },
-    ]
-  },
-  {
-    id: "mountaineering", name: "Mountaineering & Climbing", icon: "🧗",
-    description: "Rock and ice climbing for all levels, with international safety certifications.",
-    items: [
-      { title: "Cojitambo Rock Climbing", duration: "1 day", difficulty: "All levels", includes: "Petzel/Black Diamond gear, shoes, safety course, certified guide" },
-    ]
-  },
-  {
-    id: "jungle", name: "Jungle Expeditions", icon: "🐒",
-    description: "Full immersion into the Amazon: canoes, wild camping, wildlife watching.",
-    items: [
-      { title: "Cuyabeno 4-Day", duration: "4 days", difficulty: "Easy-Moderate", includes: "Motor canoe, camping, Kichwa guide, meals, night walk" },
-      { title: "Yasuní Wao Inmersión", duration: "5 days", difficulty: "Moderate", includes: "Waorani community living, navigation, camping, bonfire, native guide" },
-    ]
-  },
-  {
-    id: "cultural", name: "Cultural & Community", icon: "🏛️",
-    description: "Experience Ecuador up close: markets, Inca ruins, ancestral food, community life.",
-    items: [
-      { title: "Otavalo Market Route", duration: "1 day", difficulty: "Easy", includes: "Bilingual guide, transport, lunch, Peguche waterfall visit" },
-    ]
-  }
-];
+const categories = experiencias.categories;
+const allExperiences = categories.flatMap((cat) =>
+  cat.experiences.map((exp) => {
+    const d = exp.difficulty.toLowerCase();
+    let diffKey = "intermediate";
+    if (d.includes("fácil") || d.includes("facil") || d.includes("principiante")) diffKey = "easy";
+    else if (d.includes("moderado") || d.includes("suave")) diffKey = "moderate";
+    else if (d.includes("avanz") || d.includes("técnico")) diffKey = "advanced";
+    return { ...exp, categoryId: cat.id, categoryName: cat.name, diffKey };
+  })
+);
+const difficulties = ["Easy", "Moderate", "Intermediate", "Advanced"];
+const formatPrice = (n: number) => `$${n.toLocaleString("en-US")}`;
 ---
 
 <Layout
@@ -48,47 +22,79 @@ const categories = [
   title="Experiences"
   description="Choose from over 30 trekking, rafting, mountaineering, climbing, jungle and culture expeditions across Ecuador. Small groups, certified guides."
 >
-  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <!-- Hero -->
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
       <span class="text-accent font-display text-sm uppercase tracking-widest">Your Next Ascent</span>
       <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">Adventure Experiences</h1>
       <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
-        More than 30 expeditions for every level. Small group, native guides, and a real commitment to the natural world.
+        More than 30 expeditions for every level. Small groups, native guides, and a real commitment to the natural world.
       </p>
     </div>
   </section>
 
-  {
-    categories.map((cat) => (
-      <section id={cat.id} class="py-14 even:bg-white">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-3xl">{cat.icon}</span>
-            <h2 class="font-display text-2xl md:text-3xl text-foreground">{cat.name}</h2>
-          </div>
-          <p class="text-muted-foreground text-lg mb-8">{cat.description}</p>
+  <!-- Filters -->
+  <section class="py-8 bg-white border-b border-border/50 sticky top-0 z-30 shadow-sm">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center gap-2 justify-center" role="group" aria-label="Filter by category">
+        <button type="button" data-filter="all" class="filter-chip px-4 py-2 rounded-full text-sm font-semibold bg-primary text-white transition-colors">
+          All
+        </button>
+        {
+          categories.map((cat) => (
+            <button type="button" data-filter={cat.id} class="filter-chip px-4 py-2 rounded-full text-sm font-semibold bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary transition-colors">
+              {cat.icon} {cat.name}
+            </button>
+          ))
+        }
+      </div>
+      <div class="flex flex-wrap items-center gap-2 justify-center mt-3" role="group" aria-label="Filter by difficulty">
+        {
+          difficulties.map((d) => (
+            <button type="button" data-difficulty={d.toLowerCase()} class="difficulty-chip px-3 py-1.5 rounded-full text-xs font-semibold bg-background text-muted-foreground border border-border/60 hover:border-accent hover:text-accent transition-colors">
+              {d}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {
-              cat.items.map((exp) => (
-                <div class="bg-white rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow">
-                  <h3 class="font-display font-bold text-lg text-foreground mb-3">{exp.title}</h3>
-                  <div class="flex flex-wrap gap-2 mb-3">
-                    <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">{exp.duration}</span>
-                    <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{exp.difficulty}</span>
-                  </div>
-                  <p class="text-sm text-muted-foreground leading-relaxed">
-                    <span class="font-semibold text-foreground">Includes:</span> {exp.includes}
-                  </p>
+  <!-- Grid -->
+  <section class="py-14">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div id="experiences-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          allExperiences.map((exp) => (
+            <article
+              class:list={["exp-card bg-background-alt rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow", `cat-${exp.categoryId}`, `diff-${exp.diffKey}`]}
+            >
+              <a href={`/en/experiencias/${exp.slug}`} class="block group">
+                <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{exp.title}</h3>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">⏱ {exp.duration}</span>
+                  <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{exp.difficulty}</span>
                 </div>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-    ))
-  }
+                <p class="text-sm text-muted-foreground leading-relaxed mb-3">
+                  <span class="font-semibold text-foreground">Includes:</span> {exp.includes}
+                </p>
+                <div class="flex items-center justify-between mt-4">
+                  <span class="font-display text-xl font-bold text-primary">From {formatPrice(exp.priceFrom)}</span>
+                  <span class="text-xs font-semibold text-accent uppercase tracking-wider">Details →</span>
+                </div>
+              </a>
+            </article>
+          ))
+        }
+      </div>
 
+      <p id="no-results" class="hidden text-center text-muted-foreground py-12">
+        No expeditions match your filters. Try another combination.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
   <section class="py-16 bg-dark text-center">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h2 class="font-display text-2xl md:text-3xl text-white mb-4">Looking for something else?</h2>
@@ -99,3 +105,60 @@ const categories = [
     </div>
   </section>
 </Layout>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>(".filter-chip");
+  const diffChips = document.querySelectorAll<HTMLButtonElement>(".difficulty-chip");
+  const cards = document.querySelectorAll<HTMLElement>(".exp-card");
+  const noResults = document.getElementById("no-results");
+
+  let activeCat = "all";
+  let activeDiff = "";
+
+  function applyFilters() {
+    let visible = 0;
+    cards.forEach((card) => {
+      const catMatch = activeCat === "all" || card.classList.contains(`cat-${activeCat}`);
+      const diffMatch = !activeDiff || card.classList.contains(`diff-${activeDiff}`);
+      const show = catMatch && diffMatch;
+      card.classList.toggle("hidden", !show);
+      if (show) visible++;
+    });
+    if (noResults) noResults.classList.toggle("hidden", visible > 0);
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => {
+        c.classList.remove("bg-primary", "text-white");
+        c.classList.add("bg-background", "text-foreground", "border", "border-border/60", "hover:border-primary", "hover:text-primary");
+      });
+      chip.classList.add("bg-primary", "text-white");
+      chip.classList.remove("bg-background", "text-foreground", "border", "border-border/60");
+      activeCat = chip.dataset.filter ?? "all";
+      applyFilters();
+    });
+  });
+
+  diffChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const active = chip.dataset.difficulty;
+      if (activeDiff === active) {
+        activeDiff = "";
+        diffChips.forEach((c) => {
+          c.classList.remove("bg-accent", "text-white");
+          c.classList.add("bg-background", "text-muted-foreground", "border", "border-border/60", "hover:border-accent", "hover:text-accent");
+        });
+      } else {
+        activeDiff = active ?? "";
+        diffChips.forEach((c) => {
+          c.classList.remove("bg-accent", "text-white");
+          c.classList.add("bg-background", "text-muted-foreground", "border", "border-border/60", "hover:border-accent", "hover:text-accent");
+        });
+        chip.classList.add("bg-accent", "text-white");
+        chip.classList.remove("bg-background", "text-muted-foreground", "border", "border-border/60");
+      }
+      applyFilters();
+    });
+  });
+</script>

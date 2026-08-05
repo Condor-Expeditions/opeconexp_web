@@ -1,0 +1,132 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import experiencias from "../../data/experiencias.json";
+import company from "../../data/company.json";
+
+export function getStaticPaths() {
+  return experiencias.categories.flatMap((cat) =>
+    cat.experiences.map((exp) => ({
+      params: { slug: exp.slug },
+      props: { exp, cat },
+    }))
+  );
+}
+
+const { exp, cat } = Astro.props;
+const formatPrice = (n: number) => `$${n.toLocaleString("en-US")}`;
+const waLink = `${company.contact.whatsapp}%0AQuiero%20más%20información%20de%20la%20expedición%3A%20${encodeURIComponent(exp.title)}`;
+---
+
+<Layout
+  title={`${exp.title} — Experiencias`}
+  description={`${exp.title}: ${exp.duration}, dificultad ${exp.difficulty}. ${exp.includes}`}
+>
+  <!-- Breadcrumb + Hero -->
+  <section class="pt-28 pb-10 bg-gradient-to-b from-primary-50 to-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="text-xs text-muted-foreground mb-4" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-primary transition-colors">Inicio</a>
+        <span class="mx-1">/</span>
+        <a href="/experiencias" class="hover:text-primary transition-colors">Experiencias</a>
+        <span class="mx-1">/</span>
+        <a href={`/experiencias#${cat.id}`} class="hover:text-primary transition-colors">{cat.name}</a>
+      </nav>
+      <div class="flex flex-wrap items-center gap-3 mb-3">
+        <span class="text-xs font-semibold bg-primary-50 text-primary px-3 py-1 rounded-full">⏱ {exp.duration}</span>
+        <span class="text-xs font-semibold bg-accent-light text-accent px-3 py-1 rounded-full">{exp.difficulty}</span>
+        <span class="text-xs font-semibold bg-nature-light text-nature px-3 py-1 rounded-full">{cat.name}</span>
+      </div>
+      <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">{exp.title}</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl">{exp.includes}</p>
+    </div>
+  </section>
+
+  <!-- Contenido -->
+  <section class="py-12 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div class="lg:col-span-2 space-y-10">
+          <!-- Destacados -->
+          <div>
+            <h2 class="font-display text-2xl text-foreground mb-4">Lo más destacado</h2>
+            <ul class="space-y-3">
+              {
+                exp.highlights.map((h) => (
+                  <li class="flex items-start gap-3 text-muted-foreground">
+                    <span class="text-accent mt-0.5">✦</span> {h}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <!-- Qué incluye -->
+          <div class="bg-background rounded-xl p-6">
+            <h2 class="font-display text-2xl text-foreground mb-4">¿Qué incluye?</h2>
+            <p class="text-muted-foreground leading-relaxed">{exp.includes}</p>
+            <p class="text-xs text-muted-foreground mt-4">
+              * El itinerario detallado día a día y el listado de excepciones se confirman al reservar. Precio desde {formatPrice(exp.priceFrom)} por persona.
+            </p>
+          </div>
+
+          <!-- Reviews externos -->
+          <div class="rounded-xl border border-border/60 p-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-amber-500">★★★★★</span>
+              <span class="text-sm text-muted-foreground">Opiniones verificadas de viajeros</span>
+            </div>
+            <p class="text-sm text-muted-foreground mb-4">
+              Lee experiencias reales de viajeros en nuestros perfiles públicos de Google y TripAdvisor.
+            </p>
+            <a href={exp.reviewUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-border text-foreground text-sm font-semibold rounded-full hover:border-primary hover:text-primary transition-colors">
+              Ver reseñas en Google → 
+            </a>
+          </div>
+        </div>
+
+        <!-- Sidebar reserva -->
+        <aside class="lg:col-span-1">
+          <div class="bg-dark text-white rounded-2xl p-6 sticky top-24">
+            <p class="text-sm text-dark-foreground/60 mb-1">Desde</p>
+            <p class="font-display text-4xl font-bold text-white mb-4">{formatPrice(exp.priceFrom)}</p>
+            <p class="text-xs text-dark-foreground/60 mb-4">por persona · {exp.duration}</p>
+            <a href={waLink} target="_blank" rel="noopener noreferrer" class="block w-full text-center px-6 py-3.5 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors mb-3">
+              Reservar por WhatsApp
+            </a>
+            <a href="/contacto" class="block w-full text-center px-6 py-3 border border-white/30 hover:border-white text-white text-sm font-semibold rounded-full transition-colors">
+              Diseñar itinerario a medida
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Mapa -->
+      <div class="mt-12">
+        <h2 class="font-display text-2xl text-foreground mb-4">Ubicación</h2>
+        <div class="rounded-2xl overflow-hidden border border-border/50 aspect-video">
+          <iframe
+            src={exp.mapEmbed}
+            width="100%"
+            height="100%"
+            style="border:0;"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            title={`Mapa de ${exp.title}`}
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-background text-center">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-2xl md:text-3xl text-foreground mb-4">¿Listo para esta aventura?</h2>
+      <p class="text-muted-foreground mb-6">Contáctanos y confirmamos disponibilidad, fechas y los detalles de tu expedición.</p>
+      <a href="/contacto" class="inline-flex px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
+        Solicitar información
+      </a>
+    </div>
+  </section>
+</Layout>
