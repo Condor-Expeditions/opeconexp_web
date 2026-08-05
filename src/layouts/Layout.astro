@@ -1,5 +1,6 @@
 ---
 import BaseHead from "@/components/shared/BaseHead";
+import Footer from "@/components/ui/Footer.astro";
 import Header from "@/components/ui/header/Header";
 import "../styles/global.css";
 import SizeIndicator from "@/components/utilities/SizeIndicator";
@@ -32,9 +33,14 @@ const {
     viewTransition={viewTransition}
   />
 
-  <body class="font-sans bg-background-light text-primary-black">
+  <body>
     <Header />
-    <slot />
-    <SizeIndicator />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    {
+      import.meta.env.DEV && <SizeIndicator />
+    }
   </body>
 </html>
