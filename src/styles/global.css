@@ -11,44 +11,124 @@
 	--breakpoint-3xl: 1920px;
 
 	/* Font Families */
-	--font-family-sans: DMSans, ui-sans-serif, system-ui, sans-serif;
-	--font-family-lexend-deca:
-		"Lexend Deca", ui-sans-serif, system-ui, sans-serif;
+	--font-family-sans: DM Sans, ui-sans-serif, system-ui, sans-serif;
+	--font-family-display: Cinzel, ui-serif, Georgia, serif;
 	--font-family-mono:
 		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
 	/* Animations */
 	--animate-accordion-down: accordion-down 0.2s ease-out;
 	--animate-accordion-up: accordion-up 0.2s ease-out;
+	--animate-fade-in: fade-in 0.6s ease-out;
+	--animate-fade-in-up: fade-in-up 0.6s ease-out;
+	--animate-slide-in-right: slide-in-right 0.4s ease-out;
 
-	/* Colors */
-	--color-background: #ffffff;
-	--color-foreground: #000000;
+	/* ============================================
+	   PALETA: Travel/Tourism Agency (#37)
+	   + extensiones tierra, naturaleza, oscuro
+	   ============================================ */
 
-	--color-primary: #8b1d22;
+	/* ———— Core Brand ———— */
+	/* Sky Blue — primario (cielo andino, confianza) */
+	--color-primary: #0ea5e9;
+	--color-primary-50: #f0f9ff;
+	--color-primary-100: #e0f2fe;
+	--color-primary-200: #bae6fd;
+	--color-primary-300: #7dd3fc;
+	--color-primary-400: #38bdf8;
+	--color-primary-500: #0ea5e9;
+	--color-primary-600: #0284c7;
+	--color-primary-700: #0369a1;
+	--color-primary-800: #075985;
+	--color-primary-900: #0c4a6e;
 	--color-primary-foreground: #ffffff;
 
-	--color-secondary: #000000;
-	--color-secondary-foreground: #ffffff;
+	/* Adventure Orange — CTA / acento (energía, acción) */
+	--color-accent: #ea580c;
+	--color-accent-foreground: #ffffff;
+	--color-accent-light: #fff7ed;
+	--color-accent-dark: #c2410c;
 
-	--color-muted: #6b6b6b;
-	--color-muted-foreground: #4a4a4a;
+	/* — Backgrounds — */
+	--color-background: #f0f9ff;
+	--color-background-alt: #ffffff;
+	--color-foreground: #0c4a6e;
 
-	--color-accent: #f5f5f5;
-	--color-accent-foreground: #000000;
+	/* — Surfaces — */
+	--color-card: #ffffff;
+	--color-card-foreground: #0c4a6e;
 
+	/* — Muted — */
+	--color-muted: #e8f4fc;
+	--color-muted-foreground: #64748b;
+
+	/* — Borders & Inputs — */
+	--color-border: #bae6fd;
+	--color-input: #e0f2fe;
+	--color-ring: #0ea5e9;
+
+	/* — Nature Green (sostenibilidad, selva) — */
+	--color-nature: #15803d;
+	--color-nature-foreground: #ffffff;
+	--color-nature-light: #f0fdf4;
+
+	/* — Warm Earth — tierra, montaña, raíces */
+	--color-earth: #92400e;
+	--color-earth-foreground: #ffffff;
+	--color-earth-light: #fef7ed;
+
+	/* — Dark (hero overlays, footer) — */
+	--color-dark: #0f172a;
+	--color-dark-foreground: #ffffff;
+	--color-dark-muted: #1e293b;
+
+	/* — Success / Warning / Error — */
 	--color-success: hsl(142 76% 36%);
 	--color-success-foreground: #ffffff;
-
 	--color-warning: hsl(38 92% 50%);
 	--color-warning-foreground: #000000;
-
 	--color-destructive: hsl(0 84.2% 60.2%);
 	--color-destructive-foreground: #ffffff;
 
-	--color-border: #e5e5e5;
-	--color-input: #e5e5e5;
-	--color-ring: #8b1d22;
-
+	/* — Border radius — */
 	--radius: 0.5rem;
+	--radius-lg: 0.75rem;
+	--radius-xl: 1rem;
+}
+
+/* — Keyframes — */
+@keyframes fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+@keyframes fade-in-up {
+	from { opacity: 0; transform: translateY(24px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in-right {
+	from { opacity: 0; transform: translateX(24px); }
+	to { opacity: 1; transform: translateX(0); }
+}
+
+/* — Base — */
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+	body {
+		@apply font-sans text-foreground bg-background antialiased;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		@apply font-display tracking-tight;
+	}
+}
+
+/* — Utilities — */
+@layer utilities {
+	.text-gradient-primary {
+		@apply bg-gradient-to-r from-primary-500 to-accent bg-clip-text text-transparent;
+	}
+	.section-padding {
+		@apply py-16 md:py-24;
+	}
 }
