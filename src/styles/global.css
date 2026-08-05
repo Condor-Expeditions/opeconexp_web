@@ -11,10 +11,10 @@
 	--breakpoint-3xl: 1920px;
 
 	/* Font Families */
-	--font-family-sans: DM Sans, ui-sans-serif, system-ui, sans-serif;
-	--font-family-display: Cinzel, ui-serif, Georgia, serif;
-	--font-family-mono:
-		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		--font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+		--font-display: Cinzel, ui-serif, Georgia, serif;
+		--font-mono:
+			ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
 	/* Animations */
 	--animate-accordion-down: accordion-down 0.2s ease-out;

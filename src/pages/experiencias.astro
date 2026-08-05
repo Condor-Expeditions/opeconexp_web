@@ -1,0 +1,174 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const categories = [
+	{
+		id: "trekking",
+		name: "Trekking & Senderismo",
+		icon: "🥾",
+		description: "Desde caminatas suaves hasta ascensos técnicos a más de 5,000 metros.",
+		experiences: [
+			{
+				title: "Ascenso al Cotopaxi",
+				duration: "2 días",
+				difficulty: "Intermedio-Avanzado",
+				includes: "Guía ASEGUIM, equipo técnico, transporte 4x4, refrigerio, noche en refugio",
+			},
+			{
+				title: "Trekking Quilotoa Loop",
+				duration: "3 días",
+				difficulty: "Moderado",
+				includes: "Guía nativo, hospedaje en cabañas, todas las comidas, bastón de trekking",
+			},
+			{
+				title: "Travesía Sangay",
+				duration: "5 días",
+				difficulty: "Avanzado",
+				includes: "Guía especializado, porteadores, carpas, comidas completas, GPS con beacon",
+			},
+		],
+	},
+	{
+		id: "rafting",
+		name: "Rafting y Kayak",
+		icon: "🛶",
+		description: "Rápidos para todos los niveles en ríos de la Amazonía y los Andes.",
+		experiences: [
+			{
+				topic: "Rafting Río Jatunyaku — Clase III+",
+				duration: "1 día",
+				difficulty: "Intermedio",
+				includes: "Guía IRF certificado, equipo completo, almuerzo, fotos y video, seguro",
+			},
+			{
+				topic: "Kayaking en el Lago San Pablo",
+				duration: "1 día",
+				difficulty: "Principiante",
+				includes: "Kayak doble o simple, chaleco salvavidas, curso rápido, guía, box lunch",
+			},
+		],
+	},
+	{
+		id: "montanismo",
+		name: "Montañismo y Escalada",
+		icon: "🧗",
+		description: "Escalada en roca y hielo para todos los niveles, con certificaciones internacionales de seguridad.",
+		experiences: [
+			{
+				topic: "Escalada en Rochorro de Cojitambo",
+				duration: "1 día",
+				difficulty: "Todos los niveles (5.7 a 5.12b)",
+				includes: "Equipo Petzel o Black Diamond, zapatos de escalada, curso de seguridad, guía certificado",
+			},
+			{
+				topic: "Ascenso al Chimborazo",
+				duration: "3 días",
+				difficulty: "Muy avanzado",
+				includes: "Guía ASEG alto montaña, todo equipo técnico, material de hielo, trineo, oxígeno suplementario opcional",
+			},
+		],
+	},
+	{
+		id: "selva",
+		name: "Expediciones de Selva",
+		icon: "🐒",
+		description: "Inmersión completa en la selva amazónica: navegación en canoa, camping silvestre y avistamiento de veelta. Todo con respeto a las comunidades y el ecosistema.",
+		experiences: [
+			{
+				topic: "Cuyabeno: Excursión de 4 Días",
+				duration: "4 días",
+				difficulty: "Suave-Moderado",
+				includes: "Canoa de motor, camping, guía kichwa, alimentación, paddle de exploración, night walk",
+			},
+			{
+				topic: "Yasuní: Experiencia Wao Teredo",
+				duration: "5 días",
+				difficulty: "Moderado",
+				includes: "Convivencia con comunidad waorani, navegación, camping primoroso, fogata, guía nativo",
+			},
+		],
+	},
+	{
+		id: "cultural",
+		name: "Cultural y Comunitario",
+		icon: "🏛️",
+		description:
+			"Vivir la cultura ecuatoriana de cerca: mercados indígenas, ruinas incas, comida ancestral y vida cotidiana en comunidades.",
+		experiences: [
+			{
+				topic: "Ruta de los Mercados: Otavalo",
+				duration: "1 día",
+				difficulty: "Fácil",
+				includes: "Guía bilingüe, transporte, almuerzo, visita a Peguche y Cascada de Peguche",
+			},
+			{
+				topic: "Ingapirca & Canto de la Tierra",
+				duration: "1 día",
+				difficulty: "Fácil",
+				includes: "Guía arqueólogo, ruinas incas, ruinas cañari, almuerzo local, museo, ceremonia de Wiñay Pacha Mama",
+			},
+		],
+	},
+];
+---
+
+<Layout
+  title="Experiencias"
+  description="Elige entre más de 30 expediciones de trekking, rafting, montañismo, escalada, selva y cultura en todo Ecuador. Grupos pequeños, guías certificados y compromiso ecológico."
+>
+  <!-- Hero -->
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-accent font-display text-sm uppercase tracking-widest">Tu Próximo Reto</span>
+      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">
+        Experiencias de Aventura
+      </h1>
+      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
+        Más de 30 expediciones pensadas para todo nivel. Grupos reducidos, guías nativos, y un compromiso real con la naturaleza.
+      </p>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  {
+    categories.map((cat) => (
+      <section id={cat.id} class="py-14 even:bg-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-3xl">{cat.icon}</span>
+            <h2 class="font-display text-2xl md:text-3xl text-foreground">{cat.name}</h2>
+          </div>
+          <p class="text-muted-foreground text-lg mb-8">{cat.description}</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+              cat.experiences.map((exp) => (
+                <div class="bg-background-alt rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow">
+                  <h3 class="font-display text-lg font-bold text-foreground mb-3">{exp.topic}</h3>
+                  <div class="flex flex-wrap gap-2 mb-3">
+                    <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">{exp.duration}</span>
+                    <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{exp.difficulty}</span>
+                  </div>
+                  <p class="text-sm text-muted-foreground leading-relaxed">
+                    <span class="font-semibold text-foreground">Incluye:</span> {exp.includes}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- CTA -->
+  <section class="py-16 bg-dark text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-2xl md:text-3xl text-white mb-4">¿No encuentras lo que buscas?</h2>
+      <p class="text-dark-foreground/70 mb-6">Diseñamos experiencias completamente a tu medida. Contáctanos y cuéntanos tu sueño de aventura.</p>
+      <a href="/contacto" class="inline-flex px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
+        Diseña tu Expedición Personalizada
+      </a>
+    </div>
+  </section>
+</Layout>
