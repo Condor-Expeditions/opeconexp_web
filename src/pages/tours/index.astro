@@ -1,27 +1,23 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import tours from "../../data/tours.json";
+import { getTours, getCategories, getRegions, resolveLabel, formatPrice } from "../../data/helpers";
 
-const allTours = tours.tours;
-const tipos = [...new Set(allTours.flatMap((t) => t.types))];
-const regiones = [...new Set(allTours.map((t) => t.region))];
+const lang = "es";
+const allTours = getTours({ status: "active" });
+const categories = getCategories();
+const regions = getRegions();
 
 const tipoRaw = Astro.url.searchParams.get("tipo") ?? "";
 const regionRaw = Astro.url.searchParams.get("region") ?? "";
 
+const tipoIds = categories.map((c) => c.id);
+const regionIds = regions.map((r) => r.id);
+
 const filtered = allTours.filter((t) => {
-  if (tipoRaw && !t.types.includes(tipoRaw)) return false;
-  if (regionRaw && regionRaw !== "todas" && t.region !== regionRaw) return false;
+  if (tipoRaw && !t.categories.includes(tipoRaw)) return false;
+  if (regionRaw && regionRaw !== "todas" && !t.regions.includes(regionRaw)) return false;
   return true;
 });
-
-const tipoLabels: Record<string, string> = {
-  trekking: "Trekking", rafting: "Rafting", montanismo: "Montañismo",
-  selva: "Selva", cultural: "Cultural", "city-tour": "City Tour",
-};
-const regionLabels: Record<string, string> = {
-  cuenca: "Cuenca", azuay: "Azuay", ecuador: "Ecuador",
-};
 ---
 
 <Layout
@@ -44,16 +40,16 @@ const regionLabels: Record<string, string> = {
         <a href="/tours" class:list={["px-4 py-2 rounded-full text-sm font-semibold transition-colors", !tipoRaw && !regionRaw ? "bg-primary text-white" : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"]}>
           Todos
         </a>
-        {regiones.map((r) => (
-          <a href={`/tours?region=${r}${tipoRaw ? `&tipo=${tipoRaw}` : ""}`} class:list={["px-4 py-2 rounded-full text-sm font-semibold transition-colors", regionRaw === r ? "bg-primary text-white" : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"]}>
-            {regionLabels[r] ?? r}
+        {regions.map((r) => (
+          <a href={`/tours?region=${r.id}${tipoRaw ? `&tipo=${tipoRaw}` : ""}`} class:list={["px-4 py-2 rounded-full text-sm font-semibold transition-colors", regionRaw === r.id ? "bg-primary text-white" : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"]}>
+            {r.title.es}
           </a>
         ))}
       </div>
       <div class="flex flex-wrap items-center gap-2 justify-center mt-3">
-        {tipos.map((t) => (
-          <a href={`/tours?tipo=${t}${regionRaw ? `&region=${regionRaw}` : ""}`} class:list={["px-3 py-1.5 rounded-full text-xs font-semibold transition-colors", tipoRaw === t ? "bg-accent text-white" : "bg-background text-muted-foreground border border-border/60 hover:border-accent hover:text-accent"]}>
-            {tipoLabels[t] ?? t}
+        {categories.map((c) => (
+          <a href={`/tours?tipo=${c.id}${regionRaw ? `&region=${regionRaw}` : ""}`} class:list={["px-3 py-1.5 rounded-full text-xs font-semibold transition-colors", tipoRaw === c.id ? "bg-accent text-white" : "bg-background text-muted-foreground border border-border/60 hover:border-accent hover:text-accent"]}>
+            {c.icon} {c.title.es}
           </a>
         ))}
       </div>
@@ -64,26 +60,29 @@ const regionLabels: Record<string, string> = {
   <section class="py-14">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((tour) => (
-          <a href={`/tours/${tour.slug}`} class="block group bg-background-alt rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow">
-            <div class="flex flex-wrap gap-1.5 mb-2">
-              <span class="text-xs font-semibold text-nature bg-nature/10 px-2 py-0.5 rounded-full">{regionLabels[tour.region] ?? tour.region}</span>
-              {tour.types.slice(0, 2).map((t) => (
-                <span class="text-xs text-muted-foreground bg-background border border-border/40 px-2 py-0.5 rounded-full">{tipoLabels[t] ?? t}</span>
-              ))}
-            </div>
-            <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{tour.title}</h3>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">⏱ {tour.duration}</span>
-              <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{tour.difficulty}</span>
-            </div>
-            <p class="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">{tour.includes}</p>
-            <div class="flex items-center justify-between mt-4 pt-3 border-t border-border/30">
-              <span class="font-display text-xl font-bold text-primary">Desde ${tour.priceFrom}</span>
-              <span class="text-xs font-semibold text-accent uppercase tracking-wider">Ver →</span>
-            </div>
-          </a>
-        ))}
+        {filtered.map((tour) => {
+          const primaryRegion = getRegions().find((r) => r.id === tour.regions[0]);
+          const primaryCategory = getCategories().find((c) => c.id === tour.categories[0]);
+          const price = tour.prices[0];
+                    return (
+            <a href={`/tours/${tour.slug}`} class="block group bg-background-alt rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow">
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                <span class="text-xs font-semibold text-nature bg-nature/10 px-2 py-0.5 rounded-full">{primaryRegion?.title.es ?? tour.regions[0]}</span>
+                <span class="text-xs text-muted-foreground bg-background border border-border/40 px-2 py-0.5 rounded-full">{primaryCategory?.icon} {primaryCategory?.title.es}</span>
+              </div>
+              <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{tour.title.es}</h3>
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">⏱ {tour.duration}</span>
+                <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{tour.difficulty}</span>
+              </div>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">{tour.includes?.[0]?.text?.es ?? ""}</p>
+              <div class="flex items-center justify-between mt-4 pt-3 border-t border-border/30">
+                <span class="font-display text-xl font-bold text-primary">Desde {formatPrice(price?.amount ?? 0)}</span>
+                <span class="text-xs font-semibold text-accent uppercase tracking-wider">Ver →</span>
+              </div>
+            </a>
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (
@@ -96,8 +95,8 @@ const regionLabels: Record<string, string> = {
       {filtered.length > 0 && (
         <p class="text-center text-sm text-muted-foreground mt-10">
           Mostrando {filtered.length} de {allTours.length} tours
-          {tipoRaw && ` · Filtro: ${tipoLabels[tipoRaw] ?? tipoRaw}`}
-          {regionRaw && ` · Región: ${regionLabels[regionRaw] ?? regionRaw}`}
+          {tipoRaw && ` · Filtro: ${categories.find((c) => c.id === tipoRaw)?.title.es ?? tipoRaw}`}
+          {regionRaw && ` · Región: ${regions.find((r) => r.id === regionRaw)?.title.es ?? regionRaw}`}
           {(tipoRaw || regionRaw) && <a href="/tours" class="ml-2 text-accent hover:underline">Limpiar filtros</a>}
         </p>
       )}

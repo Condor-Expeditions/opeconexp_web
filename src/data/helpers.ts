@@ -309,7 +309,7 @@ export function resolveLabel(
   if (!item?.title) return "";
   return item.title[lang]
     ?? item.title[fallbackLang ?? ""]
-    ?? item.title = Object.values(item.title)[0]
+    ?? Object.values(item.title)[0]
     ?? "";
 }
 
