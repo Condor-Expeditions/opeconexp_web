@@ -1,39 +1,71 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import tours from "../../../data/tours.json";
-import company from "../../../data/company.json";
+import {
+  getTours,
+  getTour,
+  getCategories,
+  getRegions,
+  getDifficulties,
+  getMeetingPoint,
+  resolveLabel,
+  resolveText,
+  formatPrice,
+} from "../../../data/helpers";
+import { getCompany } from "../../../data/helpers";
 
 export function getStaticPaths() {
-  return tours.tours.map((t) => ({
+  return getTours({ status: "active" }).map((t) => ({
     params: { slug: t.slug },
     props: { tour: t },
   }));
 }
 
 const { tour } = Astro.props;
-const waLink = `${company.contact.whatsapp}%0AI%20want%20info%20about%3A%20${encodeURIComponent(tour.titleEn ?? tour.title)}`;
-const formatPrice = (n: number) => `$${n.toLocaleString("en-US")}`;
+const lang = "en";
+const company = getCompany();
+
+const title = resolveLabel(tour, lang);
+const description = resolveText(tour.description, lang);
+
+const regions = getRegions();
+const categories = getCategories();
+const difficulties = getDifficulties();
+
+const regionEntry = regions.find((r) => r.id === tour.regions[0] || r.slug === tour.regions[0]);
+const regionName = regionEntry ? resolveLabel(regionEntry, lang) : tour.regions[0];
+
+const difficultyEntry = difficulties.find((d) => d.id === tour.difficulty);
+const difficultyName = difficultyEntry ? resolveLabel(difficultyEntry, lang) : tour.difficulty;
+
+const categoryLabels = tour.categories
+  .map((c) => categories.find((cat) => cat.id === c))
+  .filter(Boolean)
+  .map((c) => resolveLabel(c!, lang));
+
+const meetingPoint = tour.meetingPoint ? getMeetingPoint(tour.meetingPoint) : undefined;
+
+const waLink = `${company.contact.whatsapp}%0AI%20want%20info%20about%3A%20${encodeURIComponent(title)}`;
 ---
 
-<Layout lang="en" title={tour.titleEn ?? tour.title} description={`${tour.titleEn ?? tour.title}: ${tour.duration}, ${tour.difficulty}. ${tour.includes}`}>
+<Layout lang="en" title={title} description={`${title}: ${tour.duration}, ${difficultyName}. ${description}`}>
   <section class="pt-32 pb-10 bg-gradient-to-b from-primary-50 to-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <nav class="text-xs text-muted-foreground mb-4">
         <a href="/en/" class="hover:text-primary">Home</a>
         <span class="mx-1">/</span>
-        <a href={`/en/tours/${tour.region}`} class="hover:text-primary">Tours in {tour.region.charAt(0).toUpperCase() + tour.region.slice(1)}</a>
+        <a href={`/en/tours/${tour.regions[0]}`} class="hover:text-primary">Tours in {regionName}</a>
         <span class="mx-1">/</span>
-        <span class="text-foreground/60">{tour.titleEn ?? tour.title}</span>
+        <span class="text-foreground/60">{title}</span>
       </nav>
       <div class="flex flex-wrap items-center gap-2 mb-3">
         <span class="text-xs font-semibold bg-primary-50 text-primary px-3 py-1 rounded-full">⏱ {tour.duration}</span>
-        <span class="text-xs font-semibold bg-accent-light text-accent px-3 py-1 rounded-full">{tour.difficulty}</span>
-        {tour.types.map((t: string) => (
+        <span class="text-xs font-semibold bg-accent-light text-accent px-3 py-1 rounded-full">{difficultyName}</span>
+        {categoryLabels.map((t: string) => (
           <span class="text-xs font-semibold bg-nature-light text-nature px-3 py-1 rounded-full">{t}</span>
         ))}
       </div>
-      <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">{tour.titleEn ?? tour.title}</h1>
-      <p class="text-muted-foreground text-lg max-w-3xl">{tour.includes}</p>
+      <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl">{description}</p>
     </div>
   </section>
 
@@ -42,25 +74,24 @@ const formatPrice = (n: number) => `$${n.toLocaleString("en-US")}`;
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
         <div class="lg:col-span-2 space-y-8">
           <div>
-            <h2 class="font-display text-2xl text-foreground mb-4">Highlights</h2>
+            <h2 class="font-display text-2xl text-foreground mb-4">What's included</h2>
             <ul class="space-y-3">
-              {tour.highlights.map((h: string) => (
+              {tour.includes.map((inc) => (
                 <li class="flex items-start gap-3 text-muted-foreground">
-                  <span class="text-accent mt-0.5">✦</span> {h}
+                  <span class="text-accent mt-0.5">{inc.icon}</span> {resolveText(inc.text, lang)}
                 </li>
               ))}
             </ul>
-          </div>
-          <div class="bg-background rounded-xl p-6">
-            <h2 class="font-display text-2xl text-foreground mb-4">Includes</h2>
-            <p class="text-muted-foreground leading-relaxed">{tour.includes}</p>
           </div>
         </div>
         <aside class="lg:col-span-1">
           <div class="bg-dark text-white rounded-2xl p-6 sticky top-24">
             <p class="text-sm text-dark-foreground/60 mb-1">From</p>
-            <p class="font-display text-4xl font-bold text-white mb-4">{formatPrice(tour.priceFrom)}</p>
+            <p class="font-display text-4xl font-bold text-white mb-4">{formatPrice(tour.prices[0]?.amount ?? 0)}</p>
             <p class="text-xs text-dark-foreground/60 mb-4">per person · {tour.duration}</p>
+            {meetingPoint && (
+              <p class="text-xs text-dark-foreground/60 mb-4">📍 Meeting point: {resolveLabel(meetingPoint, lang)}</p>
+            )}
             <a href={waLink} target="_blank" rel="noopener noreferrer" class="block w-full text-center px-6 py-3.5 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors mb-3">
               Book via WhatsApp
             </a>

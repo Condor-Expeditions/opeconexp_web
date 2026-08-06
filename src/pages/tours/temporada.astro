@@ -1,13 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import tours from "../../data/tours.json";
+import { getTours, getTags, resolveLabel, formatPrice } from "../../data/helpers";
 
-const seasonLabels: Record<string, { label: string, labelEn: string }> = {
-  "ballenas": { label: "Avistamiento de Ballenas (jun-sep)", labelEn: "Whale Watching (Jun-Sep)" },
-  "carnaval": { label: "Carnaval", labelEn: "Carnival" },
-  "fin-de-ano": { label: "Fin de Año", labelEn: "New Year" },
-  "vacaciones": { label: "Vacaciones", labelEn: "Holidays" },
-};
+const lang = "es";
+const allTours = getTours({ status: "active" });
+const tags = getTags();
+
+const seasonTags = tags.filter((t) =>
+  ["ballenas", "carnaval", "fin-de-ano", "vacaciones"].includes(t.id)
+);
 ---
 
 <Layout title="Tours de Temporada" description="Descubre tours y expediciones especiales por temporada en Ecuador: ballenas, carnaval, fin de año y vacaciones.">
@@ -22,25 +23,24 @@ const seasonLabels: Record<string, { label: string, labelEn: string }> = {
   </section>
 
   {
-    Object.entries(seasonLabels).map(([key, val]) => {
-      const seasonTours = tours.tours.filter((t) => t.seasons.includes(key));
-      if (seasonTours.length === 0) return null;
+    seasonTags.map((tag) => {
+      const seasonTours = allTours.filtrar(t => t.tags.includes(tag.id));
       return (
-        <section id={key} class="py-14 even:bg-white">
+        <section id={tag.id} class="py-14 even:bg-white">
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h2 class="font-display text-2xl md:text-3xl text-foreground mb-8">{val.label}</h2>
+            <h2 class="font-display text-2xl md:text-3xl text-foreground mb-8">{resovelLabel(tag, lang)}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {seasonTours.map((tour) => (
                 <a href={`/tours/${tour.slug}`} class="block group bg-background-alt rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow">
-                  <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary">{tour.title}</h3>
+                  <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary">{tour.title[lang]}</h3>
                   <div class="flex flex-wrap gap-2 mb-3">
                     <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">⏱ {tour.duration}</span>
                     <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{tour.difficulty}</span>
                   </div>
-                  <p class="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">{tour.includes}</p>
+                  <p class="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">{tour.includes?.[0]?.text[lang] ?? ""}</p>
                   <div class="flex items-center justify-between mt-4">
-                    <span class="font-display text-xl font-bold text-primary">Desde ${tour.priceFrom}</span>
-                    <span class="text-xs font-semibold text-accent uppercase tracking-wider">Ver →</span>
+                    <span class="font-display text-xl font-bold text-primary">Desde {formatPrice(tour.prices[0]?.amount ?? 0)}</span>
+                    <span class="text-x font-semibold text-accent uppercase tracking-wider">Ver →</span>
                   </div>
                 </a>
               ))}
@@ -51,7 +51,7 @@ const seasonLabels: Record<string, { label: string, labelEn: string }> = {
     })
   }
 
-  {Object.keys(seasonLabels).length === 0 && (
+  {seasonTags.length === 0 && (
     <p class="text-center text-muted-foreground py-12">Los tours de temporada estarán disponibles pronto.</p>
   )}
 </Layout>
