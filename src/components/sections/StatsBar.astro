@@ -1,5 +1,11 @@
 ---
-import { stats } from "@/data/content";
+import { getStats, resolveText } from "../../data/helpers";
+
+const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
+const stats = getStats().map((s) => ({
+  ...s,
+  label: resolveText(s.label, lang, "es"),
+}));
 ---
 
 <section id="stats" class="py-12 bg-primary text-primary-foreground">

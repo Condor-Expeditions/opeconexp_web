@@ -1,4 +1,4 @@
-import company from "./company.json";
+import { getCompany } from "./helpers";
 
 interface ContactInfo {
 	name: string;
@@ -29,19 +29,20 @@ export interface SiteConfig {
 	socials: SocialLink[];
 }
 
-// Fuente única de datos: src/data/company.json
+// Fuente única de datos: src/data/helpers.ts → api/company/company.json
 // Para cambiar teléfonos, emails, redes sociales o dirección,
-// edita únicamente ese archivo JSON.
+// edita únicamente ese el JSON api/company/company.json.
+const company = getCompany();
 export const siteConfig: SiteConfig = {
 	author: company.author,
 	companyName: company.name,
 	seo: {
-		description: company.seo.description_es,
+		description: company.seo.description["es"],
 	},
 	companyInfo: {
-		address: company.contact.address,
-		scheduleWeekdays: company.contact.scheduleWeekdays,
-		scheduleWeekends: company.contact.scheduleWeekends,
+		address: company.contact.address["es"],
+		scheduleWeekdays: company.contact.scheduleWeekdays["es"],
+		scheduleWeekends: company.contact.scheduleWeekends["es"],
 		whatsApp: company.contact.whatsapp,
 		phone: company.contact.phone,
 		email: company.contact.email,

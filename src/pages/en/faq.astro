@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import company from "../../data/company.json";
+import { getCompany } from "../../data/helpers";
 
 const faqs = [
   { q: "What's included in the tour price?", a: "Each tour specifies what's included. Generally: guide, transportation, meals and basic equipment. Flights are not included unless stated." },
@@ -45,7 +45,7 @@ const faqs = [
       <div class="mt-12 bg-background rounded-xl p-6 text-center">
         <p class="font-display font-bold text-foreground mb-2">Still have questions?</p>
         <p class="text-sm text-muted-foreground mb-4">Write to us and we'll reply within 24 hours.</p>
-        <a href={company.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full transition-colors">
+        <a href={getCompany().contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full transition-colors">
           💬 Ask via WhatsApp
         </a>
       </div>

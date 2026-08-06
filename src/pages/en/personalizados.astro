@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import company from "../../data/company.json";
+import { getCompany } from "../../data/helpers";
 ---
 
 <Layout lang="en" title="Custom Tours" description="Design your personalized expedition in Ecuador. You choose destination, pace, level, and dates.">
@@ -69,7 +69,7 @@ import company from "../../data/company.json";
 
       <div class="mt-12 bg-background rounded-xl p-6 text-center">
         <p class="text-sm text-muted-foreground mb-2">Or contact us directly</p>
-        <a href={company.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
+        <a href={getCompany().contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-accent font-semibold hover:underline">
           💬 Chat on WhatsApp
         </a>
       </div>

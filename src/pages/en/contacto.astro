@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import company from "../../data/company.json";
+import { getCompany } from "../../data/helpers";
 ---
 
 <Layout
@@ -77,23 +77,23 @@ import company from "../../data/company.json";
           <div class="space-y-4 text-muted-foreground">
             <div class="flex items-center gap-3">
               <span class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center text-lg">📺</span>
-              <div><p class="text-xs text-muted-foreground">Phone</p><a href={company.contact.phone.href} class="text-foreground font-semibold hover:text-primary transition-colors">{company.contact.phone.name}</a></div>
+              <div><p class="text-xs text-muted-foreground">Phone</p><a href={getCompany().contact.phone.href} class="text-foreground font-semibold hover:text-primary transition-colors">{getCompany().contact.phone.name}</a></div>
             </div>
             <div class="flex items-center gap-3">
               <span class="w-10 h-10 bg-accent-light rounded-lg flex items-center justify-center text-lg">💬</span>
-              <div><p class="text-xs text-muted-foreground">WhatsApp</p><a href={company.contact.whatsapp} target="_blank" rel="noopener" class="text-foreground font-semibold hover:text-accent transition-colors">Chat with us</a></div>
+              <div><p class="text-xs text-muted-foreground">WhatsApp</p><a href={getCompany().contact.whatsapp} target="_blank" rel="noopener" class="text-foreground font-semibold hover:text-accent transition-colors">Chat with us</a></div>
             </div>
             <div class="flex items-center gap-3">
               <span class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center text-lg">✉️</span>
-              <div><p class="text-xs text-muted-foreground">Email</p><a href={company.contact.email.href} class="text-foreground font-semibold hover:text-primary transition-colors">{company.contact.email.name}</a></div>
+              <div><p class="text-xs text-muted-foreground">Email</p><a href={getCompany().contact.email.href} class="text-foreground font-semibold hover:text-primary transition-colors">{getCompany().contact.email.name}</a></div>
             </div>
             <div class="flex items-start gap-3">
               <span class="w-10 h-10 bg-nature-light rounded-lg flex items-center justify-center text-lg">📍</span>
               <div>
                 <p class="text-xs text-muted-foreground">Office</p>
-                <p class="text-foreground font-semibold">{company.contact.address}</p>
-                <p class="text-xs text-muted-foreground mt-1">{company.contact.scheduleWeekdays}</p>
-                <a href={company.contact.maps} target="_blank" rel="noopener" class="text-primary text-xs font-semibold hover:underline">Google Maps →</a>
+                <p class="text-foreground font-semibold">{getCompany().contact.address}</p>
+                <p class="text-xs text-muted-foreground mt-1">{getCompany().contact.scheduleWeekdays}</p>
+                <a href={getCompany().contact.maps} target="_blank" rel="noopener" class="text-primary text-xs font-semibold hover:underline">Google Maps →</a>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@ import company from "../../data/company.json";
             <p class="text-sm text-muted-foreground mb-4">
               Need equipment? insurance included? cancelations? Write us and we'll reply within 24 hours.
             </p>
-            <a href={company.contact.whatsapp} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-accent font-semibold text-sm hover:underline">
+            <a href={getCompany().contact.whatsapp} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-accent font-semibold text-sm hover:underline">
               💬 Ask via WhatsApp
             </a>
           </div>

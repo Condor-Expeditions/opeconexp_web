@@ -1,5 +1,5 @@
 ---
-import sostenibilidad from "../../data/sostenibilidad.json";
+import { getSustainability, resolveText } from "../../data/helpers";
 
 const icons: Record<string, string> = {
   leaf: '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
@@ -9,9 +9,15 @@ const icons: Record<string, string> = {
     '<path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"/><path d="M 2 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"/><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"/>',
   users:
     '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  globe:
+    '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+  heart:
+    '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.51 4.04 3 5.5l7 7Z"/>',
 };
 
 const isEs = Astro.url.pathname.startsWith("/en/") ? false : true;
+const lang = isEs ? "es" : "en";
+const items = getSustainability();
 ---
 
 <section class="py-14 bg-background border-y border-border/50">
@@ -27,13 +33,13 @@ const isEs = Astro.url.pathname.startsWith("/en/") ? false : true;
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       {
-        sostenibilidad.items.map((item) => (
+        items.map((item) => (
           <div class="flex flex-col items-center text-center">
             <div class="w-14 h-14 rounded-full bg-nature/10 text-nature flex items-center justify-center mb-4">
               <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[item.icon]}></svg>
             </div>
-            <h3 class="font-display font-bold text-foreground mb-2">{isEs ? item.title : item.titleEn}</h3>
-            <p class="text-sm text-muted-foreground leading-relaxed">{isEs ? item.text : item.textEn}</p>
+            <h3 class="font-display font-bold text-foreground mb-2">{resolveText(item.title, lang, "es")}</h3>
+            <p class="text-sm text-muted-foreground leading-relaxed">{resolveText(item.text, lang, "es")}</p>
           </div>
         ))
       }

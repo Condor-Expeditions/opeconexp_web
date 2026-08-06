@@ -1,5 +1,17 @@
 ---
-import { featuredDestinations } from "@/data/content";
+import { getTours, getCategories, resolveText, resolveLabel } from "../../data/helpers";
+
+const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
+const categoryLabels = new Map(getCategories().map((c) => [c.id, resolveLabel(c, lang, "es")]));
+
+const featuredDestinations = getTours()
+  .slice(0, 4)
+  .map((dest) => ({
+    slug: dest.slug,
+    name: resolveText(dest.title, lang, "es"),
+    tag: dest.categories[0] ? categoryLabels.get(dest.categories[0]) ?? dest.categories[0] : "Expedición",
+    description: resolveText(dest.description, lang, "es"),
+  }));
 ---
 
 <section id="destinos-destacados" class="section-padding bg-white">

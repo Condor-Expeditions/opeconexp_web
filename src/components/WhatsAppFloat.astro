@@ -1,7 +1,7 @@
 ---
-import company from "../data/company.json";
+import { getCompany } from "../data/helpers";
 
-const href = company.contact.whatsapp;
+const href = getCompany().contact.whatsapp;
 const isEs = Astro.url.pathname.startsWith("/en/") ? false : true;
 ---
 

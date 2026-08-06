@@ -1,5 +1,20 @@
 ---
-import { experiences } from "@/data/content";
+import { getTours, getCategories, getDifficulties, resolveText, resolveLabel } from "../../data/helpers";
+
+const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
+const categoryLabels = new Map(getCategories().map((c) => [c.id, resolveLabel(c, lang, "es")]));
+const difficultyLabels = new Map(getDifficulties().map((d) => [d.id, resolveLabel(d, lang, "es")]));
+
+const experiences = getTours()
+  .slice(0, 6)
+  .map((tour) => ({
+    categoryId: tour.categories[0] ?? "",
+    category: tour.categories[0] ? categoryLabels.get(tour.categories[0]) ?? tour.categories[0] : "",
+    title: resolveText(tour.title, lang, "es"),
+    duration: tour.duration,
+    difficulty: tour.difficulty ? difficultyLabels.get(tour.difficulty) ?? tour.difficulty : "",
+    description: resolveText(tour.description, lang, "es"),
+  }));
 ---
 
 <section id="experiencias-destacadas" class="section-padding bg-background">
@@ -17,7 +32,7 @@ import { experiences } from "@/data/content";
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {
         experiences.map((exp) => (
-          <a href={`/experiencias#${exp.category}`} class="group">
+          <a href={`/experiencias#${exp.categoryId}`} class="group">
             <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300">
               <div class="h-48 bg-gradient-to-br from-primary-200 to-primary-500 flex items-center justify-center">
                 <span class="font-display text-6xl text-white/20">{exp.title.charAt(0)}</span>

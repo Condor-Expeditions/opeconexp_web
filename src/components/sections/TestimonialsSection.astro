@@ -1,5 +1,12 @@
 ---
-import { testimonials } from "@/data/content";
+import { getTestimonials, resolveText } from "../../data/helpers";
+
+const lang = Astro.url.pathname.startsWith("/en/") ? "en" : "es";
+const testimonials = getTestimonials().map((t) => ({
+  ...t,
+  text: resolveText(t.text, lang, "es"),
+  expedition: resolveText(t.expedition, lang, "es"),
+}));
 ---
 
 <section id="testimonios" class="section-padding bg-dark text-dark-foreground">

@@ -1,6 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { featuredDestinations } from "../data/content";
+import { getTours } from "../data/helpers";
+
+const featuredTours = getTours({ status: "active" }).filter(
+  (t) => t.categories.includes("city-tour") || t.categories.includes("cultural")
+);
 
 const regiones = [
 	{
