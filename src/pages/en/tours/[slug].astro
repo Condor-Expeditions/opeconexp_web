@@ -1,17 +1,13 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
+import { getImage } from "astro:assets";
 import {
-  getTours,
-  getTour,
-  getCategories,
-  getRegions,
-  getDifficulties,
-  getMeetingPoint,
-  resolveLabel,
-  resolveText,
-  formatPrice,
+  getTours, getTour, getCategories, getRegions, getDifficulties,
+  getMeetingPoint, resolveLabel, resolveText, formatPrice,
+  getTourImage, getTourGallery, getTourMap, getTourItinerary,
+  getTourScheduleText, getReviews, getRating, renderStars,
+  getCompany,
 } from "../../../data/helpers";
-import { getCompany } from "../../../data/helpers";
 
 export function getStaticPaths() {
   return getTours({ status: "active" }).map((t) => ({
@@ -30,76 +26,347 @@ const description = resolveText(tour.description, lang);
 const regions = getRegions();
 const categories = getCategories();
 const difficulties = getDifficulties();
-
 const regionEntry = regions.find((r) => r.id === tour.regions[0] || r.slug === tour.regions[0]);
 const regionName = regionEntry ? resolveLabel(regionEntry, lang) : tour.regions[0];
-
 const difficultyEntry = difficulties.find((d) => d.id === tour.difficulty);
 const difficultyName = difficultyEntry ? resolveLabel(difficultyEntry, lang) : tour.difficulty;
-
 const categoryLabels = tour.categories
   .map((c) => categories.find((cat) => cat.id === c))
   .filter(Boolean)
   .map((c) => resolveLabel(c!, lang));
-
 const meetingPoint = tour.meetingPoint ? getMeetingPoint(tour.meetingPoint) : undefined;
+const mapCoords = getTourMap(tour);
+const gallery = getTourGallery(tour);
+const itinerary = getTourItinerary(tour);
+const rating = getRating(tour.id);
+const reviews = getReviews(tour.id);
+const scheduleText = getTourScheduleText(tour.schedules[0] ?? { start: "", end: "", days: [] }, lang);
 
-const waLink = `${company.contact.whatsapp}%0AI%20want%20info%20about%3A%20${encodeURIComponent(title)}`;
+const waLinkBase = company.contact.whatsapp;
+const waMsg = `Hi, I want to book the tour "${title}" for [date] at [time].`;
+const waLink = `${waLinkBase}%0A${encodeURIComponent(waMsg)}`;
+
+const heroImg = await getImage({ src: tour.image, format: "webp", width: 1600, height: 900, quality: 80 });
 ---
 
-<Layout lang="en" title={title} description={`${title}: ${tour.duration}, ${difficultyName}. ${description}`}>
-  <section class="pt-32 pb-10 bg-gradient-to-b from-primary-50 to-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <nav class="text-xs text-muted-foreground mb-4">
-        <a href="/en/" class="hover:text-primary">Home</a>
+<Layout title={title} description={`${title}: ${tour.duration}, ${difficultyName}. ${description}`}>
+  <!-- HERO -->
+  <section class="relative min-h-[70vh] flex items-end">
+    <div class="absolute inset-0 bg-cover bg-center" style={`background-image:url('${heroImg.src}')`}></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-dark/20"></div>
+    <div class="relative w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12 pt-32">
+      <nav class="text-xs text-dark-foreground/60 mb-4 flex flex-wrap gap-1">
+        <a href="/en" class="hover:text-accent transition-colors">Home</a>
         <span class="mx-1">/</span>
-        <a href={`/en/tours/${tour.regions[0]}`} class="hover:text-primary">Tours in {regionName}</a>
+        <a href={`/en/tours/${tour.regions[0]}`} class="hover:text-accent transition-colors">Tours in {regionName}</a>
         <span class="mx-1">/</span>
-        <span class="text-foreground/60">{title}</span>
+        <span class="text-white/50">{title}</span>
       </nav>
       <div class="flex flex-wrap items-center gap-2 mb-3">
-        <span class="text-xs font-semibold bg-primary-50 text-primary px-3 py-1 rounded-full">⏱ {tour.duration}</span>
-        <span class="text-xs font-semibold bg-accent-light text-accent px-3 py-1 rounded-full">{difficultyName}</span>
-        {categoryLabels.map((t: string) => (
-          <span class="text-xs font-semibold bg-nature-light text-nature px-3 py-1 rounded-full">{t}</span>
+        <span class="text-xs font-semibold bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm">⏱ {tour.duration}</span>
+        <span class="text-xs font-semibold bg-accent/80 text-white px-3 py-1 rounded-full backdrop-blur-sm">{difficultyName}</span>
+        {categoryLabels.map((t) => (
+          <span class="text-xs font-semibold bg-primary/80 text-white px-3 py-1 rounded-full backdrop-blur-sm">{t}</span>
         ))}
+        <span class="text-xs font-semibold bg-green-500/80 text-white px-3 py-1 rounded-full backdrop-blur-sm">✓ Available now</span>
       </div>
-      <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">{title}</h1>
-      <p class="text-muted-foreground text-lg max-w-3xl">{description}</p>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight">{title}</h1>
+      <p class="text-white/80 text-lg max-w-3xl mb-6">{description}</p>
+      {rating.count > 0 && (
+        <div class="flex items-center gap-2 text-white/80">
+          <span class="text-yellow-400 text-lg">{renderStars(rating.average)}</span>
+          <span class="text-sm">{rating.average} ({rating.count} {rating.count === 1 ? "review" : "reviews"})</span>
+        </div>
+      )}
+      <div class="flex flex-wrap gap-3 mt-6">
+        <a href="#sidebar" class="inline-flex px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors shadow-lg">
+          Book now
+        </a>
+        <a href="#gallery" class="inline-flex px-8 py-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold rounded-full transition-colors">
+          📷 View gallery
+        </a>
+      </div>
     </div>
   </section>
 
-  <section class="py-12 bg-white">
+  <!-- SUB-NAV -->
+  <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-border/50 shadow-sm overflow-x-auto">
+    <div class="flex mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 gap-1 py-2 text-sm font-semibold text-muted-foreground whitespace-nowrap">
+      <a href="#details" class="px-4 py-2 rounded-full hover:bg-primary-50 hover:text-primary transition-colors">Details</a>
+      <a href="#gallery" class="px-4 py-2 rounded-full hover:bg-primary-50 hover:text-primary transition-colors">Gallery</a>
+      <a href="#includes" class="px-4 py-2 rounded-full hover:bg-primary-50 hover:text-primary transition-colors">Includes</a>
+      <a href="#schedules" class="px-4 py-2 rounded-full hover:bg-primary-50 hover:text-primary transition-colors">Schedules</a>
+      {itinerary.length > 0 && <a href="#itinerary" class="px-4 py-2 rounded-full hover:bg-primary-50 hover:text-primary transition-colors">Itinerary</a>}
+      <a href="#map" class="px-4 py-2 rounded-full hover:bg-primary-50 hover:text-primary transition-colors">Map</a>
+      <a href="#faq" class="px-4 py-2 rounded-full hover:bg-primary-50 hover:text-primary transition-colors">FAQ</a>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <section id="details" class="py-12 bg-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div class="lg:col-span-2 space-y-8">
+        <div class="lg:col-span-2 space-y-12">
+
+          <!-- INCLUDES -->
+          <div id="includes">
+            <h2 class="font-display text-2xl text-foreground mb-6">What's included</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-green-50 border border-green-200 rounded-2xl p-6">
+                <h3 class="font-semibold text-green-800 mb-3 flex items-center gap-2"><span class="text-lg">✓</span> Included</h3>
+                <ul class="space-y-3">
+                  {tour.includes.map((inc) => (
+                    <li class="flex items-start gap-3 text-sm text-green-700"><span>{inc.icon}</span><span>{resolveText(inc.text, lang)}</span></li>
+                  ))}
+                </ul>
+              </div>
+              <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
+                <h3 class="font-semibold text-red-800 mb-3 flex items-center gap-2"><span class="text-lg">✕</span> Not included</h3>
+                <ul class="space-y-2 text-sm text-red-700"><li>Unspecified expenses</li><li>Tips</li></ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- GALLERY -->
+          {gallery.length > 0 && (
+            <div id="gallery">
+              <h2 class="font-display text-2xl text-foreground mb-6">Gallery</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {gallery.slice(0, 3).map((item) => (
+                  item.type === "video"
+                    ? <video src={item.src} poster={item.poster} autoplay muted loop playsinline class="w-full h-56 object-cover rounded-xl" />
+                    : <img src={item.src} alt={resolveText(item.alt, lang)} class="w-full h-56 object-cover rounded-xl" loading="lazy" />
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- SCHEDULES -->
+          {tour.schedules.length > 0 && (
+            <div id="schedules">
+              <h2 class="font-display text-2xl text-foreground mb-2">Departure times</h2>
+              <p class="text-sm text-muted-foreground mb-4">{scheduleText}</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {tour.schedules.map((s) => (
+                  <div class="border border-border/60 rounded-xl p-4 hover:border-accent transition-colors">
+                    <div class="flex items-center gap-3">
+                      <span class="text-2xl">🕘</span>
+                      <div>
+                        <p class="font-semibold text-foreground">{s.start}{s.end ? ` – ${s.end}` : ""}</p>
+                        <p class="text-xs text-muted-foreground">{getTourScheduleText(s, lang)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- ITINERARY -->
+          {itinerary.length > 0 && (
+            <div id="itinerary">
+              <h2 class="font-display text-2xl text-foreground mb-6">Itinerary</h2>
+              <div class="space-y-6">
+                {itinerary.map((dia) => (
+                  <div class="relative pl-8 border-l-2 border-primary/30">
+                    <div class="absolute -left-2.5 top-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                      <span class="text-xs text-white font-bold">{dia.day}</span>
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-foreground mb-3">Day {dia.day}</h3>
+                    {dia.stops.map((stop) => (
+                      <div class="flex gap-4 items-start mb-3">
+                        <span class="text-xs font-mono text-muted-foreground w-12 shrink-0 pt-0.5">{stop.time}</span>
+                        <div>
+                          <p class="font-semibold text-foreground">{resolveText(stop.title, lang)}</p>
+                          <p class="text-sm text-muted-foreground">{resolveText(stop.description, lang)}</p>
+                        </div>
+                      </div>
+                    ))}
+                    {dia.meals.length > 0 && (
+                      <div class="mt-2 text-xs text-muted-foreground">
+                        <span class="font-semibold">Meals:</span> {dia.meals.map(m => <span class="inline-block bg-green-100 text-green-700 px-2 py-0.5 rounded-full mx-1">{m}</span>)}
+                        {dia.meals_not_included.length > 0 && (
+                          <span class="ml-2"><span class="font-semibold">Not incl.:</span> {dia.meals_not_included.map(m => <span class="inline-block bg-red-100 text-red-600 px-2 py-0.5 rounded-full mx-1">{m}</span>)}</span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              {tour.accommodations.length > 0 && (
+                <div class="mt-6 bg-dark text-white rounded-2xl p-5">
+                  <p class="text-sm text-dark-foreground/60 mb-2">Accommodation</p>
+                  {tour.accommodations.map((acc) => (
+                    <div class="flex items-center gap-3">
+                      <span class="text-xl">🏠</span>
+                      <div>
+                        <p class="font-semibold">{resolveText(acc.name, lang)}</p>
+                        <p class="text-xs text-dark-foreground/60">{acc.type === "hostal" ? "Hostel / Refuge" : "Camping"}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <!-- MAP -->
+          <div id="map">
+            <h2 class="font-display text-2xl text-foreground mb-4">Meeting point</h2>
+            {meetingPoint && (
+              <div class="mb-3">
+                <p class="text-sm text-muted-foreground">{resolveLabel(meetingPoint, lang)}</p>
+                <p class="text-xs text-muted-foreground">15 minutes before departure</p>
+              </div>
+            )}
+            <iframe src={`https://maps.google.com/maps?q=${mapCoords.lat},${mapCoords.lng}&z=15&output=embed`} title="Meeting point map" loading="lazy" class="w-full h-72 rounded-2xl border border-border/60" allowfullscreen></iframe>
+          </div>
+
+          <!-- RECOMMENDATIONS -->
           <div>
-            <h2 class="font-display text-2xl text-foreground mb-4">What's included</h2>
-            <ul class="space-y-3">
-              {tour.includes.map((inc) => (
-                <li class="flex items-start gap-3 text-muted-foreground">
-                  <span class="text-accent mt-0.5">{inc.icon}</span> {resolveText(inc.text, lang)}
-                </li>
-              ))}
-            </ul>
+            <h2 class="font-display text-2xl text-foreground mb-4">Recommendations</h2>
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-amber-800">
+                <li class="flex items-center gap-2">🧥 Cold weather clothing</li>
+                <li class="flex items-center gap-2">🧤 Gloves and hat</li>
+                <li class="flex items-center gap-2">🧴 Sunscreen</li>
+                <li class="flex items-center gap-2">🍫 Snacks and water</li>
+                <li class="flex items-center gap-2">👟 Comfortable shoes</li>
+                <li class="flex items-center gap-2">⏰ 15 min early</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- REVIEWS -->
+          {reviews.length > 0 && (
+            <div>
+              <h2 class="font-display text-2xl text-foreground mb-2">Traveler reviews</h2>
+              <div class="flex items-center gap-3 mb-6">
+                <div class="flex text-yellow-500 text-2xl">{renderStars(rating.average)}</div>
+                <span class="text-lg font-semibold text-foreground">{rating.average}</span>
+                <span class="text-sm text-muted-foreground">({rating.count} {rating.count === 1 ? "review" : "reviews"})</span>
+              </div>
+              <div class="space-y-4">
+                {reviews.map((r) => (
+                  <div class="bg-background rounded-xl p-5 border border-border/50">
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">{r.author.charAt(0)}</div>
+                        <span class="font-semibold text-foreground">{r.author}</span>
+                      </div>
+                      <div class="flex text-yellow-500 text-sm">{renderStars(r.rating)}</div>
+                    </div>
+                    <p class="text-sm text-muted-foreground leading-relaxed">"{r.comment[lang] ?? r.comment.es}"</p>
+                    <p class="text-xs text-muted-foreground/60 mt-2">{r.date}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- FAQ -->
+          <div id="faq">
+            <h2 class="font-display text-2xl text-foreground mb-6">FAQ</h2>
+            <div class="space-y-3">
+              <details class="group border border-border/60 rounded-xl overflow-hidden">
+                <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-white hover:bg-background transition-colors font-semibold text-foreground">
+                  Where does the tour depart from?
+                  <span class="text-accent group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="px-5 pb-4 text-sm text-muted-foreground">{resolveLabel(meetingPoint ?? tour.meetingPoint, lang)}. 15 minutes before departure.</div>
+              </details>
+              <details class="group border border-border/60 rounded-xl overflow-hidden">
+                <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-white hover:bg-background transition-colors font-semibold text-foreground">
+                  What is the price?
+                  <span class="text-accent group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="px-5 pb-4 text-sm text-muted-foreground">From {formatPrice(tour.prices[0]?.amount ?? 0)} per person.</div>
+              </details>
+              <details class="group border border-border/60 rounded-xl overflow-hidden">
+                <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-white hover:bg-background transition-colors font-semibold text-foreground">
+                  Is it canceled due to rain?
+                  <span class="text-accent group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="px-5 pb-4 text-sm text-muted-foreground">The tour operates in light rain. Extreme conditions are rescheduled free of charge.</div>
+              </details>
+            </div>
           </div>
         </div>
-        <aside class="lg:col-span-1">
-          <div class="bg-dark text-white rounded-2xl p-6 sticky top-24">
-            <p class="text-sm text-dark-foreground/60 mb-1">From</p>
-            <p class="font-display text-4xl font-bold text-white mb-4">{formatPrice(tour.prices[0]?.amount ?? 0)}</p>
-            <p class="text-xs text-dark-foreground/60 mb-4">per person · {tour.duration}</p>
-            {meetingPoint && (
-              <p class="text-xs text-dark-foreground/60 mb-4">📍 Meeting point: {resolveLabel(meetingPoint, lang)}</p>
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="lg:col-span-1">
+          <div class="bg-dark text-white rounded-2xl p-6 sticky top-24 space-y-5">
+            {rating.count > 0 && (
+              <div class="flex items-center gap-3">
+                <div class="flex text-yellow-400 text-lg">{renderStars(rating.average)}</div>
+                <span class="text-sm text-dark-foreground/70">{rating.average} ({rating.count} {rating.count === 1 ? "review" : "reviews"})</span>
+              </div>
             )}
-            <a href={waLink} target="_blank" rel="noopener noreferrer" class="block w-full text-center px-6 py-3.5 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors mb-3">
+            <div>
+              <p class="text-sm text-dark-foreground/60 mb-1">From</p>
+              <p class="font-display text-4xl font-bold text-white">{formatPrice(tour.prices[0]?.amount ?? 0)}</p>
+              <p class="text-xs text-dark-foreground/60">per person · {tour.duration}</p>
+            </div>
+            {tour.schedules.length > 0 && (
+              <div>
+                <p class="text-sm text-dark-foreground/60 mb-2">Schedules</p>
+                <p class="text-xs text-dark-foreground/70 mb-2">{scheduleText}</p>
+                <div class="flex flex-wrap gap-2">
+                  {tour.schedules.map((s) => (
+                    <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:border-accent cursor-pointer transition-colors">
+                      <input type="radio" name="schedule" value={s.start} class="accent-accent" />
+                      <span class="text-sm">{s.start}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div>
+              <p class="text-sm text-dark-foreground/60 mb-2">Travelers</p>
+              <div class="flex items-center gap-3">
+                <button class="w-10 h-10 rounded-full border border-white/30 text-white text-lg hover:bg-white/10">−</button>
+                <span class="text-lg font-semibold w-8 text-center">1</span>
+                <button class="w-10 h-10 rounded-full border border-white/30 text-white text-lg hover:bg-white/10">+</button>
+              </div>
+            </div>
+            <a href={waLink} target="_blank" rel="noopener noreferrer" class="block w-full text-center px-6 py-3.5 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
               Book via WhatsApp
             </a>
             <a href="/en/personalizados" class="block w-full text-center px-6 py-3 border border-white/30 hover:border-white text-white text-sm font-semibold rounded-full transition-colors">
-              Customize this tour
+              Customize tour
             </a>
+            <div class="text-center">
+              <p class="text-xs text-dark-foreground/50">🔒 Quick & secure booking</p>
+              <p class="text-xs text-dark-foreground/50">Instant confirmation</p>
+            </div>
+            {reviews.length > 0 && (
+              <div class="border-t border-white/10 pt-4 mt-2">
+                <p class="text-sm font-semibold mb-3">Top reviews</p>
+                {reviews.slice(0, 2).map((r) => (
+                  <div class="mb-3">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-yellow-400 text-sm">{renderStars(r.rating)}</span>
+                      <span class="text-xs text-dark-foreground/70">{r.author}</span>
+                    </div>
+                    <p class="text-xs text-dark-foreground/60 leading-relaxed line-clamp-2">{r.comment[lang] ?? r.comment.es}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-16 bg-dark text-center">
+    <div class="mx-auto max-w-3xl px-4">
+      <h2 class="font-display text-3xl text-white mb-4">Ready for this adventure?</h2>
+      <p class="text-dark-foreground/70 mb-8">Book your experience with Cóndor Expeditions and discover the best of Ecuador.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="#sidebar" class="inline-flex px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">Book now</a>
+        <a href="/en/personalizados" class="inline-flex px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-full transition-colors border border-white/30">Create custom tour</a>
       </div>
     </div>
   </section>
