@@ -93,7 +93,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/city-tour-cuenca-1.webp",
+          "alt": {
+            "es": "City Tour Cuenca Patrimonial",
+            "en": "Cuenca Heritage City Tour"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/city-tour-cuenca-2.webp",
+          "alt": {
+            "es": "City Tour Cuenca Patrimonial - 2",
+            "en": "Cuenca Heritage City Tour - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "City Tour Cuenca Patrimonial",
@@ -105,7 +122,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/city-tour-cuenca.webp",
+      "map": {
+        "lat": -2.8974,
+        "lng": -79.0045
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "cajas-trekking",
@@ -188,7 +213,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-trekking-1.webp",
+          "alt": {
+            "es": "Trekking al Parque Nacional Cajas",
+            "en": "Cajas National Park Trekking"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-trekking-2.webp",
+          "alt": {
+            "es": "Trekking al Parque Nacional Cajas - 2",
+            "en": "Cajas National Park Trekking - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Trekking Parque Nacional Cajas",
@@ -200,7 +242,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cajas-trekking.webp",
+      "map": {
+        "lat": -2.8353,
+        "lng": -79.2229
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "cajas-camping",
@@ -275,7 +325,24 @@
           "days": []
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-camping-1.webp",
+          "alt": {
+            "es": "Cajas: Camping y Fogata Nocturna",
+            "en": "Cajas Camping & Bonfire Night"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-camping-2.webp",
+          "alt": {
+            "es": "Cajas: Camping y Fogata Nocturna - 2",
+            "en": "Cajas Camping & Bonfire Night - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Camping en Cajas",
@@ -287,7 +354,124 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cajas-camping.webp",
+      "map": {
+        "lat": -2.8353,
+        "lng": -79.2229
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Salida desde Cuenca",
+                "en": "Departure"
+              },
+              "description": {
+                "es": "Recojo y viaje al Parque Nacional Cajas.",
+                "en": "Pickup and drive to Cajas NP."
+              },
+              "image": "/images/tours/cajas-camping-it-1.webp"
+            },
+            {
+              "time": "15:30",
+              "title": {
+                "es": "Laguna Toreadora",
+                "en": "Toreadora Lake"
+              },
+              "description": {
+                "es": "Instalación del campamento.",
+                "en": "Camp setup."
+              }
+            },
+            {
+              "time": "18:00",
+              "title": {
+                "es": "Fogata",
+                "en": "Bonfire"
+              },
+              "description": {
+                "es": "Cena y fogata nocturna.",
+                "en": "Dinner and bonfire."
+              }
+            },
+            {
+              "time": "20:00",
+              "title": {
+                "es": "Astronomía",
+                "en": "Stargazing"
+              },
+              "description": {
+                "es": "Observación de estrellas en el páramo.",
+                "en": "Stargazing in the páramo."
+              }
+            }
+          ],
+          "meals": [
+            "almuerzo",
+            "cena"
+          ],
+          "meals_not_included": [
+            "desayuno"
+          ]
+        },
+        {
+          "day": 2,
+          "stops": [
+            {
+              "time": "06:30",
+              "title": {
+                "es": "Amanecer",
+                "en": "Sunrise"
+              },
+              "description": {
+                "es": "Desayuno y caminata matutina.",
+                "en": "Breakfast and morning hike."
+              }
+            },
+            {
+              "time": "09:00",
+              "title": {
+                "es": "Senderismo",
+                "en": "Hiking"
+              },
+              "description": {
+                "es": "Flora, fauna y lagunas glaciares.",
+                "en": "Flora, fauna and glacial lakes."
+              }
+            },
+            {
+              "time": "12:00",
+              "title": {
+                "es": "Regreso",
+                "en": "Return"
+              },
+              "description": {
+                "es": "Desmontar y retorno a Cuenca.",
+                "en": "Break camp and return."
+              }
+            }
+          ],
+          "meals": [
+            "desayuno",
+            "almuerzo"
+          ],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Campamento Toreadora",
+            "en": "Toreadora Camp"
+          },
+          "type": "camping"
+        }
+      ]
     },
     {
       "id": "banos-aventura",
@@ -367,7 +551,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/banos-aventura-1.webp",
+          "alt": {
+            "es": "Baños de Agua Santa: Aventura y Relax",
+            "en": "Baños Adventure & Relax"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/banos-aventura-2.webp",
+          "alt": {
+            "es": "Baños de Agua Santa: Aventura y Relax - 2",
+            "en": "Baños Adventure & Relax - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Aventura en Baños desde Cuenca",
@@ -379,7 +580,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/banos-aventura.webp",
+      "map": {
+        "lat": -1.3964,
+        "lng": -78.4249
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "gualaceo-chordeleg",
@@ -452,7 +661,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/gualaceo-chordeleg-1.webp",
+          "alt": {
+            "es": "Ruta de Artesanías: Gualaceo y Chordeleg",
+            "en": "Handicraft Route: Gualaceo & Chordeleg"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/gualaceo-chordeleg-2.webp",
+          "alt": {
+            "es": "Ruta de Artesanías: Gualaceo y Chordeleg - 2",
+            "en": "Handicraft Route: Gualaceo & Chordeleg - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Ruta Artesanal Gualaceo y Chordeleg",
@@ -464,7 +690,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/gualaceo-chordeleg.webp",
+      "map": {
+        "lat": -2.8929,
+        "lng": -78.7758
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "ingapirca-desde-cuenca",
@@ -543,7 +777,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/ingapirca-desde-cuenca-1.webp",
+          "alt": {
+            "es": "Ingapirca: Ruinas Incas y Cañari",
+            "en": "Ingapirca: Inca & Cañari Ruins"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/ingapirca-desde-cuenca-2.webp",
+          "alt": {
+            "es": "Ingapirca: Ruinas Incas y Cañari - 2",
+            "en": "Ingapirca: Inca & Cañari Ruins - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Ruinas de Ingapirca desde Cuenca",
@@ -555,7 +806,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/ingapirca-desde-cuenca.webp",
+      "map": {
+        "lat": -2.5378,
+        "lng": -78.8775
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "parapente-ruta-cuenca",
@@ -631,7 +890,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/parapente-ruta-cuenca-1.webp",
+          "alt": {
+            "es": "Parapente y Vuelo Libre Cuenca",
+            "en": "Paragliding over Cuenca"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/parapente-ruta-cuenca-2.webp",
+          "alt": {
+            "es": "Parapente y Vuelo Libre Cuenca - 2",
+            "en": "Paragliding over Cuenca - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Parapente en Cuenca",
@@ -643,7 +919,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/parapente-ruta-cuenca.webp",
+      "map": {
+        "lat": -2.8974,
+        "lng": -79.0045
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "giron-cascada",
@@ -714,7 +998,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/giron-cascada-1.webp",
+          "alt": {
+            "es": "Girón: Cascada de San Martín",
+            "en": "Girón: San Martín Waterfall"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/giron-cascada-2.webp",
+          "alt": {
+            "es": "Girón: Cascada de San Martín - 2",
+            "en": "Girón: San Martín Waterfall - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Cascada de San Martín en Girón",
@@ -726,7 +1027,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/giron-cascada.webp",
+      "map": {
+        "lat": -3.1601,
+        "lng": -79.1413
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "paute",
@@ -797,7 +1106,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/paute-1.webp",
+          "alt": {
+            "es": "Paute: Embalse y Miradores",
+            "en": "Paute: Reservoir & Viewpoints"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/paute-2.webp",
+          "alt": {
+            "es": "Paute: Embalse y Miradores - 2",
+            "en": "Paute: Reservoir & Viewpoints - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Paute: Embalse y Miradores",
@@ -809,7 +1135,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/paute.webp",
+      "map": {
+        "lat": -2.779,
+        "lng": -78.7584
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "sigsig-tejido",
@@ -888,7 +1222,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/sigsig-tejido-1.webp",
+          "alt": {
+            "es": "Sígsig: Cuna del Sombrero de Paja Toquilla",
+            "en": "Sígsig: Straw Hat Birthplace"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/sigsig-tejido-2.webp",
+          "alt": {
+            "es": "Sígsig: Cuna del Sombrero de Paja Toquilla - 2",
+            "en": "Sígsig: Straw Hat Birthplace - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Sígsig: Sombrero de Paja Toquilla",
@@ -900,7 +1251,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/sigsig-tejido.webp",
+      "map": {
+        "lat": -3.0539,
+        "lng": -78.8006
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "yunguilla",
@@ -971,7 +1330,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/yunguilla-1.webp",
+          "alt": {
+            "es": "Yunguilla: Valle del Vino y la Fruta",
+            "en": "Yunguilla: Wine & Fruit Valley"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/yunguilla-2.webp",
+          "alt": {
+            "es": "Yunguilla: Valle del Vino y la Fruta - 2",
+            "en": "Yunguilla: Wine & Fruit Valley - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Yunguilla: Vino y Fruta",
@@ -983,7 +1359,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/yunguilla.webp",
+      "map": {
+        "lat": -3.0189,
+        "lng": -79.1095
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "asis-azuay",
@@ -1060,7 +1444,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/asis-azuay-1.webp",
+          "alt": {
+            "es": "Aventura Todo Terreno: Ruta del Azuay",
+            "en": "Off-Road Adventure: Azuay Route"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/asis-azuay-2.webp",
+          "alt": {
+            "es": "Aventura Todo Terreno: Ruta del Azuay - 2",
+            "en": "Off-Road Adventure: Azuay Route - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Ruta 4x4 del Azuay",
@@ -1072,7 +1473,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/asis-azuay.webp",
+      "map": {
+        "lat": -2.8833,
+        "lng": -78.9833
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     },
     {
       "id": "cotopaxi-ascenso",
@@ -1148,7 +1557,24 @@
           "days": []
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cotopaxi-ascenso-1.webp",
+          "alt": {
+            "es": "Ascenso al Volcán Cotopaxi",
+            "en": "Cotopaxi Volcano Climb"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cotopaxi-ascenso-2.webp",
+          "alt": {
+            "es": "Ascenso al Volcán Cotopaxi - 2",
+            "en": "Cotopaxi Volcano Climb - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Ascenso al Cotopaxi",
@@ -1160,7 +1586,136 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cotopaxi-ascenso.webp",
+      "map": {
+        "lat": -0.6814,
+        "lng": -78.4337
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [
+            {
+              "time": "07:00",
+              "title": {
+                "es": "Salida",
+                "en": "Departure"
+              },
+              "description": {
+                "es": "Viaje al Parque Nacional Cotopaxi.",
+                "en": "Journey to Cotopaxi NP."
+              }
+            },
+            {
+              "time": "11:00",
+              "title": {
+                "es": "Refugio José Rivas",
+                "en": "José Rivas Refuge"
+              },
+              "description": {
+                "es": "Aclimatación a 4,800m.",
+                "en": "Acclimatization at 4,800m."
+              }
+            },
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Entrenamiento en glaciar",
+                "en": "Glacier training"
+              },
+              "description": {
+                "es": "Técnica de crampones y piolet.",
+                "en": "Crampon and ice axe technique."
+              }
+            },
+            {
+              "time": "18:00",
+              "title": {
+                "es": "Descanso",
+                "en": "Rest"
+              },
+              "description": {
+                "es": "Cena temprana y descanso previo al ascenso.",
+                "en": "Early dinner and pre-ascent rest."
+              }
+            }
+          ],
+          "meals": [
+            "almuerzo",
+            "cena"
+          ],
+          "meals_not_included": [
+            "desayuno"
+          ]
+        },
+        {
+          "day": 2,
+          "stops": [
+            {
+              "time": "00:30",
+              "title": {
+                "es": "Ascenso nocturno",
+                "en": "Night ascent"
+              },
+              "description": {
+                "es": "Inicio del ascenso a la cumbre.",
+                "en": "Summit ascent begins."
+              }
+            },
+            {
+              "time": "06:00",
+              "title": {
+                "es": "Cumbre 5,897m",
+                "en": "Summit 5,897m"
+              },
+              "description": {
+                "es": "Amanecer desde la cumbre.",
+                "en": "Sunrise from the summit."
+              }
+            },
+            {
+              "time": "08:00",
+              "title": {
+                "es": "Descenso",
+                "en": "Descent"
+              },
+              "description": {
+                "es": "Retorno seguro al refugio.",
+                "en": "Safe return to refuge."
+              }
+            },
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Regreso a Cuenca",
+                "en": "Return to Cuenca"
+              },
+              "description": {
+                "es": "Transporte de retorno.",
+                "en": "Return transport."
+              }
+            }
+          ],
+          "meals": [
+            "desayuno",
+            "almuerzo"
+          ],
+          "meals_not_included": [
+            "cena"
+          ]
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Refugio José Rivas",
+            "en": "José Rivas Refuge"
+          },
+          "type": "hostal"
+        }
+      ]
     },
     {
       "id": "quilotoa-loop",
@@ -1236,7 +1791,24 @@
           "days": []
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/quilotoa-loop-1.webp",
+          "alt": {
+            "es": "Trekking Quilotoa Loop",
+            "en": "Quilotoa Loop Trekking"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/quilotoa-loop-2.webp",
+          "alt": {
+            "es": "Trekking Quilotoa Loop - 2",
+            "en": "Quilotoa Loop Trekking - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Trekking Quilotoa Loop",
@@ -1248,7 +1820,114 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/quilotoa-loop.webp",
+      "map": {
+        "lat": -0.8455,
+        "lng": -78.9038
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [
+            {
+              "time": "07:00",
+              "title": {
+                "es": "Salida",
+                "en": "Departure"
+              },
+              "description": {
+                "es": "Viaje escénico a la laguna Quilotoa.",
+                "en": "Scenic drive to Quilotoa Lake."
+              }
+            },
+            {
+              "time": "11:00",
+              "title": {
+                "es": "Chugchilán",
+                "en": "Chugchilán"
+              },
+              "description": {
+                "es": "Registro en lodge comunitario.",
+                "en": "Check-in at community lodge."
+              }
+            },
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Descenso al cráter",
+                "en": "Crater descent"
+              },
+              "description": {
+                "es": "Caminata a la laguna esmeralda.",
+                "en": "Hike to the emerald lake."
+              }
+            }
+          ],
+          "meals": [
+            "almuerzo",
+            "cena"
+          ],
+          "meals_not_included": [
+            "desayuno"
+          ]
+        },
+        {
+          "day": 2,
+          "stops": [
+            {
+              "time": "08:00",
+              "title": {
+                "es": "Borde del cráter",
+                "en": "Crater rim"
+              },
+              "description": {
+                "es": "Trekking panorámico.",
+                "en": "Panoramic trek."
+              }
+            },
+            {
+              "time": "12:00",
+              "title": {
+                "es": "Comunidad indígena",
+                "en": "Indigenous community"
+              },
+              "description": {
+                "es": "Almuerzo con familia local.",
+                "en": "Lunch with local family."
+              }
+            },
+            {
+              "time": "15:00",
+              "title": {
+                "es": "Regreso",
+                "en": "Return"
+              },
+              "description": {
+                "es": "Retorno por la avenida de los volcanes.",
+                "en": "Return via Avenue of the Volcanoes."
+              }
+            }
+          ],
+          "meals": [
+            "desayuno",
+            "almuerzo"
+          ],
+          "meals_not_included": [
+            "cena"
+          ]
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Lodge Chugchilán",
+            "en": "Chugchilán Lodge"
+          },
+          "type": "hostal"
+        }
+      ]
     },
     {
       "id": "chimborazo-ascenso",
@@ -1316,7 +1995,24 @@
           "days": []
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/chimborazo-ascenso-1.webp",
+          "alt": {
+            "es": "Ascenso al Chimborazo",
+            "en": "Chimborazo Climb"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/chimborazo-ascenso-2.webp",
+          "alt": {
+            "es": "Ascenso al Chimborazo - 2",
+            "en": "Chimborazo Climb - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Ascenso al Chimborazo",
@@ -1328,7 +2024,30 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/chimborazo-ascenso.webp",
+      "map": {
+        "lat": -1.4694,
+        "lng": -78.8169
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [],
+          "meals": [],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Refugio Carrel",
+            "en": "Carrel Refuge"
+          },
+          "type": "hostal"
+        }
+      ]
     },
     {
       "id": "cuyabeno-4-dias",
@@ -1403,7 +2122,24 @@
           "days": []
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cuyabeno-4-dias-1.webp",
+          "alt": {
+            "es": "Cuyabeno: Excursión de 4 Días",
+            "en": "Cuyabeno 4-Day Expedition"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cuyabeno-4-dias-2.webp",
+          "alt": {
+            "es": "Cuyabeno: Excursión de 4 Días - 2",
+            "en": "Cuyabeno 4-Day Expedition - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Cuyabeno 4 Días",
@@ -1415,7 +2151,30 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cuyabeno-4-dias.webp",
+      "map": {
+        "lat": -0.0833,
+        "lng": -76.0333
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [],
+          "meals": [],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Lodge Cuyabeno",
+            "en": "Cuyabeno Lodge"
+          },
+          "type": "hostal"
+        }
+      ]
     },
     {
       "id": "yasuni-wao",
@@ -1491,7 +2250,24 @@
           "days": []
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/yasuni-wao-1.webp",
+          "alt": {
+            "es": "Yasuní: Experiencia Wao Teredo",
+            "en": "Yasuní: Wao Teredo Experience"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/yasuni-wao-2.webp",
+          "alt": {
+            "es": "Yasuní: Experiencia Wao Teredo - 2",
+            "en": "Yasuní: Wao Teredo Experience - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Yasuní: Wao Teredo",
@@ -1503,7 +2279,30 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/yasuni-wao.webp",
+      "map": {
+        "lat": -0.9917,
+        "lng": -76.2504
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [],
+          "meals": [],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Eco-lodge Waorani",
+            "en": "Waorani Eco-lodge"
+          },
+          "type": "hostal"
+        }
+      ]
     },
     {
       "id": "ruta-otavalo",
@@ -1580,7 +2379,24 @@
           ]
         }
       ],
-      "gallery": [],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/ruta-otavalo-1.webp",
+          "alt": {
+            "es": "Ruta de los Mercados: Otavalo",
+            "en": "Market Route: Otavalo"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/ruta-otavalo-2.webp",
+          "alt": {
+            "es": "Ruta de los Mercados: Otavalo - 2",
+            "en": "Market Route: Otavalo - 2"
+          }
+        }
+      ],
       "seo": {
         "title": {
           "es": "Ruta de los Mercados: Otavalo",
@@ -1592,7 +2408,15 @@
         }
       },
       "createdAt": "2025-01-01",
-      "updatedAt": "2026-08-05"
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/ruta-otavalo.webp",
+      "map": {
+        "lat": 0.2344,
+        "lng": -78.2632
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
     }
   ]
 }

@@ -333,6 +333,136 @@ export interface Differentiator {
   description: Record<string, string>;
 }
 
+// ============================================================
+// Cart Helpers — carrito JSON local (persistente durante sesión)
+// ============================================================
+
+import cartData from "./api/cart/cart.json";
+
+export interface CartItem {
+  tourId: string;
+  tourSlug: string;
+  tourTitle: Record<string, string>;
+  date: string;
+  time: string;
+  adults: number;
+  children: number;
+  unitPrice: number;
+  total: number;
+}
+
+export function getCart(): CartItem[] {
+  return (cartData as any).items ?? [];
+}
+
+export function addToCart(item: CartItem): void {
+  const items = getCart();
+  items.push(item);
+  // En versión API real, haría POST; aquí actualiza proxy
+  (cartData as any).items = items;
+}
+
+export function removeFromCart(tourId: string, date: string, time: string): void {
+  const items = getCart().filter(
+    (i: CartItem) => !(i.tourId === tourId && i.date === date && i.time === time)
+  );
+  (cartData as any).items = items;
+}
+
+export function getCartTotal(): number {
+  return getCart().reduce((sum: number, i: CartItem) => sum + i.total, 0);
+}
+
+// ============================================================
+// Review Helpers — sistema de rating y reseñas
+// ============================================================
+
+import reviewsData from "./api/reviews/reviews.json";
+
+export interface Review {
+  id: string;
+  tourId: string;
+  author: string;
+  rating: number;
+  comment: Record<string, string>;
+  date: string;
+}
+
+export interface RatingSummary {
+  average: number;
+  count: number;
+}
+
+export function getReviews(tourId: string): Review[] {
+  const all: Review[] = (reviewsData as any).reviews ?? [];
+  return all.filter((r) => r.tourId === tourId);
+}
+
+export function getRating(tourId: string): RatingSummary {
+  const reviews = getReviews(tourId);
+  if (reviews.length === 0) return { average: 0, count: 0 };
+  const sum = reviews.reduce((a: number, r: Review) => a + r.rating, 0);
+  return { average: Math.round((sum / reviews.length) * 10) / 10, count: reviews.length };
+}
+
+export function renderStars(rating: number): string {
+  const full = "★".repeat(Math.floor(rating));
+  const half = rating % 1 >= 0.5 ? "½" : "";
+  const empty = "☆".repeat(5 - Math.ceil(rating));
+  return full + half + empty;
+}
+
+// ============================================================
+// Image Helpers — wrappers para astro:assets
+// ============================================================
+
+import councilMeetingPoints from "./api/tours/meeting-points.json";
+
+export type { ItineraryDay, Accommodation };
+
+export function getTourImage(tour: Tour, fallback = "/images/tours/city-tour-cuenca.webp"): string {
+  return tour.image ?? (tour.gallery?.[0]?.src) ?? fallback;
+}
+
+export function getTourGallery(tour: Tour): MediaItem[] {
+  return tour.gallery ?? [];
+}
+
+export function getTourMap(tour: Tour): { lat: number; lng: number } {
+  if (tour.map?.lat) return tour.map;
+  const mp = tour.meetingPoint
+    ? (councilMeetingPoints as any).find((m) => m.id === tour.meetingPoint)
+    : undefined;
+  return mp?.location ?? { lat: -2.8974, lng: -79.0045 };
+}
+
+export function getTourItinerary(tour: Tour): ItineraryDay[] {
+  return tour.itinerary ?? [];
+}
+
+export function getTourScheduleText(s: Schedule, lang: string): string {
+  const dayLabels: Record<string, Record<string, string>> = {
+    mon: { es: "Lun", en: "Mon" },
+    tue: { es: "Mar", en: "Tue" },
+    wed: { es: "Mié", en: "Wed" },
+    thu: { es: "Jue", en: "Thu" },
+    fri: { es: "Vie", en: "Fri" },
+    sat: { es: "Sáb", en: "Sat" },
+    sun: { es: "Dom", en: "Sun" },
+  };
+  if (s.days.length === 7) {
+    return lang === "es" ? "Todos los días" : "Every day";
+  }
+  return s.days.map((d) => dayLabels[d]?.[lang] ?? d).join(", ");
+}
+
+// ============================================================
+// End of helpers.ts
+// ============================================================
+// ============================================================
+// Differentiators (restored)
+// ============================================================
+
 export function getDifferentiators(): Differentiator[] {
   return [
     {
