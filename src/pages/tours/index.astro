@@ -1,0 +1,174 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Container from "../../components/shared/Container.astro";
+import TourCard from "../../components/sections/TourCard.astro";
+import { tours } from "../../data/tours";
+
+const allTours = tours;
+
+// Categorías y regiones únicas derivadas de los tours
+const categories = [...new Set(allTours.map((t) => t.category))].sort();
+const regions = [...new Set(allTours.flatMap((t) => t.category.includes("Cuenca") ? ["Cuenca"] : t.category.includes("Azuay") ? ["Azuay"] : ["Ecuador"]))].sort();
+
+// Parse query params para filtros SSR
+const tipoRaw = Astro.url.searchParams.get("tipo") ?? "";
+const regionRaw = Astro.url.searchParams.get("region") ?? "";
+
+const filtered = allTours.filter((t) => {
+  if (tipoRaw && !t.category.toLowerCase().includes(tipoRaw.toLowerCase())) return false;
+  if (regionRaw && regionRaw !== "todas" && !t.category.includes(regionRaw)) return false;
+  return true;
+});
+
+const activeCategory = categories.find((c) => c.toLowerCase() === tipoRaw.toLowerCase());
+const activeRegion = regions.find((r) => r.toLowerCase() === regionRaw.toLowerCase());
+
+// Textos dinámicos según filtros
+let pageTitle = "Todos los Tours";
+let pageDescription = "Catálogo completo de tours y expediciones de Cóndor Expeditions. Explora por categoría, región o duración.";
+
+if (activeCategory && activeRegion) {
+  pageTitle = `${activeCategory} en ${activeRegion}`;
+  pageDescription = `Expediciones de ${activeCategory.toLowerCase()} en la región de ${activeRegion}.`;
+} else if (activeCategory) {
+  pageTitle = activeCategory;
+  pageDescription = `Nuestras expediciones de ${activeCategory.toLowerCase()}.`;
+} else if (activeRegion) {
+  pageTitle = `Tours en ${activeRegion}`;
+  pageDescription = `Descubre todas las expediciones disponibles en ${activeRegion}.`;
+}
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  lang="es"
+>
+  <!-- Hero Section -->
+  <section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+    <Container>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{pageTitle}</h1>
+      <p class="text-lg text-white/70 max-w-2xl">{pageDescription}</p>
+      {filtered.length > 0 && (
+        <p class="text-primary mt-4 text-sm font-medium">
+          Mostrando {filtered.length} de {allTours.length} tours
+          {(activeCategory || activeRegion) && (
+            <a href="/tours" class="ml-4 underline hover:no-underline">Limpiar filtros</a>
+          )}
+        </p>
+      )}
+    </Container>
+  </section>
+
+  <!-- Filter Bar -->
+  <section class="py-6 bg-white border-b border-border/50 sticky top-0 z-30 shadow-sm">
+    <Container>
+      <!-- Region Filter -->
+      <div class="flex flex-wrap items-center gap-2 justify-center mb-3">
+        <a
+          href="/tours"
+          class={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+            !regionRaw ? "bg-primary text-white" : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"
+          }`}
+        >
+          Todas
+        </a>
+        {regions.map((r) => (
+          <a
+            href={`/tours?region=${r.toLowerCase()}${tipoRaw ? `&tipo=${tipoRaw}` : ""}`}
+            class={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+              regionRaw.toLowerCase() === r.toLowerCase()
+                ? "bg-primary text-white"
+                : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"
+            }`}
+          >
+            {r}
+          </a>
+        ))}
+      </div>
+
+      <!-- Category Filter -->
+      <div class="flex flex-wrap items-center gap-2 justify-center">
+        {categories.map((c) => (
+          <a
+            href={`/tours?tipo=${c.toLowerCase()}${regionRaw ? `&region=${regionRaw}` : ""}`}
+            class={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              tipoRaw.toLowerCase() === c.toLowerCase()
+                ? "bg-primary text-white"
+                : "bg-background text-muted-foreground border border-border/60 hover:border-primary hover:text-primary"
+            }`}
+          >
+            {c}
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Tours Grid -->
+  <section class="py-14">
+    <Container>
+      {filtered.length > 0 ? (
+        <>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((tour, index) => (
+              <div class="animate-on-scroll" style={`--delay: ${Math.min(index, 5) * 100}ms`}>
+                <TourCard tour={tour} lang="es" />
+              </div>
+            ))}
+          </div>
+
+          {filtered.length > 0 && (
+            <p class="text-center text-sm text-muted-foreground mt-10">
+              Mostrando {filtered.length} de {allTours.length} tours
+              {activeCategory && ` · Categoría: ${activeCategory}`}
+              {activeRegion && ` · Región: ${activeRegion}`}
+              {(activeCategory || activeRegion) && (
+                <a href="/tours" class="ml-2 text-primary hover:underline">Limpiar filtros</a>
+              )}
+            </p>
+          )}
+        </>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-muted-foreground text-lg mb-4">
+            No hay tours que coincidan con los filtros seleccionados.
+          </p>
+          <a href="/tours" class="inline-flex px-6 py-3 bg-primary text-white font-semibold rounded-full">
+            Ver todos los tours
+          </a>
+        </div>
+      )}
+    </Container>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-negro text-center">
+    <Container>
+      <h2 class="font-display text-2xl md:text-3xl text-white mb-4">¿Buscas algo diferente?</h2>
+      <p class="text-white/70 mb-6">Diseñamos tours personalizados para tu grupo.</p>
+      <a
+        href="/personalizados"
+        class="inline-flex px-8 py-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-full transition-colors"
+      >
+        Crear Tour Personalizado
+      </a>
+    </Container>
+  </section>
+</Layout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>
