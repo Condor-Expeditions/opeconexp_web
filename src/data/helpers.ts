@@ -110,8 +110,20 @@ export function getTourBySlug(slug: string): Tour | undefined {
 
 // Helper para compatibilidad legacy con el frontend existente
 export function getTourData(tour: Tour, lang: "es" | "en") {
+  if (!tour) {
+    console.error("getTourData: tour is undefined/null");
+    return {};
+  }
+  if (!tour.categories || !Array.isArray(tour.categories)) {
+    console.error("getTourData: tour.categories missing", tour.id);
+    return {};
+  }
+  if (!tour.includes || !Array.isArray(tour.includes)) {
+    console.error("getTourData: tour.includes missing", tour.id);
+  }
   const category = getCategories().find((c) => tour.categories[0] === c.id);
   const difficulty = getDifficulties().find((d) => tour.difficulty === d.id);
+  const firstGallery = tour.gallery?.[0];
 
   return {
     id: tour.id,
@@ -119,8 +131,8 @@ export function getTourData(tour: Tour, lang: "es" | "en") {
     name: resolveLabel(tour.title, lang),
     category: resolveLabel(category?.title || { es: tour.categories[0], en: tour.categories[0] }, lang),
     shortDescription: resolveLabel(tour.description, lang),
-    image: tour.gallery?.[0]?.src || "",
-    heroImage: tour.gallery?.[0]?.src || "",
+    image: firstGallery?.src || "",
+    heroImage: firstGallery?.src || "",
     badge: tour.duration,
     operational: {
       duration: tour.duration,
@@ -128,13 +140,15 @@ export function getTourData(tour: Tour, lang: "es" | "en") {
       capacity: "Mín. 4 / Máx. 24",
       difficulty: resolveLabel(difficulty?.title || { es: "Media", en: "Medium" }, lang),
     },
-    includes: tour.includes.map((i) => resolveLabel(i.text, lang)),
+    includes: (tour.includes || []).map((i) => resolveLabel(i.text, lang)),
+    meetingPoints: (tour.schedules || []).map((s) => `${s.start} (${s.days?.join(", ") || ""})`),
+    itinerario: (tour.itinerary || []).flatMap((d) => (d.stops || []).map((s) => resolveLabel(s.title, lang))) || [],
     excludes: [],
     whatToBring: [],
-    itinerario: tour.itinerary?.flatMap((d) => d.stops.map((s) => resolveLabel(s.title, lang))) || [],
+    activities: tour.tags || [],
     pricing: {
-      general: `$${tour.prices[0]?.amount || 0}`,
-      special: `$${(tour.prices[0]?.amount * 0.9).toFixed(0) || 0}`,
+      general: `$${tour.prices?.[0]?.amount || 0}`,
+      special: `$${(tour.prices?.[0]?.amount * 0.9).toFixed(0) || 0}`,
     },
   };
 }

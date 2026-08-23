@@ -2,27 +2,18 @@
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
+import { getTourData, getCategoryTitle, getDifficultyLevel, resolveLabel } from "@/data/helpers";
+import type { Tour } from "@/data/types";
 
 export interface Props {
-	tour: {
-		id: string;
-		slug: string;
-		name: string;
-		category: string;
-		shortDescription: string;
-		operational: {
-			duration: string;
-		};
-		pricing: {
-			general: string;
-		};
-		image?: string;
-		badge?: string;
-	};
-	lang?: "es" | "en";
+  tour: Tour;
+  lang?: "es" | "en";
 }
 
 const { tour, lang = "es" } = Astro.props;
+
+// Convertir tour API-local → legacy compat para reusar componente
+const t = getTourData(tour, lang);
 const isEnglish = lang === "en";
 
 const reserveLabel = isEnglish ? "Book" : "Reservar";
@@ -31,38 +22,38 @@ const detailHref = isEnglish ? `/en/tours/${tour.slug}` : `/tours/${tour.slug}`;
 ---
 
 <Card variant="elevated" padding="none" class="hover-lift img-zoom h-full flex flex-col">
-	<div class="relative aspect-[4/3] overflow-hidden rounded-t-lg">
-		<img
-			src={tour.image || "/assets/menu/tours/mira-cuenca.jpg"}
-			alt={tour.name}
-			class="w-full h-full object-cover"
-			loading="lazy"
-		/>
-		{tour.badge && (
-			<div class="absolute top-3 left-3">
-				<Badge variant="primary" size="sm">{tour.badge}</Badge>
-			</div>
-		)}
-	</div>
-	<div class="p-5 flex flex-col flex-1">
-		<div class="flex items-center gap-2 mb-2">
-			<Badge variant="secondary" size="sm">{tour.category.split(",")[0]}</Badge>
-			<span class="text-xs text-muted">{tour.operational.duration}</span>
-		</div>
-		<h3 class="text-lg font-semibold text-foreground mb-2 leading-tight">
-			{tour.name}
-		</h3>
-		<p class="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
-			{tour.shortDescription}
-		</p>
-		<div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
-			<div>
-				<span class="text-xs text-muted">{fromLabel}</span>
-				<p class="text-lg font-bold text-primary">{tour.pricing.general}</p>
-			</div>
-			<Button variant="primary" size="sm" href={detailHref}>
-				{reserveLabel}
-			</Button>
-		</div>
-	</div>
+  <div class="relative aspect-[4/3] overflow-hidden rounded-t-lg">
+    <img
+      src={t.image || "/assets/menu/tours/mira-cuenca.jpg"}
+      alt={resolveLabel(tour.title, lang)}
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+    {t.badge && (
+      <div class="absolute top-3 left-3">
+        <Badge variant="primary" size="sm">{t.badge}</Badge>
+      </div>
+    )}
+  </div>
+  <div class="p-5 flex flex-col flex-1">
+    <div class="flex items-center gap-2 mb-2">
+      <Badge variant="secondary" size="sm">{t.category.split(",")[0]}</Badge>
+      <span class="text-xs text-muted">{t.operational.duration}</span>
+    </div>
+    <h3 class="text-lg font-semibold text-foreground mb-2 leading-tight">
+      {t.name}
+    </h3>
+    <p class="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+      {t.shortDescription}
+    </p>
+    <div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
+      <div>
+        <span class="text-xs text-muted">{fromLabel}</span>
+        <p class="text-lg font-bold text-primary">{t.pricing.general}</p>
+      </div>
+      <Button variant="primary" size="sm" href={detailHref}>
+        {reserveLabel}
+      </Button>
+    </div>
+  </div>
 </Card>
