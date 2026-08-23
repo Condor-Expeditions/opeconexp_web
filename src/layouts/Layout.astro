@@ -41,9 +41,7 @@ const {
       <slot />
     </main>
     <Footer lang={lang} />
-    {
-          import.meta.env.DEV && <SizeIndicator />
-        }
-        <WhatsAppFloat />
-      </body>
+    {import.meta.env.DEV && <SizeIndicator />}
+    <WhatsAppFloat />
+    </body>
 </html>
