@@ -1,7 +1,9 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import DestinationDetail from "../../../components/sections/DestinationDetail.astro";
-import { destinations } from "../../../data/destinations";
+import { destinations, getDestinationBySlug } from "../../../data/destinations";
+
+export const prerender = true;
 
 export async function getStaticPaths() {
 	return destinations.map((destination) => ({

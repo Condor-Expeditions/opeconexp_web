@@ -1,7 +1,9 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import TourDetail from "../../../components/sections/TourDetail.astro";
-import { tours } from "../../../data/tours";
+import { tours, getTourBySlug } from "../../../data/tours";
+
+export const prerender = true;
 
 export async function getStaticPaths() {
 	return tours.map((tour) => ({
