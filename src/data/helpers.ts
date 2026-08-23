@@ -195,7 +195,7 @@ export function getTestimonials(): Testimonial[] {
 // ============================================================
 
 export function getReviews(): Review[] {
-  return reviewsData as unknown as Review[];
+  return (reviewsData as unknown as { reviews?: Review[] }).reviews || [];
 }
 
 export function getReviewsByTourId(tourId: string): Review[] {

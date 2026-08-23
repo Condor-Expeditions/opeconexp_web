@@ -2,8 +2,8 @@
 import Container from "../shared/Container.astro";
 import Button from "../ui/Button.astro";
 import Badge from "../ui/Badge.astro";
-import { getTourData } from "../../data/helpers";
-import type { Tour } from "../../data/types";
+import { getTourData, getReviews, resolveLabel } from "../../data/helpers";
+import type { Tour, Review } from "../../data/types";
 
 export interface Props {
   tour: Tour;
@@ -32,7 +32,13 @@ const infoLabels = {
   pricing: isEnglish ? "Pricing" : "Precios",
   general: isEnglish ? "General" : "General",
   special: isEnglish ? "Special" : "Especial",
+  reviews: isEnglish ? "Reviews" : "Reseñas",
+  verified: isEnglish ? "Verified" : "Verificado",
 };
+
+// Obtener reviews del API-local
+const allReviews: Review[] = getReviews();
+const tourReviews = allReviews.filter((r) => r.tourId === tour.id);
 ---
 
 <article>
@@ -223,4 +229,40 @@ const infoLabels = {
       </div>
     </Container>
   </section>
+
+  {/* Reviews Section */}
+  {tourReviews.length > 0 && (
+    <section class="section-padding-sm border-t border-border">
+      <Container>
+        <h2 class="text-2xl font-semibold text-foreground mb-6">{infoLabels.reviews}</h2>
+        <div class="space-y-6">
+          {tourReviews.map((r) => (
+            <div key={r.id} class="p-6 rounded-xl bg-crema border border-border">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold shrink-0">
+                  {r.author.split(" ").map(n => n[0]).join("").slice(0, 2)}
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="font-semibold text-foreground text-sm">{r.author}</span>
+                    <span class="text-xs text-muted">• {r.date}</span>
+                  </div>
+                  <div class="flex items-center gap-1 mb-2">
+                    {Array.from({ length: r.rating }).map((_, i) => (
+                      <svg key={i} class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.446l-7.416 3.967 1.48-8.279L0 8.706l8.332-1.151z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <p class="text-sm text-muted-foreground leading-relaxed italic">
+                    "{resolveLabel(r.comment, lang)}"
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
 </article>
