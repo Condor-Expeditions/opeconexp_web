@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Container from "../../components/shared/Container.astro";
+import Button from "../../components/ui/Button.astro";
+
+const isEnglish = true;
+const title = "500 Server Error";
+const heading = "Server Error";
+const message = "Something went wrong on our end. Our team has been notified and is working on it.";
+---
+
+<Layout title={title} lang="en" noindex>
+  <section class="section-padding min-h-[60vh] flex items-center">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto">
+        <div class="text-8xl md:text-9xl font-display font-bold text-primary-red mb-4">500</div>
+        <h1 class="text-3xl md:text-4xl font-display text-foreground mb-4">{heading}</h1>
+        <p class="text-lg text-muted-foreground mb-8">{message}</p>
+        <Button variant="primary" size="lg" href="/en/">
+          Back to home
+        </Button>
+      </div>
+    </Container>
+  </section>
+</Layout>

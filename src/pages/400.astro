@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/shared/Container.astro";
+import Button from "../components/ui/Button.astro";
+
+const isEnglish = false;
+const title = "400 Bad Request";
+const heading = isEnglish ? "Bad Request" : "Solicitud incorrecta";
+const message = isEnglish 
+  ? "The page you requested contains invalid parameters." 
+  : "La página que solicitaste contiene parámetros inválidos.";
+---
+
+<Layout title={title} lang="es" noindex>
+  <section class="section-padding min-h-[60vh] flex items-center">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto">
+        <div class="text-8xl md:text-9xl font-display font-bold text-primary-red mb-4">400</div>
+        <h1 class="text-3xl md:text-4xl font-display text-foreground mb-4">{heading}</h1>
+        <p class="text-lg text-muted-foreground mb-8">{message}</p>
+        <Button variant="primary" size="lg" href="/">
+          {isEnglish ? "Back to home" : "Volver al inicio"}
+        </Button>
+      </div>
+    </Container>
+  </section>
+</Layout>

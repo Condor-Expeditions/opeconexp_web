@@ -1,0 +1,35 @@
+---
+// SustainabilityBar.astro — Muestra iniciativas de sostenibilidad
+import { getSustainability, resolveLabel } from "@/data/helpers";
+
+export interface Props {
+  lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const items = getSustainability();
+const isEnglish = lang === "en";
+
+const title = isEnglish ? "Sustainability" : "Sostenibilidad";
+const subtitle = isEnglish 
+  ? "Responsible tourism for a better future." 
+  : "Turismo responsable para un futuro mejor.";
+---
+
+<section class="section-padding bg-background">
+  <div class="text-center mb-12">
+    <h2 class="font-display text-3xl md:text-5xl text-primary-red mb-4">{title}</h2>
+    <p class="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {items.map((item) => (
+      <div class="p-6 rounded-xl bg-crema border border-border text-center h-full flex flex-col">
+        <div class="w-14 h-14 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
+          <span class="text-2xl">{item.icon === 'leaf' ? '🍃' : item.icon === 'users' ? '👥' : item.icon === 'globe' ? '🌍' : '❤️'}</span>
+        </div>
+        <h3 class="font-semibold text-foreground mb-2">{resolveLabel(item.title, lang)}</h3>
+        <p class="text-sm text-muted-foreground flex-1">{resolveLabel(item.text, lang)}</p>
+      </div>
+    ))}
+  </div>
+</section>

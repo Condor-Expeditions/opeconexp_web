@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Container from "../../components/shared/Container.astro";
+import Button from "../../components/ui/Button.astro";
+
+const isEnglish = true;
+const title = "404 Not Found";
+const heading = "Page Not Found";
+const message = "The page you are looking for doesn't exist or has been moved.";
+---
+
+<Layout title={title} lang="en" noindex>
+  <section class="section-padding min-h-[60vh] flex items-center">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto">
+        <div class="text-8xl md:text-9xl font-display font-bold text-primary-red mb-4">404</div>
+        <h1 class="text-3xl md:text-4xl font-display text-foreground mb-4">{heading}</h1>
+        <p class="text-lg text-muted-foreground mb-8">{message}</p>
+        <Button variant="primary" size="lg" href="/en/">
+          Back to home
+        </Button>
+      </div>
+    </Container>
+  </section>
+</Layout>
