@@ -18,7 +18,9 @@
 		"tailwind-animations": "^1.0.1"
 	},
 	"devDependencies": {
+		"@astrojs/node": "^11.1.4",
 		"@astrojs/react": "^6.0.1",
+		"@astrojs/vercel": "^11.0.7",
 		"@biomejs/biome": "^2.5.4",
 		"@tailwindcss/postcss": "^4.3.3",
 		"@tailwindcss/vite": "^4.3.3",
