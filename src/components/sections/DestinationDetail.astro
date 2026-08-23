@@ -1,9 +1,9 @@
 ---
-import Container from "@/components/shared/Container";
-import Button from "@/components/ui/Button";
-import Badge from "@/components/ui/Badge";
-import { type Destination } from "@/data/destinations";
-import { tours } from "@/data/tours";
+import Container from "../shared/Container.astro";
+import Button from "../ui/Button.astro";
+import Badge from "../ui/Badge.astro";
+import { type Destination } from "../../data/destinations";
+import { getTours, getCategoryTitle, getDifficultyLevel, resolveLabel } from "../../data/helpers";
 
 export interface Props {
 	destination: Destination;
@@ -13,15 +13,21 @@ export interface Props {
 const { destination, lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
 
+const allTours = getTours();
+
+// Buscar tours relacionados por categoría de destino
+const destCategory = destination.category.toLowerCase();
+const relatedTours = allTours
+	.filter((t) => {
+    const categoryTitles = t.categories.map((c) => getCategoryTitle(c, lang).toLowerCase());
+    const destName = destination.name.toLowerCase();
+    const titleEs = resolveLabel(t.title, lang).toLowerCase();
+    return categoryTitles.some((cat) => cat.includes(destCategory.split(",")[0].trim())) || titleEs.includes(destName);
+  })
+	.slice(0, 3);
+
 const reserveLabel = isEnglish ? "Book a Tour" : "Reservar un tour";
 const contactHref = isEnglish ? "/en/contacto" : "/contacto";
-
-const relatedTours = tours
-	.filter((t) =>
-		t.category.toLowerCase().includes(destination.category.toLowerCase().split(",")[0].trim()) ||
-		t.name.toLowerCase().includes(destination.name.toLowerCase())
-	)
-	.slice(0, 3);
 
 const labels = {
 	highlights: isEnglish ? "Highlights" : "Destacados",
@@ -119,32 +125,32 @@ const labels = {
 		</section>
 
 		<!-- Related Tours -->
-		{relatedTours.length > 0 && (
-			<section class="section-padding-sm bg-crema">
-				<Container>
-					<h2 class="text-2xl font-semibold text-foreground mb-8">{labels.relatedTours}</h2>
-					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-						{relatedTours.map((tour) => (
-							<a
+			{relatedTours.length > 0 && (
+				<section class="section-padding-sm bg-crema">
+					<Container>
+						<h2 class="text-2xl font-semibold text-foreground mb-8">{labels.relatedTours}</h2>
+						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+							{relatedTours.map((tour) => (
+								<a
 								href={isEnglish ? `/en/tours/${tour.slug}` : `/tours/${tour.slug}`}
 								class="group block bg-white rounded-xl overflow-hidden border border-border hover-lift img-zoom"
 							>
 								<div class="aspect-[4/3] overflow-hidden">
 									<img
-										src={tour.image || "/assets/menu/tours/mira-cuenca.jpg"}
-										alt={tour.name}
-										class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-										loading="lazy"
-									/>
-								</div>
+									src={tour.gallery?.[0]?.src || "/assets/menu/tours/mira-cuenca.jpg"}
+									alt={resolveLabel(tour.title, lang)}
+									class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+									loading="lazy"
+								/>
+							</div>
 								<div class="p-4">
-									<h3 class="font-semibold text-foreground group-hover:text-primary-red transition-colors">{tour.name}</h3>
-									<p class="text-xs text-muted mt-1">{tour.operational.duration} · {tour.pricing.general}</p>
+									<h3 class="font-semibold text-foreground group-hover:text-primary-red transition-colors">{resolveLabel(tour.title, lang)}</h3>
+									<p class="text-xs text-muted mt-1">{tour.duration} · ${tour.prices[0]?.amount || 0}</p>
 								</div>
 							</a>
 						))}
-					</div>
-				</Container>
-			</section>
-		)}
-	</article>
+						</div>
+					</Container>
+				</section>
+			)}
+		</article>

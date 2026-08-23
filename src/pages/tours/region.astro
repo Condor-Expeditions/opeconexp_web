@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ToursGrid from "../../components/sections/ToursGrid.astro";
+import StatsBar from "../../components/sections/StatsBar.astro";
+import SustainabilityBar from "../../components/sections/SustainabilityBar.astro";
+import {
+  getTours,
+  getRegions,
+  getCategoryTitle,
+  resolveLabel
+} from "../../data/helpers";
+
+// Import types con extensión explícita para SSR
+import type { Tour } from "../../data/types";
+
+// Interfaces para props del TourCard
+interface TourCardProps {
+  tour: Tour;
+  lang?: "es" | "en";
+}
+
+// SSR dinámico — filtrado por query param ?tipo=/?categoria=
+export const prerender = false;
+
+const lang = "es";
+const isEnglish = false;
+const regions = getRegions();
+
+// Obtener región desde query param
+const searchParams = Astro.url.searchParams;
+const regionSlug = searchParams.get("region") || "";
+const allTours = getTours();
+
+// Filtrar tours por región
+const filteredTours = regionSlug
+  ? allTours.filter((t) => t.regions?.includes(regionSlug))
+  : [];
+
+// Encontrar nombre de región para el título
+const region = regionSlug
+  ? regions.find((r) => r.id === regionSlug || r.slug === regionSlug)
+  : null;
+const regionName = region ? resolveLabel(region.title, lang) : (regionSlug || "Región");
+
+const pageTitle = isEnglish
+  ? `Tours in ${regionName} - Condor Expeditions`
+  : `Tours en ${regionName} - Condor Expeditions`;
+const pageDesc = isEnglish
+  ? `Explore our ${filteredTours.length} tours in ${regionName}.`
+  : `Explora nuestros ${filteredTours.length} tours en ${regionName}.`;
+---
+
+<Layout title={pageTitle} description={pageDesc} lang={lang}>
+  <section class="section-padding">
+    <div class="text-center mb-12">
+      <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">
+        {isEnglish ? `Tours in ${regionName}` : `Tours en ${regionName}`}
+      </h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        {isEnglish
+          ? `${filteredTours.length} tours available in ${regionName}.`
+          : `${filteredTours.length} tours disponibles en ${regionName}.`}
+      </p>
+    </div>
+    <ToursGrid tours={filteredTours} lang={lang} />
+  </section>
+  <StatsBar lang={lang} />
+  <SustainabilityBar lang={lang} />
+</Layout>

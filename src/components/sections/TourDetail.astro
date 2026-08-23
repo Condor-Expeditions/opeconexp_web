@@ -1,9 +1,9 @@
 ---
-import Container from "@/components/shared/Container";
-import Button from "@/components/ui/Button";
-import Badge from "@/components/ui/Badge";
-import { getTourData, resolveLabel } from "@/data/helpers";
-import type { Tour } from "@/data/types";
+import Container from "../shared/Container.astro";
+import Button from "../ui/Button.astro";
+import Badge from "../ui/Badge.astro";
+import { getTourData } from "../../data/helpers";
+import type { Tour } from "../../data/types";
 
 export interface Props {
   tour: Tour;
