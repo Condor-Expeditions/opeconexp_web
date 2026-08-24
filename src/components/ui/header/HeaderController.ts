@@ -3,6 +3,8 @@ export class HeaderController {
 	navMenu: HTMLElement | null;
 	megaMenu: HTMLElement | null;
 	currentSubmenu: string | null = null;
+	// AbortController: limpia listeners globales (window/document) al re-inicializar
+	private abort = new AbortController();
 
 	constructor() {
 		this.headerNode = document.getElementById("site-header");
@@ -33,7 +35,10 @@ export class HeaderController {
 		};
 
 		updateHeader();
-		window.addEventListener("scroll", updateHeader, { passive: true });
+		window.addEventListener("scroll", updateHeader, {
+			passive: true,
+			signal: this.abort.signal,
+		});
 	}
 
 	setMegaMenuListeners() {
@@ -57,16 +62,20 @@ export class HeaderController {
 		trigger.addEventListener("mouseenter", showMegaMenu);
 		trigger.addEventListener("focus", showMegaMenu);
 
-		this.headerNode?.addEventListener("mouseleave", hideMegaMenu);
-
-		this.megaMenu.addEventListener("mouseenter", showMegaMenu);
-		this.megaMenu.addEventListener("mouseleave", hideMegaMenu);
-
-		this.navMenu
-			.querySelectorAll("a:not([data-mega-trigger])")
-			.forEach((link) => {
-				link.addEventListener("mouseenter", hideMegaMenu);
+			this.headerNode?.addEventListener("mouseleave", hideMegaMenu, {
+				signal: this.abort.signal,
 			});
+
+			this.megaMenu.addEventListener("mouseenter", showMegaMenu);
+			this.megaMenu.addEventListener("mouseleave", hideMegaMenu);
+
+			this.navMenu
+				.querySelectorAll("a:not([data-mega-trigger])")
+				.forEach((link) => {
+					link.addEventListener("mouseenter", hideMegaMenu, {
+						signal: this.abort.signal,
+					});
+				});
 	}
 
 	setMobileMenuListeners() {
@@ -108,13 +117,22 @@ export class HeaderController {
 
 		mobileClose?.addEventListener("click", closeMenu);
 
-		document.addEventListener("keydown", (e) => {
-			if (
-				e.key === "Escape" &&
-				toggle.getAttribute("aria-expanded") === "true"
-			) {
-				closeMenu();
-			}
-		});
+		document.addEventListener(
+			"keydown",
+			(e) => {
+				if (
+					e.key === "Escape" &&
+					toggle.getAttribute("aria-expanded") === "true"
+				) {
+					closeMenu();
+				}
+			},
+			{ signal: this.abort.signal },
+		);
+	}
+
+	/** Llamar antes de re-inicializar (astro:page-load) para limpiar listeners globales */
+	destroy() {
+		this.abort.abort();
 	}
 }

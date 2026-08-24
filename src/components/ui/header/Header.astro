@@ -2,7 +2,7 @@
 import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container.astro";
 import { MENU_DATA } from "@/data/menuData";
-import { ROUTES } from "@/data/routes";
+import { ROUTES, ROUTES_LABELS_EN } from "@/data/routes";
 import Button from "../Button.astro";
 
 export interface Props {
@@ -18,8 +18,14 @@ const translations: Record<string, Record<string, string>> = {
 	es: {
 		explora: "Explora",
 		destinos: "Destinos",
-		nosotros: "Nosotros",
+		especiales: "Especiales",
+		nosotros: "Quiénes Somos",
 		contacto: "Contacto",
+		mas: "Más",
+		faq: "Preguntas Frecuentes",
+		terminos: "Términos y Condiciones",
+		privacidad: "Política de Privacidad",
+		blog: "Blog",
 		reserve: "Reservar",
 		language: "Idioma",
 		close: "Cerrar",
@@ -29,8 +35,14 @@ const translations: Record<string, Record<string, string>> = {
 	en: {
 		explora: "Explore",
 		destinos: "Destinations",
-		nosotros: "About",
+		especiales: "Specials",
+		nosotros: "About Us",
 		contacto: "Contact",
+		mas: "More",
+		faq: "FAQ",
+		terminos: "Terms & Conditions",
+		privacidad: "Privacy Policy",
+		blog: "Blog",
 		reserve: "Book Now",
 		language: "Language",
 		close: "Close",
@@ -44,11 +56,17 @@ const t = translations[lang];
 const localizedRoutes = ROUTES.map((route) => ({
 	...route,
 	id: route.id,
-	href: isEnglish ? `/en${route.href}` : route.href,
-	label: t[route.label.toLowerCase()],
-	key: route.label.toLowerCase(),
-	isActive: currentPath === (isEnglish ? `/en${route.href}` : route.href),
-	isExplora: route.label.toLowerCase() === "explora",
+	href: route.href ? (isEnglish ? `/en${route.href}` : route.href) : undefined,
+	label:
+		t[route.id.replace("-nav", "")] ??
+		(isEnglish
+			? ROUTES_LABELS_EN[route.id.replace("-nav", "")] ?? route.label
+			: route.label),
+	key: route.id.replace("-nav", ""),
+	isActive: route.href
+		? currentPath === (isEnglish ? `/en${route.href}` : route.href)
+		: false,
+	isExplora: route.id === "explora-nav",
 }));
 
 const homeHref = isEnglish ? "/en/" : "/";
@@ -88,28 +106,89 @@ const enHref = getAlternateLangHref("en");
 				<nav
 					id="header-nav"
 					class="hidden lg:flex items-center justify-center gap-2 flex-1"
-					aria-label={t.language}
+					aria-label={t.menu}
 				>
 					{
-						localizedRoutes.map((route) => (
-							<a
-								id={route.id}
-								href={route.href}
-								data-mega-trigger={route.isExplora ? "explora" : undefined}
-								aria-haspopup={route.isExplora ? "true" : undefined}
-								aria-expanded={route.isExplora ? "false" : undefined}
-								class:list={[
-									"nav-link relative px-4 py-2 text-sm xl:text-base font-medium uppercase tracking-wide transition-colors duration-200 rounded-md",
-									"text-white hover:text-primary-red",
-									{ "text-primary-red": route.isActive },
-								]}
-							>
-								{route.label}
-								{route.isActive && (
-									<span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary-red rounded-full" />
-								)}
-							</a>
-						))
+						localizedRoutes.map((route) => {
+							// Dropdowns (Especiales disabled / Más)
+							if (route.type === "dropdown") {
+								return (
+									<div class="nav-dropdown group relative">
+										<button
+											type="button"
+											class:list={[
+												"nav-link relative flex items-center gap-1 px-4 py-2 text-sm xl:text-base font-medium uppercase tracking-wide transition-colors duration-200 rounded-md cursor-pointer",
+												route.disabled
+													? "text-white/40 hover:text-white/40 cursor-default"
+													: "text-white hover:text-primary-red",
+												{ "text-primary-red!": route.isActive },
+											]}
+											aria-haspopup="true"
+											aria-expanded="false"
+											disabled={route.disabled}
+										>
+											{route.label}
+											{route.badge && (
+												<span class="ml-1 text-[10px] normal-case text-muted-foreground bg-background/80 px-1.5 py-0.5 rounded-full">
+													{route.badge}
+												</span>
+											)}
+											<svg class="h-3 w-3 transition-transform duration-200 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+										</button>
+										<div
+											class:list={[
+												"absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50 opacity-0 invisible translate-y-2 transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0",
+												// Disabled dropdown never shows
+												route.disabled &&
+													"group-hover:opacity-0! group-hover:invisible! group-hover:pointer-events-none!",
+											]}
+										>
+											<div class="min-w-[13rem] rounded-xl border border-border bg-white shadow-xl overflow-hidden py-1">
+												{route.children?.map((child) => (
+													<a
+														href={child.href}
+														class:list={[
+															"flex items-center justify-between px-4 py-2.5 text-sm transition-colors whitespace-nowrap",
+															child.disabled
+																? "text-foreground/40 cursor-default"
+																: "text-foreground hover:bg-accent/10 hover:text-primary-red",
+														]}
+														aria-disabled={child.disabled || undefined}
+														tabindex={child.disabled ? -1 : undefined}
+													>
+														<span>{child.label}</span>
+														{child.disabled && (
+															<span class="text-[10px] text-muted-foreground bg-background px-1.5 py-0.5 rounded-full">Próx</span>
+														)}
+													</a>
+												))}
+											</div>
+										</div>
+									</div>
+								);
+							}
+
+							// Links normales
+							return (
+								<a
+									id={route.id}
+									href={route.href}
+									data-mega-trigger={route.isExplora ? "explora" : undefined}
+									aria-haspopup={route.isExplora ? "true" : undefined}
+									aria-expanded={route.isExplora ? "false" : undefined}
+									class:list={[
+										"nav-link relative px-4 py-2 text-sm xl:text-base font-medium uppercase tracking-wide transition-colors duration-200 rounded-md",
+										"text-white hover:text-primary-red",
+										{ "text-primary-red": route.isActive },
+									]}
+								>
+									{route.label}
+									{route.isActive && (
+										<span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary-red rounded-full" />
+									)}
+								</a>
+							);
+						})
 					}
 				</nav>
 
@@ -358,18 +437,58 @@ const enHref = getAlternateLangHref("en");
 		<div class="px-4 py-6 space-y-6 pb-32 min-h-[calc(100vh-72px)]">
 			<nav class="flex flex-col">
 				{
-					localizedRoutes.map((route) => (
-						<a
-							href={route.href}
-							class:list={[
-								"text-lg font-medium py-3 border-b border-border transition-colors",
-								{ "text-primary-red": route.isActive },
-								{ "text-foreground hover:text-primary-red": !route.isActive },
-							]}
-						>
-							{route.label}
-						</a>
-					))
+					localizedRoutes.map((route) => {
+						// Dropdowns en mobile: sección con children listados
+						if (route.type === "dropdown") {
+							return (
+								<div class="border-b border-border py-1">
+									<p class:list={[
+										"text-sm font-semibold uppercase tracking-wide px-2 py-2",
+										route.disabled ? "text-foreground/40" : "text-foreground",
+									]}>
+										{route.label}
+										{route.badge && (
+											<span class="ml-2 text-[10px] normal-case text-muted-foreground bg-background px-1.5 py-0.5 rounded-full">{route.badge}</span>
+										)}
+									</p>
+									<div class:list={["flex flex-col pl-4", route.disabled && "opacity-50"]}>
+										{route.children?.map((child) => (
+											<a
+												href={child.disabled ? undefined : (isEnglish ? `/en${child.href}` : child.href)}
+												class:list={[
+													"text-base py-2 transition-colors",
+													child.disabled
+														? "text-foreground/40 cursor-default"
+														: "text-foreground hover:text-primary-red",
+												]}
+												aria-disabled={child.disabled || undefined}
+												tabindex={child.disabled ? -1 : undefined}
+											>
+												{child.label}
+												{child.disabled && (
+													<span class="ml-2 text-[10px] text-muted-foreground bg-background px-1.5 py-0.5 rounded-full">Próx</span>
+												)}
+											</a>
+										))}
+									</div>
+								</div>
+							);
+						}
+
+						// Links normales
+						return (
+							<a
+								href={route.href}
+								class:list={[
+									"text-lg font-medium py-3 border-b border-border transition-colors",
+									{ "text-primary-red": route.isActive },
+									{ "text-foreground hover:text-primary-red": !route.isActive },
+								]}
+							>
+								{route.label}
+							</a>
+						);
+					})
 				}
 			</nav>
 
@@ -414,8 +533,15 @@ const enHref = getAlternateLangHref("en");
 	</div>
 
 	<script>
-			import { HeaderController } from "./HeaderController";
-			const headerController = new HeaderController();
+		import { HeaderController } from "./HeaderController";
+
+		// SPA lifecycle: ClientRouter hace swap del DOM sin re-ejecutar scripts.
+		// Re-inicializar listeners en cada navegación (y en el primer load).
+		let headerController: HeaderController | null = null;
+
+		function initHeader() {
+			headerController?.destroy();
+			headerController = new HeaderController();
 			headerController.init();
 
 			// Language toggle logic
@@ -423,35 +549,42 @@ const enHref = getAlternateLangHref("en");
 			const langDropdown = document.getElementById("lang-dropdown");
 
 			if (langBtn && langDropdown) {
-				langBtn.addEventListener("click", (e) => {
-					e.stopPropagation();
-					const isOpen = langDropdown.classList.contains("opacity-100");
-					if (isOpen) {
-						langDropdown.classList.remove("opacity-100", "translate-y-0", "scale-100", "visible");
-						langDropdown.classList.add("opacity-0", "translate-y-2", "scale-95", "invisible");
-						langBtn.setAttribute("aria-expanded", "false");
-					} else {
-						langDropdown.classList.add("opacity-100", "translate-y-0", "scale-100", "visible");
-						langDropdown.classList.remove("opacity-0", "translate-y-2", "scale-95", "invisible");
-						langBtn.setAttribute("aria-expanded", "true");
-					}
-				});
+				// Guard: evitar duplicar listener si astro:page-load re-corre
+				if (!(langBtn as HTMLElement).dataset.langBound) {
+					(langBtn as HTMLElement).dataset.langBound = "1";
+					langBtn.addEventListener("click", (e) => {
+						e.stopPropagation();
+						const isOpen = langDropdown.classList.contains("opacity-100");
+						if (isOpen) {
+							langDropdown.classList.remove("opacity-100", "translate-y-0", "scale-100", "visible");
+							langDropdown.classList.add("opacity-0", "translate-y-2", "scale-95", "invisible");
+							langBtn.setAttribute("aria-expanded", "false");
+						} else {
+							langDropdown.classList.add("opacity-100", "translate-y-0", "scale-100", "visible");
+							langDropdown.classList.remove("opacity-0", "translate-y-2", "scale-95", "invisible");
+							langBtn.setAttribute("aria-expanded", "true");
+						}
+					});
 
-				// Close dropdown when clicking outside
-				document.addEventListener("click", () => {
-					if (langDropdown.classList.contains("opacity-100")) {
-						langDropdown.classList.remove("opacity-100", "translate-y-0", "scale-100", "visible");
-						langDropdown.classList.add("opacity-0", "translate-y-2", "scale-95", "invisible");
-						langBtn.setAttribute("aria-expanded", "false");
-					}
-				});
+					// Close dropdown when clicking outside
+					document.addEventListener("click", () => {
+						if (langDropdown.classList.contains("opacity-100")) {
+							langDropdown.classList.remove("opacity-100", "translate-y-0", "scale-100", "visible");
+							langDropdown.classList.add("opacity-0", "translate-y-2", "scale-95", "invisible");
+							langBtn.setAttribute("aria-expanded", "false");
+						}
+					});
 
-				// Prevent closing when clicking inside dropdown
-				langDropdown.addEventListener("click", (e) => {
-					e.stopPropagation();
-				});
+					// Prevent closing when clicking inside dropdown
+					langDropdown.addEventListener("click", (e) => {
+						e.stopPropagation();
+					});
+				}
 			}
-		</script>
+		}
+
+		document.addEventListener("astro:page-load", initHeader);
+	</script>
 
 	<style>
 		.header-top {

@@ -1,0 +1,74 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const lang = "en";
+
+const sections = [
+	{
+		title: "Bookings & Payments",
+		qas: [
+			{
+				q: "How do I book a tour?",
+				a: "You can book directly from each tour page using the “Book” button, or reach us on WhatsApp. We confirm availability within 24 hours.",
+			},
+			{
+				q: "Which payment methods do you accept?",
+				a: "Bank transfer, credit/debit cards and PayPal. For multi-day tours we request a 30% deposit to guarantee your spot.",
+			},
+			{
+				q: "Can I cancel my booking?",
+				a: "Yes. Cancellations more than 72 hours in advance receive a full deposit refund. Within 72 hours, the deposit is non-refundable.",
+			},
+		],
+	},
+	{
+		title: "Tour Preparation",
+		qas: [
+			{
+				q: "What should I bring?",
+				a: "Comfortable trekking shoes, layered clothing (weather in the Ecuadorian Andes changes quickly), a light rain jacket, sunscreen and water. A detailed packing list is sent for camping tours.",
+			},
+			{
+				q: "Are the tours suitable for children?",
+				a: "Most of our day tours are family friendly. Mountain treks and camping have minimum ages depending on difficulty — check each tour page.",
+			},
+		],
+	},
+];
+---
+
+<Layout
+	title="FAQ - Cóndor Expeditions"
+	description="Answers to the most frequent questions about bookings, payments, preparation and policies of our tours."
+	lang={lang}
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+			<h1 class="font-display text-4xl md:text-5xl mb-4">Frequently Asked Questions</h1>
+			<p class="text-lg text-white/70">
+				Everything you need to know before your next expedition.
+			</p>
+		</div>
+	</section>
+
+	<section class="section-padding bg-background">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-10">
+			{sections.map((sec) => (
+				<div>
+					<h2 class="font-display text-2xl text-foreground mb-4">{sec.title}</h2>
+					<div class="space-y-3">
+						{sec.qas.map((qa) => (
+							<details class="group rounded-xl border border-border bg-card p-4">
+								<summary class="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
+									{qa.q}
+									<span class="text-primary transition-transform group-open:rotate-45">+</span>
+								</summary>
+								<p class="mt-3 text-muted-foreground leading-relaxed">{qa.a}</p>
+							</details>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+</Layout>

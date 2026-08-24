@@ -1,0 +1,74 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const lang = "es";
+
+const sections = [
+	{
+		title: "Reservas y Pagos",
+		qas: [
+			{
+				q: "¿Cómo reservo un tour?",
+				a: "Puedes reservar directamente desde la página de cada tour con el botón «Reservar», o escribirnos por WhatsApp. Confirmamos disponibilidad en menos de 24 horas.",
+			},
+			{
+				q: "¿Qué métodos de pago aceptan?",
+				a: "Transferencia bancaria, tarjetas de crédito/débito y PayPal. Para tours de varios días solicitamos un depósito del 30% para garantir cupo.",
+			},
+			{
+				q: "¿Puedo cancelar mi reserva?",
+				a: "Sí. Cancelaciones con más de 72 horas de anticipación reciben reembolso completo del depósito. Dentro de las 72 horas, el depósito no es reembolsable.",
+			},
+		],
+	},
+	{
+		title: "Preparación para el Tour",
+		qas: [
+			{
+				q: "¿Qué debo llevar?",
+				a: "Calzado cómodo de trekking, ropa en capas (el clima en el Austro cambia rápido), impermeable ligero, protector solar y agua. Para camping enviamos lista detallada al confirmar.",
+			},
+			{
+				q: "¿Los tours son aptos para niños?",
+				a: "La mayoría de nuestros tours de día son familiares. Trekking de montaña y camping tienen edad mínima según la dificultad — revisa la ficha de cada tour.",
+			},
+		],
+	},
+];
+---
+
+<Layout
+	title="Preguntas Frecuentes - Cóndor Expeditions"
+	description="Respuestas a las preguntas más frecuentes sobre reservas, pagos, preparación y políticas de nuestros tours."
+	lang={lang}
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+			<h1 class="font-display text-4xl md:text-5xl mb-4">Preguntas Frecuentes</h1>
+			<p class="text-lg text-white/70">
+				Todo lo que necesitas saber antes de tu próxima expedición.
+			</p>
+		</div>
+	</section>
+
+	<section class="section-padding bg-background">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-10">
+			{sections.map((sec) => (
+				<div>
+					<h2 class="font-display text-2xl text-foreground mb-4">{sec.title}</h2>
+					<div class="space-y-3">
+						{sec.qas.map((qa) => (
+							<details class="group rounded-xl border border-border bg-card p-4">
+								<summary class="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
+									{qa.q}
+									<span class="text-primary transition-transform group-open:rotate-45">+</span>
+								</summary>
+								<p class="mt-3 text-muted-foreground leading-relaxed">{qa.a}</p>
+							</details>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+</Layout>
