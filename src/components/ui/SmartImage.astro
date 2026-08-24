@@ -2,7 +2,6 @@
 // SmartImage.astro — Componente de imagen optimizada con astro:assets
 // Maneja imágenes locales (src) y remotas (URL) con lazy loading, formatos modernos
 import { Image } from "astro:assets";
-import { type ImageMetadata } from "astro";
 
 export interface Props {
   src: string;
@@ -26,7 +25,6 @@ const {
 ---
 
 {src.startsWith("http") ? (
-  <!-- Imagen remota: usar tag nativo con loading -->
   <img
     src={src}
     alt={alt}
@@ -36,7 +34,6 @@ const {
     loading={loading}
   />
 ) : (
-  <!-- Imagen local: use astro:assets para optimización -->
   <Image
     src={src}
     alt={alt}

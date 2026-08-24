@@ -272,11 +272,14 @@ const enHref = getAlternateLangHref("en");
 								class="group relative flex flex-col justify-end h-44 rounded-xl overflow-hidden"
 							>
 								<img
-									src={item.image.src}
-									alt={item.title}
-									class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-									loading="lazy"
-								/>
+										src={item.image.src}
+										alt={item.title}
+										width={400}
+										height={300}
+										class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+										loading="lazy"
+										onerror="this.onerror=null;this.src='https://placehold.co/400x300?text='+encodeURIComponent(this.alt);"
+									/>
 								<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 								<div class="relative p-4">
 									<p class="inline-block px-2 py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-2">
@@ -382,11 +385,14 @@ const enHref = getAlternateLangHref("en");
 								class="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/10 transition-colors"
 							>
 								<img
-									src={item.image.src}
-									alt={item.title}
-									class="w-14 h-14 object-cover rounded-md shrink-0"
-									loading="lazy"
-								/>
+										src={item.image.src}
+										alt={item.title}
+										width={56}
+										height={56}
+										class="w-14 h-14 object-cover rounded-md shrink-0"
+										loading="lazy"
+										onerror="this.onerror=null;this.src='https://placehold.co/56x56?text='+encodeURIComponent(this.alt);"
+									/>
 								<div>
 									<p class="font-medium text-foreground text-sm leading-tight">
 										{item.title}

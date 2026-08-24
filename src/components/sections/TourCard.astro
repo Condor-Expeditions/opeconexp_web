@@ -24,10 +24,13 @@ const detailHref = isEnglish ? `/en/tours/${tour.slug}` : `/tours/${tour.slug}`;
 <Card variant="elevated" padding="none" class="hover-lift img-zoom h-full flex flex-col">
   <div class="relative aspect-[4/3] overflow-hidden rounded-t-lg">
     <img
-      src={t.image || "/assets/menu/tours/mira-cuenca.jpg"}
+      src={getValidImageUrl(t.image || tour.image)}
       alt={resolveLabel(tour.title, lang)}
+      width={400}
+      height={300}
       class="w-full h-full object-cover"
       loading="lazy"
+      onerror="this.onerror=null;this.src='https://placehold.co/400x300?text='+encodeURIComponent(this.alt);"
     />
     {t.badge && (
       <div class="absolute top-3 left-3">
