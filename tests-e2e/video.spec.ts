@@ -1,17 +1,19 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Video Optimization", () => {
-	test("hero video has source tags with webm + mp4", async ({ page }) => {
+	test("hero video has source tags with mp4 streams", async ({ page }) => {
 		await page.goto("/");
 		const video = page.locator("#hero-video");
 		const sources = video.locator("source");
 		const count = await sources.count();
-		expect(count).toBeGreaterThanOrEqual(4);
+		expect(count).toBeGreaterThanOrEqual(2);
+
 		const srcs = await sources.evaluateAll((nodes) =>
 			nodes.map((n) => ({ src: n.getAttribute("src"), type: n.getAttribute("type") })),
 		);
-		expect(srcs.some((s) => s.type === "video/webm" && s.src?.endsWith(".webm"))).toBe(true);
-		expect(srcs.some((s) => s.type === "video/mp4" && s.src?.endsWith(".mp4"))).toBe(true);
+		// Debe tener sources para desktop + mobile (landscape + portrait)
+		expect(srcs.some((s) => s.src === "/videos/landscape_hero.mp4")).toBe(true);
+		expect(srcs.some((s) => s.src === "/videos/portrait_hero.mp4")).toBe(true);
 	});
 
 	test("video has preload=metadata to avoid lazy-loading full video", async ({ page }) => {

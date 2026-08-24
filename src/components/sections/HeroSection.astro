@@ -40,20 +40,10 @@ const tourOptions = tours.map((t) => ({
 		<!-- Landscape (desktop) -->
 		<source
 			data-desktop
-			src="/videos/landscape_hero.webm"
-			type="video/webm"
-		/>
-		<source
-			data-desktop
 			src="/videos/landscape_hero.mp4"
 			type="video/mp4"
 		/>
 		<!-- Portrait (mobile) -->
-		<source
-			data-mobile
-			src="/videos/portrait_hero.webm"
-			type="video/webm"
-		/>
 		<source
 			data-mobile
 			src="/videos/portrait_hero.mp4"
@@ -124,9 +114,9 @@ const tourOptions = tours.map((t) => ({
 		if (!video) return;
 		const isMobile = window.innerWidth < 768;
 		const sources = video.querySelectorAll("source");
-		sources.forEach((s) => {
+		sources.forEach((s: HTMLSourceElement) => {
 			const isDesktop = s.dataset.desktop !== undefined;
-			// Enable desktop sources when NOT mobile, mobile sources when mobile
+			// Enable matching orientation sources
 			s.enabled = isMobile ? !isDesktop : isDesktop;
 		});
 		video.load();
