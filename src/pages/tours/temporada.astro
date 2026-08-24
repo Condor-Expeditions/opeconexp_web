@@ -1,9 +1,9 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import ToursGrid from "@/components/sections/ToursGrid.astro";
 import StatsBar from "@/components/sections/StatsBar.astro";
 import SustainabilityBar from "@/components/sections/SustainabilityBar.astro";
-import { getTours, getReviews, resolveLabel } from "@/data/helpers";
+import ToursGrid from "@/components/sections/ToursGrid.astro";
+import { getReviews, getTours, resolveLabel } from "@/data/helpers";
+import Layout from "@/layouts/Layout.astro";
 
 const lang = "es";
 const isEnglish = false;
@@ -12,8 +12,8 @@ const allTours = getTours();
 // Obtener reviews para calcular popularidad
 const allReviews = getReviews();
 const tourReviewCounts = allReviews.reduce((acc: Record<string, number>, r) => {
-  acc[r.tourId] = (acc[r.tourId] || 0) + 1;
-  return acc;
+	acc[r.tourId] = (acc[r.tourId] || 0) + 1;
+	return acc;
 }, {});
 
 const title = "Temporada de Aventura";

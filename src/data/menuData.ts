@@ -1,11 +1,10 @@
 import azuay from "@/assets/menu/destinos/azuay.jpg";
 import canar from "@/assets/menu/destinos/canar.jpg";
-
-import cajasExpress from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
 import chorroDeGiron from "@/assets/menu/tours/chorro-de-giron.jpg";
 import guachapalaAndacocha from "@/assets/menu/tours/guachapala-andacocha.jpg";
 import ingapirca from "@/assets/menu/tours/ingapirca.jpg";
 import miraCuenca from "@/assets/menu/tours/mira-cuenca.jpg";
+import cajasExpress from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
 
 export const MENU_DATA = {
 	explora: [

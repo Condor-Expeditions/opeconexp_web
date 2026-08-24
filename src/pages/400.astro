@@ -1,14 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import Container from "../components/shared/Container.astro";
 import Button from "../components/ui/Button.astro";
+import Layout from "../layouts/Layout.astro";
 
 const isEnglish = false;
 const title = "400 Bad Request";
 const heading = isEnglish ? "Bad Request" : "Solicitud incorrecta";
-const message = isEnglish 
-  ? "The page you requested contains invalid parameters." 
-  : "La página que solicitaste contiene parámetros inválidos.";
+const message = isEnglish
+	? "The page you requested contains invalid parameters."
+	: "La página que solicitaste contiene parámetros inválidos.";
 ---
 
 <Layout title={title} lang="es" noindex>

@@ -1,24 +1,27 @@
 ---
-import Layout from "@/layouts/Layout.astro";
 import TourDetail from "@/components/sections/TourDetail.astro";
 import { getTourBySlug, getValidImageUrl, resolveLabel } from "@/data/helpers";
 import type { Tour } from "@/data/types";
+import Layout from "@/layouts/Layout.astro";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const { getTours } = await import("@/data/helpers");
-  const { getReviews } = await import("@/data/helpers");
-  return getTours().map((tour) => ({
-    params: { slug: tour.slug },
-    props: { tour, lang: "es" },
-  }));
+	const { getTours } = await import("@/data/helpers");
+	const { getReviews } = await import("@/data/helpers");
+	return getTours().map((tour) => ({
+		params: { slug: tour.slug },
+		props: { tour, lang: "es" },
+	}));
 }
 
 const { tour, lang = "es" } = Astro.props;
 const title = resolveLabel(tour.title, lang);
 const description = resolveLabel(tour.description, lang);
-const ogImage = getValidImageUrl(tour.image || tour.gallery?.[0]?.src, resolveLabel(tour.title, lang));
+const ogImage = getValidImageUrl(
+	tour.image || tour.gallery?.[0]?.src,
+	resolveLabel(tour.title, lang),
+);
 ---
 
 <Layout

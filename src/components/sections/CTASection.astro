@@ -9,7 +9,9 @@ export interface Props {
 const { lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
 
-const title = isEnglish ? "Ready for Your Adventure?" : "¿Listo para tu aventura?";
+const title = isEnglish
+	? "Ready for Your Adventure?"
+	: "¿Listo para tu aventura?";
 const subtitle = isEnglish
 	? "Book today and discover why hundreds of travelers choose Condor Expeditions."
 	: "Reserva hoy y descubre por qué cientos de viajeros eligen Condor Expeditions.";

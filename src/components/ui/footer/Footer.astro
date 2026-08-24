@@ -1,8 +1,8 @@
 ---
 import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container.astro";
-import { siteConfig } from "@/data/site.config";
 import { ROUTES } from "@/data/routes";
+import { siteConfig } from "@/data/site.config";
 
 export interface Props {
 	lang?: "es" | "en";
@@ -34,7 +34,9 @@ const newsletterTitle = isEnglish ? "Newsletter" : "Boletín";
 const newsletterDesc = isEnglish
 	? "Receive travel inspiration and exclusive offers."
 	: "Recibe inspiración de viaje y ofertas exclusivas.";
-const newsletterPlaceholder = isEnglish ? "Your email" : "Tu correo electrónico";
+const newsletterPlaceholder = isEnglish
+	? "Your email"
+	: "Tu correo electrónico";
 const newsletterBtn = isEnglish ? "Subscribe" : "Suscribirse";
 const quickLinksTitle = isEnglish ? "Quick Links" : "Enlaces Rápidos";
 const followUs = isEnglish ? "Follow Us" : "Síguenos";
@@ -43,12 +45,10 @@ const rights = isEnglish
 	: `© ${new Date().getFullYear()} Condor Expeditions. Todos los derechos reservados.`;
 
 const socialIcons: Record<string, string> = {
-	facebook:
-		"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z",
+	facebook: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z",
 	instagram:
 		"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z M17.5 6.5h.01 M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12z M7.5 2h9a5.5 5.5 0 0 1 5.5 5.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2z",
-	tiktok:
-		"M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5",
+	tiktok: "M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5",
 	youtube:
 		"M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17z M10 15l5-3-5-3z",
 	whatsapp:

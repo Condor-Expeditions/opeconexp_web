@@ -1,22 +1,21 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import ToursGrid from "@/components/sections/ToursGrid.astro";
 import StatsBar from "@/components/sections/StatsBar.astro";
 import SustainabilityBar from "@/components/sections/SustainabilityBar.astro";
+import ToursGrid from "@/components/sections/ToursGrid.astro";
 import {
-  getTours,
-  getRegions,
-  getCategoryTitle,
-  resolveLabel
+	getCategoryTitle,
+	getRegions,
+	getTours,
+	resolveLabel,
 } from "@/data/helpers";
-
 // Import types
 import type { Tour } from "@/data/types";
+import Layout from "@/layouts/Layout.astro";
 
 // Interfaces para props del TourCard
 interface TourCardProps {
-  tour: Tour;
-  lang?: "es" | "en";
+	tour: Tour;
+	lang?: "es" | "en";
 }
 
 // SSR dinámico — filtrado por query param ?region=
@@ -33,21 +32,23 @@ const allTours = getTours();
 
 // Filtrar tours por región
 const filteredTours = regionSlug
-  ? allTours.filter((t) => t.regions?.includes(regionSlug))
-  : allTours.slice(0, 6);
+	? allTours.filter((t) => t.regions?.includes(regionSlug))
+	: allTours.slice(0, 6);
 
 // Encontrar nombre de región para el título
 const region = regionSlug
-  ? regions.find((r) => r.id === regionSlug || r.slug === regionSlug)
-  : null;
-const regionName = region ? resolveLabel(region.title, lang) : (regionSlug || "Región");
+	? regions.find((r) => r.id === regionSlug || r.slug === regionSlug)
+	: null;
+const regionName = region
+	? resolveLabel(region.title, lang)
+	: regionSlug || "Región";
 
 const pageTitle = isEnglish
-  ? `Tours in ${regionName} - Condor Expeditions`
-  : `Tours en ${regionName} - Condor Expeditions`;
+	? `Tours in ${regionName} - Condor Expeditions`
+	: `Tours en ${regionName} - Condor Expeditions`;
 const pageDesc = isEnglish
-  ? `Explore our ${filteredTours.length} tours in ${regionName}.`
-  : `Explora nuestros ${filteredTours.length} tours en ${regionName}.`;
+	? `Explore our ${filteredTours.length} tours in ${regionName}.`
+	: `Explora nuestros ${filteredTours.length} tours en ${regionName}.`;
 ---
 
 <Layout title={pageTitle} description={pageDesc} lang={lang}>

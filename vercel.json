@@ -3,10 +3,10 @@
 	"git": {
 		"deploymentEnabled": {
 			"main": false,
-			"qa":false,
+			"qa": false,
 			"dev": false,
-			"developer":false,
-			"feature":false
+			"developer": false,
+			"feature": false
 		}
 	}
 }

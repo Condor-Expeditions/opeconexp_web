@@ -1,14 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import Container from "../components/shared/Container.astro";
 import Button from "../components/ui/Button.astro";
+import Layout from "../layouts/Layout.astro";
 
 const isEnglish = false;
 const title = "500 Server Error";
 const heading = isEnglish ? "Server Error" : "Error de servidor";
-const message = isEnglish 
-  ? "Something went wrong on our end. Our team has been notified and is working on it." 
-  : "Algo salió mal en nuestro lado. Nuestro equipo ha sido notificado y está trabajando en ello.";
+const message = isEnglish
+	? "Something went wrong on our end. Our team has been notified and is working on it."
+	: "Algo salió mal en nuestro lado. Nuestro equipo ha sido notificado y está trabajando en ello.";
 ---
 
 <Layout title={title} lang="es" noindex>

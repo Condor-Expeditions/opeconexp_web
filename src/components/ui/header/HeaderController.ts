@@ -62,9 +62,11 @@ export class HeaderController {
 		this.megaMenu.addEventListener("mouseenter", showMegaMenu);
 		this.megaMenu.addEventListener("mouseleave", hideMegaMenu);
 
-		this.navMenu.querySelectorAll("a:not([data-mega-trigger])").forEach((link) => {
-			link.addEventListener("mouseenter", hideMegaMenu);
-		});
+		this.navMenu
+			.querySelectorAll("a:not([data-mega-trigger])")
+			.forEach((link) => {
+				link.addEventListener("mouseenter", hideMegaMenu);
+			});
 	}
 
 	setMobileMenuListeners() {
@@ -107,7 +109,10 @@ export class HeaderController {
 		mobileClose?.addEventListener("click", closeMenu);
 
 		document.addEventListener("keydown", (e) => {
-			if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+			if (
+				e.key === "Escape" &&
+				toggle.getAttribute("aria-expanded") === "true"
+			) {
 				closeMenu();
 			}
 		});

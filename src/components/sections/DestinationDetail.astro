@@ -1,9 +1,14 @@
 ---
 import Container from "@/components/shared/Container.astro";
-import Button from "@/components/ui/Button.astro";
 import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
 import { type Destination } from "../../data/destinations";
-import { getTours, getCategoryTitle, getDifficultyLevel, resolveLabel } from "../../data/helpers";
+import {
+	getCategoryTitle,
+	getDifficultyLevel,
+	getTours,
+	resolveLabel,
+} from "../../data/helpers";
 
 export interface Props {
 	destination: Destination;
@@ -19,11 +24,17 @@ const allTours = getTours();
 const destCategory = destination.category.toLowerCase();
 const relatedTours = allTours
 	.filter((t) => {
-    const categoryTitles = t.categories.map((c) => getCategoryTitle(c, lang).toLowerCase());
-    const destName = destination.name.toLowerCase();
-    const titleEs = resolveLabel(t.title, lang).toLowerCase();
-    return categoryTitles.some((cat) => cat.includes(destCategory.split(",")[0].trim())) || titleEs.includes(destName);
-  })
+		const categoryTitles = t.categories.map((c) =>
+			getCategoryTitle(c, lang).toLowerCase(),
+		);
+		const destName = destination.name.toLowerCase();
+		const titleEs = resolveLabel(t.title, lang).toLowerCase();
+		return (
+			categoryTitles.some((cat) =>
+				cat.includes(destCategory.split(",")[0].trim()),
+			) || titleEs.includes(destName)
+		);
+	})
 	.slice(0, 3);
 
 const reserveLabel = isEnglish ? "Book a Tour" : "Reservar un tour";

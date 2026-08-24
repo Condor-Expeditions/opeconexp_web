@@ -1,8 +1,8 @@
 ---
 import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container.astro";
-import { ROUTES } from "@/data/routes";
 import { MENU_DATA } from "@/data/menuData";
+import { ROUTES } from "@/data/routes";
 import Button from "../Button.astro";
 
 export interface Props {
@@ -87,7 +87,7 @@ const enHref = getAlternateLangHref("en");
 				<!-- Desktop Navigation -->
 				<nav
 					id="header-nav"
-					class="hidden lg:flex items-center gap-1 flex-1 px-8 xl:px-12"
+					class="hidden lg:flex items-center justify-center gap-2 flex-1"
 					aria-label={t.language}
 				>
 					{

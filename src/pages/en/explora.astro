@@ -1,36 +1,41 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Container from "../../components/shared/Container.astro";
 import TourCard from "../../components/sections/TourCard.astro";
+import Container from "../../components/shared/Container.astro";
 import { tours } from "../../data/tours";
+import Layout from "../../layouts/Layout.astro";
 
 const allTours = tours;
 
 const categoryMap: Record<string, string> = {
-  "Naturaleza y Aventura": "Nature",
-  "Cultural": "Culture",
-  "Montañismo": "Adventure",
-  "Amazonía y Selva": "Jungle",
-  "City Tour": "City",
+	"Naturaleza y Aventura": "Nature",
+	Cultural: "Culture",
+	Montañismo: "Adventure",
+	"Amazonía y Selva": "Jungle",
+	"City Tour": "City",
 };
 
 const categories = Object.values(categoryMap);
-const rawCategories = [...new Set(allTours.map((t) => categoryMap[t.category] || t.category))].sort();
+const rawCategories = [
+	...new Set(allTours.map((t) => categoryMap[t.category] || t.category)),
+].sort();
 
 const tipoRaw = Astro.url.searchParams.get("category") ?? "";
 const filtered = allTours.filter((t) => {
-  if (!tipoRaw) return true;
-  const mapped = categoryMap[t.category] || t.category;
-  return mapped.toLowerCase() === tipoRaw.toLowerCase();
+	if (!tipoRaw) return true;
+	const mapped = categoryMap[t.category] || t.category;
+	return mapped.toLowerCase() === tipoRaw.toLowerCase();
 });
 
-const activeCategory = rawCategories.find((c) => c.toLowerCase() === tipoRaw.toLowerCase());
+const activeCategory = rawCategories.find(
+	(c) => c.toLowerCase() === tipoRaw.toLowerCase(),
+);
 
 let pageTitle = "Explore";
-let pageSubtitle = "Discover our expeditions designed to connect you with the best of Ecuador.";
+let pageSubtitle =
+	"Discover our expeditions designed to connect you with the best of Ecuador.";
 if (activeCategory) {
-  pageTitle = activeCategory;
-  pageSubtitle = `${activeCategory} expeditions.`;
+	pageTitle = activeCategory;
+	pageSubtitle = `${activeCategory} expeditions.`;
 }
 ---
 

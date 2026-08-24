@@ -1,37 +1,42 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Container from "../components/shared/Container.astro";
 import TourCard from "../components/sections/TourCard.astro";
+import Container from "../components/shared/Container.astro";
 import { tours } from "../data/tours";
+import Layout from "../layouts/Layout.astro";
 
 const allTours = tours;
 
 // Categorías únicas derivadas de los tours (mapeo amigable para UI)
 const categoryMap: Record<string, string> = {
-  "Naturaleza y Aventura": "Naturaleza",
-  "Cultural": "Cultura",
-  "Montañismo": "Aventura",
-  "Amazonía y Selva": "Selva",
-  "City Tour": "Ciudad",
+	"Naturaleza y Aventura": "Naturaleza",
+	Cultural: "Cultura",
+	Montañismo: "Aventura",
+	"Amazonía y Selva": "Selva",
+	"City Tour": "Ciudad",
 };
 
 const categories = Object.values(categoryMap);
-const rawCategories = [...new Set(allTours.map((t) => categoryMap[t.category] || t.category))].sort();
+const rawCategories = [
+	...new Set(allTours.map((t) => categoryMap[t.category] || t.category)),
+].sort();
 
 const tipoRaw = Astro.url.searchParams.get("categoria") ?? "";
 const filtered = allTours.filter((t) => {
-  if (!tipoRaw) return true;
-  const mapped = categoryMap[t.category] || t.category;
-  return mapped.toLowerCase() === tipoRaw.toLowerCase();
+	if (!tipoRaw) return true;
+	const mapped = categoryMap[t.category] || t.category;
+	return mapped.toLowerCase() === tipoRaw.toLowerCase();
 });
 
-const activeCategory = rawCategories.find((c) => c.toLowerCase() === tipoRaw.toLowerCase());
+const activeCategory = rawCategories.find(
+	(c) => c.toLowerCase() === tipoRaw.toLowerCase(),
+);
 
 let pageTitle = "Explora";
-let pageSubtitle = "Descubre nuestras expediciones diseñadas para conectarte con lo mejor del Ecuador.";
+let pageSubtitle =
+	"Descubre nuestras expediciones diseñadas para conectarte con lo mejor del Ecuador.";
 if (activeCategory) {
-  pageTitle = activeCategory;
-  pageSubtitle = `Expediciones de ${activeCategory.toLowerCase()}.`;
+	pageTitle = activeCategory;
+	pageSubtitle = `Expediciones de ${activeCategory.toLowerCase()}.`;
 }
 ---
 

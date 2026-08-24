@@ -3,13 +3,15 @@ import Container from "@/components/shared/Container.astro";
 import { getTestimonials, resolveLabel } from "@/data/helpers";
 
 export interface Props {
-  lang?: "es" | "en";
+	lang?: "es" | "en";
 }
 
 const { lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
 
-const title = isEnglish ? "What Travelers Say" : "Lo que dicen nuestros viajeros";
+const title = isEnglish
+	? "What Travelers Say"
+	: "Lo que dicen nuestros viajeros";
 const testimonials = getTestimonials();
 ---
 

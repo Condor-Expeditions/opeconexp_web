@@ -1,84 +1,114 @@
 {
-  "reviews": [
-    {
-      "id": "rev-1",
-      "tourId": "city-tour-cuenca",
-      "author": "María G.",
-      "rating": 5,
-      "comment": { "es": "Increíble recorrido por Cuenca. Mi guía conocía cada rincón con historia fascinante. Muy recomendado.", "en": "Amazing tour through Cuenca. The guide knew every corner with fascinating history. Highly recommended." },
-      "date": "2026-07-15"
-    },
-    {
-      "id": "rev-2",
-      "tourId": "city-tour-cuenca",
-      "author": "Carlos R.",
-      "rating": 4,
-      "comment": { "es": "Muy buen tour, los miradores son espectaculares. El canelazo de cortesía fue un detalle genial.", "en": "Very good tour, the viewpoints are spectacular. The complimentary canelazo was a great touch." },
-      "date": "2026-07-10"
-    },
-    {
-      "id": "rev-3",
-      "tourId": "cajas-trekking",
-      "author": "Ana L.",
-      "rating": 5,
-      "comment": { "es": "El Cajas es mágico. Los guías muy preparados y el equipo de primera.", "en": "Cajas is magical. Well-prepared guides and top-notch equipment." },
-      "date": "2026-06-28"
-    },
-    {
-      "id": "rev-4",
-      "tourId": "cajas-trekking",
-      "author": "Pedro M.",
-      "rating": 5,
-      "comment": { "es": "Una experiencia inolvidable en el Parque Nacional Cajas. Logística perfecta.", "en": "An unforgettable experience in Cajas National Park. Perfect logistics." },
-      "date": "2026-06-20"
-    },
-    {
-      "id": "rev-5",
-      "tourId": "cotopaxi-ascenso",
-      "author": "Laura S.",
-      "rating": 5,
-      "comment": { "es": "Logré llegar al refugio del Cotopaxi. Fue exigente pero los guías me motivaron todo el camino. Equipo excelente.", "en": "I made it to the Cotopaxi refuge. It was challenging but the guides motivated me all the way. Excellent gear." },
-      "date": "2026-05-30"
-    },
-    {
-      "id": "rev-6",
-      "tourId": "cotopaxi-ascenso",
-      "author": "Jorge A.",
-      "rating": 4,
-      "comment": { "es": "Impresionante volcán. La noche en el refugio fue fría pero valió cada segundo.", "en": "Impressive volcano. The night at the refuge was cold but worth every second." },
-      "date": "2026-05-25"
-    },
-    {
-      "id": "rev-7",
-      "tourId": "banos-aventura",
-      "author": "Sofía P.",
-      "rating": 4,
-      "comment": { "es": "Baños tiene de todo. El puenting y el ciclismo fueron lo mejor.", "en": "Baños has it all. Bungee jumping and cycling were the best parts." },
-      "date": "2026-07-05"
-    },
-    {
-      "id": "rev-8",
-      "tourId": "quilotoa-loop",
-      "author": "Diego F.",
-      "rating": 5,
-      "comment": { "es": "La laguna del Quilotoa es un espectáculo de la naturaleza. El trekking de 3 días fue retador y hermoso.", "en": "Quilotoa lake is a natural spectacle. The 3-day trek was challenging and beautiful." },
-      "date": "2026-04-18"
-    },
-    {
-      "id": "rev-9",
-      "tourId": "chimborazo-ascenso",
-      "author": "Valeria T.",
-      "rating": 5,
-      "comment": { "es": "Llegar al punto más cercano al sol fue una experiencia espiritual. Guías expertos en alta montaña.", "en": "Reaching the closest point to the sun was a spiritual experience. Expert high-mountain guides." },
-      "date": "2026-03-12"
-    },
-    {
-      "id": "rev-10",
-      "tourId": "cuyabeno-4-dias",
-      "author": "Mónica V.",
-      "rating": 5,
-      "comment": { "es": "La selva amazónica es otro mundo. Avistamos delfines rosados y jaguares. Guías indígenas muy conocedores.", "en": "The Amazon rainforest is another world. We spotted pink dolphins and jaguars. Indigenous guides very knowledgeable." },
-      "date": "2026-02-20"
-    }
-  ]
+	"reviews": [
+		{
+			"id": "rev-1",
+			"tourId": "city-tour-cuenca",
+			"author": "María G.",
+			"rating": 5,
+			"comment": {
+				"es": "Increíble recorrido por Cuenca. Mi guía conocía cada rincón con historia fascinante. Muy recomendado.",
+				"en": "Amazing tour through Cuenca. The guide knew every corner with fascinating history. Highly recommended."
+			},
+			"date": "2026-07-15"
+		},
+		{
+			"id": "rev-2",
+			"tourId": "city-tour-cuenca",
+			"author": "Carlos R.",
+			"rating": 4,
+			"comment": {
+				"es": "Muy buen tour, los miradores son espectaculares. El canelazo de cortesía fue un detalle genial.",
+				"en": "Very good tour, the viewpoints are spectacular. The complimentary canelazo was a great touch."
+			},
+			"date": "2026-07-10"
+		},
+		{
+			"id": "rev-3",
+			"tourId": "cajas-trekking",
+			"author": "Ana L.",
+			"rating": 5,
+			"comment": {
+				"es": "El Cajas es mágico. Los guías muy preparados y el equipo de primera.",
+				"en": "Cajas is magical. Well-prepared guides and top-notch equipment."
+			},
+			"date": "2026-06-28"
+		},
+		{
+			"id": "rev-4",
+			"tourId": "cajas-trekking",
+			"author": "Pedro M.",
+			"rating": 5,
+			"comment": {
+				"es": "Una experiencia inolvidable en el Parque Nacional Cajas. Logística perfecta.",
+				"en": "An unforgettable experience in Cajas National Park. Perfect logistics."
+			},
+			"date": "2026-06-20"
+		},
+		{
+			"id": "rev-5",
+			"tourId": "cotopaxi-ascenso",
+			"author": "Laura S.",
+			"rating": 5,
+			"comment": {
+				"es": "Logré llegar al refugio del Cotopaxi. Fue exigente pero los guías me motivaron todo el camino. Equipo excelente.",
+				"en": "I made it to the Cotopaxi refuge. It was challenging but the guides motivated me all the way. Excellent gear."
+			},
+			"date": "2026-05-30"
+		},
+		{
+			"id": "rev-6",
+			"tourId": "cotopaxi-ascenso",
+			"author": "Jorge A.",
+			"rating": 4,
+			"comment": {
+				"es": "Impresionante volcán. La noche en el refugio fue fría pero valió cada segundo.",
+				"en": "Impressive volcano. The night at the refuge was cold but worth every second."
+			},
+			"date": "2026-05-25"
+		},
+		{
+			"id": "rev-7",
+			"tourId": "banos-aventura",
+			"author": "Sofía P.",
+			"rating": 4,
+			"comment": {
+				"es": "Baños tiene de todo. El puenting y el ciclismo fueron lo mejor.",
+				"en": "Baños has it all. Bungee jumping and cycling were the best parts."
+			},
+			"date": "2026-07-05"
+		},
+		{
+			"id": "rev-8",
+			"tourId": "quilotoa-loop",
+			"author": "Diego F.",
+			"rating": 5,
+			"comment": {
+				"es": "La laguna del Quilotoa es un espectáculo de la naturaleza. El trekking de 3 días fue retador y hermoso.",
+				"en": "Quilotoa lake is a natural spectacle. The 3-day trek was challenging and beautiful."
+			},
+			"date": "2026-04-18"
+		},
+		{
+			"id": "rev-9",
+			"tourId": "chimborazo-ascenso",
+			"author": "Valeria T.",
+			"rating": 5,
+			"comment": {
+				"es": "Llegar al punto más cercano al sol fue una experiencia espiritual. Guías expertos en alta montaña.",
+				"en": "Reaching the closest point to the sun was a spiritual experience. Expert high-mountain guides."
+			},
+			"date": "2026-03-12"
+		},
+		{
+			"id": "rev-10",
+			"tourId": "cuyabeno-4-dias",
+			"author": "Mónica V.",
+			"rating": 5,
+			"comment": {
+				"es": "La selva amazónica es otro mundo. Avistamos delfines rosados y jaguares. Guías indígenas muy conocedores.",
+				"en": "The Amazon rainforest is another world. We spotted pink dolphins and jaguars. Indigenous guides very knowledgeable."
+			},
+			"date": "2026-02-20"
+		}
+	]
 }

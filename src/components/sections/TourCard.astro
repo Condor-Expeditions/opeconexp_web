@@ -1,13 +1,13 @@
 ---
-import Card from "@/components/ui/Card.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
+import Card from "@/components/ui/Card.astro";
 import { getTourData, getValidImageUrl, resolveLabel } from "@/data/helpers";
 import type { Tour } from "@/data/types";
 
 export interface Props {
-  tour: Tour;
-  lang?: "es" | "en";
+	tour: Tour;
+	lang?: "es" | "en";
 }
 
 const { tour, lang = "es" } = Astro.props;

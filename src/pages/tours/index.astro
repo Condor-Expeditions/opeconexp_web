@@ -1,41 +1,58 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Container from "../../components/shared/Container.astro";
 import TourCard from "../../components/sections/TourCard.astro";
+import Container from "../../components/shared/Container.astro";
 import { tours } from "../../data/tours";
+import Layout from "../../layouts/Layout.astro";
 
 const allTours = tours;
 
 // Categorías y regiones únicas derivadas de los tours
 const categories = [...new Set(allTours.map((t) => t.category))].sort();
-const regions = [...new Set(allTours.flatMap((t) => t.category.includes("Cuenca") ? ["Cuenca"] : t.category.includes("Azuay") ? ["Azuay"] : ["Ecuador"]))].sort();
+const regions = [
+	...new Set(
+		allTours.flatMap((t) =>
+			t.category.includes("Cuenca")
+				? ["Cuenca"]
+				: t.category.includes("Azuay")
+					? ["Azuay"]
+					: ["Ecuador"],
+		),
+	),
+].sort();
 
 // Parse query params para filtros SSR
 const tipoRaw = Astro.url.searchParams.get("tipo") ?? "";
 const regionRaw = Astro.url.searchParams.get("region") ?? "";
 
 const filtered = allTours.filter((t) => {
-  if (tipoRaw && !t.category.toLowerCase().includes(tipoRaw.toLowerCase())) return false;
-  if (regionRaw && regionRaw !== "todas" && !t.category.includes(regionRaw)) return false;
-  return true;
+	if (tipoRaw && !t.category.toLowerCase().includes(tipoRaw.toLowerCase()))
+		return false;
+	if (regionRaw && regionRaw !== "todas" && !t.category.includes(regionRaw))
+		return false;
+	return true;
 });
 
-const activeCategory = categories.find((c) => c.toLowerCase() === tipoRaw.toLowerCase());
-const activeRegion = regions.find((r) => r.toLowerCase() === regionRaw.toLowerCase());
+const activeCategory = categories.find(
+	(c) => c.toLowerCase() === tipoRaw.toLowerCase(),
+);
+const activeRegion = regions.find(
+	(r) => r.toLowerCase() === regionRaw.toLowerCase(),
+);
 
 // Textos dinámicos según filtros
 let pageTitle = "Todos los Tours";
-let pageDescription = "Catálogo completo de tours y expediciones de Cóndor Expeditions. Explora por categoría, región o duración.";
+let pageDescription =
+	"Catálogo completo de tours y expediciones de Cóndor Expeditions. Explora por categoría, región o duración.";
 
 if (activeCategory && activeRegion) {
-  pageTitle = `${activeCategory} en ${activeRegion}`;
-  pageDescription = `Expediciones de ${activeCategory.toLowerCase()} en la región de ${activeRegion}.`;
+	pageTitle = `${activeCategory} en ${activeRegion}`;
+	pageDescription = `Expediciones de ${activeCategory.toLowerCase()} en la región de ${activeRegion}.`;
 } else if (activeCategory) {
-  pageTitle = activeCategory;
-  pageDescription = `Nuestras expediciones de ${activeCategory.toLowerCase()}.`;
+	pageTitle = activeCategory;
+	pageDescription = `Nuestras expediciones de ${activeCategory.toLowerCase()}.`;
 } else if (activeRegion) {
-  pageTitle = `Tours en ${activeRegion}`;
-  pageDescription = `Descubre todas las expediciones disponibles en ${activeRegion}.`;
+	pageTitle = `Tours en ${activeRegion}`;
+	pageDescription = `Descubre todas las expediciones disponibles en ${activeRegion}.`;
 }
 ---
 

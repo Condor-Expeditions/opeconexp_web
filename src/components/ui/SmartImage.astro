@@ -4,23 +4,23 @@
 import { Image } from "astro:assets";
 
 export interface Props {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-  class?: string;
-  loading?: "lazy" | "eager";
-  format?: "auto" | "webp" | "avif" | "png" | "jpg";
+	src: string;
+	alt: string;
+	width?: number;
+	height?: number;
+	class?: string;
+	loading?: "lazy" | "eager";
+	format?: "auto" | "webp" | "avif" | "png" | "jpg";
 }
 
 const {
-  src,
-  alt,
-  width = 800,
-  height = 600,
-  class: className = "",
-  loading = "lazy",
-  format = "auto",
+	src,
+	alt,
+	width = 800,
+	height = 600,
+	class: className = "",
+	loading = "lazy",
+	format = "auto",
 } = Astro.props;
 ---
 

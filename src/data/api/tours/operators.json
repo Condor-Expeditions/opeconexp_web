@@ -1,3 +1,9 @@
 [
-  {"id":"condor-expeditions","name":"Cóndor Expeditions","phone":"+593 99 590 0614","email":"info@condorexpedition.com","logo":"/logo.svg"}
+	{
+		"id": "condor-expeditions",
+		"name": "Cóndor Expeditions",
+		"phone": "+593 99 590 0614",
+		"email": "info@condorexpedition.com",
+		"logo": "/logo.svg"
+	}
 ]

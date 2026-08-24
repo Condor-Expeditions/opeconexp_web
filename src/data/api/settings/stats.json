@@ -1,6 +1,22 @@
 [
-  {"value": 15, "suffix": "+", "label": {"es": "Años de experiencia", "en": "Years of experience"}},
-  {"value": 50, "suffix": "+", "label": {"es": "Destinos explorados", "en": "Destinations explored"}},
-  {"value": 5000, "suffix": "+", "label": {"es": "Viajeros felices", "en": "Happy travelers"}},
-  {"value": 100, "suffix": "%", "label": {"es": "Seguridad garantizada", "en": "Guaranteed safety"}}
+	{
+		"value": 15,
+		"suffix": "+",
+		"label": { "es": "Años de experiencia", "en": "Years of experience" }
+	},
+	{
+		"value": 50,
+		"suffix": "+",
+		"label": { "es": "Destinos explorados", "en": "Destinations explored" }
+	},
+	{
+		"value": 5000,
+		"suffix": "+",
+		"label": { "es": "Viajeros felices", "en": "Happy travelers" }
+	},
+	{
+		"value": 100,
+		"suffix": "%",
+		"label": { "es": "Seguridad garantizada", "en": "Guaranteed safety" }
+	}
 ]

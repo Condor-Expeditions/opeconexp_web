@@ -1,14 +1,19 @@
 ---
 import Container from "@/components/shared/Container.astro";
-import Button from "@/components/ui/Button.astro";
 import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
 import SmartImage from "@/components/ui/SmartImage.astro";
-import { getTourData, getReviews, getValidImageUrl, resolveLabel } from "@/data/helpers";
-import type { Tour, Review } from "@/data/types";
+import {
+	getReviews,
+	getTourData,
+	getValidImageUrl,
+	resolveLabel,
+} from "@/data/helpers";
+import type { Review, Tour } from "@/data/types";
 
 export interface Props {
-  tour: Tour;
-  lang?: "es" | "en";
+	tour: Tour;
+	lang?: "es" | "en";
 }
 
 const { tour, lang = "es" } = Astro.props;
@@ -20,21 +25,21 @@ const reserveLabel = isEnglish ? "Book This Tour" : "Reservar este tour";
 const contactHref = isEnglish ? "/en/contacto" : "/contacto";
 
 const infoLabels = {
-  duration: isEnglish ? "Duration" : "Duración",
-  days: isEnglish ? "Days" : "Días",
-  capacity: isEnglish ? "Capacity" : "Capacidad",
-  difficulty: isEnglish ? "Difficulty" : "Dificultad",
-  includes: isEnglish ? "Includes" : "Incluye",
-  excludes: isEnglish ? "Not included" : "No incluye",
-  whatToBring: isEnglish ? "What to bring" : "Qué llevar",
-  itinerary: isEnglish ? "Itinerary" : "Itinerario",
-  activities: isEnglish ? "Activities" : "Actividades",
-  meetingPoints: isEnglish ? "Meeting points" : "Puntos de encuentro",
-  pricing: isEnglish ? "Pricing" : "Precios",
-  general: isEnglish ? "General" : "General",
-  special: isEnglish ? "Special" : "Especial",
-  reviews: isEnglish ? "Reviews" : "Reseñas",
-  verified: isEnglish ? "Verified" : "Verificado",
+	duration: isEnglish ? "Duration" : "Duración",
+	days: isEnglish ? "Days" : "Días",
+	capacity: isEnglish ? "Capacity" : "Capacidad",
+	difficulty: isEnglish ? "Difficulty" : "Dificultad",
+	includes: isEnglish ? "Includes" : "Incluye",
+	excludes: isEnglish ? "Not included" : "No incluye",
+	whatToBring: isEnglish ? "What to bring" : "Qué llevar",
+	itinerary: isEnglish ? "Itinerary" : "Itinerario",
+	activities: isEnglish ? "Activities" : "Actividades",
+	meetingPoints: isEnglish ? "Meeting points" : "Puntos de encuentro",
+	pricing: isEnglish ? "Pricing" : "Precios",
+	general: isEnglish ? "General" : "General",
+	special: isEnglish ? "Special" : "Especial",
+	reviews: isEnglish ? "Reviews" : "Reseñas",
+	verified: isEnglish ? "Verified" : "Verificado",
 };
 
 // Obtener reviews del API-local

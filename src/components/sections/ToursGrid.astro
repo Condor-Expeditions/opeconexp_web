@@ -1,20 +1,27 @@
 ---
 import Container from "@/components/shared/Container.astro";
-import TourCard from "./TourCard.astro";
 import { tours } from "../../data/tours";
+import TourCard from "./TourCard.astro";
 
 export interface Props {
-  featured?: boolean;
-  count?: number;
-  lang?: "es" | "en";
-  tours?: typeof tours;
+	featured?: boolean;
+	count?: number;
+	lang?: "es" | "en";
+	tours?: typeof tours;
 }
 
-const { featured = false, count = 6, lang = "es", tours: customTours } = Astro.props;
+const {
+	featured = false,
+	count = 6,
+	lang = "es",
+	tours: customTours,
+} = Astro.props;
 const isEnglish = lang === "en";
 
 const sourceTours = customTours || tours;
-const displayTours = featured ? sourceTours.slice(0, 3) : sourceTours.slice(0, count);
+const displayTours = featured
+	? sourceTours.slice(0, 3)
+	: sourceTours.slice(0, count);
 
 const title = isEnglish ? "Our Tours" : "Nuestros Tours";
 const subtitle = isEnglish

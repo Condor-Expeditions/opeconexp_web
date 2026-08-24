@@ -3,7 +3,7 @@
 import { getSustainability, resolveLabel } from "@/data/helpers";
 
 export interface Props {
-  lang?: "es" | "en";
+	lang?: "es" | "en";
 }
 
 const { lang = "es" } = Astro.props;
@@ -11,9 +11,9 @@ const items = getSustainability();
 const isEnglish = lang === "en";
 
 const title = isEnglish ? "Sustainability" : "Sostenibilidad";
-const subtitle = isEnglish 
-  ? "Responsible tourism for a better future." 
-  : "Turismo responsable para un futuro mejor.";
+const subtitle = isEnglish
+	? "Responsible tourism for a better future."
+	: "Turismo responsable para un futuro mejor.";
 ---
 
 <section class="section-padding bg-background">

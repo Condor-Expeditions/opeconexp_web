@@ -1,14 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import Container from "../components/shared/Container.astro";
 import Button from "../components/ui/Button.astro";
+import Layout from "../layouts/Layout.astro";
 
 const isEnglish = false;
 const title = "404 Not Found";
 const heading = isEnglish ? "Page Not Found" : "Página no encontrada";
-const message = isEnglish 
-  ? "The page you are looking for doesn't exist or has been moved." 
-  : "La página que buscas no existe o ha sido movida.";
+const message = isEnglish
+	? "The page you are looking for doesn't exist or has been moved."
+	: "La página que buscas no existe o ha sido movida.";
 ---
 
 <Layout title={title} lang="es" noindex>
