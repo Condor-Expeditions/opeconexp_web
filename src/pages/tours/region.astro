@@ -1,17 +1,17 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ToursGrid from "../../components/sections/ToursGrid.astro";
-import StatsBar from "../../components/sections/StatsBar.astro";
-import SustainabilityBar from "../../components/sections/SustainabilityBar.astro";
+import Layout from "@/layouts/Layout.astro";
+import ToursGrid from "@/components/sections/ToursGrid.astro";
+import StatsBar from "@/components/sections/StatsBar.astro";
+import SustainabilityBar from "@/components/sections/SustainabilityBar.astro";
 import {
   getTours,
   getRegions,
   getCategoryTitle,
   resolveLabel
-} from "../../data/helpers";
+} from "@/data/helpers";
 
-// Import types con extensión explícita para SSR
-import type { Tour } from "../../data/types";
+// Import types
+import type { Tour } from "@/data/types";
 
 // Interfaces para props del TourCard
 interface TourCardProps {
@@ -19,7 +19,7 @@ interface TourCardProps {
   lang?: "es" | "en";
 }
 
-// SSR dinámico — filtrado por query param ?tipo=/?categoria=
+// SSR dinámico — filtrado por query param ?region=
 export const prerender = false;
 
 const lang = "es";
@@ -34,7 +34,7 @@ const allTours = getTours();
 // Filtrar tours por región
 const filteredTours = regionSlug
   ? allTours.filter((t) => t.regions?.includes(regionSlug))
-  : [];
+  : allTours.slice(0, 6);
 
 // Encontrar nombre de región para el título
 const region = regionSlug

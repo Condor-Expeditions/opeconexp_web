@@ -131,8 +131,8 @@ export function getTourData(tour: Tour, lang: "es" | "en") {
     name: resolveLabel(tour.title, lang),
     category: resolveLabel(category?.title || { es: tour.categories[0], en: tour.categories[0] }, lang),
     shortDescription: resolveLabel(tour.description, lang),
-    image: firstGallery?.src || "",
-    heroImage: firstGallery?.src || "",
+    image: tour.heroImage || firstGallery?.src || tour.image || "",
+    heroImage: tour.heroImage || firstGallery?.src || tour.image || "",
     badge: tour.duration,
     operational: {
       duration: tour.duration,

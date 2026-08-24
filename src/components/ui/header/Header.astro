@@ -1,6 +1,6 @@
 ---
 import Logo from "@/assets/logo.svg";
-import Container from "@/components/shared/Container";
+import Container from "@/components/shared/Container.astro";
 import { ROUTES } from "@/data/routes";
 import { MENU_DATA } from "@/data/menuData";
 import Button from "../Button.astro";
@@ -115,94 +115,96 @@ const enHref = getAlternateLangHref("en");
 
 				<div class="flex items-center gap-2 md:gap-4">
 					<!-- Language Toggle -->
-					<div class="relative hidden md:block group/lang">
-						<button
-							type="button"
-							class="lang-toggle inline-flex items-center gap-1.5 px-2 py-1.5 text-white hover:text-primary-red transition-colors duration-200 text-sm font-medium uppercase tracking-wide"
-							aria-haspopup="true"
-							aria-expanded="false"
-						>
-							<svg
-								class="h-4 w-4"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<circle cx="12" cy="12" r="10" />
-								<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-								<path d="M2 12h20" />
-							</svg>
-							<span>{isEnglish ? "EN" : "ES"}</span>
-							<svg
-								class="h-3 w-3 transition-transform duration-200 group-hover/lang:rotate-180"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path d="m6 9 6 6 6-6" />
-							</svg>
-						</button>
-						<div
-							class="absolute right-0 top-full mt-2 rounded-xl border border-border bg-white shadow-xl opacity-0 translate-y-2 scale-95 pointer-events-none invisible transition-all duration-200 ease-out group-hover/lang:opacity-100 group-hover/lang:translate-y-0 group-hover/lang:scale-100 group-hover/lang:pointer-events-auto group-hover/lang:visible z-50 min-w-[10rem] overflow-hidden"
-						>
-							<div class="py-1">
-								<a
-									href={esHref}
-									class:list={[
-										"flex items-center justify-between px-4 py-2.5 text-sm text-foreground hover:bg-accent/10 hover:text-primary-red transition-colors",
-										{ "font-semibold text-primary-red": !isEnglish },
-									]}
-								>
-									<span>Español</span>
-									{!isEnglish && (
-										<svg
-											class="h-4 w-4 text-primary-red"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
+									<div class="relative hidden md:block" id="lang-toggle-container">
+										<button
+											type="button"
+											id="lang-toggle-btn"
+											class="lang-toggle inline-flex items-center gap-1.5 px-2 py-1.5 text-white hover:text-primary-red transition-colors duration-200 text-sm font-medium uppercase tracking-wide"
+											aria-haspopup="true"
+											aria-expanded="false"
 										>
-											<polyline points="20 6 9 17 4 12" />
-										</svg>
-									)}
-								</a>
-								<a
-									href={enHref}
-									class:list={[
-										"flex items-center justify-between px-4 py-2.5 text-sm text-foreground hover:bg-accent/10 hover:text-primary-red transition-colors",
-										{ "font-semibold text-primary-red": isEnglish },
-									]}
-								>
-									<span>English</span>
-									{isEnglish && (
-										<svg
-											class="h-4 w-4 text-primary-red"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
+											<svg
+												class="h-4 w-4"
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<circle cx="12" cy="12" r="10" />
+												<path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+												<path d="M2 12h20" />
+											</svg>
+											<span>{isEnglish ? "EN" : "ES"}</span>
+											<svg
+												class="h-3 w-3 transition-transform duration-200"
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<path d="m6 9 6 6 6-6" />
+											</svg>
+										</button>
+										<div
+											id="lang-dropdown"
+											class="absolute right-0 top-full mt-2 rounded-xl border border-border bg-white shadow-xl opacity-0 translate-y-2 scale-95 invisible transition-all duration-200 ease-out z-50 min-w-[10rem] overflow-hidden"
 										>
-											<polyline points="20 6 9 17 4 12" />
-										</svg>
-									)}
-								</a>
-							</div>
-						</div>
-					</div>
+											<div class="py-1">
+												<a
+													href={esHref}
+													class:list={[
+														"flex items-center justify-between px-4 py-2.5 text-sm text-foreground hover:bg-accent/10 hover:text-primary-red transition-colors",
+														{ "font-semibold text-primary-red": !isEnglish },
+													]}
+												>
+													<span>Español</span>
+													{!isEnglish && (
+														<svg
+															class="h-4 w-4 text-primary-red"
+															xmlns="http://www.w3.org/2000/svg"
+															viewBox="0 0 24 24"
+															fill="none"
+															stroke="currentColor"
+															stroke-width="2"
+															stroke-linecap="round"
+															stroke-linejoin="round"
+														>
+															<polyline points="20 6 9 17 4 12" />
+														</svg>
+													)}
+												</a>
+												<a
+													href={enHref}
+													class:list={[
+														"flex items-center justify-between px-4 py-2.5 text-sm text-foreground hover:bg-accent/10 hover:text-primary-red transition-colors",
+														{ "font-semibold text-primary-red": isEnglish },
+													]}
+												>
+													<span>English</span>
+													{isEnglish && (
+														<svg
+															class="h-4 w-4 text-primary-red"
+															xmlns="http://www.w3.org/2000/svg"
+															viewBox="0 0 24 24"
+															fill="none"
+															stroke="currentColor"
+															stroke-width="2"
+															stroke-linecap="round"
+															stroke-linejoin="round"
+														>
+															<polyline points="20 6 9 17 4 12" />
+														</svg>
+													)}
+												</a>
+											</div>
+										</div>
+									</div>
 
 					<!-- Desktop CTA -->
 					<div class="hidden lg:block">
@@ -406,10 +408,44 @@ const enHref = getAlternateLangHref("en");
 	</div>
 
 	<script>
-		import { HeaderController } from "./HeaderController";
-		const headerController = new HeaderController();
-		headerController.init();
-	</script>
+			import { HeaderController } from "./HeaderController";
+			const headerController = new HeaderController();
+			headerController.init();
+
+			// Language toggle logic
+			const langBtn = document.getElementById("lang-toggle-btn");
+			const langDropdown = document.getElementById("lang-dropdown");
+
+			if (langBtn && langDropdown) {
+				langBtn.addEventListener("click", (e) => {
+					e.stopPropagation();
+					const isOpen = langDropdown.classList.contains("opacity-100");
+					if (isOpen) {
+						langDropdown.classList.remove("opacity-100", "translate-y-0", "scale-100", "visible");
+						langDropdown.classList.add("opacity-0", "translate-y-2", "scale-95", "invisible");
+						langBtn.setAttribute("aria-expanded", "false");
+					} else {
+						langDropdown.classList.add("opacity-100", "translate-y-0", "scale-100", "visible");
+						langDropdown.classList.remove("opacity-0", "translate-y-2", "scale-95", "invisible");
+						langBtn.setAttribute("aria-expanded", "true");
+					}
+				});
+
+				// Close dropdown when clicking outside
+				document.addEventListener("click", () => {
+					if (langDropdown.classList.contains("opacity-100")) {
+						langDropdown.classList.remove("opacity-100", "translate-y-0", "scale-100", "visible");
+						langDropdown.classList.add("opacity-0", "translate-y-2", "scale-95", "invisible");
+						langBtn.setAttribute("aria-expanded", "false");
+					}
+				});
+
+				// Prevent closing when clicking inside dropdown
+				langDropdown.addEventListener("click", (e) => {
+					e.stopPropagation();
+				});
+			}
+		</script>
 
 	<style>
 		.header-top {

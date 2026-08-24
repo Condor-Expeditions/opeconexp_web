@@ -1,6 +1,6 @@
 ---
-import Container from "@/components/shared/Container";
-import Button from "@/components/ui/Button";
+import Container from "@/components/shared/Container.astro";
+import Button from "@/components/ui/Button.astro";
 import { tours } from "@/data/tours";
 
 export interface Props {
@@ -22,7 +22,7 @@ const trustText = isEnglish
 
 const tourOptions = tours.map((t) => ({
 	value: isEnglish ? `/en/tours/${t.slug}` : `/tours/${t.slug}`,
-	label: t.name,
+	label: t.title?.[lang] || t.title?.es || t.title || t.slug,
 }));
 ---
 

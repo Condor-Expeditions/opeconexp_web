@@ -1,15 +1,15 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ToursGrid from "../../components/sections/ToursGrid.astro";
-import StatsBar from "../../components/sections/StatsBar.astro";
-import SustainabilityBar from "../../components/sections/SustainabilityBar.astro";
-import { getTours, resolveLabel, getReviews } from "../../data/helpers";
+import Layout from "@/layouts/Layout.astro";
+import ToursGrid from "@/components/sections/ToursGrid.astro";
+import StatsBar from "@/components/sections/StatsBar.astro";
+import SustainabilityBar from "@/components/sections/SustainabilityBar.astro";
+import { getTours, getReviews, resolveLabel } from "@/data/helpers";
 
 const lang = "es";
 const isEnglish = false;
 const allTours = getTours();
 
-// Filtrar tours con reviews (más populares)
+// Obtener reviews para calcular popularidad
 const allReviews = getReviews();
 const tourReviewCounts = allReviews.reduce((acc: Record<string, number>, r) => {
   acc[r.tourId] = (acc[r.tourId] || 0) + 1;
@@ -19,7 +19,7 @@ const tourReviewCounts = allReviews.reduce((acc: Record<string, number>, r) => {
 const title = "Temporada de Aventura";
 ---
 
-<Layout title={title} description="Explora nuestros tours por temporada alta y baja. Tours en Cuenca, Azuay y todo Ecuador." lang={lang}>
+<Layout title={title} description="Explora nuestros tours organizados por temporada alta y baja. Tours en Cuenca, Azuay y todo Ecuador." lang={lang}>
   <section class="section-padding">
     <h1 class="font-display text-4xl md:text-5xl text-foreground mb-4">
       {title}
