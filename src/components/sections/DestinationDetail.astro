@@ -2,6 +2,7 @@
 import Container from "@/components/shared/Container.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
+import { resolveImageSrc } from "@/data/helpers";
 import { type Destination } from "../../data/destinations";
 import {
 	getCategoryTitle,
@@ -53,7 +54,7 @@ const labels = {
 	<!-- Hero -->
 	<section class="relative min-h-[60vh] md:min-h-[70vh] flex items-end overflow-hidden">
 		<img
-			src={destination.heroImage || destination.image || "/assets/menu/tours/mira-cuenca.jpg"}
+			src={resolveImageSrc(destination.heroImage || destination.image, destination.name)}
 			alt={destination.name}
 			class="absolute inset-0 w-full h-full object-cover"
 		/>
@@ -148,11 +149,11 @@ const labels = {
 							>
 								<div class="aspect-[4/3] overflow-hidden">
 									<img
-									src={tour.gallery?.[0]?.src || "/assets/menu/tours/mira-cuenca.jpg"}
-									alt={resolveLabel(tour.title, lang)}
-									class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-									loading="lazy"
-								/>
+										src={resolveImageSrc(tour.gallery?.[0]?.src, resolveLabel(tour.title, lang))}
+										alt={resolveLabel(tour.title, lang)}
+										class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+										loading="lazy"
+									/>
 							</div>
 								<div class="p-4">
 									<h3 class="font-semibold text-foreground group-hover:text-primary-red transition-colors">{resolveLabel(tour.title, lang)}</h3>

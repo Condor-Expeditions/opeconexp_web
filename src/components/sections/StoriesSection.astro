@@ -1,5 +1,8 @@
 ---
 import Container from "@/components/shared/Container.astro";
+import cajasImg from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
+import ingapircaImg from "@/assets/menu/tours/ingapirca.jpg";
+import miraCuencaImg from "@/assets/menu/tours/mira-cuenca.jpg";
 
 export interface Props {
 	lang?: "es" | "en";
@@ -12,51 +15,51 @@ const title = isEnglish ? "Travel Stories" : "Historias de Viaje";
 
 const stories = isEnglish
 	? [
-			{
-				category: "Nature",
-				title: "The Mystery of El Cajas",
-				excerpt:
-					"Between fog and glacial lagoons, the páramo reveals its secrets to those who walk with patience and respect.",
-				image: "/assets/menu/tours/parque-nacional-el-cajas.jpg",
-			},
-			{
-				category: "Culture",
-				title: "Ingapirca: Where Two Worlds Meet",
-				excerpt:
-					"The largest archaeological complex in Ecuador is a living testimony to the encounter between the Inca and Cañari cultures.",
-				image: "/assets/menu/tours/ingapirca.jpg",
-			},
-			{
-				category: "Gastronomy",
-				title: "Flavors of the Austro",
-				excerpt:
-					"From mote pillo to hornado, the cuisine of Azuay is an essential part of the travel experience in southern Ecuador.",
-				image: "/assets/menu/tours/mira-cuenca.jpg",
-			},
-		]
+		{
+			category: "Nature",
+			title: "The Mystery of El Cajas",
+			excerpt:
+				"Between fog and glacial lagoons, the páramo reveals its secrets to those who walk with patience and respect.",
+			image: cajasImg,
+		},
+		{
+			category: "Culture",
+			title: "Ingapirca: Where Two Worlds Meet",
+			excerpt:
+				"The largest archaeological complex in Ecuador is a living testimony to the encounter between the Inca and Cañari cultures.",
+			image: ingapircaImg,
+		},
+		{
+			category: "Gastronomy",
+			title: "Flavors of the Austro",
+			excerpt:
+				"From mote pillo to hornado, the cuisine of Azuay is an essential part of the travel experience in southern Ecuador.",
+			image: miraCuencaImg,
+		},
+	]
 	: [
-			{
-				category: "Naturaleza",
-				title: "El misterio del Cajas",
-				excerpt:
-					"Entre la niebla y las lagunas glaciares, el páramo revela sus secretos a quienes caminan con paciencia y respeto.",
-				image: "/assets/menu/tours/parque-nacional-el-cajas.jpg",
-			},
-			{
-				category: "Cultura",
-				title: "Ingapirca: donde dos mundos se encuentran",
-				excerpt:
-					"El complejo arqueológico más grande del Ecuador es un testimonio vivo del encuentro entre las culturas inca y cañari.",
-				image: "/assets/menu/tours/ingapirca.jpg",
-			},
-			{
-				category: "Gastronomía",
-				title: "Sabores del Austro",
-				excerpt:
-					"Del mote pillo al hornado, la cocina del Azuay es parte esencial de la experiencia de viaje en el sur del Ecuador.",
-				image: "/assets/menu/tours/mira-cuenca.jpg",
-			},
-		];
+		{
+			category: "Naturaleza",
+			title: "El misterio del Cajas",
+			excerpt:
+				"Entre la niebla y las lagunas glaciares, el páramo revela sus secretos a quienes caminan con paciencia y respeto.",
+			image: cajasImg,
+		},
+		{
+			category: "Cultura",
+			title: "Ingapirca: donde dos mundos se encuentran",
+			excerpt:
+				"El complejo arqueológico más grande del Ecuador es un testimonio vivo del encuentro entre las culturas inca y cañari.",
+			image: ingapircaImg,
+		},
+		{
+			category: "Gastronomía",
+			title: "Sabores del Austro",
+			excerpt:
+				"Del mote pillo al hornado, la cocina del Azuay es parte esencial de la experiencia de viaje en el sur del Ecuador.",
+			image: miraCuencaImg,
+		},
+	];
 ---
 
 <section class="section-padding bg-background">
@@ -71,7 +74,7 @@ const stories = isEnglish
 					<article class={`group img-zoom rounded-xl overflow-hidden bg-white shadow-sm border border-border animate-on-scroll stagger-${Math.min(index + 1, 5)}`}>
 						<div class="relative aspect-[16/10] overflow-hidden">
 							<img
-								src={story.image}
+								src={story.image.src}
 								alt={story.title}
 								class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 								loading="lazy"

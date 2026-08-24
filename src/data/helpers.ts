@@ -131,6 +131,21 @@ export function getValidImageUrl(
 	return imgPath;
 }
 
+// Helper DRY: extrae el .src de ImageMetadata (import astro:assets) o string
+// Usado en page components para unificar el manejo de imágenes locales vs remotas
+export function resolveImageSrc(
+	img: string | { src: string } | undefined | null,
+	altText: string = "Tour",
+): string {
+	if (!img) {
+		return getValidImageUrl(undefined, altText);
+	}
+	if (typeof img === "string") {
+		return img;
+	}
+	return img.src;
+}
+
 // Helper para compatibilidad legacy con el frontend existente
 export function getTourData(tour: Tour, lang: "es" | "en") {
 	if (!tour) {
