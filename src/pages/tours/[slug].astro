@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import TourDetail from "@/components/sections/TourDetail.astro";
-import { getTourBySlug, resolveLabel } from "@/data/helpers";
+import { getTourBySlug, getValidImageUrl, resolveLabel } from "@/data/helpers";
 import type { Tour } from "@/data/types";
 
 export const prerender = true;
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { tour, lang = "es" } = Astro.props;
 const title = resolveLabel(tour.title, lang);
 const description = resolveLabel(tour.description, lang);
-const ogImage = tour.image || "/assets/menu/tours/mira-cuenca.jpg";
+const ogImage = getValidImageUrl(tour.image || tour.gallery?.[0]?.src, resolveLabel(tour.title, lang));
 ---
 
 <Layout

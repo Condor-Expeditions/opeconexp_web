@@ -108,33 +108,19 @@ export function getTourBySlug(slug: string): Tour | undefined {
   return getTours().find((t) => t.slug === slug);
 }
 
-// Helper para verificar si un path de imagen es válido
-// Usado porque /public/images/tours/ no está completamente populated
-// Fallback: placehold.co con nombre del tour como texto
-
-// Imágenes conocidas válidas en /public/images/
-const VALID_PREFIXES = [
-  "/assets/menu/tours/",
-  "/assets/icons/",
-  "/images/team/",
-  "/images/destinations/",
-];
-
+// Helper para validar paths de imagen.
+// PASSTHROUGH: mantiene el path original para que funcione cuando las imágenes
+// se suban a /public/images/tours/. El onerror JS del <img> maneja el fallback.
+// Solo genera placehold.co cuando imgPath es undefined (sin path en absoluto).
 export function getValidImageUrl(imgPath: string | undefined, altText: string = "Tour"): string {
   if (!imgPath) {
-    // Fallback a placehold.co con el nombre del tour
-    const encodedText = encodeURIComponent(altText);
+    // Sin path → usar placehold.co como fallback base
+    const encodedText = encodeURIComponent(altText || "Tour");
     return `https://placehold.co/800x400?text=${encodedText}&font=montserrat`;
   }
-  // No usar paths remotos (http)
-  if (imgPath.startsWith("http")) return imgPath;
-  // Imágenes conocidas válidas en /public
-  if (VALID_PREFIXES.some((p) => imgPath.startsWith(p))) {
-    return imgPath;
-  }
-  // Si es un path /images/tours/ que no existe, usar fallback placehold.co
-  const encodedText = encodeURIComponent(altText);
-  return `https://placehold.co/800x400?text=${encodedText}&font=montserrat`;
+  // Passthrough: retornar el path original tal cual
+  // (incluye /images/tours/*.webp, /assets/*, http*, etc.)
+  return imgPath;
 }
 
 // Helper para compatibilidad legacy con el frontend existente
