@@ -110,23 +110,31 @@ export function getTourBySlug(slug: string): Tour | undefined {
 
 // Helper para verificar si un path de imagen es válido
 // Usado porque /public/images/tours/ no está completamente populated
-const FALLBACK_IMAGE = "/assets/menu/tours/mira-cuenca.jpg";
+// Fallback: placehold.co con nombre del tour como texto
 
-export function getValidImageUrl(imgPath: string | undefined): string {
-  if (!imgPath) return FALLBACK_IMAGE;
+// Imágenes conocidas válidas en /public/images/
+const VALID_PREFIXES = [
+  "/assets/menu/tours/",
+  "/assets/icons/",
+  "/images/team/",
+  "/images/destinations/",
+];
+
+export function getValidImageUrl(imgPath: string | undefined, altText: string = "Tour"): string {
+  if (!imgPath) {
+    // Fallback a placehold.co con el nombre del tour
+    const encodedText = encodeURIComponent(altText);
+    return `https://placehold.co/800x400?text=${encodedText}&font=montserrat`;
+  }
   // No usar paths remotos (http)
   if (imgPath.startsWith("http")) return imgPath;
   // Imágenes conocidas válidas en /public
-  const validPrefixes = [
-    "/assets/menu/tours/",
-    "/assets/icons/",
-    "/images/team/",
-  ];
-  if (validPrefixes.some((p) => imgPath.startsWith(p))) {
+  if (VALID_PREFIXES.some((p) => imgPath.startsWith(p))) {
     return imgPath;
   }
-  // Si es un path /images/tours/ que no existe, usar fallback
-  return FALLBACK_IMAGE;
+  // Si es un path /images/tours/ que no existe, usar fallback placehold.co
+  const encodedText = encodeURIComponent(altText);
+  return `https://placehold.co/800x400?text=${encodedText}&font=montserrat`;
 }
 
 // Helper para compatibilidad legacy con el frontend existente
@@ -152,8 +160,8 @@ export function getTourData(tour: Tour, lang: "es" | "en") {
     name: resolveLabel(tour.title, lang),
     category: resolveLabel(category?.title || { es: tour.categories[0], en: tour.categories[0] }, lang),
     shortDescription: resolveLabel(tour.description, lang),
-    image: getValidImageUrl(tour.heroImage || firstGallery?.src || tour.image),
-    heroImage: getValidImageUrl(tour.heroImage || firstGallery?.src || tour.image),
+    image: getValidImageUrl(tour.heroImage || firstGallery?.src || tour.image, resolveLabel(tour.title, lang)),
+    heroImage: getValidImageUrl(tour.heroImage || firstGallery?.src || tour.image, resolveLabel(tour.title, lang)),
     badge: tour.duration,
     operational: {
       duration: tour.duration,
