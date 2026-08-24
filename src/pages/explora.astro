@@ -2,33 +2,44 @@
 import TourCard from "../components/sections/TourCard.astro";
 import Container from "../components/shared/Container.astro";
 import { tours } from "../data/tours";
+import type { Tour } from "../data/helpers";
 import Layout from "../layouts/Layout.astro";
 
 const allTours = tours;
 
 // Categorías únicas derivadas de los tours (mapeo amigable para UI)
+// NOTA: t.category es undefined en la data real; los tours usan `t.categories[]` (array)
+// Usamos el primer category y un mapeo estático para display amigable
 const categoryMap: Record<string, string> = {
-	"Naturaleza y Aventura": "Naturaleza",
-	Cultural: "Cultura",
-	Montañismo: "Aventura",
-	"Amazonía y Selva": "Selva",
-	"City Tour": "Ciudad",
+	"cultural": "Cultura",
+	"trekking": "Naturaleza",
+	"nature": "Naturaleza",
+	"city-tour": "Ciudad",
+	"aventura": "Aventura",
+	"amazonia": "Selva",
+	"montañismo": "Aventura",
+};
+
+const getTourCategory = (t: Tour): string => {
+	const cat = t.categories?.[0] || t.category || "otros";
+	return categoryMap[cat.toLowerCase()] || cat.charAt(0).toUpperCase() + cat.slice(1);
 };
 
 const categories = Object.values(categoryMap);
 const rawCategories = [
-	...new Set(allTours.map((t) => categoryMap[t.category] || t.category)),
-].sort();
+	...new Set(allTours.map((t) => getTourCategory(t))),
+].filter(Boolean).sort();
 
 const tipoRaw = Astro.url.searchParams.get("categoria") ?? "";
+const safeTipoRaw = (tipoRaw || "").toLowerCase();
 const filtered = allTours.filter((t) => {
-	if (!tipoRaw) return true;
-	const mapped = categoryMap[t.category] || t.category;
-	return mapped.toLowerCase() === tipoRaw.toLowerCase();
+	if (!safeTipoRaw) return true;
+	const mapped = getTourCategory(t);
+	return mapped.toLowerCase() === safeTipoRaw;
 });
 
 const activeCategory = rawCategories.find(
-	(c) => c.toLowerCase() === tipoRaw.toLowerCase(),
+	(c) => c.toLowerCase() === safeTipoRaw,
 );
 
 let pageTitle = "Explora";
@@ -77,7 +88,7 @@ if (activeCategory) {
           <a
             href={`/explora?categoria=${cat.toLowerCase()}`}
             class={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-              tipoRaw.toLowerCase() === cat.toLowerCase()
+              safeTipoRaw === cat.toLowerCase()
                 ? "bg-primary text-white"
                 : "bg-crema text-foreground hover:bg-primary hover:text-white"
             }`}
