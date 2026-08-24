@@ -117,15 +117,15 @@ const enHref = getAlternateLangHref("en");
 										<button
 											type="button"
 											class:list={[
-												"nav-link relative flex items-center gap-1 px-4 py-2 text-sm xl:text-base font-medium uppercase tracking-wide transition-colors duration-200 rounded-md cursor-pointer",
+												"nav-link relative flex items-center gap-1 px-4 py-2 text-sm xl:text-base font-medium uppercase tracking-wide transition-colors duration-200 rounded-md",
 												route.disabled
 													? "text-white/40 hover:text-white/40 cursor-default"
-													: "text-white hover:text-primary-red",
+													: "text-white hover:text-primary-red cursor-pointer",
 												{ "text-primary-red!": route.isActive },
 											]}
 											aria-haspopup="true"
 											aria-expanded="false"
-											disabled={route.disabled}
+											aria-disabled={route.disabled || undefined}
 										>
 											{route.label}
 											{route.badge && (
@@ -138,12 +138,15 @@ const enHref = getAlternateLangHref("en");
 										<div
 											class:list={[
 												"absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50 opacity-0 invisible translate-y-2 transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0",
-												// Disabled dropdown never shows
-												route.disabled &&
-													"group-hover:opacity-0! group-hover:invisible! group-hover:pointer-events-none!",
 											]}
 										>
-											<div class="min-w-[13rem] rounded-xl border border-border bg-white shadow-xl overflow-hidden py-1">
+											<div
+												class:list={[
+													"min-w-[13rem] rounded-xl border border-border bg-white shadow-xl overflow-hidden py-1",
+													// Especiales (prox): panel visible pero atenuado
+													route.disabled && "opacity-60",
+												]}
+											>
 												{route.children?.map((child) => (
 													<a
 														href={child.href}
