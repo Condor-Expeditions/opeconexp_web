@@ -34,11 +34,11 @@ const viewAllHref = isEnglish ? "/en/destinos" : "/destinos";
 						class={`group relative overflow-hidden rounded-xl img-zoom animate-on-scroll stagger-${Math.min(index + 1, 5)} ${index === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[300px] lg:min-h-[500px]" : "min-h-[240px]"}`}
 					>
 						<img
-							src={dest.image || "/assets/menu/tours/mira-cuenca.jpg"}
-							alt={dest.name}
-							class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-							loading="lazy"
-						/>
+								src={typeof dest.image === "string" ? dest.image : dest.image?.src}
+								alt={dest.name}
+								class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+								loading="lazy"
+							/>
 						<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 						<div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
 							<h3 class="text-xl md:text-2xl font-semibold text-white mb-1">

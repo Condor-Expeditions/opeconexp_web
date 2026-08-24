@@ -1,3 +1,13 @@
+// Imports estáticos de assets para astro:assets + prerender
+import type { ImageMetadata } from "astro";
+import cajasImg from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
+import ingapircaImg from "@/assets/menu/tours/ingapirca.jpg";
+import gironImg from "@/assets/menu/tours/chorro-de-giron.jpg";
+import delegImg from "@/assets/menu/tours/conoce-deleg.jpg";
+import guachapalaImg from "@/assets/menu/tours/guachapala-andacocha.jpg";
+import gualaceoImg from "@/assets/menu/tours/gualaceo-textiles.jpg";
+import chordelegImg from "@/assets/menu/tours/chordeleg-joyeria.jpg";
+
 export interface Destination {
 	id: string;
 	slug: string;
@@ -8,11 +18,21 @@ export interface Destination {
 	longDescription: string;
 	highlights: string[];
 	coordinates?: string;
-	image?: string;
-	heroImage?: string;
+	image?: ImageMetadata;
+	heroImage?: ImageMetadata;
 	bestTime?: string;
 	difficulty?: string;
 }
+
+const imgMap: Record<string, ImageMetadata> = {
+	"parque-nacional-el-cajas": cajasImg,
+	ingapirca: ingapircaImg,
+	"el-chorro-de-giron": gironImg,
+	deleg: delegImg,
+	guachapala: guachapalaImg,
+	gualaceo: gualaceoImg,
+	chordeleg: chordelegImg,
+};
 
 export const destinations: Destination[] = [
 	{
@@ -33,8 +53,8 @@ export const destinations: Destination[] = [
 			"Caminatas para todos los niveles",
 		],
 		coordinates: "2°47'S 79°14'O",
-		image: "/assets/menu/tours/parque-nacional-el-cajas.jpg",
-		heroImage: "/assets/menu/tours/parque-nacional-el-cajas.jpg",
+		image: imgMap["parque-nacional-el-cajas"],
+		heroImage: imgMap["parque-nacional-el-cajas"],
 		bestTime: "Todo el año",
 		difficulty: "Baja a media",
 	},
@@ -56,8 +76,8 @@ export const destinations: Destination[] = [
 			"Paisajes de la cordillera de Cañar",
 		],
 		coordinates: "2°32'S 78°52'O",
-		image: "/assets/menu/tours/ingapirca.jpg",
-		heroImage: "/assets/menu/tours/ingapirca.jpg",
+		image: imgMap["ingapirca"],
+		heroImage: imgMap["ingapirca"],
 		bestTime: "Todo el año",
 		difficulty: "Baja",
 	},
@@ -79,8 +99,8 @@ export const destinations: Destination[] = [
 			"Centro histórico de Girón",
 		],
 		coordinates: "3°14'S 78°59'O",
-		image: "/assets/menu/tours/chorro-de-giron.jpg",
-		heroImage: "/assets/menu/tours/chorro-de-giron.jpg",
+		image: imgMap["el-chorro-de-giron"],
+		heroImage: imgMap["el-chorro-de-giron"],
 		bestTime: "Todo el año",
 		difficulty: "Media",
 	},
@@ -102,8 +122,8 @@ export const destinations: Destination[] = [
 			"Caminatas tranquilas",
 		],
 		coordinates: "3°08'S 78°56'O",
-		image: "/assets/menu/tours/conoce-deleg.jpg",
-		heroImage: "/assets/menu/tours/conoce-deleg.jpg",
+		image: imgMap["deleg"],
+		heroImage: imgMap["deleg"],
 		bestTime: "Todo el año",
 		difficulty: "Baja",
 	},
@@ -125,8 +145,8 @@ export const destinations: Destination[] = [
 			"Tranquilidad y naturaleza",
 		],
 		coordinates: "3°05'S 78°56'O",
-		image: "/assets/menu/tours/guachapala-andacocha.jpg",
-		heroImage: "/assets/menu/tours/guachapala-andacocha.jpg",
+		image: imgMap["guachapala"],
+		heroImage: imgMap["guachapala"],
 		bestTime: "Todo el año",
 		difficulty: "Baja",
 	},
@@ -148,8 +168,8 @@ export const destinations: Destination[] = [
 			"Río Santa Bárbara",
 		],
 		coordinates: "2°54'S 78°47'O",
-		image: "/assets/menu/tours/gualaceo-textiles.jpg",
-		heroImage: "/assets/menu/tours/gualaceo-textiles.jpg",
+		image: imgMap["gualaceo"],
+		heroImage: imgMap["gualaceo"],
 		bestTime: "Todo el año",
 		difficulty: "Baja",
 	},
@@ -171,8 +191,8 @@ export const destinations: Destination[] = [
 			"Historia minera de la región",
 		],
 		coordinates: "2°32'S 78°47'O",
-		image: "/assets/menu/tours/chordeleg-joyeria.jpg",
-		heroImage: "/assets/menu/tours/chordeleg-joyeria.jpg",
+		image: imgMap["chordeleg"],
+		heroImage: imgMap["chordeleg"],
 		bestTime: "Todo el año",
 		difficulty: "Baja",
 	},
