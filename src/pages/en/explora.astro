@@ -1,51 +1,44 @@
 ---
 import TourCard from "../../components/sections/TourCard.astro";
 import Container from "../../components/shared/Container.astro";
-import { tours } from "../../data/tours";
+import { getCategories, getTours, type Category } from "../../data/helpers";
 import type { Tour } from "../../data/helpers";
 import Layout from "../../layouts/Layout.astro";
 
-const allTours = tours;
+const activeTours: Tour[] = getTours().filter((t) => (t as any).status === "active");
 
-// Categorías únicas derivadas de los tours (mapeo amigable para UI)
-const categoryMap: Record<string, string> = {
-	cultural: "Culture",
-	trekking: "Nature",
-	nature: "Nature",
-	"city-tour": "City",
-	aventura: "Adventure",
-	amazonia: "Jungle",
-	montañismo: "Adventure",
-};
-
-const getTourCategory = (t: Tour): string => {
-	const cat = t.categories?.[0] || t.category || "otros";
-	return categoryMap[cat.toLowerCase()] || cat.charAt(0).toUpperCase() + cat.slice(1);
-};
-
-const categories = Object.values(categoryMap);
-const rawCategories = [
-	...new Set(allTours.map((t) => getTourCategory(t))),
-].filter(Boolean).sort();
+// Categorías desde el catálogo API (con labels i18n)
+const categories = getCategories();
+const rawCategories = categories;
 
 const tipoRaw = Astro.url.searchParams.get("category") ?? "";
 const safeTipoRaw = (tipoRaw || "").toLowerCase();
-const filtered = allTours.filter((t) => {
-	if (!safeTipoRaw) return true;
-	const mapped = getTourCategory(t);
-	return mapped.toLowerCase() === safeTipoRaw;
+
+// Filtrar tours por category id (lowercased)
+const filtered = activeTours.filter((t) => {
+  if (!safeTipoRaw) return true;
+  return (t.categories || []).some((cat) => cat.toLowerCase() === safeTipoRaw);
 });
 
+// Encontrar categoría activa (match por slug o id, lowercased)
 const activeCategory = rawCategories.find(
-	(c) => c.toLowerCase() === safeTipoRaw,
+  (c) => c.slug.toLowerCase() === safeTipoRaw || c.id.toLowerCase() === safeTipoRaw,
 );
+const activeCategoryLabel = activeCategory
+  ? (activeCategory.title.en || activeCategory.title.es || activeCategory.id)
+  : tipoRaw
+    ? tipoRaw.charAt(0).toUpperCase() + tipoRaw.slice(1)
+    : "Explore";
 
 let pageTitle = "Explore";
 let pageSubtitle =
-	"Discover our expeditions designed to connect you with the best of Ecuador.";
-if (activeCategory) {
-	pageTitle = activeCategory;
-	pageSubtitle = `${activeCategory} expeditions.`;
+  "Discover our expeditions designed to connect you with the best of Ecuador.";
+if (activeCategory && activeCategory.title.en) {
+  pageTitle = activeCategory.title.en;
+  pageSubtitle = `${activeCategory.title.en} expeditions.`;
+} else if (tipoRaw) {
+  pageTitle = activeCategoryLabel;
+  pageSubtitle = `${activeCategoryLabel} expeditions.`;
 }
 ---
 
@@ -61,7 +54,7 @@ if (activeCategory) {
       <p class="text-lg text-white/70 max-w-2xl">{pageSubtitle}</p>
       {filtered.length > 0 && (
         <p class="text-primary mt-4 text-sm font-medium">
-          Showing {filtered.length} of {allTours.length} tours
+          Showing {filtered.length} of {activeTours.length} tours
           {activeCategory && (
             <a href="/en/explora" class="ml-4 underline hover:no-underline">View all</a>
           )}
@@ -74,24 +67,27 @@ if (activeCategory) {
   <section class="py-6 bg-white border-b border-border/50 sticky top-0 z-30 shadow-sm">
     <Container>
       <div class="flex flex-wrap items-center gap-2 justify-center">
+        <!-- All filter -->
         <a
           href="/en/explora"
-          class={`px-4 py-2 text-sm font-medium rounded-full ${
-            !tipoRaw ? "bg-primary text-white" : "bg-crema text-foreground hover:bg-primary hover:text-white transition-colors"
-          }`}
+          class:list={[
+            "px-4 py-2 text-sm font-medium rounded-full transition-colors",
+            !tipoRaw ? "bg-primary text-white" : "bg-crema text-foreground hover:bg-primary hover:text-white",
+          ]}
         >
           All
         </a>
         {rawCategories.map((cat) => (
           <a
-            href={`/en/explora?category=${cat.toLowerCase()}`}
-            class={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-              safeTipoRaw === cat.toLowerCase()
+            href={`/en/explora?category=${cat.slug.toLowerCase()}`}
+            class:list={[
+              "px-4 py-2 text-sm font-medium rounded-full transition-colors",
+              safeTipoRaw === cat.slug.toLowerCase() || safeTipoRaw === cat.id.toLowerCase()
                 ? "bg-primary text-white"
-                : "bg-crema text-foreground hover:bg-primary hover:text-white"
-            }`}
+                : "bg-crema text-foreground hover:bg-primary hover:text-white",
+            ]}
           >
-            {cat}
+            {cat.title.en || cat.title.es || cat.id}
           </a>
         ))}
       </div>

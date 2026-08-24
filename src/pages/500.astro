@@ -1,27 +1,28 @@
 ---
-import Container from "../components/shared/Container.astro";
-import Button from "../components/ui/Button.astro";
 import Layout from "../layouts/Layout.astro";
-
-const isEnglish = false;
-const title = "500 Server Error";
-const heading = isEnglish ? "Server Error" : "Error de servidor";
-const message = isEnglish
-	? "Something went wrong on our end. Our team has been notified and is working on it."
-	: "Algo salió mal en nuestro lado. Nuestro equipo ha sido notificado y está trabajando en ello.";
 ---
 
-<Layout title={title} lang="es" noindex>
-  <section class="section-padding min-h-[60vh] flex items-center">
-    <Container>
-      <div class="text-center max-w-2xl mx-auto">
-        <div class="text-8xl md:text-9xl font-display font-bold text-primary-red mb-4">500</div>
-        <h1 class="text-3xl md:text-4xl font-display text-foreground mb-4">{heading}</h1>
-        <p class="text-lg text-muted-foreground mb-8">{message}</p>
-        <Button variant="primary" size="lg" href="/">
-          {isEnglish ? "Back to home" : "Volver al inicio"}
-        </Button>
+<Layout
+  title="Error del servidor"
+  description="Ocurrió un error inesperado. Estamos trabajando para solucionarlo."
+>
+  <section class="min-h-[70vh] flex items-center justify-center py-16">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+      <span class="font-display text-[10rem] md:text-[12rem] font-bold text-accent/10 leading-none block">500</span>
+      <h1 class="font-display text-3xl md:text-5xl text-foreground mb-4 -mt-8">
+        Error del servidor
+      </h1>
+      <p class="text-muted-foreground text-lg mb-8 max-w-md mx-auto">
+        Algo salió mal. Ya estamos trabajando en ello. Por favor, intenta de nuevo más tarde o contáctanos directamente.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/" class="px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
+          Volver al Inicio
+        </a>
+        <a href="/contacto" class="px-8 py-4 border-2 border-primary text-primary font-semibold rounded-full transition-colors">
+          Contactar
+        </a>
       </div>
-    </Container>
+    </div>
   </section>
 </Layout>
