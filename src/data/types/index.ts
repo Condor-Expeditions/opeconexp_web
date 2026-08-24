@@ -162,6 +162,16 @@ export interface Stat {
   suffix?: string;
 }
 
+export interface Review {
+  id: string;
+  tourId: string;
+  author: string;
+  rating: number;
+  comment: MultilingualText;
+  date: string;
+  avatar?: string;
+}
+
 export interface Testimonial {
   id: string;
   name: string;
@@ -169,16 +179,6 @@ export interface Testimonial {
   content: MultilingualText;
   rating: number;
   avatar: string;
-}
-
-export interface Review {
-  id: string;
-  tourId: string;
-  name: string;
-  rating: number;
-  content: MultilingualText;
-  date: string;
-  avatar?: string;
 }
 
 export interface CartItem {

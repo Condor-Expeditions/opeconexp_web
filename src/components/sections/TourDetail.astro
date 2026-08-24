@@ -2,7 +2,7 @@
 import Container from "@/components/shared/Container.astro";
 import Button from "@/components/ui/Button.astro";
 import Badge from "@/components/ui/Badge.astro";
-import { getTourData, getReviews, resolveLabel } from "@/data/helpers";
+import { getTourData, getReviews, getValidImageUrl, resolveLabel } from "@/data/helpers";
 import type { Tour, Review } from "@/data/types";
 
 export interface Props {
@@ -44,22 +44,12 @@ const tourReviews = allReviews.filter((r) => r.tourId === tour.id);
 <article>
   <!-- Hero -->
   <section class="relative min-h-[60vh] md:min-h-[70vh] flex items-end overflow-hidden">
-    {t.image && (
-      <img
-        src={t.image}
-        alt={t.name}
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-      />
-    )}
-    {!t.image && (
-      <img
-        src="/assets/menu/tours/mira-cuenca.jpg"
-        alt={t.name}
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-      />
-    )}
+    <img
+      src={t.image}
+      alt={t.name}
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
     <Container>
       <div class="relative z-10 pb-12 md:pb-16 pt-32">

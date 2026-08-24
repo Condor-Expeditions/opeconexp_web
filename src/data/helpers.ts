@@ -108,6 +108,27 @@ export function getTourBySlug(slug: string): Tour | undefined {
   return getTours().find((t) => t.slug === slug);
 }
 
+// Helper para verificar si un path de imagen es válido
+// Usado porque /public/images/tours/ no está completamente populated
+const FALLBACK_IMAGE = "/assets/menu/tours/mira-cuenca.jpg";
+
+export function getValidImageUrl(imgPath: string | undefined): string {
+  if (!imgPath) return FALLBACK_IMAGE;
+  // No usar paths remotos (http)
+  if (imgPath.startsWith("http")) return imgPath;
+  // Imágenes conocidas válidas en /public
+  const validPrefixes = [
+    "/assets/menu/tours/",
+    "/assets/icons/",
+    "/images/team/",
+  ];
+  if (validPrefixes.some((p) => imgPath.startsWith(p))) {
+    return imgPath;
+  }
+  // Si es un path /images/tours/ que no existe, usar fallback
+  return FALLBACK_IMAGE;
+}
+
 // Helper para compatibilidad legacy con el frontend existente
 export function getTourData(tour: Tour, lang: "es" | "en") {
   if (!tour) {
@@ -131,8 +152,8 @@ export function getTourData(tour: Tour, lang: "es" | "en") {
     name: resolveLabel(tour.title, lang),
     category: resolveLabel(category?.title || { es: tour.categories[0], en: tour.categories[0] }, lang),
     shortDescription: resolveLabel(tour.description, lang),
-    image: tour.heroImage || firstGallery?.src || tour.image || "",
-    heroImage: tour.heroImage || firstGallery?.src || tour.image || "",
+    image: getValidImageUrl(tour.heroImage || firstGallery?.src || tour.image),
+    heroImage: getValidImageUrl(tour.heroImage || firstGallery?.src || tour.image),
     badge: tour.duration,
     operational: {
       duration: tour.duration,
