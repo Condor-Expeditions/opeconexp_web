@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import node from "@astrojs/node";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
 	site: import.meta.env.DEV
@@ -25,4 +26,5 @@ export default defineConfig({
 	adapter: node({
 		mode: "standalone",
 	}),
+	integrations: [sitemap()],
 });
