@@ -93,24 +93,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/city-tour-cuenca-1.webp",
-          "alt": {
-            "es": "City Tour Cuenca Patrimonial",
-            "en": "Cuenca Heritage City Tour"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/city-tour-cuenca-2.webp",
-          "alt": {
-            "es": "City Tour Cuenca Patrimonial - 2",
-            "en": "Cuenca Heritage City Tour - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "City Tour Cuenca Patrimonial",
@@ -213,24 +196,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/cajas-trekking-1.webp",
-          "alt": {
-            "es": "Trekking al Parque Nacional Cajas",
-            "en": "Cajas National Park Trekking"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/cajas-trekking-2.webp",
-          "alt": {
-            "es": "Trekking al Parque Nacional Cajas - 2",
-            "en": "Cajas National Park Trekking - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Trekking Parque Nacional Cajas",
@@ -243,7 +209,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/cajas-trekking.webp",
+      "image": "/images/tours/cajas-trekking.jpg",
       "map": {
         "lat": -2.8353,
         "lng": -79.2229
@@ -325,24 +291,7 @@
           "days": []
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/cajas-camping-1.webp",
-          "alt": {
-            "es": "Cajas: Camping y Fogata Nocturna",
-            "en": "Cajas Camping & Bonfire Night"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/cajas-camping-2.webp",
-          "alt": {
-            "es": "Cajas: Camping y Fogata Nocturna - 2",
-            "en": "Cajas Camping & Bonfire Night - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Camping en Cajas",
@@ -355,7 +304,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/cajas-camping.webp",
+      "image": "/images/tours/cajas-camping.jpg",
       "map": {
         "lat": -2.8353,
         "lng": -79.2229
@@ -551,24 +500,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/banos-aventura-1.webp",
-          "alt": {
-            "es": "Baños de Agua Santa: Aventura y Relax",
-            "en": "Baños Adventure & Relax"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/banos-aventura-2.webp",
-          "alt": {
-            "es": "Baños de Agua Santa: Aventura y Relax - 2",
-            "en": "Baños Adventure & Relax - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Aventura en Baños desde Cuenca",
@@ -581,7 +513,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/banos-aventura.webp",
+      "image": "/images/tours/banos-aventura.jpg",
       "map": {
         "lat": -1.3964,
         "lng": -78.4249
@@ -661,24 +593,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/gualaceo-chordeleg-1.webp",
-          "alt": {
-            "es": "Ruta de Artesanías: Gualaceo y Chordeleg",
-            "en": "Handicraft Route: Gualaceo & Chordeleg"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/gualaceo-chordeleg-2.webp",
-          "alt": {
-            "es": "Ruta de Artesanías: Gualaceo y Chordeleg - 2",
-            "en": "Handicraft Route: Gualaceo & Chordeleg - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Ruta Artesanal Gualaceo y Chordeleg",
@@ -691,7 +606,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/gualaceo-chordeleg.webp",
+      "image": "/images/tours/gualaceo-chordeleg.jpg",
       "map": {
         "lat": -2.8929,
         "lng": -78.7758
@@ -777,24 +692,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/ingapirca-desde-cuenca-1.webp",
-          "alt": {
-            "es": "Ingapirca: Ruinas Incas y Cañari",
-            "en": "Ingapirca: Inca & Cañari Ruins"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/ingapirca-desde-cuenca-2.webp",
-          "alt": {
-            "es": "Ingapirca: Ruinas Incas y Cañari - 2",
-            "en": "Ingapirca: Inca & Cañari Ruins - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Ruinas de Ingapirca desde Cuenca",
@@ -807,7 +705,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/ingapirca-desde-cuenca.webp",
+      "image": "/images/tours/ingapirca-desde-cuenca.jpg",
       "map": {
         "lat": -2.5378,
         "lng": -78.8775
@@ -890,24 +788,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/parapente-ruta-cuenca-1.webp",
-          "alt": {
-            "es": "Parapente y Vuelo Libre Cuenca",
-            "en": "Paragliding over Cuenca"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/parapente-ruta-cuenca-2.webp",
-          "alt": {
-            "es": "Parapente y Vuelo Libre Cuenca - 2",
-            "en": "Paragliding over Cuenca - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Parapente en Cuenca",
@@ -920,7 +801,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/parapente-ruta-cuenca.webp",
+      "image": "/images/tours/parapente-ruta-cuenca.jpg",
       "map": {
         "lat": -2.8974,
         "lng": -79.0045
@@ -998,24 +879,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/giron-cascada-1.webp",
-          "alt": {
-            "es": "Girón: Cascada de San Martín",
-            "en": "Girón: San Martín Waterfall"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/giron-cascada-2.webp",
-          "alt": {
-            "es": "Girón: Cascada de San Martín - 2",
-            "en": "Girón: San Martín Waterfall - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Cascada de San Martín en Girón",
@@ -1028,7 +892,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/giron-cascada.webp",
+      "image": "/images/tours/giron-cascada.jpg",
       "map": {
         "lat": -3.1601,
         "lng": -79.1413
@@ -1106,24 +970,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/paute-1.webp",
-          "alt": {
-            "es": "Paute: Embalse y Miradores",
-            "en": "Paute: Reservoir & Viewpoints"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/paute-2.webp",
-          "alt": {
-            "es": "Paute: Embalse y Miradores - 2",
-            "en": "Paute: Reservoir & Viewpoints - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Paute: Embalse y Miradores",
@@ -1136,7 +983,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/paute.webp",
+      "image": "/images/tours/paute.jpg",
       "map": {
         "lat": -2.779,
         "lng": -78.7584
@@ -1222,24 +1069,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/sigsig-tejido-1.webp",
-          "alt": {
-            "es": "Sígsig: Cuna del Sombrero de Paja Toquilla",
-            "en": "Sígsig: Straw Hat Birthplace"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/sigsig-tejido-2.webp",
-          "alt": {
-            "es": "Sígsig: Cuna del Sombrero de Paja Toquilla - 2",
-            "en": "Sígsig: Straw Hat Birthplace - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Sígsig: Sombrero de Paja Toquilla",
@@ -1252,7 +1082,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/sigsig-tejido.webp",
+      "image": "/images/tours/sigsig-tejido.jpg",
       "map": {
         "lat": -3.0539,
         "lng": -78.8006
@@ -1330,24 +1160,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/yunguilla-1.webp",
-          "alt": {
-            "es": "Yunguilla: Valle del Vino y la Fruta",
-            "en": "Yunguilla: Wine & Fruit Valley"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/yunguilla-2.webp",
-          "alt": {
-            "es": "Yunguilla: Valle del Vino y la Fruta - 2",
-            "en": "Yunguilla: Wine & Fruit Valley - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Yunguilla: Vino y Fruta",
@@ -1360,7 +1173,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/yunguilla.webp",
+      "image": "/images/tours/yunguilla.jpg",
       "map": {
         "lat": -3.0189,
         "lng": -79.1095
@@ -1444,24 +1257,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/asis-azuay-1.webp",
-          "alt": {
-            "es": "Aventura Todo Terreno: Ruta del Azuay",
-            "en": "Off-Road Adventure: Azuay Route"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/asis-azuay-2.webp",
-          "alt": {
-            "es": "Aventura Todo Terreno: Ruta del Azuay - 2",
-            "en": "Off-Road Adventure: Azuay Route - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Ruta 4x4 del Azuay",
@@ -1474,7 +1270,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/asis-azuay.webp",
+      "image": "/images/tours/asis-azuay.jpg",
       "map": {
         "lat": -2.8833,
         "lng": -78.9833
@@ -1557,24 +1353,7 @@
           "days": []
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/cotopaxi-ascenso-1.webp",
-          "alt": {
-            "es": "Ascenso al Volcán Cotopaxi",
-            "en": "Cotopaxi Volcano Climb"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/cotopaxi-ascenso-2.webp",
-          "alt": {
-            "es": "Ascenso al Volcán Cotopaxi - 2",
-            "en": "Cotopaxi Volcano Climb - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Ascenso al Cotopaxi",
@@ -1587,7 +1366,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/cotopaxi-ascenso.webp",
+      "image": null,
       "map": {
         "lat": -0.6814,
         "lng": -78.4337
@@ -1791,24 +1570,7 @@
           "days": []
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/quilotoa-loop-1.webp",
-          "alt": {
-            "es": "Trekking Quilotoa Loop",
-            "en": "Quilotoa Loop Trekking"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/quilotoa-loop-2.webp",
-          "alt": {
-            "es": "Trekking Quilotoa Loop - 2",
-            "en": "Quilotoa Loop Trekking - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Trekking Quilotoa Loop",
@@ -1821,7 +1583,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/quilotoa-loop.webp",
+      "image": null,
       "map": {
         "lat": -0.8455,
         "lng": -78.9038
@@ -1995,24 +1757,7 @@
           "days": []
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/chimborazo-ascenso-1.webp",
-          "alt": {
-            "es": "Ascenso al Chimborazo",
-            "en": "Chimborazo Climb"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/chimborazo-ascenso-2.webp",
-          "alt": {
-            "es": "Ascenso al Chimborazo - 2",
-            "en": "Chimborazo Climb - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Ascenso al Chimborazo",
@@ -2025,7 +1770,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/chimborazo-ascenso.webp",
+      "image": null,
       "map": {
         "lat": -1.4694,
         "lng": -78.8169
@@ -2122,24 +1867,7 @@
           "days": []
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/cuyabeno-4-dias-1.webp",
-          "alt": {
-            "es": "Cuyabeno: Excursión de 4 Días",
-            "en": "Cuyabeno 4-Day Expedition"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/cuyabeno-4-dias-2.webp",
-          "alt": {
-            "es": "Cuyabeno: Excursión de 4 Días - 2",
-            "en": "Cuyabeno 4-Day Expedition - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Cuyabeno 4 Días",
@@ -2152,7 +1880,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/cuyabeno-4-dias.webp",
+      "image": null,
       "map": {
         "lat": -0.0833,
         "lng": -76.0333
@@ -2250,24 +1978,7 @@
           "days": []
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/yasuni-wao-1.webp",
-          "alt": {
-            "es": "Yasuní: Experiencia Wao Teredo",
-            "en": "Yasuní: Wao Teredo Experience"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/yasuni-wao-2.webp",
-          "alt": {
-            "es": "Yasuní: Experiencia Wao Teredo - 2",
-            "en": "Yasuní: Wao Teredo Experience - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Yasuní: Wao Teredo",
@@ -2280,7 +1991,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/yasuni-wao.webp",
+      "image": null,
       "map": {
         "lat": -0.9917,
         "lng": -76.2504
@@ -2379,24 +2090,7 @@
           ]
         }
       ],
-      "gallery": [
-        {
-          "type": "image",
-          "src": "/images/tours/ruta-otavalo-1.webp",
-          "alt": {
-            "es": "Ruta de los Mercados: Otavalo",
-            "en": "Market Route: Otavalo"
-          }
-        },
-        {
-          "type": "image",
-          "src": "/images/tours/ruta-otavalo-2.webp",
-          "alt": {
-            "es": "Ruta de los Mercados: Otavalo - 2",
-            "en": "Market Route: Otavalo - 2"
-          }
-        }
-      ],
+      "gallery": [],
       "seo": {
         "title": {
           "es": "Ruta de los Mercados: Otavalo",
@@ -2409,7 +2103,7 @@
       },
       "createdAt": "2025-01-01",
       "updatedAt": "2026-08-05",
-      "image": "/images/tours/ruta-otavalo.webp",
+      "image": "/images/tours/ruta-otavalo.jpg",
       "map": {
         "lat": 0.2344,
         "lng": -78.2632
