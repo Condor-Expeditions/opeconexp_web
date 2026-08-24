@@ -1,2300 +1,2422 @@
 {
-	"items": [
-		{
-			"id": "city-tour-cuenca",
-			"slug": "city-tour-cuenca",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "City Tour Cuenca Patrimonial",
-				"en": "Cuenca Heritage City Tour"
-			},
-			"description": {
-				"es": "Recorrido peatonal por el centro histórico de Cuenca, Patrimonio Cultural de la Humanidad, para descubrir sus iglesias, museos y miradores.",
-				"en": "Walking tour through Cuenca's historic center, a UNESCO World Heritage site, to discover its churches, museums and viewpoints."
-			},
-			"categories": ["cultural", "city-tour"],
-			"regions": ["cuenca"],
-			"tags": [],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "3h",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 25,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía bilingüe certificado",
-						"en": "Certified bilingual guide"
-					}
-				},
-				{
-					"icon": "🎫",
-					"text": {
-						"es": "Entrada a Catedral Nueva y Museo de las Conceptas",
-						"en": "Entrance to New Cathedral and Conceptas Museum"
-					}
-				},
-				{
-					"icon": "🍦",
-					"text": {
-						"es": "Degustación de helados artesanales",
-						"en": "Artisan ice cream tasting"
-					}
-				},
-				{
-					"icon": "⛰️",
-					"text": {
-						"es": "Mirador de Turi",
-						"en": "Turi viewpoint"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "09:00",
-					"end": "12:00",
-					"days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
-				},
-				{
-					"start": "14:00",
-					"end": "17:00",
-					"days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/city-tour-cuenca-1.webp",
-					"alt": {
-						"es": "City Tour Cuenca Patrimonial",
-						"en": "Cuenca Heritage City Tour"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/city-tour-cuenca-2.webp",
-					"alt": {
-						"es": "City Tour Cuenca Patrimonial - 2",
-						"en": "Cuenca Heritage City Tour - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "City Tour Cuenca Patrimonial",
-					"en": "Cuenca Heritage City Tour"
-				},
-				"description": {
-					"es": "Descubre Cuenca a pie con guías locales: Catedral Nueva, Conceptas y mirador de Turi.",
-					"en": "Discover Cuenca on foot with local guides: New Cathedral, Conceptas and Turi viewpoint."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/city-tour-cuenca.webp",
-			"map": {
-				"lat": -2.8974,
-				"lng": -79.0045
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "cajas-trekking",
-			"slug": "cajas-trekking",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Trekking al Parque Nacional Cajas",
-				"en": "Cajas National Park Trekking"
-			},
-			"description": {
-				"es": "Aventura de un día completo en uno de los parques nacionales más hermosos de Ecuador, con más de 200 lagunas glaciares, cóndores y senderos de páramo.",
-				"en": "Full-day adventure in one of Ecuador's most beautiful national parks, with over 200 glacial lakes, condors and páramo trails."
-			},
-			"categories": ["trekking"],
-			"regions": ["cuenca"],
-			"tags": ["cajas"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "4h30m",
-			"difficulty": "moderado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 55,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte desde Cuenca",
-						"en": "Transport from Cuenca"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía certificado",
-						"en": "Certified guide"
-					}
-				},
-				{
-					"icon": "🥾",
-					"text": {
-						"es": "Bastones de trekking",
-						"en": "Trekking poles"
-					}
-				},
-				{
-					"icon": "🍱",
-					"text": {
-						"es": "Box lunch",
-						"en": "Box lunch"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "08:30",
-					"end": "13:00",
-					"days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/cajas-trekking-1.webp",
-					"alt": {
-						"es": "Trekking al Parque Nacional Cajas",
-						"en": "Cajas National Park Trekking"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/cajas-trekking-2.webp",
-					"alt": {
-						"es": "Trekking al Parque Nacional Cajas - 2",
-						"en": "Cajas National Park Trekking - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Trekking Parque Nacional Cajas",
-					"en": "Cajas National Park Trekking"
-				},
-				"description": {
-					"es": "200+ lagunas glaciares, cóndores y senderos de páramo a minutos de Cuenca.",
-					"en": "200+ glacial lakes, condors and páramo trails minutes from Cuenca."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/cajas-trekking.webp",
-			"map": {
-				"lat": -2.8353,
-				"lng": -79.2229
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "cajas-camping",
-			"slug": "cajas-camping",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Cajas: Camping y Fogata Nocturna",
-				"en": "Cajas Camping & Bonfire Night"
-			},
-			"description": {
-				"es": "Noche de camping bajo un cielo estrellado en el páramo de Cajas, con observación astronómica y fogata junto a la laguna Toreadora.",
-				"en": "A starry camping night in the Cajas páramo, with stargazing and a bonfire by Toreadora Lake."
-			},
-			"categories": ["trekking"],
-			"regions": ["cuenca"],
-			"tags": ["cajas"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "2d",
-			"difficulty": "moderado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 95,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte desde Cuenca",
-						"en": "Transport from Cuenca"
-					}
-				},
-				{
-					"icon": "🏕️",
-					"text": {
-						"es": "Carpa y sleeping bag",
-						"en": "Tent and sleeping bag"
-					}
-				},
-				{
-					"icon": "🍽️",
-					"text": {
-						"es": "Alimentación completa",
-						"en": "Full board"
-					}
-				},
-				{
-					"icon": "🔥",
-					"text": {
-						"es": "Fogata nocturna",
-						"en": "Night bonfire"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "2026-06-20T14:00",
-					"end": "2026-06-21T12:00",
-					"days": []
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/cajas-camping-1.webp",
-					"alt": {
-						"es": "Cajas: Camping y Fogata Nocturna",
-						"en": "Cajas Camping & Bonfire Night"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/cajas-camping-2.webp",
-					"alt": {
-						"es": "Cajas: Camping y Fogata Nocturna - 2",
-						"en": "Cajas Camping & Bonfire Night - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Camping en Cajas",
-					"en": "Cajas Camping"
-				},
-				"description": {
-					"es": "Camping en el páramo de Cajas: fogata, estrellas y laguna Toreadora al amanecer.",
-					"en": "Cajas páramo camping: bonfire, stars and Toreadora Lake at sunrise."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/cajas-camping.webp",
-			"map": {
-				"lat": -2.8353,
-				"lng": -79.2229
-			},
-			"itinerary": [
-				{
-					"day": 1,
-					"stops": [
-						{
-							"time": "14:00",
-							"title": {
-								"es": "Salida desde Cuenca",
-								"en": "Departure"
-							},
-							"description": {
-								"es": "Recojo y viaje al Parque Nacional Cajas.",
-								"en": "Pickup and drive to Cajas NP."
-							},
-							"image": "/images/tours/cajas-camping-it-1.webp"
-						},
-						{
-							"time": "15:30",
-							"title": {
-								"es": "Laguna Toreadora",
-								"en": "Toreadora Lake"
-							},
-							"description": {
-								"es": "Instalación del campamento.",
-								"en": "Camp setup."
-							}
-						},
-						{
-							"time": "18:00",
-							"title": {
-								"es": "Fogata",
-								"en": "Bonfire"
-							},
-							"description": {
-								"es": "Cena y fogata nocturna.",
-								"en": "Dinner and bonfire."
-							}
-						},
-						{
-							"time": "20:00",
-							"title": {
-								"es": "Astronomía",
-								"en": "Stargazing"
-							},
-							"description": {
-								"es": "Observación de estrellas en el páramo.",
-								"en": "Stargazing in the páramo."
-							}
-						}
-					],
-					"meals": ["almuerzo", "cena"],
-					"meals_not_included": ["desayuno"]
-				},
-				{
-					"day": 2,
-					"stops": [
-						{
-							"time": "06:30",
-							"title": {
-								"es": "Amanecer",
-								"en": "Sunrise"
-							},
-							"description": {
-								"es": "Desayuno y caminata matutina.",
-								"en": "Breakfast and morning hike."
-							}
-						},
-						{
-							"time": "09:00",
-							"title": {
-								"es": "Senderismo",
-								"en": "Hiking"
-							},
-							"description": {
-								"es": "Flora, fauna y lagunas glaciares.",
-								"en": "Flora, fauna and glacial lakes."
-							}
-						},
-						{
-							"time": "12:00",
-							"title": {
-								"es": "Regreso",
-								"en": "Return"
-							},
-							"description": {
-								"es": "Desmontar y retorno a Cuenca.",
-								"en": "Break camp and return."
-							}
-						}
-					],
-					"meals": ["desayuno", "almuerzo"],
-					"meals_not_included": []
-				}
-			],
-			"reviews": [],
-			"accommodations": [
-				{
-					"name": {
-						"es": "Campamento Toreadora",
-						"en": "Toreadora Camp"
-					},
-					"type": "camping"
-				}
-			],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "banos-aventura",
-			"slug": "banos-aventura",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Baños de Agua Santa: Aventura y Relax",
-				"en": "Baños Adventure & Relax"
-			},
-			"description": {
-				"es": "Jornada de adrenalina y aguas termales en Baños de Agua Santa, con puente colgante y el imponente Pailón del Diablo.",
-				"en": "A day of thrills and thermal waters in Baños de Agua Santa, with hanging bridge and the mighty Pailón del Diablo waterfall."
-			},
-			"categories": ["trekking", "cultural"],
-			"regions": ["cuenca"],
-			"tags": ["banos"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 60,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte ida y vuelta",
-						"en": "Round trip transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía bilingüe",
-						"en": "Bilingual guide"
-					}
-				},
-				{
-					"icon": "♨️",
-					"text": {
-						"es": "Entrada a aguas termales",
-						"en": "Thermal springs entrance"
-					}
-				},
-				{
-					"icon": "🍱",
-					"text": {
-						"es": "Box lunch",
-						"en": "Box lunch"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "07:00",
-					"end": "19:00",
-					"days": ["tue", "thu", "sat"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/banos-aventura-1.webp",
-					"alt": {
-						"es": "Baños de Agua Santa: Aventura y Relax",
-						"en": "Baños Adventure & Relax"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/banos-aventura-2.webp",
-					"alt": {
-						"es": "Baños de Agua Santa: Aventura y Relax - 2",
-						"en": "Baños Adventure & Relax - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Aventura en Baños desde Cuenca",
-					"en": "Baños Adventure from Cuenca"
-				},
-				"description": {
-					"es": "Pailón del Diablo, puente colgante y aguas termales en Baños de Agua Santa.",
-					"en": "Pailón del Diablo, hanging bridge and thermal springs in Baños de Agua Santa."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/banos-aventura.webp",
-			"map": {
-				"lat": -1.3964,
-				"lng": -78.4249
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "gualaceo-chordeleg",
-			"slug": "gualaceo-chordeleg",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Ruta de Artesanías: Gualaceo y Chordeleg",
-				"en": "Handicraft Route: Gualaceo & Chordeleg"
-			},
-			"description": {
-				"es": "Recorrido por los pueblos artesanales de Gualaceo y Chordeleg, famosos por sus tejidos, cerámica y filigrana en oro y plata.",
-				"en": "Journey through the artisan towns of Gualaceo and Chordeleg, famous for their weaving, ceramics and gold-and-silver filigree."
-			},
-			"categories": ["cultural", "city-tour"],
-			"regions": ["cuenca"],
-			"tags": ["gualaceo", "chordeleg"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "6h",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 40,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte redondo",
-						"en": "Round trip transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía local",
-						"en": "Local guide"
-					}
-				},
-				{
-					"icon": "🍬",
-					"text": {
-						"es": "Degustación de dulces típicos",
-						"en": "Typical sweets tasting"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "09:00",
-					"end": "15:00",
-					"days": ["wed", "sat"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/gualaceo-chordeleg-1.webp",
-					"alt": {
-						"es": "Ruta de Artesanías: Gualaceo y Chordeleg",
-						"en": "Handicraft Route: Gualaceo & Chordeleg"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/gualaceo-chordeleg-2.webp",
-					"alt": {
-						"es": "Ruta de Artesanías: Gualaceo y Chordeleg - 2",
-						"en": "Handicraft Route: Gualaceo & Chordeleg - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Ruta Artesanal Gualaceo y Chordeleg",
-					"en": "Gualaceo & Chordeleg Handicraft Route"
-				},
-				"description": {
-					"es": "Mercado artesanal, filigrana en plata y dulces típicos en el valle del Azuay.",
-					"en": "Artisan market, silver filigree and typical sweets in the Azuay valley."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/gualaceo-chordeleg.webp",
-			"map": {
-				"lat": -2.8929,
-				"lng": -78.7758
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "ingapirca-desde-cuenca",
-			"slug": "ingapirca-desde-cuenca",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Ingapirca: Ruinas Incas y Cañari",
-				"en": "Ingapirca: Inca & Cañari Ruins"
-			},
-			"description": {
-				"es": "Visita al complejo arqueológico más importante de Ecuador, con guía arqueólogo, el Templo del Sol y almuerzo típico en la comunidad.",
-				"en": "Visit to Ecuador's most important archaeological site with an archaeologist guide, the Sun Temple and a typical community lunch."
-			},
-			"categories": ["cultural"],
-			"regions": ["cuenca"],
-			"tags": ["ingapirca"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 65,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte ida y vuelta",
-						"en": "Round trip transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía arqueólogo",
-						"en": "Archaeologist guide"
-					}
-				},
-				{
-					"icon": "🎫",
-					"text": {
-						"es": "Entradas al sitio",
-						"en": "Site entrance"
-					}
-				},
-				{
-					"icon": "🍽️",
-					"text": {
-						"es": "Almuerzo típico",
-						"en": "Typical lunch"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "07:00",
-					"end": "17:00",
-					"days": ["mon", "wed", "fri"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/ingapirca-desde-cuenca-1.webp",
-					"alt": {
-						"es": "Ingapirca: Ruinas Incas y Cañari",
-						"en": "Ingapirca: Inca & Cañari Ruins"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/ingapirca-desde-cuenca-2.webp",
-					"alt": {
-						"es": "Ingapirca: Ruinas Incas y Cañari - 2",
-						"en": "Ingapirca: Inca & Cañari Ruins - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Ruinas de Ingapirca desde Cuenca",
-					"en": "Ingapirca Ruins from Cuenca"
-				},
-				"description": {
-					"es": "Templo del Sol inca y ceremonia ancestral en el complejo arqueológico de Ingapirca.",
-					"en": "Inca Sun Temple and ancestral ceremonies at the Ingapirca archaeological complex."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/ingapirca-desde-cuenca.webp",
-			"map": {
-				"lat": -2.5378,
-				"lng": -78.8775
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "parapente-ruta-cuenca",
-			"slug": "parapente-ruta-cuenca",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Parapente y Vuelo Libre Cuenca",
-				"en": "Paragliding over Cuenca"
-			},
-			"description": {
-				"es": "Vuelo tándem en parapente sobre el valle de Cuenca con instructor certificado, equipo completo y video del vuelo.",
-				"en": "Tandem paragliding flight over the Cuenca valley with a certified instructor, full equipment and flight video."
-			},
-			"categories": ["trekking"],
-			"regions": ["cuenca"],
-			"tags": [],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "4h",
-			"difficulty": "principiante",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 85,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🧑‍✈️",
-					"text": {
-						"es": "Instructor certificado",
-						"en": "Certified instructor"
-					}
-				},
-				{
-					"icon": "🪂",
-					"text": {
-						"es": "Equipo completo",
-						"en": "Full equipment"
-					}
-				},
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte al despegue",
-						"en": "Transport to takeoff"
-					}
-				},
-				{
-					"icon": "🎥",
-					"text": {
-						"es": "Video del vuelo",
-						"en": "Flight video"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "10:00",
-					"end": "14:00",
-					"days": ["sat", "sun"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/parapente-ruta-cuenca-1.webp",
-					"alt": {
-						"es": "Parapente y Vuelo Libre Cuenca",
-						"en": "Paragliding over Cuenca"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/parapente-ruta-cuenca-2.webp",
-					"alt": {
-						"es": "Parapente y Vuelo Libre Cuenca - 2",
-						"en": "Paragliding over Cuenca - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Parapente en Cuenca",
-					"en": "Paragliding in Cuenca"
-				},
-				"description": {
-					"es": "Vuelo tándem sobre el valle de Cuenca con instructor certificado y fotos aéreas.",
-					"en": "Tandem flight over the Cuenca valley with certified instructor and aerial photos."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/parapente-ruta-cuenca.webp",
-			"map": {
-				"lat": -2.8974,
-				"lng": -79.0045
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "giron-cascada",
-			"slug": "giron-cascada",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Girón: Cascada de San Martín",
-				"en": "Girón: San Martín Waterfall"
-			},
-			"description": {
-				"es": "Caminata a la cascada de San Martín en el valle subtropical de Girón, con piscinas naturales y vista del valle de Yunguilla.",
-				"en": "Hike to the San Martín waterfall in the subtropical Girón valley, with natural pools and views of the Yunguilla valley."
-			},
-			"categories": ["trekking"],
-			"regions": ["azuay"],
-			"tags": ["giron"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 35,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte",
-						"en": "Transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía local",
-						"en": "Local guide"
-					}
-				},
-				{
-					"icon": "🎫",
-					"text": {
-						"es": "Entrada a la cascada",
-						"en": "Waterfall entrance"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "08:00",
-					"end": "17:00",
-					"days": ["wed", "sat"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/giron-cascada-1.webp",
-					"alt": {
-						"es": "Girón: Cascada de San Martín",
-						"en": "Girón: San Martín Waterfall"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/giron-cascada-2.webp",
-					"alt": {
-						"es": "Girón: Cascada de San Martín - 2",
-						"en": "Girón: San Martín Waterfall - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Cascada de San Martín en Girón",
-					"en": "San Martín Waterfall in Girón"
-				},
-				"description": {
-					"es": "Cascada de 35 metros, piscinas naturales y encanto subtropical del valle de Girón.",
-					"en": "35-meter waterfall, natural pools and the subtropical charm of the Girón valley."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/giron-cascada.webp",
-			"map": {
-				"lat": -3.1601,
-				"lng": -79.1413
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "paute",
-			"slug": "paute",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Paute: Embalse y Miradores",
-				"en": "Paute: Reservoir & Viewpoints"
-			},
-			"description": {
-				"es": "Recorrido por el embalse de Amaluza y los miradores del cantón Paute, con su gastronomía local como cierre perfecto.",
-				"en": "Tour of the Amaluza reservoir and the viewpoints of Paute canton, topped off with local cuisine."
-			},
-			"categories": ["cultural"],
-			"regions": ["azuay"],
-			"tags": ["paute"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 35,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte",
-						"en": "Transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía",
-						"en": "Guide"
-					}
-				},
-				{
-					"icon": "🍱",
-					"text": {
-						"es": "Box lunch",
-						"en": "Box lunch"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "08:00",
-					"end": "17:00",
-					"days": ["thu", "fri"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/paute-1.webp",
-					"alt": {
-						"es": "Paute: Embalse y Miradores",
-						"en": "Paute: Reservoir & Viewpoints"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/paute-2.webp",
-					"alt": {
-						"es": "Paute: Embalse y Miradores - 2",
-						"en": "Paute: Reservoir & Viewpoints - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Paute: Embalse y Miradores",
-					"en": "Paute: Reservoir & Viewpoints"
-				},
-				"description": {
-					"es": "Embalse de Amaluza, miradores y gastronomía local en el cantón Paute.",
-					"en": "Amaluza reservoir, viewpoints and local gastronomy in Paute canton."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/paute.webp",
-			"map": {
-				"lat": -2.779,
-				"lng": -78.7584
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "sigsig-tejido",
-			"slug": "sigsig-tejido",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Sígsig: Cuna del Sombrero de Paja Toquilla",
-				"en": "Sígsig: Straw Hat Birthplace"
-			},
-			"description": {
-				"es": "Visita a los talleres de sombrero de paja toquilla de Sígsig, Patrimonio Cultural Inmaterial de la UNESCO, con degustación del famoso queso local.",
-				"en": "Visit to Sígsig's toquilla straw hat workshops, a UNESCO Intangible Cultural Heritage, with a tasting of the famous local cheese."
-			},
-			"categories": ["cultural"],
-			"regions": ["azuay"],
-			"tags": ["sigsig"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 40,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte",
-						"en": "Transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía",
-						"en": "Guide"
-					}
-				},
-				{
-					"icon": "🎨",
-					"text": {
-						"es": "Taller artesanal",
-						"en": "Artisan workshop"
-					}
-				},
-				{
-					"icon": "🧀",
-					"text": {
-						"es": "Degustación de queso de Sígsig",
-						"en": "Sígsig cheese tasting"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "08:00",
-					"end": "17:00",
-					"days": ["tue", "thu", "sat"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/sigsig-tejido-1.webp",
-					"alt": {
-						"es": "Sígsig: Cuna del Sombrero de Paja Toquilla",
-						"en": "Sígsig: Straw Hat Birthplace"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/sigsig-tejido-2.webp",
-					"alt": {
-						"es": "Sígsig: Cuna del Sombrero de Paja Toquilla - 2",
-						"en": "Sígsig: Straw Hat Birthplace - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Sígsig: Sombrero de Paja Toquilla",
-					"en": "Sígsig: Toquilla Straw Hat"
-				},
-				"description": {
-					"es": "Talleres de sombrero de paja toquilla, queso local y centro histórico de Sígsig.",
-					"en": "Toquilla straw hat workshops, local cheese and the historic center of Sígsig."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/sigsig-tejido.webp",
-			"map": {
-				"lat": -3.0539,
-				"lng": -78.8006
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "yunguilla",
-			"slug": "yunguilla",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Yunguilla: Valle del Vino y la Fruta",
-				"en": "Yunguilla: Wine & Fruit Valley"
-			},
-			"description": {
-				"es": "Recorrido por haciendas frutales y viñedos del valle subtropical de Yunguilla, con degustación de vinos artesanales.",
-				"en": "Tour of fruit farms and vineyards in the subtropical Yunguilla valley, with artisan wine tasting."
-			},
-			"categories": ["cultural"],
-			"regions": ["azuay"],
-			"tags": ["yunguilla"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 40,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte",
-						"en": "Transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía",
-						"en": "Guide"
-					}
-				},
-				{
-					"icon": "🍷",
-					"text": {
-						"es": "Degustación de vinos artesanales",
-						"en": "Artisan wine tasting"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "09:00",
-					"end": "16:00",
-					"days": ["sat", "sun"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/yunguilla-1.webp",
-					"alt": {
-						"es": "Yunguilla: Valle del Vino y la Fruta",
-						"en": "Yunguilla: Wine & Fruit Valley"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/yunguilla-2.webp",
-					"alt": {
-						"es": "Yunguilla: Valle del Vino y la Fruta - 2",
-						"en": "Yunguilla: Wine & Fruit Valley - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Yunguilla: Vino y Fruta",
-					"en": "Yunguilla: Wine & Fruit"
-				},
-				"description": {
-					"es": "Vinos artesanales, haciendas frutales y paisaje subtropical en Yunguilla.",
-					"en": "Artisan wines, fruit haciendas and subtropical landscapes in Yunguilla."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/yunguilla.webp",
-			"map": {
-				"lat": -3.0189,
-				"lng": -79.1095
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "asis-azuay",
-			"slug": "asis-azuay",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Aventura Todo Terreno: Ruta del Azuay",
-				"en": "Off-Road Adventure: Azuay Route"
-			},
-			"description": {
-				"es": "Ruta panorámica en vehículo 4x4 por la cordillera del Azuay, con lagunas escondidas, fauna andina y paisajes de páramo.",
-				"en": "Scenic 4x4 route through the Azuay mountains, with hidden lagoons, Andean wildlife and páramo landscapes."
-			},
-			"categories": ["trekking"],
-			"regions": ["azuay"],
-			"tags": [],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "moderado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 70,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🚙",
-					"text": {
-						"es": "Transporte 4x4",
-						"en": "4x4 transport"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía",
-						"en": "Guide"
-					}
-				},
-				{
-					"icon": "🍱",
-					"text": {
-						"es": "Box lunch",
-						"en": "Box lunch"
-					}
-				},
-				{
-					"icon": "🦺",
-					"text": {
-						"es": "Equipo de seguridad",
-						"en": "Safety equipment"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "07:30",
-					"end": "17:30",
-					"days": ["thu", "fri", "sat"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/asis-azuay-1.webp",
-					"alt": {
-						"es": "Aventura Todo Terreno: Ruta del Azuay",
-						"en": "Off-Road Adventure: Azuay Route"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/asis-azuay-2.webp",
-					"alt": {
-						"es": "Aventura Todo Terreno: Ruta del Azuay - 2",
-						"en": "Off-Road Adventure: Azuay Route - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Ruta 4x4 del Azuay",
-					"en": "Azuay 4x4 Route"
-				},
-				"description": {
-					"es": "Ruta panorámica por la cordillera del Azuay, lagunas escondidas y fauna andina.",
-					"en": "Scenic Azuay mountain route, hidden lagoons and Andean wildlife."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/asis-azuay.webp",
-			"map": {
-				"lat": -2.8833,
-				"lng": -78.9833
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "junio-agosto, diciembre-enero",
-				"low": "marzo-mayo, septiembre-noviembre"
-			}
-		},
-		{
-			"id": "cotopaxi-ascenso",
-			"slug": "cotopaxi-ascenso",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Ascenso al Volcán Cotopaxi",
-				"en": "Cotopaxi Volcano Climb"
-			},
-			"description": {
-				"es": "Ascenso nocturno al glaciar del Cotopaxi para amanecer en la cumbre a 5,897 m, con noche en el refugio José Ribas.",
-				"en": "Night climb up the Cotopaxi glacier to reach the 5,897 m summit at sunrise, with a night at the José Ribas refuge."
-			},
-			"categories": ["montanismo", "trekking"],
-			"regions": ["ecuador"],
-			"tags": ["cotopaxi"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "2d",
-			"difficulty": "intermedio-avanzado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 480,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🧗",
-					"text": {
-						"es": "Guía ASEGUIM",
-						"en": "ASEGUIM guide"
-					}
-				},
-				{
-					"icon": "🎿",
-					"text": {
-						"es": "Equipo técnico",
-						"en": "Technical equipment"
-					}
-				},
-				{
-					"icon": "🚙",
-					"text": {
-						"es": "Transporte 4x4",
-						"en": "4x4 transport"
-					}
-				},
-				{
-					"icon": "🏔️",
-					"text": {
-						"es": "Noche en refugio José Ribas",
-						"en": "Night at José Ribas refuge"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "2026-06-13T08:00",
-					"end": "2026-06-14T12:00",
-					"days": []
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/cotopaxi-ascenso-1.webp",
-					"alt": {
-						"es": "Ascenso al Volcán Cotopaxi",
-						"en": "Cotopaxi Volcano Climb"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/cotopaxi-ascenso-2.webp",
-					"alt": {
-						"es": "Ascenso al Volcán Cotopaxi - 2",
-						"en": "Cotopaxi Volcano Climb - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Ascenso al Cotopaxi",
-					"en": "Cotopaxi Climb"
-				},
-				"description": {
-					"es": "Ascenso nocturno para amanecer en la cumbre a 5,897 m, glaciar activo y noche en refugio.",
-					"en": "Night ascent to the 5,897 m summit, active glacier and night at the refuge."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/cotopaxi-ascenso.webp",
-			"map": {
-				"lat": -0.6814,
-				"lng": -78.4337
-			},
-			"itinerary": [
-				{
-					"day": 1,
-					"stops": [
-						{
-							"time": "07:00",
-							"title": {
-								"es": "Salida",
-								"en": "Departure"
-							},
-							"description": {
-								"es": "Viaje al Parque Nacional Cotopaxi.",
-								"en": "Journey to Cotopaxi NP."
-							}
-						},
-						{
-							"time": "11:00",
-							"title": {
-								"es": "Refugio José Rivas",
-								"en": "José Rivas Refuge"
-							},
-							"description": {
-								"es": "Aclimatación a 4,800m.",
-								"en": "Acclimatization at 4,800m."
-							}
-						},
-						{
-							"time": "14:00",
-							"title": {
-								"es": "Entrenamiento en glaciar",
-								"en": "Glacier training"
-							},
-							"description": {
-								"es": "Técnica de crampones y piolet.",
-								"en": "Crampon and ice axe technique."
-							}
-						},
-						{
-							"time": "18:00",
-							"title": {
-								"es": "Descanso",
-								"en": "Rest"
-							},
-							"description": {
-								"es": "Cena temprana y descanso previo al ascenso.",
-								"en": "Early dinner and pre-ascent rest."
-							}
-						}
-					],
-					"meals": ["almuerzo", "cena"],
-					"meals_not_included": ["desayuno"]
-				},
-				{
-					"day": 2,
-					"stops": [
-						{
-							"time": "00:30",
-							"title": {
-								"es": "Ascenso nocturno",
-								"en": "Night ascent"
-							},
-							"description": {
-								"es": "Inicio del ascenso a la cumbre.",
-								"en": "Summit ascent begins."
-							}
-						},
-						{
-							"time": "06:00",
-							"title": {
-								"es": "Cumbre 5,897m",
-								"en": "Summit 5,897m"
-							},
-							"description": {
-								"es": "Amanecer desde la cumbre.",
-								"en": "Sunrise from the summit."
-							}
-						},
-						{
-							"time": "08:00",
-							"title": {
-								"es": "Descenso",
-								"en": "Descent"
-							},
-							"description": {
-								"es": "Retorno seguro al refugio.",
-								"en": "Safe return to refuge."
-							}
-						},
-						{
-							"time": "14:00",
-							"title": {
-								"es": "Regreso a Cuenca",
-								"en": "Return to Cuenca"
-							},
-							"description": {
-								"es": "Transporte de retorno.",
-								"en": "Return transport."
-							}
-						}
-					],
-					"meals": ["desayuno", "almuerzo"],
-					"meals_not_included": ["cena"]
-				}
-			],
-			"reviews": [],
-			"accommodations": [
-				{
-					"name": {
-						"es": "Refugio José Rivas",
-						"en": "José Rivas Refuge"
-					},
-					"type": "hostal"
-				}
-			],
-			"seasons": {
-				"high": "mayo-octubre",
-				"low": "noviembre-abril"
-			}
-		},
-		{
-			"id": "quilotoa-loop",
-			"slug": "quilotoa-loop",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Trekking Quilotoa Loop",
-				"en": "Quilotoa Loop Trekking"
-			},
-			"description": {
-				"es": "Trekking de 3 días por la ruta del Quilotoa, con su laguna cratérica esmeralda y hospedaje en comunidades kichwa.",
-				"en": "3-day trek along the Quilotoa Loop, with its emerald crater lake and lodging in Kichwa communities."
-			},
-			"categories": ["trekking", "cultural"],
-			"regions": ["ecuador"],
-			"tags": ["quilotoa"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "3d",
-			"difficulty": "moderado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 350,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía nativo",
-						"en": "Native guide"
-					}
-				},
-				{
-					"icon": "🏠",
-					"text": {
-						"es": "Hospedaje en cabañas comunitarias",
-						"en": "Community lodge accommodation"
-					}
-				},
-				{
-					"icon": "🍽️",
-					"text": {
-						"es": "Todas las comidas",
-						"en": "All meals"
-					}
-				},
-				{
-					"icon": "🥾",
-					"text": {
-						"es": "Bastón de trekking",
-						"en": "Trekking pole"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "2026-06-18T08:00",
-					"end": "2026-06-20T17:00",
-					"days": []
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/quilotoa-loop-1.webp",
-					"alt": {
-						"es": "Trekking Quilotoa Loop",
-						"en": "Quilotoa Loop Trekking"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/quilotoa-loop-2.webp",
-					"alt": {
-						"es": "Trekking Quilotoa Loop - 2",
-						"en": "Quilotoa Loop Trekking - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Trekking Quilotoa Loop",
-					"en": "Quilotoa Loop Trekking"
-				},
-				"description": {
-					"es": "Laguna cratérica esmeralda, comunidades kichwa y mirador del cráter al amanecer.",
-					"en": "Emerald crater lake, Kichwa communities and crater viewpoint at sunrise."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/quilotoa-loop.webp",
-			"map": {
-				"lat": -0.8455,
-				"lng": -78.9038
-			},
-			"itinerary": [
-				{
-					"day": 1,
-					"stops": [
-						{
-							"time": "07:00",
-							"title": {
-								"es": "Salida",
-								"en": "Departure"
-							},
-							"description": {
-								"es": "Viaje escénico a la laguna Quilotoa.",
-								"en": "Scenic drive to Quilotoa Lake."
-							}
-						},
-						{
-							"time": "11:00",
-							"title": {
-								"es": "Chugchilán",
-								"en": "Chugchilán"
-							},
-							"description": {
-								"es": "Registro en lodge comunitario.",
-								"en": "Check-in at community lodge."
-							}
-						},
-						{
-							"time": "14:00",
-							"title": {
-								"es": "Descenso al cráter",
-								"en": "Crater descent"
-							},
-							"description": {
-								"es": "Caminata a la laguna esmeralda.",
-								"en": "Hike to the emerald lake."
-							}
-						}
-					],
-					"meals": ["almuerzo", "cena"],
-					"meals_not_included": ["desayuno"]
-				},
-				{
-					"day": 2,
-					"stops": [
-						{
-							"time": "08:00",
-							"title": {
-								"es": "Borde del cráter",
-								"en": "Crater rim"
-							},
-							"description": {
-								"es": "Trekking panorámico.",
-								"en": "Panoramic trek."
-							}
-						},
-						{
-							"time": "12:00",
-							"title": {
-								"es": "Comunidad indígena",
-								"en": "Indigenous community"
-							},
-							"description": {
-								"es": "Almuerzo con familia local.",
-								"en": "Lunch with local family."
-							}
-						},
-						{
-							"time": "15:00",
-							"title": {
-								"es": "Regreso",
-								"en": "Return"
-							},
-							"description": {
-								"es": "Retorno por la avenida de los volcanes.",
-								"en": "Return via Avenue of the Volcanoes."
-							}
-						}
-					],
-					"meals": ["desayuno", "almuerzo"],
-					"meals_not_included": ["cena"]
-				}
-			],
-			"reviews": [],
-			"accommodations": [
-				{
-					"name": {
-						"es": "Lodge Chugchilán",
-						"en": "Chugchilán Lodge"
-					},
-					"type": "hostal"
-				}
-			],
-			"seasons": {
-				"high": "mayo-octubre",
-				"low": "noviembre-abril"
-			}
-		},
-		{
-			"id": "chimborazo-ascenso",
-			"slug": "chimborazo-ascenso",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Ascenso al Chimborazo",
-				"en": "Chimborazo Climb"
-			},
-			"description": {
-				"es": "Ascenso al punto más cercano al sol, el Chimborazo a 6,263 m, con aclimatación progresiva, guía ASEGUIM y equipo técnico de hielo.",
-				"en": "Climb to the point closest to the sun, Chimborazo at 6,263 m, with progressive acclimatization, ASEGUIM guide and technical ice gear."
-			},
-			"categories": ["montanismo"],
-			"regions": ["ecuador"],
-			"tags": ["chimborazo"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "3d",
-			"difficulty": "muy-avanzado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 650,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🧗",
-					"text": {
-						"es": "Guía ASEGUIM",
-						"en": "ASEGUIM guide"
-					}
-				},
-				{
-					"icon": "🧊",
-					"text": {
-						"es": "Equipo técnico de hielo",
-						"en": "Technical ice equipment"
-					}
-				},
-				{
-					"icon": "🫁",
-					"text": {
-						"es": "Oxígeno suplementario",
-						"en": "Supplemental oxygen"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "2026-06-25T08:00",
-					"end": "2026-06-27T12:00",
-					"days": []
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/chimborazo-ascenso-1.webp",
-					"alt": {
-						"es": "Ascenso al Chimborazo",
-						"en": "Chimborazo Climb"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/chimborazo-ascenso-2.webp",
-					"alt": {
-						"es": "Ascenso al Chimborazo - 2",
-						"en": "Chimborazo Climb - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Ascenso al Chimborazo",
-					"en": "Chimborazo Climb"
-				},
-				"description": {
-					"es": "El punto más cercano al sol (6,263 m), glaciar y seracs técnicos, con aclimatación progresiva.",
-					"en": "The point closest to the sun (6,263 m), technical glacier and seracs, progressive acclimatization."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/chimborazo-ascenso.webp",
-			"map": {
-				"lat": -1.4694,
-				"lng": -78.8169
-			},
-			"itinerary": [
-				{
-					"day": 1,
-					"stops": [],
-					"meals": [],
-					"meals_not_included": []
-				}
-			],
-			"reviews": [],
-			"accommodations": [
-				{
-					"name": {
-						"es": "Refugio Carrel",
-						"en": "Carrel Refuge"
-					},
-					"type": "hostal"
-				}
-			],
-			"seasons": {
-				"high": "mayo-octubre",
-				"low": "noviembre-abril"
-			}
-		},
-		{
-			"id": "cuyabeno-4-dias",
-			"slug": "cuyabeno-4-dias",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Cuyabeno: Excursión de 4 Días",
-				"en": "Cuyabeno 4-Day Expedition"
-			},
-			"description": {
-				"es": "Expedición de 4 días por la reserva de Cuyabeno: 14 lagunas interconectadas, delfines rosados, caminatas nocturnas y guía kichwa.",
-				"en": "4-day expedition through the Cuyabeno reserve: 14 interconnected lagoons, pink dolphins, night walks and a Kichwa guide."
-			},
-			"categories": ["selva"],
-			"regions": ["ecuador"],
-			"tags": ["cuyabeno"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "4d",
-			"difficulty": "suave-moderado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 540,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🛶",
-					"text": {
-						"es": "Canoa a motor",
-						"en": "Motorized canoe"
-					}
-				},
-				{
-					"icon": "🏕️",
-					"text": {
-						"es": "Camping en la selva",
-						"en": "Jungle camping"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía kichwa",
-						"en": "Kichwa guide"
-					}
-				},
-				{
-					"icon": "🍽️",
-					"text": {
-						"es": "Alimentación completa",
-						"en": "Full board"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "2026-07-01T09:00",
-					"end": "2026-07-04T16:00",
-					"days": []
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/cuyabeno-4-dias-1.webp",
-					"alt": {
-						"es": "Cuyabeno: Excursión de 4 Días",
-						"en": "Cuyabeno 4-Day Expedition"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/cuyabeno-4-dias-2.webp",
-					"alt": {
-						"es": "Cuyabeno: Excursión de 4 Días - 2",
-						"en": "Cuyabeno 4-Day Expedition - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Cuyabeno 4 Días",
-					"en": "Cuyabeno 4 Days"
-				},
-				"description": {
-					"es": "14 lagunas interconectadas, delfines rosados y caminata nocturna en la selva amazónica.",
-					"en": "14 interconnected lagoons, pink dolphins and a night walk in the Amazon jungle."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/cuyabeno-4-dias.webp",
-			"map": {
-				"lat": -0.0833,
-				"lng": -76.0333
-			},
-			"itinerary": [
-				{
-					"day": 1,
-					"stops": [],
-					"meals": [],
-					"meals_not_included": []
-				}
-			],
-			"reviews": [],
-			"accommodations": [
-				{
-					"name": {
-						"es": "Lodge Cuyabeno",
-						"en": "Cuyabeno Lodge"
-					},
-					"type": "hostal"
-				}
-			],
-			"seasons": {
-				"high": "mayo-octubre",
-				"low": "noviembre-abril"
-			}
-		},
-		{
-			"id": "yasuni-wao",
-			"slug": "yasuni-wao",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Yasuní: Experiencia Wao Teredo",
-				"en": "Yasuní: Wao Teredo Experience"
-			},
-			"description": {
-				"es": "Inmersión de 5 días en la mayor biodiversidad del planeta con la comunidad waorani: navegación, convivencia y fogata.",
-				"en": "5-day immersion in the planet's greatest biodiversity with the Waorani community: navigation, cultural exchange and bonfire."
-			},
-			"categories": ["selva", "cultural"],
-			"regions": ["ecuador"],
-			"tags": ["yasuni"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "5d",
-			"difficulty": "moderado",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 720,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🤝",
-					"text": {
-						"es": "Convivencia waorani",
-						"en": "Waorani cultural exchange"
-					}
-				},
-				{
-					"icon": "🛶",
-					"text": {
-						"es": "Navegación por el río",
-						"en": "River navigation"
-					}
-				},
-				{
-					"icon": "🏕️",
-					"text": {
-						"es": "Camping y fogata",
-						"en": "Camping and bonfire"
-					}
-				},
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía nativo",
-						"en": "Native guide"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "2026-07-05T09:00",
-					"end": "2026-07-09T16:00",
-					"days": []
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/yasuni-wao-1.webp",
-					"alt": {
-						"es": "Yasuní: Experiencia Wao Teredo",
-						"en": "Yasuní: Wao Teredo Experience"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/yasuni-wao-2.webp",
-					"alt": {
-						"es": "Yasuní: Experiencia Wao Teredo - 2",
-						"en": "Yasuní: Wao Teredo Experience - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Yasuní: Wao Teredo",
-					"en": "Yasuní: Wao Teredo"
-				},
-				"description": {
-					"es": "Reserva de Biosfera UNESCO y la mayor biodiversidad por m² del planeta, con inmersión cultural waorani.",
-					"en": "UNESCO Biosphere Reserve and the highest biodiversity per m² on the planet, with Waorani cultural immersion."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/yasuni-wao.webp",
-			"map": {
-				"lat": -0.9917,
-				"lng": -76.2504
-			},
-			"itinerary": [
-				{
-					"day": 1,
-					"stops": [],
-					"meals": [],
-					"meals_not_included": []
-				}
-			],
-			"reviews": [],
-			"accommodations": [
-				{
-					"name": {
-						"es": "Eco-lodge Waorani",
-						"en": "Waorani Eco-lodge"
-					},
-					"type": "hostal"
-				}
-			],
-			"seasons": {
-				"high": "mayo-octubre",
-				"low": "noviembre-abril"
-			}
-		},
-		{
-			"id": "ruta-otavalo",
-			"slug": "ruta-otavalo",
-			"type": "tour",
-			"status": "active",
-			"title": {
-				"es": "Ruta de los Mercados: Otavalo",
-				"en": "Market Route: Otavalo"
-			},
-			"description": {
-				"es": "Visita al mercado indígena más grande de Sudamérica, talleres de tejido kichwa y la cascada de Peguche.",
-				"en": "Visit to South America's largest indigenous market, Kichwa weaving workshops and the Peguche waterfall."
-			},
-			"categories": ["cultural"],
-			"regions": ["ecuador"],
-			"tags": ["otavalo"],
-			"operator": "condor-expeditions",
-			"meetingPoint": "parque-calderon",
-			"duration": "1d",
-			"difficulty": "facil",
-			"prices": [
-				{
-					"label": {
-						"es": "Adulto",
-						"en": "Adult"
-					},
-					"amount": 95,
-					"currency": "USD"
-				}
-			],
-			"includes": [
-				{
-					"icon": "🧑🏫",
-					"text": {
-						"es": "Guía bilingüe",
-						"en": "Bilingual guide"
-					}
-				},
-				{
-					"icon": "🚐",
-					"text": {
-						"es": "Transporte",
-						"en": "Transport"
-					}
-				},
-				{
-					"icon": "🍽️",
-					"text": {
-						"es": "Almuerzo",
-						"en": "Lunch"
-					}
-				},
-				{
-					"icon": "💧",
-					"text": {
-						"es": "Visita a la cascada de Peguche",
-						"en": "Visit to Peguche waterfall"
-					}
-				}
-			],
-			"schedules": [
-				{
-					"start": "06:00",
-					"end": "20:00",
-					"days": ["sat"]
-				}
-			],
-			"gallery": [
-				{
-					"type": "image",
-					"src": "/images/tours/ruta-otavalo-1.webp",
-					"alt": {
-						"es": "Ruta de los Mercados: Otavalo",
-						"en": "Market Route: Otavalo"
-					}
-				},
-				{
-					"type": "image",
-					"src": "/images/tours/ruta-otavalo-2.webp",
-					"alt": {
-						"es": "Ruta de los Mercados: Otavalo - 2",
-						"en": "Market Route: Otavalo - 2"
-					}
-				}
-			],
-			"seo": {
-				"title": {
-					"es": "Ruta de los Mercados: Otavalo",
-					"en": "Otavalo Market Route"
-				},
-				"description": {
-					"es": "Mercado indígena más grande de Sudamérica, talleres de tejido kichwa y cascada de Peguche.",
-					"en": "South America's largest indigenous market, Kichwa weaving workshops and Peguche waterfall."
-				}
-			},
-			"createdAt": "2025-01-01",
-			"updatedAt": "2026-08-05",
-			"image": "/images/tours/ruta-otavalo.webp",
-			"map": {
-				"lat": 0.2344,
-				"lng": -78.2632
-			},
-			"itinerary": [],
-			"reviews": [],
-			"accommodations": [],
-			"seasons": {
-				"high": "mayo-octubre",
-				"low": "noviembre-abril"
-			}
-		}
-	]
+  "items": [
+    {
+      "id": "city-tour-cuenca",
+      "slug": "city-tour-cuenca",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "City Tour Cuenca Patrimonial",
+        "en": "Cuenca Heritage City Tour"
+      },
+      "description": {
+        "es": "Recorrido peatonal por el centro histórico de Cuenca, Patrimonio Cultural de la Humanidad, para descubrir sus iglesias, museos y miradores.",
+        "en": "Walking tour through Cuenca's historic center, a UNESCO World Heritage site, to discover its churches, museums and viewpoints."
+      },
+      "categories": [
+        "cultural",
+        "city-tour"
+      ],
+      "regions": [
+        "cuenca"
+      ],
+      "tags": [],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "3h",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 25,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía bilingüe certificado",
+            "en": "Certified bilingual guide"
+          }
+        },
+        {
+          "icon": "🎫",
+          "text": {
+            "es": "Entrada a Catedral Nueva y Museo de las Conceptas",
+            "en": "Entrance to New Cathedral and Conceptas Museum"
+          }
+        },
+        {
+          "icon": "🍦",
+          "text": {
+            "es": "Degustación de helados artesanales",
+            "en": "Artisan ice cream tasting"
+          }
+        },
+        {
+          "icon": "⛰️",
+          "text": {
+            "es": "Mirador de Turi",
+            "en": "Turi viewpoint"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "09:00",
+          "end": "12:00",
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ]
+        },
+        {
+          "start": "14:00",
+          "end": "17:00",
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/city-tour-cuenca-1.webp",
+          "alt": {
+            "es": "City Tour Cuenca Patrimonial",
+            "en": "Cuenca Heritage City Tour"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/city-tour-cuenca-2.webp",
+          "alt": {
+            "es": "City Tour Cuenca Patrimonial - 2",
+            "en": "Cuenca Heritage City Tour - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "City Tour Cuenca Patrimonial",
+          "en": "Cuenca Heritage City Tour"
+        },
+        "description": {
+          "es": "Descubre Cuenca a pie con guías locales: Catedral Nueva, Conceptas y mirador de Turi.",
+          "en": "Discover Cuenca on foot with local guides: New Cathedral, Conceptas and Turi viewpoint."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/city-tour-cuenca.webp",
+      "map": {
+        "lat": -2.8974,
+        "lng": -79.0045
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "cajas-trekking",
+      "slug": "cajas-trekking",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Trekking al Parque Nacional Cajas",
+        "en": "Cajas National Park Trekking"
+      },
+      "description": {
+        "es": "Aventura de un día completo en uno de los parques nacionales más hermosos de Ecuador, con más de 200 lagunas glaciares, cóndores y senderos de páramo.",
+        "en": "Full-day adventure in one of Ecuador's most beautiful national parks, with over 200 glacial lakes, condors and páramo trails."
+      },
+      "categories": [
+        "trekking"
+      ],
+      "regions": [
+        "cuenca"
+      ],
+      "tags": [
+        "cajas"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "4h30m",
+      "difficulty": "moderado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 55,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte desde Cuenca",
+            "en": "Transport from Cuenca"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía certificado",
+            "en": "Certified guide"
+          }
+        },
+        {
+          "icon": "🥾",
+          "text": {
+            "es": "Bastones de trekking",
+            "en": "Trekking poles"
+          }
+        },
+        {
+          "icon": "🍱",
+          "text": {
+            "es": "Box lunch",
+            "en": "Box lunch"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "08:30",
+          "end": "13:00",
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-trekking-1.webp",
+          "alt": {
+            "es": "Trekking al Parque Nacional Cajas",
+            "en": "Cajas National Park Trekking"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-trekking-2.webp",
+          "alt": {
+            "es": "Trekking al Parque Nacional Cajas - 2",
+            "en": "Cajas National Park Trekking - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Trekking Parque Nacional Cajas",
+          "en": "Cajas National Park Trekking"
+        },
+        "description": {
+          "es": "200+ lagunas glaciares, cóndores y senderos de páramo a minutos de Cuenca.",
+          "en": "200+ glacial lakes, condors and páramo trails minutes from Cuenca."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cajas-trekking.webp",
+      "map": {
+        "lat": -2.8353,
+        "lng": -79.2229
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "cajas-camping",
+      "slug": "cajas-camping",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Cajas: Camping y Fogata Nocturna",
+        "en": "Cajas Camping & Bonfire Night"
+      },
+      "description": {
+        "es": "Noche de camping bajo un cielo estrellado en el páramo de Cajas, con observación astronómica y fogata junto a la laguna Toreadora.",
+        "en": "A starry camping night in the Cajas páramo, with stargazing and a bonfire by Toreadora Lake."
+      },
+      "categories": [
+        "trekking"
+      ],
+      "regions": [
+        "cuenca"
+      ],
+      "tags": [
+        "cajas"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "2d",
+      "difficulty": "moderado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 95,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte desde Cuenca",
+            "en": "Transport from Cuenca"
+          }
+        },
+        {
+          "icon": "🏕️",
+          "text": {
+            "es": "Carpa y sleeping bag",
+            "en": "Tent and sleeping bag"
+          }
+        },
+        {
+          "icon": "🍽️",
+          "text": {
+            "es": "Alimentación completa",
+            "en": "Full board"
+          }
+        },
+        {
+          "icon": "🔥",
+          "text": {
+            "es": "Fogata nocturna",
+            "en": "Night bonfire"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "2026-06-20T14:00",
+          "end": "2026-06-21T12:00",
+          "days": []
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-camping-1.webp",
+          "alt": {
+            "es": "Cajas: Camping y Fogata Nocturna",
+            "en": "Cajas Camping & Bonfire Night"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cajas-camping-2.webp",
+          "alt": {
+            "es": "Cajas: Camping y Fogata Nocturna - 2",
+            "en": "Cajas Camping & Bonfire Night - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Camping en Cajas",
+          "en": "Cajas Camping"
+        },
+        "description": {
+          "es": "Camping en el páramo de Cajas: fogata, estrellas y laguna Toreadora al amanecer.",
+          "en": "Cajas páramo camping: bonfire, stars and Toreadora Lake at sunrise."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cajas-camping.webp",
+      "map": {
+        "lat": -2.8353,
+        "lng": -79.2229
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Salida desde Cuenca",
+                "en": "Departure"
+              },
+              "description": {
+                "es": "Recojo y viaje al Parque Nacional Cajas.",
+                "en": "Pickup and drive to Cajas NP."
+              },
+              "image": "/images/tours/cajas-camping-it-1.webp"
+            },
+            {
+              "time": "15:30",
+              "title": {
+                "es": "Laguna Toreadora",
+                "en": "Toreadora Lake"
+              },
+              "description": {
+                "es": "Instalación del campamento.",
+                "en": "Camp setup."
+              }
+            },
+            {
+              "time": "18:00",
+              "title": {
+                "es": "Fogata",
+                "en": "Bonfire"
+              },
+              "description": {
+                "es": "Cena y fogata nocturna.",
+                "en": "Dinner and bonfire."
+              }
+            },
+            {
+              "time": "20:00",
+              "title": {
+                "es": "Astronomía",
+                "en": "Stargazing"
+              },
+              "description": {
+                "es": "Observación de estrellas en el páramo.",
+                "en": "Stargazing in the páramo."
+              }
+            }
+          ],
+          "meals": [
+            "almuerzo",
+            "cena"
+          ],
+          "meals_not_included": [
+            "desayuno"
+          ]
+        },
+        {
+          "day": 2,
+          "stops": [
+            {
+              "time": "06:30",
+              "title": {
+                "es": "Amanecer",
+                "en": "Sunrise"
+              },
+              "description": {
+                "es": "Desayuno y caminata matutina.",
+                "en": "Breakfast and morning hike."
+              }
+            },
+            {
+              "time": "09:00",
+              "title": {
+                "es": "Senderismo",
+                "en": "Hiking"
+              },
+              "description": {
+                "es": "Flora, fauna y lagunas glaciares.",
+                "en": "Flora, fauna and glacial lakes."
+              }
+            },
+            {
+              "time": "12:00",
+              "title": {
+                "es": "Regreso",
+                "en": "Return"
+              },
+              "description": {
+                "es": "Desmontar y retorno a Cuenca.",
+                "en": "Break camp and return."
+              }
+            }
+          ],
+          "meals": [
+            "desayuno",
+            "almuerzo"
+          ],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Campamento Toreadora",
+            "en": "Toreadora Camp"
+          },
+          "type": "camping"
+        }
+      ]
+    },
+    {
+      "id": "banos-aventura",
+      "slug": "banos-aventura",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Baños de Agua Santa: Aventura y Relax",
+        "en": "Baños Adventure & Relax"
+      },
+      "description": {
+        "es": "Jornada de adrenalina y aguas termales en Baños de Agua Santa, con puente colgante y el imponente Pailón del Diablo.",
+        "en": "A day of thrills and thermal waters in Baños de Agua Santa, with hanging bridge and the mighty Pailón del Diablo waterfall."
+      },
+      "categories": [
+        "trekking",
+        "cultural"
+      ],
+      "regions": [
+        "cuenca"
+      ],
+      "tags": [
+        "banos"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 60,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte ida y vuelta",
+            "en": "Round trip transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía bilingüe",
+            "en": "Bilingual guide"
+          }
+        },
+        {
+          "icon": "♨️",
+          "text": {
+            "es": "Entrada a aguas termales",
+            "en": "Thermal springs entrance"
+          }
+        },
+        {
+          "icon": "🍱",
+          "text": {
+            "es": "Box lunch",
+            "en": "Box lunch"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "07:00",
+          "end": "19:00",
+          "days": [
+            "tue",
+            "thu",
+            "sat"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/banos-aventura-1.webp",
+          "alt": {
+            "es": "Baños de Agua Santa: Aventura y Relax",
+            "en": "Baños Adventure & Relax"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/banos-aventura-2.webp",
+          "alt": {
+            "es": "Baños de Agua Santa: Aventura y Relax - 2",
+            "en": "Baños Adventure & Relax - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Aventura en Baños desde Cuenca",
+          "en": "Baños Adventure from Cuenca"
+        },
+        "description": {
+          "es": "Pailón del Diablo, puente colgante y aguas termales en Baños de Agua Santa.",
+          "en": "Pailón del Diablo, hanging bridge and thermal springs in Baños de Agua Santa."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/banos-aventura.webp",
+      "map": {
+        "lat": -1.3964,
+        "lng": -78.4249
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "gualaceo-chordeleg",
+      "slug": "gualaceo-chordeleg",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Ruta de Artesanías: Gualaceo y Chordeleg",
+        "en": "Handicraft Route: Gualaceo & Chordeleg"
+      },
+      "description": {
+        "es": "Recorrido por los pueblos artesanales de Gualaceo y Chordeleg, famosos por sus tejidos, cerámica y filigrana en oro y plata.",
+        "en": "Journey through the artisan towns of Gualaceo and Chordeleg, famous for their weaving, ceramics and gold-and-silver filigree."
+      },
+      "categories": [
+        "cultural",
+        "city-tour"
+      ],
+      "regions": [
+        "cuenca"
+      ],
+      "tags": [
+        "gualaceo",
+        "chordeleg"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "6h",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 40,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte redondo",
+            "en": "Round trip transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía local",
+            "en": "Local guide"
+          }
+        },
+        {
+          "icon": "🍬",
+          "text": {
+            "es": "Degustación de dulces típicos",
+            "en": "Typical sweets tasting"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "09:00",
+          "end": "15:00",
+          "days": [
+            "wed",
+            "sat"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/gualaceo-chordeleg-1.webp",
+          "alt": {
+            "es": "Ruta de Artesanías: Gualaceo y Chordeleg",
+            "en": "Handicraft Route: Gualaceo & Chordeleg"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/gualaceo-chordeleg-2.webp",
+          "alt": {
+            "es": "Ruta de Artesanías: Gualaceo y Chordeleg - 2",
+            "en": "Handicraft Route: Gualaceo & Chordeleg - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Ruta Artesanal Gualaceo y Chordeleg",
+          "en": "Gualaceo & Chordeleg Handicraft Route"
+        },
+        "description": {
+          "es": "Mercado artesanal, filigrana en plata y dulces típicos en el valle del Azuay.",
+          "en": "Artisan market, silver filigree and typical sweets in the Azuay valley."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/gualaceo-chordeleg.webp",
+      "map": {
+        "lat": -2.8929,
+        "lng": -78.7758
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "ingapirca-desde-cuenca",
+      "slug": "ingapirca-desde-cuenca",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Ingapirca: Ruinas Incas y Cañari",
+        "en": "Ingapirca: Inca & Cañari Ruins"
+      },
+      "description": {
+        "es": "Visita al complejo arqueológico más importante de Ecuador, con guía arqueólogo, el Templo del Sol y almuerzo típico en la comunidad.",
+        "en": "Visit to Ecuador's most important archaeological site with an archaeologist guide, the Sun Temple and a typical community lunch."
+      },
+      "categories": [
+        "cultural"
+      ],
+      "regions": [
+        "cuenca"
+      ],
+      "tags": [
+        "ingapirca"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 65,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte ida y vuelta",
+            "en": "Round trip transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía arqueólogo",
+            "en": "Archaeologist guide"
+          }
+        },
+        {
+          "icon": "🎫",
+          "text": {
+            "es": "Entradas al sitio",
+            "en": "Site entrance"
+          }
+        },
+        {
+          "icon": "🍽️",
+          "text": {
+            "es": "Almuerzo típico",
+            "en": "Typical lunch"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "07:00",
+          "end": "17:00",
+          "days": [
+            "mon",
+            "wed",
+            "fri"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/ingapirca-desde-cuenca-1.webp",
+          "alt": {
+            "es": "Ingapirca: Ruinas Incas y Cañari",
+            "en": "Ingapirca: Inca & Cañari Ruins"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/ingapirca-desde-cuenca-2.webp",
+          "alt": {
+            "es": "Ingapirca: Ruinas Incas y Cañari - 2",
+            "en": "Ingapirca: Inca & Cañari Ruins - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Ruinas de Ingapirca desde Cuenca",
+          "en": "Ingapirca Ruins from Cuenca"
+        },
+        "description": {
+          "es": "Templo del Sol inca y ceremonia ancestral en el complejo arqueológico de Ingapirca.",
+          "en": "Inca Sun Temple and ancestral ceremonies at the Ingapirca archaeological complex."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/ingapirca-desde-cuenca.webp",
+      "map": {
+        "lat": -2.5378,
+        "lng": -78.8775
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "parapente-ruta-cuenca",
+      "slug": "parapente-ruta-cuenca",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Parapente y Vuelo Libre Cuenca",
+        "en": "Paragliding over Cuenca"
+      },
+      "description": {
+        "es": "Vuelo tándem en parapente sobre el valle de Cuenca con instructor certificado, equipo completo y video del vuelo.",
+        "en": "Tandem paragliding flight over the Cuenca valley with a certified instructor, full equipment and flight video."
+      },
+      "categories": [
+        "trekking"
+      ],
+      "regions": [
+        "cuenca"
+      ],
+      "tags": [],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "4h",
+      "difficulty": "principiante",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 85,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🧑‍✈️",
+          "text": {
+            "es": "Instructor certificado",
+            "en": "Certified instructor"
+          }
+        },
+        {
+          "icon": "🪂",
+          "text": {
+            "es": "Equipo completo",
+            "en": "Full equipment"
+          }
+        },
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte al despegue",
+            "en": "Transport to takeoff"
+          }
+        },
+        {
+          "icon": "🎥",
+          "text": {
+            "es": "Video del vuelo",
+            "en": "Flight video"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "10:00",
+          "end": "14:00",
+          "days": [
+            "sat",
+            "sun"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/parapente-ruta-cuenca-1.webp",
+          "alt": {
+            "es": "Parapente y Vuelo Libre Cuenca",
+            "en": "Paragliding over Cuenca"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/parapente-ruta-cuenca-2.webp",
+          "alt": {
+            "es": "Parapente y Vuelo Libre Cuenca - 2",
+            "en": "Paragliding over Cuenca - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Parapente en Cuenca",
+          "en": "Paragliding in Cuenca"
+        },
+        "description": {
+          "es": "Vuelo tándem sobre el valle de Cuenca con instructor certificado y fotos aéreas.",
+          "en": "Tandem flight over the Cuenca valley with certified instructor and aerial photos."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/parapente-ruta-cuenca.webp",
+      "map": {
+        "lat": -2.8974,
+        "lng": -79.0045
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "giron-cascada",
+      "slug": "giron-cascada",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Girón: Cascada de San Martín",
+        "en": "Girón: San Martín Waterfall"
+      },
+      "description": {
+        "es": "Caminata a la cascada de San Martín en el valle subtropical de Girón, con piscinas naturales y vista del valle de Yunguilla.",
+        "en": "Hike to the San Martín waterfall in the subtropical Girón valley, with natural pools and views of the Yunguilla valley."
+      },
+      "categories": [
+        "trekking"
+      ],
+      "regions": [
+        "azuay"
+      ],
+      "tags": [
+        "giron"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 35,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte",
+            "en": "Transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía local",
+            "en": "Local guide"
+          }
+        },
+        {
+          "icon": "🎫",
+          "text": {
+            "es": "Entrada a la cascada",
+            "en": "Waterfall entrance"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "08:00",
+          "end": "17:00",
+          "days": [
+            "wed",
+            "sat"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/giron-cascada-1.webp",
+          "alt": {
+            "es": "Girón: Cascada de San Martín",
+            "en": "Girón: San Martín Waterfall"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/giron-cascada-2.webp",
+          "alt": {
+            "es": "Girón: Cascada de San Martín - 2",
+            "en": "Girón: San Martín Waterfall - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Cascada de San Martín en Girón",
+          "en": "San Martín Waterfall in Girón"
+        },
+        "description": {
+          "es": "Cascada de 35 metros, piscinas naturales y encanto subtropical del valle de Girón.",
+          "en": "35-meter waterfall, natural pools and the subtropical charm of the Girón valley."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/giron-cascada.webp",
+      "map": {
+        "lat": -3.1601,
+        "lng": -79.1413
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "paute",
+      "slug": "paute",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Paute: Embalse y Miradores",
+        "en": "Paute: Reservoir & Viewpoints"
+      },
+      "description": {
+        "es": "Recorrido por el embalse de Amaluza y los miradores del cantón Paute, con su gastronomía local como cierre perfecto.",
+        "en": "Tour of the Amaluza reservoir and the viewpoints of Paute canton, topped off with local cuisine."
+      },
+      "categories": [
+        "cultural"
+      ],
+      "regions": [
+        "azuay"
+      ],
+      "tags": [
+        "paute"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 35,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte",
+            "en": "Transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía",
+            "en": "Guide"
+          }
+        },
+        {
+          "icon": "🍱",
+          "text": {
+            "es": "Box lunch",
+            "en": "Box lunch"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "08:00",
+          "end": "17:00",
+          "days": [
+            "thu",
+            "fri"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/paute-1.webp",
+          "alt": {
+            "es": "Paute: Embalse y Miradores",
+            "en": "Paute: Reservoir & Viewpoints"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/paute-2.webp",
+          "alt": {
+            "es": "Paute: Embalse y Miradores - 2",
+            "en": "Paute: Reservoir & Viewpoints - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Paute: Embalse y Miradores",
+          "en": "Paute: Reservoir & Viewpoints"
+        },
+        "description": {
+          "es": "Embalse de Amaluza, miradores y gastronomía local en el cantón Paute.",
+          "en": "Amaluza reservoir, viewpoints and local gastronomy in Paute canton."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/paute.webp",
+      "map": {
+        "lat": -2.779,
+        "lng": -78.7584
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "sigsig-tejido",
+      "slug": "sigsig-tejido",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Sígsig: Cuna del Sombrero de Paja Toquilla",
+        "en": "Sígsig: Straw Hat Birthplace"
+      },
+      "description": {
+        "es": "Visita a los talleres de sombrero de paja toquilla de Sígsig, Patrimonio Cultural Inmaterial de la UNESCO, con degustación del famoso queso local.",
+        "en": "Visit to Sígsig's toquilla straw hat workshops, a UNESCO Intangible Cultural Heritage, with a tasting of the famous local cheese."
+      },
+      "categories": [
+        "cultural"
+      ],
+      "regions": [
+        "azuay"
+      ],
+      "tags": [
+        "sigsig"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 40,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte",
+            "en": "Transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía",
+            "en": "Guide"
+          }
+        },
+        {
+          "icon": "🎨",
+          "text": {
+            "es": "Taller artesanal",
+            "en": "Artisan workshop"
+          }
+        },
+        {
+          "icon": "🧀",
+          "text": {
+            "es": "Degustación de queso de Sígsig",
+            "en": "Sígsig cheese tasting"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "08:00",
+          "end": "17:00",
+          "days": [
+            "tue",
+            "thu",
+            "sat"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/sigsig-tejido-1.webp",
+          "alt": {
+            "es": "Sígsig: Cuna del Sombrero de Paja Toquilla",
+            "en": "Sígsig: Straw Hat Birthplace"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/sigsig-tejido-2.webp",
+          "alt": {
+            "es": "Sígsig: Cuna del Sombrero de Paja Toquilla - 2",
+            "en": "Sígsig: Straw Hat Birthplace - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Sígsig: Sombrero de Paja Toquilla",
+          "en": "Sígsig: Toquilla Straw Hat"
+        },
+        "description": {
+          "es": "Talleres de sombrero de paja toquilla, queso local y centro histórico de Sígsig.",
+          "en": "Toquilla straw hat workshops, local cheese and the historic center of Sígsig."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/sigsig-tejido.webp",
+      "map": {
+        "lat": -3.0539,
+        "lng": -78.8006
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "yunguilla",
+      "slug": "yunguilla",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Yunguilla: Valle del Vino y la Fruta",
+        "en": "Yunguilla: Wine & Fruit Valley"
+      },
+      "description": {
+        "es": "Recorrido por haciendas frutales y viñedos del valle subtropical de Yunguilla, con degustación de vinos artesanales.",
+        "en": "Tour of fruit farms and vineyards in the subtropical Yunguilla valley, with artisan wine tasting."
+      },
+      "categories": [
+        "cultural"
+      ],
+      "regions": [
+        "azuay"
+      ],
+      "tags": [
+        "yunguilla"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 40,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte",
+            "en": "Transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía",
+            "en": "Guide"
+          }
+        },
+        {
+          "icon": "🍷",
+          "text": {
+            "es": "Degustación de vinos artesanales",
+            "en": "Artisan wine tasting"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "09:00",
+          "end": "16:00",
+          "days": [
+            "sat",
+            "sun"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/yunguilla-1.webp",
+          "alt": {
+            "es": "Yunguilla: Valle del Vino y la Fruta",
+            "en": "Yunguilla: Wine & Fruit Valley"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/yunguilla-2.webp",
+          "alt": {
+            "es": "Yunguilla: Valle del Vino y la Fruta - 2",
+            "en": "Yunguilla: Wine & Fruit Valley - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Yunguilla: Vino y Fruta",
+          "en": "Yunguilla: Wine & Fruit"
+        },
+        "description": {
+          "es": "Vinos artesanales, haciendas frutales y paisaje subtropical en Yunguilla.",
+          "en": "Artisan wines, fruit haciendas and subtropical landscapes in Yunguilla."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/yunguilla.webp",
+      "map": {
+        "lat": -3.0189,
+        "lng": -79.1095
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "asis-azuay",
+      "slug": "asis-azuay",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Aventura Todo Terreno: Ruta del Azuay",
+        "en": "Off-Road Adventure: Azuay Route"
+      },
+      "description": {
+        "es": "Ruta panorámica en vehículo 4x4 por la cordillera del Azuay, con lagunas escondidas, fauna andina y paisajes de páramo.",
+        "en": "Scenic 4x4 route through the Azuay mountains, with hidden lagoons, Andean wildlife and páramo landscapes."
+      },
+      "categories": [
+        "trekking"
+      ],
+      "regions": [
+        "azuay"
+      ],
+      "tags": [],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "moderado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 70,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🚙",
+          "text": {
+            "es": "Transporte 4x4",
+            "en": "4x4 transport"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía",
+            "en": "Guide"
+          }
+        },
+        {
+          "icon": "🍱",
+          "text": {
+            "es": "Box lunch",
+            "en": "Box lunch"
+          }
+        },
+        {
+          "icon": "🦺",
+          "text": {
+            "es": "Equipo de seguridad",
+            "en": "Safety equipment"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "07:30",
+          "end": "17:30",
+          "days": [
+            "thu",
+            "fri",
+            "sat"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/asis-azuay-1.webp",
+          "alt": {
+            "es": "Aventura Todo Terreno: Ruta del Azuay",
+            "en": "Off-Road Adventure: Azuay Route"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/asis-azuay-2.webp",
+          "alt": {
+            "es": "Aventura Todo Terreno: Ruta del Azuay - 2",
+            "en": "Off-Road Adventure: Azuay Route - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Ruta 4x4 del Azuay",
+          "en": "Azuay 4x4 Route"
+        },
+        "description": {
+          "es": "Ruta panorámica por la cordillera del Azuay, lagunas escondidas y fauna andina.",
+          "en": "Scenic Azuay mountain route, hidden lagoons and Andean wildlife."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/asis-azuay.webp",
+      "map": {
+        "lat": -2.8833,
+        "lng": -78.9833
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    },
+    {
+      "id": "cotopaxi-ascenso",
+      "slug": "cotopaxi-ascenso",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Ascenso al Volcán Cotopaxi",
+        "en": "Cotopaxi Volcano Climb"
+      },
+      "description": {
+        "es": "Ascenso nocturno al glaciar del Cotopaxi para amanecer en la cumbre a 5,897 m, con noche en el refugio José Ribas.",
+        "en": "Night climb up the Cotopaxi glacier to reach the 5,897 m summit at sunrise, with a night at the José Ribas refuge."
+      },
+      "categories": [
+        "montanismo",
+        "trekking"
+      ],
+      "regions": [
+        "ecuador"
+      ],
+      "tags": [
+        "cotopaxi"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "2d",
+      "difficulty": "intermedio-avanzado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 480,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🧗",
+          "text": {
+            "es": "Guía ASEGUIM",
+            "en": "ASEGUIM guide"
+          }
+        },
+        {
+          "icon": "🎿",
+          "text": {
+            "es": "Equipo técnico",
+            "en": "Technical equipment"
+          }
+        },
+        {
+          "icon": "🚙",
+          "text": {
+            "es": "Transporte 4x4",
+            "en": "4x4 transport"
+          }
+        },
+        {
+          "icon": "🏔️",
+          "text": {
+            "es": "Noche en refugio José Ribas",
+            "en": "Night at José Ribas refuge"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "2026-06-13T08:00",
+          "end": "2026-06-14T12:00",
+          "days": []
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cotopaxi-ascenso-1.webp",
+          "alt": {
+            "es": "Ascenso al Volcán Cotopaxi",
+            "en": "Cotopaxi Volcano Climb"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cotopaxi-ascenso-2.webp",
+          "alt": {
+            "es": "Ascenso al Volcán Cotopaxi - 2",
+            "en": "Cotopaxi Volcano Climb - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Ascenso al Cotopaxi",
+          "en": "Cotopaxi Climb"
+        },
+        "description": {
+          "es": "Ascenso nocturno para amanecer en la cumbre a 5,897 m, glaciar activo y noche en refugio.",
+          "en": "Night ascent to the 5,897 m summit, active glacier and night at the refuge."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cotopaxi-ascenso.webp",
+      "map": {
+        "lat": -0.6814,
+        "lng": -78.4337
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [
+            {
+              "time": "07:00",
+              "title": {
+                "es": "Salida",
+                "en": "Departure"
+              },
+              "description": {
+                "es": "Viaje al Parque Nacional Cotopaxi.",
+                "en": "Journey to Cotopaxi NP."
+              }
+            },
+            {
+              "time": "11:00",
+              "title": {
+                "es": "Refugio José Rivas",
+                "en": "José Rivas Refuge"
+              },
+              "description": {
+                "es": "Aclimatación a 4,800m.",
+                "en": "Acclimatization at 4,800m."
+              }
+            },
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Entrenamiento en glaciar",
+                "en": "Glacier training"
+              },
+              "description": {
+                "es": "Técnica de crampones y piolet.",
+                "en": "Crampon and ice axe technique."
+              }
+            },
+            {
+              "time": "18:00",
+              "title": {
+                "es": "Descanso",
+                "en": "Rest"
+              },
+              "description": {
+                "es": "Cena temprana y descanso previo al ascenso.",
+                "en": "Early dinner and pre-ascent rest."
+              }
+            }
+          ],
+          "meals": [
+            "almuerzo",
+            "cena"
+          ],
+          "meals_not_included": [
+            "desayuno"
+          ]
+        },
+        {
+          "day": 2,
+          "stops": [
+            {
+              "time": "00:30",
+              "title": {
+                "es": "Ascenso nocturno",
+                "en": "Night ascent"
+              },
+              "description": {
+                "es": "Inicio del ascenso a la cumbre.",
+                "en": "Summit ascent begins."
+              }
+            },
+            {
+              "time": "06:00",
+              "title": {
+                "es": "Cumbre 5,897m",
+                "en": "Summit 5,897m"
+              },
+              "description": {
+                "es": "Amanecer desde la cumbre.",
+                "en": "Sunrise from the summit."
+              }
+            },
+            {
+              "time": "08:00",
+              "title": {
+                "es": "Descenso",
+                "en": "Descent"
+              },
+              "description": {
+                "es": "Retorno seguro al refugio.",
+                "en": "Safe return to refuge."
+              }
+            },
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Regreso a Cuenca",
+                "en": "Return to Cuenca"
+              },
+              "description": {
+                "es": "Transporte de retorno.",
+                "en": "Return transport."
+              }
+            }
+          ],
+          "meals": [
+            "desayuno",
+            "almuerzo"
+          ],
+          "meals_not_included": [
+            "cena"
+          ]
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Refugio José Rivas",
+            "en": "José Rivas Refuge"
+          },
+          "type": "hostal"
+        }
+      ]
+    },
+    {
+      "id": "quilotoa-loop",
+      "slug": "quilotoa-loop",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Trekking Quilotoa Loop",
+        "en": "Quilotoa Loop Trekking"
+      },
+      "description": {
+        "es": "Trekking de 3 días por la ruta del Quilotoa, con su laguna cratérica esmeralda y hospedaje en comunidades kichwa.",
+        "en": "3-day trek along the Quilotoa Loop, with its emerald crater lake and lodging in Kichwa communities."
+      },
+      "categories": [
+        "trekking",
+        "cultural"
+      ],
+      "regions": [
+        "ecuador"
+      ],
+      "tags": [
+        "quilotoa"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "3d",
+      "difficulty": "moderado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 350,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía nativo",
+            "en": "Native guide"
+          }
+        },
+        {
+          "icon": "🏠",
+          "text": {
+            "es": "Hospedaje en cabañas comunitarias",
+            "en": "Community lodge accommodation"
+          }
+        },
+        {
+          "icon": "🍽️",
+          "text": {
+            "es": "Todas las comidas",
+            "en": "All meals"
+          }
+        },
+        {
+          "icon": "🥾",
+          "text": {
+            "es": "Bastón de trekking",
+            "en": "Trekking pole"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "2026-06-18T08:00",
+          "end": "2026-06-20T17:00",
+          "days": []
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/quilotoa-loop-1.webp",
+          "alt": {
+            "es": "Trekking Quilotoa Loop",
+            "en": "Quilotoa Loop Trekking"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/quilotoa-loop-2.webp",
+          "alt": {
+            "es": "Trekking Quilotoa Loop - 2",
+            "en": "Quilotoa Loop Trekking - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Trekking Quilotoa Loop",
+          "en": "Quilotoa Loop Trekking"
+        },
+        "description": {
+          "es": "Laguna cratérica esmeralda, comunidades kichwa y mirador del cráter al amanecer.",
+          "en": "Emerald crater lake, Kichwa communities and crater viewpoint at sunrise."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/quilotoa-loop.webp",
+      "map": {
+        "lat": -0.8455,
+        "lng": -78.9038
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [
+            {
+              "time": "07:00",
+              "title": {
+                "es": "Salida",
+                "en": "Departure"
+              },
+              "description": {
+                "es": "Viaje escénico a la laguna Quilotoa.",
+                "en": "Scenic drive to Quilotoa Lake."
+              }
+            },
+            {
+              "time": "11:00",
+              "title": {
+                "es": "Chugchilán",
+                "en": "Chugchilán"
+              },
+              "description": {
+                "es": "Registro en lodge comunitario.",
+                "en": "Check-in at community lodge."
+              }
+            },
+            {
+              "time": "14:00",
+              "title": {
+                "es": "Descenso al cráter",
+                "en": "Crater descent"
+              },
+              "description": {
+                "es": "Caminata a la laguna esmeralda.",
+                "en": "Hike to the emerald lake."
+              }
+            }
+          ],
+          "meals": [
+            "almuerzo",
+            "cena"
+          ],
+          "meals_not_included": [
+            "desayuno"
+          ]
+        },
+        {
+          "day": 2,
+          "stops": [
+            {
+              "time": "08:00",
+              "title": {
+                "es": "Borde del cráter",
+                "en": "Crater rim"
+              },
+              "description": {
+                "es": "Trekking panorámico.",
+                "en": "Panoramic trek."
+              }
+            },
+            {
+              "time": "12:00",
+              "title": {
+                "es": "Comunidad indígena",
+                "en": "Indigenous community"
+              },
+              "description": {
+                "es": "Almuerzo con familia local.",
+                "en": "Lunch with local family."
+              }
+            },
+            {
+              "time": "15:00",
+              "title": {
+                "es": "Regreso",
+                "en": "Return"
+              },
+              "description": {
+                "es": "Retorno por la avenida de los volcanes.",
+                "en": "Return via Avenue of the Volcanoes."
+              }
+            }
+          ],
+          "meals": [
+            "desayuno",
+            "almuerzo"
+          ],
+          "meals_not_included": [
+            "cena"
+          ]
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Lodge Chugchilán",
+            "en": "Chugchilán Lodge"
+          },
+          "type": "hostal"
+        }
+      ]
+    },
+    {
+      "id": "chimborazo-ascenso",
+      "slug": "chimborazo-ascenso",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Ascenso al Chimborazo",
+        "en": "Chimborazo Climb"
+      },
+      "description": {
+        "es": "Ascenso al punto más cercano al sol, el Chimborazo a 6,263 m, con aclimatación progresiva, guía ASEGUIM y equipo técnico de hielo.",
+        "en": "Climb to the point closest to the sun, Chimborazo at 6,263 m, with progressive acclimatization, ASEGUIM guide and technical ice gear."
+      },
+      "categories": [
+        "montanismo"
+      ],
+      "regions": [
+        "ecuador"
+      ],
+      "tags": [
+        "chimborazo"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "3d",
+      "difficulty": "muy-avanzado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 650,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🧗",
+          "text": {
+            "es": "Guía ASEGUIM",
+            "en": "ASEGUIM guide"
+          }
+        },
+        {
+          "icon": "🧊",
+          "text": {
+            "es": "Equipo técnico de hielo",
+            "en": "Technical ice equipment"
+          }
+        },
+        {
+          "icon": "🫁",
+          "text": {
+            "es": "Oxígeno suplementario",
+            "en": "Supplemental oxygen"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "2026-06-25T08:00",
+          "end": "2026-06-27T12:00",
+          "days": []
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/chimborazo-ascenso-1.webp",
+          "alt": {
+            "es": "Ascenso al Chimborazo",
+            "en": "Chimborazo Climb"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/chimborazo-ascenso-2.webp",
+          "alt": {
+            "es": "Ascenso al Chimborazo - 2",
+            "en": "Chimborazo Climb - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Ascenso al Chimborazo",
+          "en": "Chimborazo Climb"
+        },
+        "description": {
+          "es": "El punto más cercano al sol (6,263 m), glaciar y seracs técnicos, con aclimatación progresiva.",
+          "en": "The point closest to the sun (6,263 m), technical glacier and seracs, progressive acclimatization."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/chimborazo-ascenso.webp",
+      "map": {
+        "lat": -1.4694,
+        "lng": -78.8169
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [],
+          "meals": [],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Refugio Carrel",
+            "en": "Carrel Refuge"
+          },
+          "type": "hostal"
+        }
+      ]
+    },
+    {
+      "id": "cuyabeno-4-dias",
+      "slug": "cuyabeno-4-dias",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Cuyabeno: Excursión de 4 Días",
+        "en": "Cuyabeno 4-Day Expedition"
+      },
+      "description": {
+        "es": "Expedición de 4 días por la reserva de Cuyabeno: 14 lagunas interconectadas, delfines rosados, caminatas nocturnas y guía kichwa.",
+        "en": "4-day expedition through the Cuyabeno reserve: 14 interconnected lagoons, pink dolphins, night walks and a Kichwa guide."
+      },
+      "categories": [
+        "selva"
+      ],
+      "regions": [
+        "ecuador"
+      ],
+      "tags": [
+        "cuyabeno"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "4d",
+      "difficulty": "suave-moderado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 540,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🛶",
+          "text": {
+            "es": "Canoa a motor",
+            "en": "Motorized canoe"
+          }
+        },
+        {
+          "icon": "🏕️",
+          "text": {
+            "es": "Camping en la selva",
+            "en": "Jungle camping"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía kichwa",
+            "en": "Kichwa guide"
+          }
+        },
+        {
+          "icon": "🍽️",
+          "text": {
+            "es": "Alimentación completa",
+            "en": "Full board"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "2026-07-01T09:00",
+          "end": "2026-07-04T16:00",
+          "days": []
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/cuyabeno-4-dias-1.webp",
+          "alt": {
+            "es": "Cuyabeno: Excursión de 4 Días",
+            "en": "Cuyabeno 4-Day Expedition"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/cuyabeno-4-dias-2.webp",
+          "alt": {
+            "es": "Cuyabeno: Excursión de 4 Días - 2",
+            "en": "Cuyabeno 4-Day Expedition - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Cuyabeno 4 Días",
+          "en": "Cuyabeno 4 Days"
+        },
+        "description": {
+          "es": "14 lagunas interconectadas, delfines rosados y caminata nocturna en la selva amazónica.",
+          "en": "14 interconnected lagoons, pink dolphins and a night walk in the Amazon jungle."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/cuyabeno-4-dias.webp",
+      "map": {
+        "lat": -0.0833,
+        "lng": -76.0333
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [],
+          "meals": [],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Lodge Cuyabeno",
+            "en": "Cuyabeno Lodge"
+          },
+          "type": "hostal"
+        }
+      ]
+    },
+    {
+      "id": "yasuni-wao",
+      "slug": "yasuni-wao",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Yasuní: Experiencia Wao Teredo",
+        "en": "Yasuní: Wao Teredo Experience"
+      },
+      "description": {
+        "es": "Inmersión de 5 días en la mayor biodiversidad del planeta con la comunidad waorani: navegación, convivencia y fogata.",
+        "en": "5-day immersion in the planet's greatest biodiversity with the Waorani community: navigation, cultural exchange and bonfire."
+      },
+      "categories": [
+        "selva",
+        "cultural"
+      ],
+      "regions": [
+        "ecuador"
+      ],
+      "tags": [
+        "yasuni"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "5d",
+      "difficulty": "moderado",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 720,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🤝",
+          "text": {
+            "es": "Convivencia waorani",
+            "en": "Waorani cultural exchange"
+          }
+        },
+        {
+          "icon": "🛶",
+          "text": {
+            "es": "Navegación por el río",
+            "en": "River navigation"
+          }
+        },
+        {
+          "icon": "🏕️",
+          "text": {
+            "es": "Camping y fogata",
+            "en": "Camping and bonfire"
+          }
+        },
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía nativo",
+            "en": "Native guide"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "2026-07-05T09:00",
+          "end": "2026-07-09T16:00",
+          "days": []
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/yasuni-wao-1.webp",
+          "alt": {
+            "es": "Yasuní: Experiencia Wao Teredo",
+            "en": "Yasuní: Wao Teredo Experience"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/yasuni-wao-2.webp",
+          "alt": {
+            "es": "Yasuní: Experiencia Wao Teredo - 2",
+            "en": "Yasuní: Wao Teredo Experience - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Yasuní: Wao Teredo",
+          "en": "Yasuní: Wao Teredo"
+        },
+        "description": {
+          "es": "Reserva de Biosfera UNESCO y la mayor biodiversidad por m² del planeta, con inmersión cultural waorani.",
+          "en": "UNESCO Biosphere Reserve and the highest biodiversity per m² on the planet, with Waorani cultural immersion."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/yasuni-wao.webp",
+      "map": {
+        "lat": -0.9917,
+        "lng": -76.2504
+      },
+      "itinerary": [
+        {
+          "day": 1,
+          "stops": [],
+          "meals": [],
+          "meals_not_included": []
+        }
+      ],
+      "reviews": [],
+      "accommodations": [
+        {
+          "name": {
+            "es": "Eco-lodge Waorani",
+            "en": "Waorani Eco-lodge"
+          },
+          "type": "hostal"
+        }
+      ]
+    },
+    {
+      "id": "ruta-otavalo",
+      "slug": "ruta-otavalo",
+      "type": "tour",
+      "status": "active",
+      "title": {
+        "es": "Ruta de los Mercados: Otavalo",
+        "en": "Market Route: Otavalo"
+      },
+      "description": {
+        "es": "Visita al mercado indígena más grande de Sudamérica, talleres de tejido kichwa y la cascada de Peguche.",
+        "en": "Visit to South America's largest indigenous market, Kichwa weaving workshops and the Peguche waterfall."
+      },
+      "categories": [
+        "cultural"
+      ],
+      "regions": [
+        "ecuador"
+      ],
+      "tags": [
+        "otavalo"
+      ],
+      "operator": "condor-expeditions",
+      "meetingPoint": "parque-calderon",
+      "duration": "1d",
+      "difficulty": "facil",
+      "prices": [
+        {
+          "label": {
+            "es": "Adulto",
+            "en": "Adult"
+          },
+          "amount": 95,
+          "currency": "USD"
+        }
+      ],
+      "includes": [
+        {
+          "icon": "🧑🏫",
+          "text": {
+            "es": "Guía bilingüe",
+            "en": "Bilingual guide"
+          }
+        },
+        {
+          "icon": "🚐",
+          "text": {
+            "es": "Transporte",
+            "en": "Transport"
+          }
+        },
+        {
+          "icon": "🍽️",
+          "text": {
+            "es": "Almuerzo",
+            "en": "Lunch"
+          }
+        },
+        {
+          "icon": "💧",
+          "text": {
+            "es": "Visita a la cascada de Peguche",
+            "en": "Visit to Peguche waterfall"
+          }
+        }
+      ],
+      "schedules": [
+        {
+          "start": "06:00",
+          "end": "20:00",
+          "days": [
+            "sat"
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "type": "image",
+          "src": "/images/tours/ruta-otavalo-1.webp",
+          "alt": {
+            "es": "Ruta de los Mercados: Otavalo",
+            "en": "Market Route: Otavalo"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/tours/ruta-otavalo-2.webp",
+          "alt": {
+            "es": "Ruta de los Mercados: Otavalo - 2",
+            "en": "Market Route: Otavalo - 2"
+          }
+        }
+      ],
+      "seo": {
+        "title": {
+          "es": "Ruta de los Mercados: Otavalo",
+          "en": "Otavalo Market Route"
+        },
+        "description": {
+          "es": "Mercado indígena más grande de Sudamérica, talleres de tejido kichwa y cascada de Peguche.",
+          "en": "South America's largest indigenous market, Kichwa weaving workshops and Peguche waterfall."
+        }
+      },
+      "createdAt": "2025-01-01",
+      "updatedAt": "2026-08-05",
+      "image": "/images/tours/ruta-otavalo.webp",
+      "map": {
+        "lat": 0.2344,
+        "lng": -78.2632
+      },
+      "itinerary": [],
+      "reviews": [],
+      "accommodations": []
+    }
+  ]
 }

@@ -1,39 +1,11 @@
 [
-	{
-		"id": "principiante",
-		"level": 1,
-		"title": { "es": "Principiante", "en": "Beginner" }
-	},
-	{ "id": "facil", "level": 2, "title": { "es": "Fácil", "en": "Easy" } },
-	{
-		"id": "suave-moderado",
-		"level": 2,
-		"title": { "es": "Suave-Moderado", "en": "Easy-Moderate" }
-	},
-	{
-		"id": "moderado",
-		"level": 3,
-		"title": { "es": "Moderado", "en": "Moderate" }
-	},
-	{
-		"id": "intermedio",
-		"level": 3,
-		"title": { "es": "Intermedio", "en": "Intermediate" }
-	},
-	{
-		"id": "intermedio-avanzado",
-		"level": 4,
-		"title": { "es": "Intermedio-Avanzado", "en": "Intermediate-Advanced" }
-	},
-	{
-		"id": "avanzado",
-		"level": 4,
-		"title": { "es": "Avanzado", "en": "Advanced" }
-	},
-	{ "id": "dificil", "level": 4, "title": { "es": "Difícil", "en": "Hard" } },
-	{
-		"id": "muy-avanzado",
-		"level": 5,
-		"title": { "es": "Muy Avanzado", "en": "Very Advanced" }
-	}
+  {"id":"principiante","level":1,"title":{"es":"Principiante","en":"Beginner"}},
+  {"id":"facil","level":2,"title":{"es":"Fácil","en":"Easy"}},
+  {"id":"suave-moderado","level":2,"title":{"es":"Suave-Moderado","en":"Easy-Moderate"}},
+  {"id":"moderado","level":3,"title":{"es":"Moderado","en":"Moderate"}},
+  {"id":"intermedio","level":3,"title":{"es":"Intermedio","en":"Intermediate"}},
+  {"id":"intermedio-avanzado","level":4,"title":{"es":"Intermedio-Avanzado","en":"Intermediate-Advanced"}},
+  {"id":"avanzado","level":4,"title":{"es":"Avanzado","en":"Advanced"}},
+  {"id":"dificil","level":4,"title":{"es":"Difícil","en":"Hard"}},
+  {"id":"muy-avanzado","level":5,"title":{"es":"Muy Avanzado","en":"Very Advanced"}}
 ]

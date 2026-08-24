@@ -2,7 +2,7 @@
 import StatsBar from "@/components/sections/StatsBar.astro";
 import SustainabilityBar from "@/components/sections/SustainabilityBar.astro";
 import ToursGrid from "@/components/sections/ToursGrid.astro";
-import { getReviews, getTours, resolveLabel } from "@/data/helpers";
+import { getAllReviews, getTours, resolveLabel } from "@/data/helpers";
 import Layout from "@/layouts/Layout.astro";
 
 const lang = "es";
@@ -10,7 +10,7 @@ const isEnglish = false;
 const allTours = getTours();
 
 // Obtener reviews para calcular popularidad
-const allReviews = getReviews();
+const allReviews = getAllReviews();
 const tourReviewCounts = allReviews.reduce((acc: Record<string, number>, r) => {
 	acc[r.tourId] = (acc[r.tourId] || 0) + 1;
 	return acc;

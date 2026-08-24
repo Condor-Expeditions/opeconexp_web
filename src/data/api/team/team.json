@@ -1,66 +1,13 @@
 {
-	"equipo": [
-		{
-			"name": "Carlos Vásquez",
-			"role": {
-				"es": "Fundador & Guía de Montaña ASEGUIM",
-				"en": "Founder & ASEGUIM Mountain Guide"
-			},
-			"bio": {
-				"es": "Más de 15 años en montaña. Ha guiado en Alpes, Andes y Montañas Rocosas.",
-				"en": "15+ years in the mountains. Guided the Alps, Andes and Rockies."
-			},
-			"avatar": "/images/team/carlos.jpg"
-		},
-		{
-			"name": "María Urgilés",
-			"role": {
-				"es": "Coordinadora de Operaciones",
-				"en": "Operations Coordinator"
-			},
-			"bio": {
-				"es": "Logística impecable para cada expedición. Certificada en WFR.",
-				"en": "Flawless logistics for every expedition. WFR certified."
-			},
-			"avatar": "/images/team/maria.jpg"
-		}
-	],
-	"proposito": {
-		"es": "Crear experiencias de viaje transformadoras, conectando a las personas con la naturaleza, la cultura y el espíritu de los destinos que exploramos.",
-		"en": "Create transformative travel experiences, connecting people with the nature, culture and spirit of the destinations we explore."
-	},
-	"values": [
-		{
-			"id": "seguridad",
-			"title": { "es": "Seguridad", "en": "Safety" },
-			"description": {
-				"es": "Prioridad número uno en cada expedición.",
-				"en": "Number one priority on every expedition."
-			}
-		},
-		{
-			"id": "sostenibilidad",
-			"title": { "es": "Sostenibilidad", "en": "Sustainability" },
-			"description": {
-				"es": "Operamos con respeto absoluto al ecosistema.",
-				"en": "We operate with absolute respect for the ecosystem."
-			}
-		},
-		{
-			"id": "comunidad",
-			"title": { "es": "Comunidad", "en": "Community" },
-			"description": {
-				"es": "Impulsamos economías locales a través del turismo responsable.",
-				"en": "We boost local economies through responsible tourism."
-			}
-		},
-		{
-			"id": "autenticidad",
-			"title": { "es": "Autenticidad", "en": "Authenticity" },
-			"description": {
-				"es": "Experiencias reales, no turismo prefabricado.",
-				"en": "Real experiences, not prefabricated tourism."
-			}
-		}
-	]
+  "equipo": [
+    {"name": "Carlos Vásquez", "role": {"es": "Fundador & Guía de Montaña ASEGUIM", "en": "Founder & ASEGUIM Mountain Guide"}, "bio": {"es": "Más de 15 años en montaña. Ha guiado en Alpes, Andes y Montañas Rocosas.", "en": "15+ years in the mountains. Guided the Alps, Andes and Rockies."}, "avatar": "/images/team/carlos.jpg"},
+    {"name": "María Urgilés", "role": {"es": "Coordinadora de Operaciones", "en": "Operations Coordinator"}, "bio": {"es": "Logística impecable para cada expedición. Certificada en WFR.", "en": "Flawless logistics for every expedition. WFR certified."}, "avatar": "/images/team/maria.jpg"}
+  ],
+  "proposito": {"es": "Crear experiencias de viaje transformadoras, conectando a las personas con la naturaleza, la cultura y el espíritu de los destinos que exploramos.", "en": "Create transformative travel experiences, connecting people with the nature, culture and spirit of the destinations we explore."},
+  "values": [
+    {"id": "seguridad", "title": {"es": "Seguridad", "en": "Safety"}, "description": {"es": "Prioridad número uno en cada expedición.", "en": "Number one priority on every expedition."}},
+    {"id": "sostenibilidad", "title": {"es": "Sostenibilidad", "en": "Sustainability"}, "description": {"es": "Operamos con respeto absoluto al ecosistema.", "en": "We operate with absolute respect for the ecosystem."}},
+    {"id": "comunidad", "title": {"es": "Comunidad", "en": "Community"}, "description": {"es": "Impulsamos economías locales a través del turismo responsable.", "en": "We boost local economies through responsible tourism."}},
+    {"id": "autenticidad", "title": {"es": "Autenticidad", "en": "Authenticity"}, "description": {"es": "Experiencias reales, no turismo prefabricado.", "en": "Real experiences, not prefabricated tourism."}}
+  ]
 }

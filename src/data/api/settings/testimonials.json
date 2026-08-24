@@ -1,38 +1,5 @@
 [
-	{
-		"text": {
-			"es": "La experiencia en el Cotopaxi fue insuperable. Los guías fueron completamente profesionales, el equipo perfecto y el paisaje impresionante. Totalmente recomendada.",
-			"en": "The Cotopaxi experience was unbeatable. The guides were completely professional, the equipment perfect and the scenery breathtaking. Highly recommended."
-		},
-		"name": "Ana González",
-		"country": "España",
-		"city": "Madrid",
-		"expedition": { "es": "Ascenso al Cotopaxi", "en": "Cotopaxi Climb" },
-		"stars": 5
-	},
-	{
-		"text": {
-			"es": "Viajamos en familia al Yasuní y Cóndor lo organizó todo. Los niños fascinados. Seguridad y organización de primer nivel.",
-			"en": "We traveled as a family to Yasuní and Condor organized everything. The kids were fascinated. Top-notch safety and organization."
-		},
-		"name": "Jean-Pierre Moreau",
-		"country": "Francia",
-		"city": "Lyon",
-		"expedition": { "es": "Expedición Amazonía", "en": "Amazon Expedition" },
-		"stars": 5
-	},
-	{
-		"text": {
-			"es": "Años soñando con Galápagos y superaron todas mis expectativas.",
-			"en": "Years dreaming of Galapagos and exceeded all my expectations."
-		},
-		"name": "Marco Rivera",
-		"country": "México",
-		"city": "CDMX",
-		"expedition": {
-			"es": "Expedición Galápagos",
-			"en": "Galapagos Expedition"
-		},
-		"stars": 5
-	}
+  {"text": {"es": "La experiencia en el Cotopaxi fue insuperable. Los guías fueron completamente profesionales, el equipo perfecto y el paisaje impresionante. Totalmente recomendada.", "en": "The Cotopaxi experience was unbeatable. The guides were completely professional, the equipment perfect and the scenery breathtaking. Highly recommended."}, "name": "Ana González", "country": "España", "city": "Madrid", "expedition": {"es": "Ascenso al Cotopaxi", "en": "Cotopaxi Climb"}, "stars": 5},
+  {"text": {"es": "Viajamos en familia al Yasuní y Cóndor lo organizó todo. Los niños fascinados. Seguridad y organización de primer nivel.", "en": "We traveled as a family to Yasuní and Condor organized everything. The kids were fascinated. Top-notch safety and organization."}, "name": "Jean-Pierre Moreau", "country": "Francia", "city": "Lyon", "expedition": {"es": "Expedición Amazonía", "en": "Amazon Expedition"}, "stars": 5},
+  {"text": {"es": "Años soñando con Galápagos y superaron todas mis expectativas.", "en": "Years dreaming of Galapagos and exceeded all my expectations."}, "name": "Marco Rivera", "country": "México", "city": "CDMX", "expedition": {"es": "Expedición Galápagos", "en": "Galapagos Expedition"}, "stars": 5}
 ]

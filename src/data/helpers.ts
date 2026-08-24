@@ -1,300 +1,667 @@
-// Helpers — capa de acceso a datos tipo API REST local
-// Todas las funciones usan imports de los archivos en api/.
+// Helpers — capa de acceso a datos tipo API REST
+// Todas las funciones usan import de los archivos en api/.
 // Las páginas y componentes NUNCA importan JSON directamente.
 // En el futuro, reemplazar estos imports por fetch() a una API real.
 
-import cartData from "./api/cart/cart.json";
+import toursList from "./api/tours/items.json";
+import categoriesList from "./api/tours/categories.json";
+import regionsList from "./api/tours/regions.json";
+import tagsList from "./api/tours/tags.json";
+import operatorsList from "./api/tours/operators.json";
+import meetingPointsList from "./api/tours/meeting-points.json";
+import difficultiesList from "./api/tours/difficulties.json";
 import companyData from "./api/company/company.json";
-import reviewsData from "./api/reviews/reviews.json";
-import statsData from "./api/settings/stats.json";
-import testimonialsData from "./api/settings/testimonials.json";
-import sustainabilityData from "./api/sustainability/items.json";
 import teamData from "./api/team/team.json";
-import categoriesData from "./api/tours/categories.json";
-import difficultiesData from "./api/tours/difficulties.json";
-import toursData from "./api/tours/items.json";
-import meetingPointsData from "./api/tours/meeting-points.json";
-import operatorsData from "./api/tours/operators.json";
-import regionsData from "./api/tours/regions.json";
-import tagsData from "./api/tours/tags.json";
+import sustainabilityData from "./api/sustainability/items.json";
+import testimonialsData from "./api/settings/testimonials.json";
+import statsData from "./api/settings/stats.json";
 
-import type {
-	CartItem,
-	Category,
-	Company,
-	Difficulty,
-	MeetingPoint,
-	MultilingualText,
-	Operator,
-	Region,
-	Review,
-	Stat,
-	SustainabilityItem,
-	Tag,
-	TeamMember,
-	Testimonial,
-	Tour,
-} from "./types";
+// ─── Tipos ──────────────────────────────────────────
 
-// ============================================================
-// Función utilitaria para resolver textos multilingües
-// ============================================================
-
-export function resolveLabel(
-	obj: Record<string, string>,
-	lang: string,
-): string {
-	return obj[lang] ?? obj["es"] ?? "";
+export interface Tour {
+  id: string;
+  slug: string;
+  type: "tour" | "custom";
+  status: "draft" | "active" | "hidden" | "archived";
+  title: Record<string, string>;
+  description: Record<string, string>;
+  categories: string[];
+  regions: string[];
+  tags: string[];
+  operator: string;
+  meetingPoint: string;
+  duration: string;
+  difficulty: string;
+  prices: Price[];
+  includes: Include[];
+  itinerary?: ProgramDay[];
+  schedules: Schedule[];
+  accommodations?: Accommodation[];
+  gallery?: MediaItem[];
+  seo?: SeoMeta;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-// ============================================================
-// Catálogos: Categories, Regions, Tags, Operators, etc.
-// ============================================================
-
-export function getCategories(): Category[] {
-	return categoriesData as unknown as Category[];
+export interface Price {
+  label: Record<string, string>;
+  amount: number;
+  currency: string;
 }
 
-export function getRegions(): Region[] {
-	return regionsData as unknown as Region[];
+export interface Include {
+  icon: string;
+  text: Record<string, string>;
 }
 
-export function getTags(): Tag[] {
-	return tagsData as unknown as Tag[];
+export interface Schedule {
+  start: string;
+  end?: string;
+  days: string[];
 }
 
-export function getOperators(): Operator[] {
-	return operatorsData as unknown as Operator[];
+export interface ProgramDay {
+  day: number;
+  stops: ProgramStop[];
+  meals: string[];
+  meals_not_included: string[];
+  highlights?: Record<string, string>[];
+  activities?: string[];
 }
 
-export function getMeetingPoints(): MeetingPoint[] {
-	return meetingPointsData as unknown as MeetingPoint[];
+export interface ProgramStop {
+  time: string;
+  title: Record<string, string>;
 }
 
-export function getDifficulties(): Difficulty[] {
-	return difficultiesData as unknown as Difficulty[];
+export interface Accommodation {
+  id: string;
+  name: string;
+  url?: string;
+  phone?: string;
+  used_on_days: number[];
 }
 
-// ============================================================
-// Tours — funciones principales
-// ============================================================
-
-export function getTours(): Tour[] {
-	return toursData.items as unknown as Tour[];
+export interface Category {
+  id: string;
+  slug: string;
+  icon: string;
+  title: Record<string, string>;
 }
 
-export function getToursByStatus(
-	status: "active" | "draft" | "hidden" | "archived" = "active",
-): Tour[] {
-	return getTours().filter((t) => t.status === status);
+export interface Region {
+  id: string;
+  slug: string;
+  title: Record<string, string>;
 }
 
-export function getToursByCategory(categorySlug: string): Tour[] {
-	return getTours().filter((t) => t.categories.includes(categorySlug));
+export interface Tag {
+  id: string;
+  slug: string;
+  title: Record<string, string>;
 }
 
-export function getToursByRegion(regionSlug: string): Tour[] {
-	return getTours().filter((t) => t.regions.includes(regionSlug));
+export interface MeetingPoint {
+  id: string;
+  title: Record<string, string>;
+  location: { lat: number; lng: number };
 }
 
-export function getToursByTag(tagSlug: string): Tour[] {
-	return getTours().filter((t) => t.tags.includes(tagSlug));
+export interface Difficulty {
+  id: string;
+  level: number;
+  title: Record<string, string>;
 }
 
-export function getFeaturedTours(count = 6): Tour[] {
-	return getToursByStatus("active").slice(0, count);
+export interface Operator {
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+  logo: string;
+}
+
+export interface SeoMeta {
+  title: Record<string, string>;
+  description: Record<string, string>;
+}
+
+export interface MediaItem {
+  type: "image" | "video";
+  src: string;
+  alt?: Record<string, string>;
+}
+
+export interface Testimonial {
+  text: Record<string, string>;
+  name: string;
+  country: string;
+  city: string;
+  expedition: Record<string, string>;
+  stars: number;
+}
+
+export interface Stat {
+  value: number;
+  suffix: string;
+  label: Record<string, string>;
+}
+
+export interface Company {
+  name: string;
+  author: string;
+  seo: { description: Record<string, string>; keywords: Record<string, string> };
+  contact: {
+    address: Record<string, string>;
+    scheduleWeekdays: Record<string, string>;
+    scheduleWeekends: Record<string, string>;
+    phone: { name: string; href: string };
+    email: { name: string; href: string };
+    whatsapp: string;
+    maps: string;
+  };
+  socials: { name: string; href: string; icon: string }[];
+}
+
+export interface SustainabilityItem {
+  icon: string;
+  title: Record<string, string>;
+  text: Record<string, string>;
+}
+
+export interface TeamRoot {
+  equipo: TeamMember[];
+  proposito: Record<string, string>;
+  values: { id: string; title: Record<string, string>; description: Record<string, string> }[];
+}
+
+// ─── Data arrays (importados) ───────────────────────
+
+const items: Tour[] = (toursList as any).items;
+const categoryEntries: Category[] = categoriesList as Category[];
+const regionEntries: Region[] = regionsList as Region[];
+const tagEntries: Tag[] = tagsList as Tag[];
+const operatorEntries: Operator[] = operatorsList as Operator[];
+const meetingPointEntries: MeetingPoint[] = meetingPointsList as MeetingPoint[];
+const difficultyEntries: Difficulty[] = difficultiesList as Difficulty[];
+const testimonialEntries: Testimonial[] = testimonialsData as Testimonial[];
+const statEntries: Stat[] = statsData as Stat[];
+const companyEntry: Company = companyData as Company;
+const teamEntry: TeamRoot = teamData as TeamRoot;
+const sustainEntry: { items: SustainabilityItem[] } = sustainabilityData as any;
+
+// ─── Tour Helpers ────────────────────────────────────
+
+export function getTours(filters?: {
+  region?: string;
+  category?: string;
+  season?: string;
+  status?: string;
+}): Tour[] {
+  let result = items.filter((t) => !filters?.status || t.status === filters.status);
+  if (filters?.region) result = result.filter((t) => t.regions.includes(filters.region!));
+  if (filters?.category) result = result.filter((t) => t.categories.includes(filters.category!));
+  return result;
+}
+
+export function getTour(slug: string): Tour | undefined {
+  return items.find((t) => t.slug === slug);
 }
 
 export function getTourById(id: string): Tour | undefined {
-	return getTours().find((t) => t.id === id);
+  return items.find((t) => t.id === id);
 }
 
-export function getTourBySlug(slug: string): Tour | undefined {
-	return getTours().find((t) => t.slug === slug);
+export function getToursByRegion(regionId: string): Tour[] {
+  return items.filter((t) => t.regions.includes(regionId));
 }
 
-// Helper para validar paths de imagen.
-// PASSTHROUGH: mantiene el path original para que funcione cuando las imágenes
-// se suban a /public/images/tours/. El onerror JS del <img> maneja el fallback.
-// Solo genera placehold.co cuando imgPath es undefined (sin path en absoluto).
-export function getValidImageUrl(
-	imgPath: string | undefined,
-	altText: string = "Tour",
-): string {
-	if (!imgPath) {
-		// Sin path → usar placehold.co como fallback base
-		const encodedText = encodeURIComponent(altText || "Tour");
-		return `https://placehold.co/800x400?text=${encodedText}&font=montserrat`;
-	}
-	// Passthrough: retornar el path original tal cual
-	// (incluye /images/tours/*.webp, /assets/*, http*, etc.)
-	return imgPath;
+export function getToursByCategory(categoryId: string): Tour[] {
+  return items.filter((t) => t.categories.includes(categoryId));
 }
 
-// Helper DRY: extrae el .src de ImageMetadata (import astro:assets) o string
-// Usado en page components para unificar el manejo de imágenes locales vs remotas
-export function resolveImageSrc(
-	img: string | { src: string } | undefined | null,
-	altText: string = "Tour",
-): string {
-	if (!img) {
-		return getValidImageUrl(undefined, altText);
-	}
-	if (typeof img === "string") {
-		return img;
-	}
-	return img.src;
+export function getToursByDifficulty(difficultyId: string): Tour[] {
+  return items.filter((t) => t.difficulty === difficultyId);
 }
 
-// Helper para compatibilidad legacy con el frontend existente
-export function getTourData(tour: Tour, lang: "es" | "en") {
-	if (!tour) {
-		console.error("getTourData: tour is undefined/null");
-		return {};
-	}
-	if (!tour.categories || !Array.isArray(tour.categories)) {
-		console.error("getTourData: tour.categories missing", tour.id);
-		return {};
-	}
-	if (!tour.includes || !Array.isArray(tour.includes)) {
-		console.error("getTourData: tour.includes missing", tour.id);
-	}
-	const category = getCategories().find((c) => tour.categories[0] === c.id);
-	const difficulty = getDifficulties().find((d) => tour.difficulty === d.id);
-	const firstGallery = tour.gallery?.[0];
+// ─── Catálogo Helpers ───────────────────────────────
 
-	return {
-		id: tour.id,
-		slug: tour.slug,
-		name: resolveLabel(tour.title, lang),
-		category: resolveLabel(
-			category?.title || { es: tour.categories[0], en: tour.categories[0] },
-			lang,
-		),
-		shortDescription: resolveLabel(tour.description, lang),
-		image: getValidImageUrl(
-			tour.heroImage || firstGallery?.src || tour.image,
-			resolveLabel(tour.title, lang),
-		),
-		heroImage: getValidImageUrl(
-			tour.heroImage || firstGallery?.src || tour.image,
-			resolveLabel(tour.title, lang),
-		),
-		badge: tour.duration,
-		operational: {
-			duration: tour.duration,
-			days: tour.schedules?.[0]?.days?.join(", ") || "",
-			capacity: "Mín. 4 / Máx. 24",
-			difficulty: resolveLabel(
-				difficulty?.title || { es: "Media", en: "Medium" },
-				lang,
-			),
-		},
-		includes: (tour.includes || []).map((i) => resolveLabel(i.text, lang)),
-		meetingPoints: (tour.schedules || []).map(
-			(s) => `${s.start} (${s.days?.join(", ") || ""})`,
-		),
-		itinerario:
-			(tour.itinerary || []).flatMap((d) =>
-				(d.stops || []).map((s) => resolveLabel(s.title, lang)),
-			) || [],
-		excludes: [],
-		whatToBring: [],
-		activities: tour.tags || [],
-		pricing: {
-			general: `$${tour.prices?.[0]?.amount || 0}`,
-			special: `$${(tour.prices?.[0]?.amount * 0.9).toFixed(0) || 0}`,
-		},
-	};
+export function getCategories(): Category[] {
+  return categoryEntries;
 }
 
-// ============================================================
-// Empresa y Equipo
-// ============================================================
+export function getCategory(id: string): Category | undefined {
+  return categoryEntries.find((c) => c.id === id);
+}
+
+export function getRegions(): Region[] {
+  return regionEntries;
+}
+
+export function getRegion(id: string): Region | undefined {
+  return regionEntries.find((r) => r.id === id);
+}
+
+export function getTags(): Tag[] {
+  return tagEntries;
+}
+
+export function getTag(id: string): Tag | undefined {
+  return tagEntries.find((t) => t.id === id);
+}
+
+export function getOperators(): Operator[] {
+  return operatorEntries;
+}
+
+export function getOperator(id: string): Operator | undefined {
+  return operatorEntries.find((o) => o.id === id);
+}
+
+export function getMeetingPoints(): MeetingPoint[] {
+  return meetingPointEntries;
+}
+
+export function getMeetingPoint(id: string): MeetingPoint | undefined {
+  return meetingPointEntries.find((m) => m.id === id);
+}
+
+export function getDifficulties(): Difficulty[] {
+  return difficultyEntries;
+}
+
+export function getDifficulty(id: string): Difficulty | undefined {
+  return difficultyEntries.find((d) => d.id === id);
+}
+
+// ─── Company ────────────────────────────────────────
 
 export function getCompany(): Company {
-	return companyData as unknown as Company;
+  return companyEntry;
 }
 
-export function getTeam(): TeamMember[] {
-	return teamData?.equipo || [];
-}
-
-// ============================================================
-// Sostenibilidad
-// ============================================================
-
-export function getSustainability(): SustainabilityItem[] {
-	if (Array.isArray(sustainabilityData))
-		return sustainabilityData as unknown as SustainabilityItem[];
-	return sustainabilityData?.items || [];
-}
-
-// ============================================================
-// Estadísticas
-// ============================================================
-
-export function getStats(): Stat[] {
-	return statsData as unknown as Stat[];
-}
-
-// ============================================================
-// Testimonios
-// ============================================================
+// ─── Settings ───────────────────────────────────────
 
 export function getTestimonials(): Testimonial[] {
-	return testimonialsData as unknown as Testimonial[];
+  return testimonialEntries;
+}
+
+export function getStats(): Stat[] {
+  return statEntries;
+}
+
+export function getTeam(): TeamRoot {
+  return teamEntry;
+}
+
+export function getSustainability(): SustainabilityItem[] {
+  return sustainEntry.items;
+}
+
+// ─── Resolución de lenguajes ────────────────────────
+
+/**
+ * Resuelve el name en el idioma solicitado con fallback a "es".
+ * Compat: acepta { title: Record } | Record<string, string>
+ */
+export function resolveLabel(
+  item: { title: Record<string, string> } | Record<string, string>,
+  lang: string,
+  fallbackLang = "es",
+): string {
+  if (!item) return "";
+  const texts: Record<string, string> = "title" in item ? item.title : item;
+  return texts[lang] ?? texts[fallbackLang ?? ""] ?? Object.values(texts)[0] ?? "";
+}
+
+export function resolveText(
+  texts: Record<string, string> | undefined,
+  lang: string,
+  fallbackLang = "es",
+): string {
+  if (!texts) return "";
+  return texts[lang] ?? texts[fallbackLang] ?? Object.values(texts)[0] ?? "";
+}
+
+export function formatPrice(amount: number, _currency = "USD"): string {
+  return `$${amount.toLocaleString("es-EC")}`;
+}
+
+// ─── Differentiators hardcodeado (se mueve a settings más adelante) ─────
+export interface Differentiator {
+  icon: string;
+  title: Record<string, string>;
+  description: Record<string, string>;
 }
 
 // ============================================================
-// Reviews
+// Cart Helpers — carrito JSON local (persistente durante sesión)
 // ============================================================
 
-export function getReviews(): Review[] {
-	return (reviewsData as unknown as { reviews?: Review[] }).reviews || [];
+import cartData from "./api/cart/cart.json";
+
+export interface CartItem {
+  tourId: string;
+  tourSlug: string;
+  tourTitle: Record<string, string>;
+  date: string;
+  time: string;
+  adults: number;
+  children: number;
+  unitPrice: number;
+  total: number;
 }
-
-export function getReviewsByTourId(tourId: string): Review[] {
-	return getReviews().filter((r) => r.tourId === tourId);
-}
-
-// ============================================================
-// Carrito
-// ============================================================
 
 export function getCart(): CartItem[] {
-	return cartData?.items || [];
+  return (cartData as any).items ?? [];
+}
+
+export function addToCart(item: CartItem): void {
+  const items = getCart();
+  items.push(item);
+  // En versión API real, haría POST; aquí actualiza proxy
+  (cartData as any).items = items;
+}
+
+export function removeFromCart(tourId: string, date: string, time: string): void {
+  const items = getCart().filter(
+    (i: CartItem) => !(i.tourId === tourId && i.date === date && i.time === time)
+  );
+  (cartData as any).items = items;
 }
 
 export function getCartTotal(): number {
-	return getCart().reduce((sum, item) => sum + item.price * item.quantity, 0);
+  return getCart().reduce((sum: number, i: CartItem) => sum + i.total, 0);
 }
 
 // ============================================================
-// Utilidades de formateo
+// Review Helpers — sistema de rating y reseñas
 // ============================================================
 
-export function formatPrice(amount: number, currency = "USD"): string {
-	return `${currency === "USD" ? "$" : currency} ${amount}`;
+import reviewsData from "./api/reviews/reviews.json";
+
+export interface Review {
+  id: string;
+  tourId: string;
+  author: string;
+  rating: number;
+  comment: Record<string, string>;
+  date: string;
 }
+
+export interface RatingSummary {
+  average: number;
+  count: number;
+}
+
+export function getReviews(tourId: string): Review[] {
+  const all: Review[] = (reviewsData as any).reviews ?? [];
+  return all.filter((r) => r.tourId === tourId);
+}
+
+/** Compatible: retorna todos los reviews sin filtrar */
+export function getAllReviews(): Review[] {
+  return (reviewsData as any).reviews ?? [];
+}
+
+export function getRating(tourId: string): RatingSummary {
+  const reviews = getReviews(tourId);
+  if (reviews.length === 0) return { average: 0, count: 0 };
+  const sum = reviews.reduce((a: number, r: Review) => a + r.rating, 0);
+  return { average: Math.round((sum / reviews.length) * 10) / 10, count: reviews.length };
+}
+
+export function renderStars(rating: number): string {
+  const full = "★".repeat(Math.floor(rating));
+  const half = rating % 1 >= 0.5 ? "½" : "";
+  const empty = "☆".repeat(5 - Math.ceil(rating));
+  return full + half + empty;
+}
+
+// ============================================================
+// Image Helpers — wrappers para astro:assets
+// ============================================================
+
+import councilMeetingPoints from "./api/tours/meeting-points.json";
+
+export type { ItineraryDay, Accommodation };
+
+export function getTourImage(tour: Tour, fallback = "/images/tours/city-tour-cuenca.webp"): string {
+  return tour.image ?? (tour.gallery?.[0]?.src) ?? fallback;
+}
+
+export function getTourGallery(tour: Tour): MediaItem[] {
+  return tour.gallery ?? [];
+}
+
+export function getTourMap(tour: Tour): { lat: number; lng: number } {
+  if (tour.map?.lat) return tour.map;
+  const mp = tour.meetingPoint
+    ? (councilMeetingPoints as any).find((m) => m.id === tour.meetingPoint)
+    : undefined;
+  return mp?.location ?? { lat: -2.8974, lng: -79.0045 };
+}
+
+export function getTourItinerary(tour: Tour): ItineraryDay[] {
+  return tour.itinerary ?? [];
+}
+
+export function getTourScheduleText(s: Schedule, lang: string): string {
+  const dayLabels: Record<string, Record<string, string>> = {
+    mon: { es: "Lun", en: "Mon" },
+    tue: { es: "Mar", en: "Tue" },
+    wed: { es: "Mié", en: "Wed" },
+    thu: { es: "Jue", en: "Thu" },
+    fri: { es: "Vie", en: "Fri" },
+    sat: { es: "Sáb", en: "Sat" },
+    sun: { es: "Dom", en: "Sun" },
+  };
+  if (s.days.length === 7) {
+    return lang === "es" ? "Todos los días" : "Every day";
+  }
+  return s.days.map((d) => dayLabels[d]?.[lang] ?? d).join(", ");
+}
+
+// ============================================================
+// End of helpers.ts
+// ============================================================
+// ============================================================
+// Differentiators (restored)
+// ============================================================
+
+export function getDifferentiators(): Differentiator[] {
+  return [
+    {
+      icon: "compass",
+      title: { es: "Guías Locales Expertos", en: "Expert Local Guides" },
+      description: {
+        es: "Más de 10 años de experiencia en cada destino. Conocimiento profundo del territorio y su cultura.",
+        en: "10+ years of experience in each destination. Deep knowledge of the territory and its culture.",
+      },
+    },
+    {
+      icon: "leaf",
+      title: { es: "Turismo Sostenible", en: "Sustainable Tourism" },
+      description: {
+        es: "Impacto ambiental mínimo. Apoyamos comunidades locales y proyectos de conservación activa.",
+        en: "Minimal environmental impact. We support local communities and active conservation projects.",
+      },
+    },
+    {
+      icon: "backpack",
+      title: { es: "Expediciones a Tu Medida", en: "Custom Expeditions" },
+      description: {
+        es: "Itinerarios personalizados según tu nivel, intereses y ritmo. Grupos reducidos de máximo 12 personas.",
+        en: "Customized itineraries according to your level, interests and pace. Small groups of maximum 12 people.",
+      },
+    },
+    {
+      icon: "shield",
+      title: { es: "Seguridad Garantizada", en: "Guaranteed Safety" },
+      description: {
+        es: "Equipo de respuesta, seguros de accidentes personales y monitoreo satelital en cada expedición.",
+        en: "Response team, personal accident insurance and satellite monitoring on every expedition.",
+      },
+    },
+    {
+      icon: "users",
+      title: { es: "Turismo Responsable", en: "Responsible Tourism" },
+      description: {
+        es: "Trabajamos de la mano con comunidades indígenas y locales, retribuyendo a quienes protegen estos territorios.",
+        en: "We work hand in hand with indigenous and local communities, giving back to those who protect these territories.",
+      },
+    },
+    {
+      icon: "certificate",
+      title: { es: "Guías Certificados", en: "Certified Guides" },
+      description: {
+        es: "Guías acreditados ASEGUIM, IRF y WFR. Formación continua en primeros auxilios y rescate en montaña.",
+        en: "ASEGUIM, IRF and WFR accredited guides. Continuous training in first aid and mountain rescue.",
+      },
+    },
+  ];
+}
+
+// ============================================================
+// IMAGEN HELPERS — compatibilidad con componentes existentes
+// ============================================================
+
+/**
+ * Helper para validar paths de imagen.
+ * PASSTHROUGH: mantiene el path original para que funcione con imágenes
+ * subidas a /public/images/. El onerror JS del <img> maneja el fallback.
+ * Solo genera placehold.co cuando imgPath es undefined (sin path).
+ */
+export function getValidImageUrl(
+  imgPath: string | undefined,
+  altText: string = "Tour",
+): string {
+  if (!imgPath) {
+    const encodedText = encodeURIComponent(altText || "Tour");
+    return `https://placehold.co/800x400?text=${encodedText}&font=montserrat`;
+  }
+  return imgPath;
+}
+
+/**
+ * Helper DRY: extrae el .src de ImageMetadata (astro:assets) o string.
+ * Unifica el manejo de imágenes locales vs remotas.
+ */
+export function resolveImageSrc(
+  img: string | { src: string } | undefined | null,
+  altText: string = "Tour",
+): string {
+  if (!img) {
+    return getValidImageUrl(undefined, altText);
+  }
+  if (typeof img === "string") {
+    return img;
+  }
+  return img.src;
+}
+
+// ============================================================
+// TOUR DATA HELPER — unifica data para componentes
+// ============================================================
+
+export function getTourData(tour: Tour, lang: "es" | "en") {
+  if (!tour) {
+    console.error("getTourData: tour is undefined/null");
+    return { includes: [], excludes: [], whatToBring: [], activities: [], meetingPoints: [], itinerary: [], pricing: { general: "$0", special: "$0" }, operational: { duration: "", days: "", capacity: "", difficulty: "" }, image: "", heroImage: "", name: "", category: "", shortDescription: "", badge: "", id: "", slug: "" };
+  }
+  // SAFE fallbacks — never let tour.categories/includes be undefined
+  // (prevents .map crashes downstream in TourCard/TourDetail)
+  if (!tour.categories || !Array.isArray(tour.categories)) {
+    console.error("getTourData: tour.categories missing", tour.id);
+  }
+  if (!tour.includes || !Array.isArray(tour.includes)) {
+    console.error("getTourData: tour.includes missing", tour.id);
+  }
+  const category = tour.categories?.[0] ? getCategory(tour.categories[0]) : undefined;
+  const difficulty = tour.difficulty ? getDifficulty(tour.difficulty) : undefined;
+  const firstGallery = tour.gallery?.[0];
+
+  return {
+    id: tour.id,
+    slug: tour.slug,
+    name: resolveLabel(tour.title, lang),
+    category: resolveLabel(
+      category?.title || { es: tour.categories?.[0] || "otros", en: tour.categories?.[0] || "other" },
+      lang,
+    ),
+    shortDescription: resolveLabel(tour.description, lang),
+    image: getValidImageUrl(
+      tour.image ?? firstGallery?.src,
+      resolveLabel(tour.title, lang),
+    ),
+    heroImage: getValidImageUrl(
+      tour.image ?? firstGallery?.src,
+      resolveLabel(tour.title, lang),
+    ),
+    badge: tour.duration,
+    operational: {
+      duration: tour.duration || "",
+      days: tour.schedules?.[0]?.days?.join(", ") || "",
+      capacity: "Mín. 4 / Máx. 24",
+      difficulty: resolveLabel(
+        difficulty?.title || { es: "Media", en: "Medium" },
+        lang,
+      ),
+    },
+    includes: (tour.includes || []).map((i) => resolveLabel(i.text, lang)),
+    meetingPoints: (tour.schedules || []).map(
+      (s) => `${s.start} (${s.days?.join(", ") || ""})`,
+    ),
+    itinerary: (tour.itinerary || []).flatMap((d) =>
+      (d.stops || []).map((s) => resolveLabel(s.title, lang)),
+    ),
+    excludes: [],
+    whatToBring: [],
+    activities: tour.tags || [],
+    pricing: {
+      general: formatPrice(tour.prices?.[0]?.amount || 0, tour.prices?.[0]?.currency),
+      special: formatPrice((tour.prices?.[0]?.amount || 0) * 0.9, tour.prices?.[0]?.currency),
+    },
+  };
+}
+
+// ============================================================
+// CATÁLOGO HELPERS — compatibilidad legacy
+// ============================================================
 
 export function getCategoryTitle(
-	categorySlug: string,
-	lang: "es" | "en",
+  categorySlug: string,
+  lang: "es" | "en",
 ): string {
-	const cat = getCategories().find((c) => c.id === categorySlug);
-	return cat ? resolveLabel(cat.title, lang) : categorySlug;
+  const cat = getCategory(categorySlug);
+  return cat ? resolveLabel(cat, lang) : categorySlug;
 }
 
 export function getCategoryIcon(categorySlug: string): string {
-	const cat = getCategories().find((c) => c.id === categorySlug);
-	return cat?.icon || "📍";
+  const cat = getCategory(categorySlug);
+  return cat?.icon || "📍";
 }
 
 export function getDifficultyLevel(
-	difficultySlug: string,
-	lang: "es" | "en",
+  difficultySlug: string,
+  lang: "es" | "en",
 ): string {
-	const diff = getDifficulties().find((d) => d.id === difficultySlug);
-	return diff ? resolveLabel(diff.title, lang) : difficultySlug;
+  const diff = getDifficulty(difficultySlug);
+  return diff ? resolveLabel(diff, lang) : difficultySlug;
 }
+
+// ============================================================
+// End of compat layer
+// ============================================================
+
+// ============================================================
+// Legacy compat exports
+// ============================================================
+
+/** Compatible API: featured tours (first N active tours) */
+export function getFeaturedTours(count = 6): Tour[] {
+  return items.filter((t) => t.status === "active").slice(0, count);
+}
+
+/** Legacy alias: same as getTour(slug) */
+export const getTourBySlug = getTour;

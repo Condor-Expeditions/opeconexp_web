@@ -1,36 +1,8 @@
 {
-	"items": [
-		{
-			"icon": "leaf",
-			"title": { "es": "Mínimo Impacto", "en": "Minimal Impact" },
-			"text": {
-				"es": "Código de conducta ambiental en cada expedición.",
-				"en": "Environmental code of conduct on every expedition."
-			}
-		},
-		{
-			"icon": "users",
-			"title": { "es": "Comercio Justo", "en": "Fair Trade" },
-			"text": {
-				"es": "Guías y proveedores locales con tarifas justas.",
-				"en": "Local guides and providers with fair rates."
-			}
-		},
-		{
-			"icon": "globe",
-			"title": { "es": "Carbono Neutro", "en": "Carbon Neutral" },
-			"text": {
-				"es": "Compensamos emisiones con reforestación nativa.",
-				"en": "We offset emissions through native reforestation."
-			}
-		},
-		{
-			"icon": "heart",
-			"title": { "es": "Proyectos Sociales", "en": "Social Projects" },
-			"text": {
-				"es": "3% de cada expedición financia educación ambiental.",
-				"en": "3% of each expedition funds environmental education."
-			}
-		}
-	]
+  "items": [
+    {"icon": "leaf", "title": {"es": "Mínimo Impacto", "en": "Minimal Impact"}, "text": {"es": "Código de conducta ambiental en cada expedición.", "en": "Environmental code of conduct on every expedition."}},
+    {"icon": "users", "title": {"es": "Comercio Justo", "en": "Fair Trade"}, "text": {"es": "Guías y proveedores locales con tarifas justas.", "en": "Local guides and providers with fair rates."}},
+    {"icon": "globe", "title": {"es": "Carbono Neutro", "en": "Carbon Neutral"}, "text": {"es": "Compensamos emisiones con reforestación nativa.", "en": "We offset emissions through native reforestation."}},
+    {"icon": "heart", "title": {"es": "Proyectos Sociales", "en": "Social Projects"}, "text": {"es": "3% de cada expedición financia educación ambiental.", "en": "3% of each expedition funds environmental education."}}
+  ]
 }

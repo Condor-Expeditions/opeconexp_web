@@ -1,3 +1,5 @@
+import { getCompany } from "./helpers";
+
 interface ContactInfo {
 	name: string;
 	href: string;
@@ -9,7 +11,7 @@ interface SocialLink {
 	icon: string;
 }
 
-interface SiteConfig {
+export interface SiteConfig {
 	author: string;
 	companyName: string;
 	seo: {
@@ -27,54 +29,24 @@ interface SiteConfig {
 	socials: SocialLink[];
 }
 
+// Fuente única de datos: src/data/helpers.ts → api/company/company.json
+// Para cambiar teléfonos, emails, redes sociales o dirección,
+// edita únicamente ese el JSON api/company/company.json.
+const company = getCompany();
 export const siteConfig: SiteConfig = {
-	author: "Condor Expeditions",
-	companyName: "Condor Expeditions",
+	author: company.author,
+	companyName: company.name,
 	seo: {
-		description:
-			"Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala. Ecuador: Vive lo que otros solo visitan.",
+		description: company.seo.description["es"],
 	},
 	companyInfo: {
-		address: "Cuenca, Azuay, Ecuador",
-		scheduleWeekdays: "Lunes a Domingo de 08:00h a 18:00h",
-		scheduleWeekends: "Fines de semana: salidas programadas",
-		whatsApp:
-			"https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
-		phone: {
-			name: "+593 98 600 6849",
-			href: "tel:+593986006849",
-		},
-		email: {
-			name: "info@condorexpedition.com",
-			href: "mailto:info@condorexpedition.com",
-		},
-		location: "https://maps.app.goo.gl/skhR8ofDDeLaU8XCA",
+		address: company.contact.address["es"],
+		scheduleWeekdays: company.contact.scheduleWeekdays["es"],
+		scheduleWeekends: company.contact.scheduleWeekends["es"],
+		whatsApp: company.contact.whatsapp,
+		phone: company.contact.phone,
+		email: company.contact.email,
+		location: company.contact.maps,
 	},
-	socials: [
-		{
-			name: "Facebook",
-			href: "https://www.facebook.com/CondorExpeditionsCuenca",
-			icon: "facebook",
-		},
-		{
-			name: "Instagram",
-			href: "https://www.instagram.com/condorexpeditionscuenca",
-			icon: "instagram",
-		},
-		{
-			name: "TikTok",
-			href: "https://www.tiktok.com/@condorexpeditionscuenca",
-			icon: "tiktok",
-		},
-		{
-			name: "YouTube",
-			href: "https://www.youtube.com/@condorexpeditionscuenca",
-			icon: "youtube",
-		},
-		{
-			name: "WhatsApp",
-			href: "https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
-			icon: "whatsapp",
-		},
-	],
+	socials: company.socials,
 };
