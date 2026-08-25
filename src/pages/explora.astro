@@ -1,7 +1,7 @@
 ---
 import TourCard from "../components/sections/TourCard.astro";
 import Container from "../components/shared/Container.astro";
-import { getCategories, getTours, getToursByCategory, type Category } from "../data/helpers";
+import { getCategories, getRegions, getTours, type Category } from "../data/helpers";
 import type { Tour } from "../data/helpers";
 import Layout from "../layouts/Layout.astro";
 
@@ -11,18 +11,50 @@ const activeTours: Tour[] = getTours().filter((t) => t.status === "active");
 const categories = getCategories();
 const rawCategories = categories.map((c) => c); // Category objects
 
-const tipoRaw = Astro.url.searchParams.get("categoria") ?? "";
+const tipoRaw = Astro.url.searchParams.get("categoria") ?? ""; // legacy: ?categoria=
+const tipo = Astro.url.searchParams.get("tipo"); // nuevo: categoria|region|temporada
+const valor = (Astro.url.searchParams.get("valor") ?? "").toLowerCase();
 const safeTipoRaw = (tipoRaw || "").toLowerCase();
 
-// Filtrar tours por category id (lowercased)
-const filtered = activeTours.filter((t) => {
-	if (!safeTipoRaw) return true;
-	return (t.categories || []).some((cat) => cat.toLowerCase() === safeTipoRaw);
-});
+// Resolver filtro activo según eje (tipo/valor nuevo o categoria legacy)
+const regions = getRegions();
+let activeFilterLabel = "";
+let filtered = activeTours;
+
+if (tipo === "region" && valor) {
+	filtered = activeTours.filter((t) =>
+		(t.regions || []).some((r) => r.toLowerCase() === valor),
+	);
+	const region = regions.find(
+		(r) => r.slug.toLowerCase() === valor || r.id.toLowerCase() === valor,
+	);
+	activeFilterLabel = region ? region.title.es : valor;
+} else if (tipo === "temporada" && valor) {
+	filtered = activeTours.filter((t) =>
+		valor === "alta"
+			? (t.seasons?.high?.length ?? 0) > 0
+			: (t.seasons?.low?.length ?? 0) > 0 ||
+				((t.seasons?.high?.length ?? 0) === 0 && true),
+	);
+	activeFilterLabel =
+		valor === "alta" ? "Temporada Alta" : "Temporada Baja";
+} else if (tipo === "categoria" && valor) {
+	filtered = activeTours.filter((t) =>
+		(t.categories || []).some((cat) => cat.toLowerCase() === valor),
+	);
+} else {
+	// legacy: ?categoria=
+	filtered = activeTours.filter((t) => {
+		if (!safeTipoRaw) return true;
+		return (t.categories || []).some((cat) => cat.toLowerCase() === safeTipoRaw);
+	});
+}
+
+const effCatSlug = tipo === "categoria" && valor ? valor : safeTipoRaw;
 
 // Encontrar categoría activa (match por slug o id, lowercased)
 const activeCategory = rawCategories.find(
-	(c) => c.slug.toLowerCase() === safeTipoRaw || c.id.toLowerCase() === safeTipoRaw,
+	(c) => c.slug.toLowerCase() === effCatSlug || c.id.toLowerCase() === effCatSlug,
 );
 const activeCategoryLabel = activeCategory
 	? (activeCategory.title.es || activeCategory.title.en || activeCategory.id)
@@ -33,7 +65,10 @@ const activeCategoryLabel = activeCategory
 let pageTitle = "Explora";
 let pageSubtitle =
 	"Descubre nuestras expediciones diseñadas para conectarte con lo mejor del Ecuador.";
-if (activeCategory && activeCategory.title.es) {
+if (activeFilterLabel) {
+	pageTitle = activeFilterLabel;
+	pageSubtitle = `Expediciones de ${activeFilterLabel.toLowerCase()}.`;
+} else if (activeCategory && activeCategory.title.es) {
 	pageTitle = activeCategory.title.es;
 	pageSubtitle = `Expediciones de ${activeCategory.title.es.toLowerCase()}.`;
 } else if (tipoRaw) {

@@ -1,7 +1,6 @@
 ---
 import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container.astro";
-import { MENU_DATA } from "@/data/menuData";
 import { ROUTES, ROUTES_LABELS_EN } from "@/data/routes";
 import Button from "../Button.astro";
 
@@ -10,7 +9,6 @@ export interface Props {
 }
 
 const { lang = "es" } = Astro.props;
-const { explora } = MENU_DATA;
 const isEnglish = lang === "en";
 const currentPath = Astro.url.pathname;
 
@@ -71,6 +69,26 @@ const localizedRoutes = ROUTES.map((route) => ({
 
 const homeHref = isEnglish ? "/en/" : "/";
 const contactHref = isEnglish ? "/en/contacto" : "/contacto";
+
+// Mega menú Explora: tabs Categoría/Región/Temporada
+import { getExploraMenu, type MenuCard } from "@/data/menuExplora";
+const exploraMenu = getExploraMenu(lang);
+const TABS = [
+	{ id: "categoria", es: "Categoría", en: "Category" },
+	{ id: "region", es: "Región", en: "Region" },
+	{ id: "temporada", es: "Temporada", en: "Season" },
+] as const;
+type TabId = (typeof TABS)[number]["id"];
+const tabLabel = (tb: (typeof TABS)[number]) => (isEnglish ? tb.en : tb.es);
+const cardsFor = (id: TabId): MenuCard[] =>
+	id === "region"
+		? exploraMenu.regiones
+		: id === "temporada"
+			? exploraMenu.temporada
+			: exploraMenu.categorias;
+const cardHref = (c: MenuCard) => (isEnglish ? c.hrefEn : c.href);
+const cardLabel = (c: MenuCard) => (isEnglish ? c.labelEn : c.label);
+const cardTag = (c: MenuCard) => (isEnglish ? c.tagEn : c.tag);
 
 function getAlternateLangHref(targetLang: "es" | "en"): string {
 	if (targetLang === "es") {
@@ -346,34 +364,54 @@ const enHref = getAlternateLangHref("en");
 			aria-label={t.exploreTours}
 		>
 			<Container>
-				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 py-5">
-					{
-						explora.map((item) => (
-							<a
-								href={isEnglish ? `/en${item.href}` : item.href}
-								class="group relative flex flex-col justify-end h-44 rounded-xl overflow-hidden"
-							>
-								<img
-										src={item.image.src}
-										alt={item.title}
-										width={400}
-										height={300}
-										class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-										loading="lazy"
-										onerror="this.onerror=null;this.src='https://placehold.co/400x300?text='+encodeURIComponent(this.alt);"
-									/>
-								<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-								<div class="relative p-4">
-									<p class="inline-block px-2 py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-2">
-										{item.type}
-									</p>
-									<h3 class="font-semibold text-white text-sm leading-tight group-hover:text-primary-red transition-colors">
-										{item.title}
-									</h3>
-								</div>
-							</a>
-						))
-					}
+				<!-- Tabs Categoría / Región / Temporada (radio CSS, sin JS) -->
+				<!-- Radios ocultos como hermanos directos de .explora-grid-wrap (para ~ selector) -->
+				<input type="radio" name="explora-tab" id="explora-tab-categoria" class="sr-only" checked />
+				<input type="radio" name="explora-tab" id="explora-tab-region" class="sr-only" />
+				<input type="radio" name="explora-tab" id="explora-tab-temporada" class="sr-only" />
+				<div class="tabs-row flex items-center gap-2 pt-4 pb-3 border-b border-white/10">
+					{TABS.map((tb) => (
+						<label
+							for={`explora-tab-${tb.id}`}
+							class="cursor-pointer px-4 py-1.5 text-xs font-semibold uppercase tracking-wide rounded-full transition-colors text-white/60 hover:text-white hover:bg-white/10"
+						>
+							{tabLabel(tb)}
+						</label>
+					))}
+				</div>
+
+				<div class="explora-grid-wrap">
+					{TABS.map((tb) => (
+						<div class:list={["hidden", "explora-grid"]} data-grid={tb.id}>
+							<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 py-5">
+								{cardsFor(tb.id).map((item) => (
+									<a
+										href={cardHref(item)}
+										class="group relative flex flex-col justify-end h-44 rounded-xl overflow-hidden bg-card"
+									>
+										<img
+											src={item.image || `https://placehold.co/400x300?text=${encodeURIComponent(cardLabel(item))}&font=montserrat`}
+											alt={cardLabel(item)}
+											width={400}
+											height={300}
+											class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+											loading="lazy"
+											onerror="this.onerror=null;this.src='https://placehold.co/400x300?text='+encodeURIComponent(this.alt);"
+										/>
+										<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+										<div class="relative p-4">
+											<p class="inline-block px-2 py-0.5 text-[10px] font-semibold text-white bg-primary-red rounded-full mb-2">
+												{cardTag(item)}
+											</p>
+											<h3 class="font-semibold text-white text-sm leading-tight group-hover:text-primary-red transition-colors">
+												{cardLabel(item)}
+											</h3>
+										</div>
+									</a>
+								))}
+							</div>
+						</div>
+					))}
 				</div>
 			</Container>
 		</div>
@@ -499,32 +537,22 @@ const enHref = getAlternateLangHref("en");
 				<p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
 					{t.exploreTours}
 				</p>
-				<div class="grid grid-cols-1 gap-2">
-					{
-						explora.map((item) => (
-							<a
-								href={isEnglish ? `/en${item.href}` : item.href}
-								class="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/10 transition-colors"
-							>
-								<img
-										src={item.image.src}
-										alt={item.title}
-										width={56}
-										height={56}
-										class="w-14 h-14 object-cover rounded-md shrink-0"
-										loading="lazy"
-										onerror="this.onerror=null;this.src='https://placehold.co/56x56?text='+encodeURIComponent(this.alt);"
-									/>
-								<div>
-									<p class="font-medium text-foreground text-sm leading-tight">
-										{item.title}
-									</p>
-									<p class="text-xs text-muted-foreground mt-0.5">{item.type}</p>
-								</div>
-							</a>
-						))
-					}
-				</div>
+				{TABS.map((tb) => (
+					<div class="mb-4">
+						<p class="text-sm font-semibold text-foreground mb-1">{tabLabel(tb)}</p>
+						<div class="flex flex-col">
+							{cardsFor(tb.id).map((item) => (
+								<a
+									href={cardHref(item)}
+									class="flex items-center justify-between py-2 border-b border-border/50 text-sm text-foreground hover:text-primary-red transition-colors"
+								>
+									<span>{cardLabel(item)}</span>
+									<span class="text-[10px] text-muted-foreground">{cardTag(item)}</span>
+								</a>
+							))}
+						</div>
+					</div>
+				))}
 			</div>
 
 			<div>
@@ -590,6 +618,22 @@ const enHref = getAlternateLangHref("en");
 	</script>
 
 	<style>
+		/* Mega menú Explora: radio CSS — mostrar la grilla del tab chequeado.
+		   is:global implícito no; estos selectores usan IDs estables, scoped ok
+		   pero los inputs/labels se generan dinámicamente → usar global acotado. */
+		:global(#explora-tab-categoria:checked ~ .explora-grid-wrap [data-grid="categoria"]),
+		:global(#explora-tab-region:checked ~ .explora-grid-wrap [data-grid="region"]),
+		:global(#explora-tab-temporada:checked ~ .explora-grid-wrap [data-grid="temporada"]) {
+			display: block !important;
+		}
+		/* Tab activo: label con for= al radio chequeado (los labels son hermanos posteriores) */
+		:global(#explora-tab-categoria:checked ~ .tabs-row label[for="explora-tab-categoria"]),
+		:global(#explora-tab-region:checked ~ .tabs-row label[for="explora-tab-region"]),
+		:global(#explora-tab-temporada:checked ~ .tabs-row label[for="explora-tab-temporada"]) {
+			background-color: var(--color-primary-red, #c0392b);
+			color: #fff;
+		}
+
 		.header-top {
 			background-color: transparent;
 		}
