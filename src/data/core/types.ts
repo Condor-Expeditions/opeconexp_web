@@ -17,6 +17,11 @@ export interface Region {
   title: Bilingual;
 }
 
+export interface TourLocation {
+  city: Bilingual;
+  province: Bilingual;
+}
+
 export interface Tag {
   id: string;
   title: Bilingual;
@@ -98,6 +103,7 @@ export interface Tour {
   description: Bilingual;
   categories: Category[];
   regions: string[];
+  location?: TourLocation;
   tags: Tag[];
   operator: string;
   meetingPoints: MeetingPoint[];

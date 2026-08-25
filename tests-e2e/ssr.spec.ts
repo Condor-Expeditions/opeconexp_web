@@ -2,16 +2,16 @@ import { expect, test } from "@playwright/test";
 
 test.describe("SSR routes", () => {
 	test("should return 200 for /tours/region with valid region", async ({
-		page,
-	}) => {
-		const response = await page.goto("/tours/region?region=cuenca");
-		expect(response?.status()).toBe(200);
-		// Should show tours filtered for cuenca region (ToursGrid default shows 6)
-		const regionTitle = page.locator("h1").first();
-		await expect(regionTitle).toContainText(/Tours en Cuenca/i);
-		const tourCards = page.locator(".hover-lift");
-		await expect(tourCards).toHaveCount(6);
-	});
+			page,
+		}) => {
+			const response = await page.goto("/tours/region?region=sierra");
+			expect(response?.status()).toBe(200);
+			// Should show tours filtered for sierra region (ToursGrid default shows 6)
+			const regionTitle = page.locator("h1").first();
+			await expect(regionTitle).toContainText(/Tours en Sierra/i);
+			const tourCards = page.locator(".hover-lift");
+			await expect(tourCards).toHaveCount(6);
+		});
 
 	test("should return 200 for /tours/region with empty region", async ({
 		page,

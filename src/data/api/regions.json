@@ -1,5 +1,34 @@
 [
-  {"id":"cuenca","slug":"cuenca","title":{"es":"Cuenca","en":"Cuenca"}},
-  {"id":"azuay","slug":"azuay","title":{"es":"Azuay","en":"Azuay"}},
-  {"id":"ecuador","slug":"ecuador","title":{"es":"Ecuador","en":"Ecuador"}}
+  {
+    "id": "costa",
+    "slug": "costa",
+    "title": {
+      "es": "Costa",
+      "en": "Coast"
+    }
+  },
+  {
+    "id": "sierra",
+    "slug": "sierra",
+    "title": {
+      "es": "Sierra",
+      "en": "Highlands"
+    }
+  },
+  {
+    "id": "oriente",
+    "slug": "oriente",
+    "title": {
+      "es": "Oriente",
+      "en": "Amazon"
+    }
+  },
+  {
+    "id": "galapagos",
+    "slug": "galapagos",
+    "title": {
+      "es": "Galápagos",
+      "en": "Galápagos"
+    }
+  }
 ]

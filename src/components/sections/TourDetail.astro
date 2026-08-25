@@ -13,6 +13,9 @@ export interface Props {
 
 const { tour, lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
+const locationLabel = tour.location
+  ? `${resolveLabel(tour.location.city, lang)}, ${resolveLabel(tour.location.province, lang)}`
+  : "";
 
 // Convertir tour API-local → legacy compat
 const t = getTourData(tour, lang);
@@ -79,6 +82,15 @@ const tourReviews = allReviews.filter((r) => r.tourId === tour.id);
           </svg>
           <span class="text-sm"><strong>{infoLabels.duration}:</strong> {t.operational.duration}</span>
         </div>
+        {locationLabel && (
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span class="text-sm">{locationLabel}</span>
+          </div>
+        )}
         <div class="flex items-center gap-2">
           <svg class="w-5 h-5 text-primary-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>

@@ -34,7 +34,7 @@
         }
       ],
       "regions": [
-        "cuenca"
+        "sierra"
       ],
       "tags": [],
       "operator": "condor-expeditions",
@@ -159,6 +159,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Cuenca",
+          "en": "Cuenca"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -186,7 +196,7 @@
         }
       ],
       "regions": [
-        "cuenca"
+        "sierra"
       ],
       "tags": [
         {
@@ -307,6 +317,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Cuenca",
+          "en": "Cuenca"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -334,7 +354,7 @@
         }
       ],
       "regions": [
-        "cuenca"
+        "sierra"
       ],
       "tags": [
         {
@@ -556,6 +576,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Cuenca",
+          "en": "Cuenca"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -592,7 +622,7 @@
         }
       ],
       "regions": [
-        "cuenca"
+        "sierra"
       ],
       "tags": [
         {
@@ -709,6 +739,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Baños",
+          "en": "Baños"
+        },
+        "province": {
+          "es": "Tungurahua",
+          "en": "Tungurahua"
+        }
       }
     },
     {
@@ -745,7 +785,7 @@
         }
       ],
       "regions": [
-        "cuenca"
+        "sierra"
       ],
       "tags": [
         {
@@ -862,6 +902,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Gualaceo",
+          "en": "Gualaceo"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -889,7 +939,7 @@
         }
       ],
       "regions": [
-        "cuenca"
+        "sierra"
       ],
       "tags": [
         {
@@ -1006,6 +1056,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Cañar",
+          "en": "Cañar"
+        },
+        "province": {
+          "es": "Cañar",
+          "en": "Cañar"
+        }
       }
     },
     {
@@ -1033,7 +1093,7 @@
         }
       ],
       "regions": [
-        "cuenca"
+        "sierra"
       ],
       "tags": [],
       "operator": "condor-expeditions",
@@ -1140,6 +1200,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Cuenca",
+          "en": "Cuenca"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -1167,7 +1237,7 @@
         }
       ],
       "regions": [
-        "azuay"
+        "sierra"
       ],
       "tags": [
         {
@@ -1276,6 +1346,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Girón",
+          "en": "Girón"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -1303,7 +1383,7 @@
         }
       ],
       "regions": [
-        "azuay"
+        "sierra"
       ],
       "tags": [
         {
@@ -1412,6 +1492,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Paute",
+          "en": "Paute"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -1439,7 +1529,7 @@
         }
       ],
       "regions": [
-        "azuay"
+        "sierra"
       ],
       "tags": [
         {
@@ -1556,6 +1646,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Sígsig",
+          "en": "Sígsig"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -1583,7 +1683,7 @@
         }
       ],
       "regions": [
-        "azuay"
+        "sierra"
       ],
       "tags": [
         {
@@ -1692,6 +1792,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Yunguilla",
+          "en": "Yunguilla"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -1719,7 +1829,7 @@
         }
       ],
       "regions": [
-        "azuay"
+        "sierra"
       ],
       "tags": [],
       "operator": "condor-expeditions",
@@ -1827,6 +1937,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Susudel",
+          "en": "Susudel"
+        },
+        "province": {
+          "es": "Azuay",
+          "en": "Azuay"
+        }
       }
     },
     {
@@ -1863,7 +1983,7 @@
         }
       ],
       "regions": [
-        "ecuador"
+        "sierra"
       ],
       "tags": [
         {
@@ -2097,6 +2217,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Latacunga",
+          "en": "Latacunga"
+        },
+        "province": {
+          "es": "Cotopaxi",
+          "en": "Cotopaxi"
+        }
       }
     },
     {
@@ -2133,7 +2263,7 @@
         }
       ],
       "regions": [
-        "ecuador"
+        "sierra"
       ],
       "tags": [
         {
@@ -2345,6 +2475,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Zumbahua",
+          "en": "Zumbahua"
+        },
+        "province": {
+          "es": "Cotopaxi",
+          "en": "Cotopaxi"
+        }
       }
     },
     {
@@ -2372,7 +2512,7 @@
         }
       ],
       "regions": [
-        "ecuador"
+        "sierra"
       ],
       "tags": [
         {
@@ -2493,6 +2633,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Riobamba",
+          "en": "Riobamba"
+        },
+        "province": {
+          "es": "Chimborazo",
+          "en": "Chimborazo"
+        }
       }
     },
     {
@@ -2520,7 +2670,7 @@
         }
       ],
       "regions": [
-        "ecuador"
+        "oriente"
       ],
       "tags": [
         {
@@ -2648,6 +2798,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Cuyabeno",
+          "en": "Cuyabeno"
+        },
+        "province": {
+          "es": "Sucumbíos",
+          "en": "Sucumbíos"
+        }
       }
     },
     {
@@ -2684,7 +2844,7 @@
         }
       ],
       "regions": [
-        "ecuador"
+        "oriente"
       ],
       "tags": [
         {
@@ -2812,6 +2972,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "El Coca",
+          "en": "El Coca"
+        },
+        "province": {
+          "es": "Orellana",
+          "en": "Orellana"
+        }
       }
     },
     {
@@ -2839,7 +3009,7 @@
         }
       ],
       "regions": [
-        "ecuador"
+        "sierra"
       ],
       "tags": [
         {
@@ -2954,6 +3124,16 @@
           "oct",
           "nov"
         ]
+      },
+      "location": {
+        "city": {
+          "es": "Otavalo",
+          "en": "Otavalo"
+        },
+        "province": {
+          "es": "Imbabura",
+          "en": "Imbabura"
+        }
       }
     }
   ]

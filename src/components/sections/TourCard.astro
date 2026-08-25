@@ -19,6 +19,9 @@ const isEnglish = lang === "en";
 const reserveLabel = isEnglish ? "Book" : "Reservar";
 const fromLabel = isEnglish ? "From" : "Desde";
 const detailHref = isEnglish ? `/en/tours/${tour.slug}` : `/tours/${tour.slug}`;
+const locationLabel = tour.location
+  ? `${resolveLabel(tour.location.city, lang)}, ${resolveLabel(tour.location.province, lang)}`
+  : "";
 ---
 
 <Card variant="elevated" padding="none" class="hover-lift img-zoom h-full flex flex-col">
@@ -43,6 +46,9 @@ const detailHref = isEnglish ? `/en/tours/${tour.slug}` : `/tours/${tour.slug}`;
       <Badge variant="secondary" size="sm">{t.category.split(",")[0]}</Badge>
       <span class="text-xs text-muted">{t.operational.duration}</span>
     </div>
+    {locationLabel && (
+      <p class="text-xs text-muted-foreground mb-1">📍 {locationLabel}</p>
+    )}
     <h3 class="text-lg font-semibold text-foreground mb-2 leading-tight">
       {t.name}
     </h3>
