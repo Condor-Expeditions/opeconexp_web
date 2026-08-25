@@ -6,16 +6,17 @@ import Layout from "../../../layouts/Layout.astro";
 
 const allTours = tours;
 
-const categories = [...new Set(allTours.map((t) => t.category))].sort();
+const categories = [...new Set(allTours.map((t) => t.categories?.[0]?.title?.en ?? "Other"))].sort();
 const regions = [
 	...new Set(
-		allTours.flatMap((t) =>
-			t.category.includes("Cuenca")
+		allTours.flatMap((t) => {
+			const catName = t.categories?.[0]?.title?.en ?? "";
+			return catName.includes("Cuenca")
 				? ["Cuenca"]
-				: t.category.includes("Azuay")
+				: catName.includes("Azuay")
 					? ["Azuay"]
-					: ["Ecuador"],
-		),
+					: ["Ecuador"];
+		}),
 	),
 ].sort();
 
@@ -23,9 +24,10 @@ const tipoRaw = Astro.url.searchParams.get("tipo") ?? "";
 const regionRaw = Astro.url.searchParams.get("region") ?? "";
 
 const filtered = allTours.filter((t) => {
-	if (tipoRaw && !t.category.toLowerCase().includes(tipoRaw.toLowerCase()))
+	const tourCat = t.categories?.[0]?.id ?? "";
+		if (tipoRaw && !tourCat.toLowerCase().includes(tipoRaw.toLowerCase()))
 		return false;
-	if (regionRaw && regionRaw !== "all" && !t.category.includes(regionRaw))
+	if (regionRaw && regionRaw !== "all" && !(t.regions ?? []).includes(regionRaw.toLowerCase()))
 		return false;
 	return true;
 });

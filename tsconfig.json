@@ -3,16 +3,15 @@
 	"include": [".astro/types.d.ts", "**/*"],
 	"compilerOptions": {
 		"strictNullChecks": true,
-		"baseUrl": ".",
 		"verbatimModuleSyntax": true,
 		"paths": {
-			"@/components/*": ["src/components/*.astro", "src/components/*.tsx"],
-			"@/layouts/*": ["src/layouts/*.astro"],
-			"@/utils": ["src/utils/index.ts"],
-			"@/data/*": ["src/data/*"],
-			"@/site-config": ["src/data/constants/site.config.ts"],
-			"@/styles": ["src/styles/"],
-			"@/assets/*": ["src/assets/*"]
+			"@/components/*": ["./src/components/*.astro", "./src/components/*.tsx"],
+			"@/layouts/*": ["./src/layouts/*.astro"],
+			"@/utils": ["./src/utils/index.ts"],
+			"@/data/*": ["./src/data/*"],
+			"@/site-config": ["./src/data/constants/site.config.ts"],
+			"@/styles": ["./src/styles/"],
+			"@/assets/*": ["./src/assets/*"]
 		},
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact"

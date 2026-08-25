@@ -39,13 +39,13 @@ if (tipo === "region" && valor) {
   activeFilterLabel = valor === "alta" ? "High Season" : "Low Season";
 } else if (tipo === "categoria" && valor) {
   filtered = activeTours.filter((t) =>
-    (t.categories || []).some((cat) => cat.toLowerCase() === valor),
+    (t.categories || []).some((cat) => cat.id.toLowerCase() === valor),
   );
 } else {
   // legacy: ?category=
   filtered = activeTours.filter((t) => {
     if (!safeTipoRaw) return true;
-    return (t.categories || []).some((cat) => cat.toLowerCase() === safeTipoRaw);
+    return (t.categories || []).some((cat) => cat.id.toLowerCase() === safeTipoRaw);
   });
 }
 

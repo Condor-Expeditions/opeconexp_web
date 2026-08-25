@@ -14,15 +14,30 @@
         "en": "Walking tour through Cuenca's historic center, a UNESCO World Heritage site, to discover its churches, museums and viewpoints."
       },
       "categories": [
-        "cultural",
-        "city-tour"
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        },
+        {
+          "id": "city-tour",
+          "slug": "city-tour",
+          "icon": "🏙️",
+          "title": {
+            "es": "City Tour",
+            "en": "City Tour"
+          }
+        }
       ],
       "regions": [
         "cuenca"
       ],
       "tags": [],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "3h",
       "difficulty": "facil",
       "prices": [
@@ -113,7 +128,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "cajas-trekking",
@@ -129,16 +175,30 @@
         "en": "Full-day adventure in one of Ecuador's most beautiful national parks, with over 200 glacial lakes, condors and páramo trails."
       },
       "categories": [
-        "trekking"
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        }
       ],
       "regions": [
         "cuenca"
       ],
       "tags": [
-        "cajas"
+        {
+          "id": "cajas",
+          "slug": "cajas",
+          "title": {
+            "es": "Parque Nacional Cajas",
+            "en": "Cajas National Park"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "4h30m",
       "difficulty": "moderado",
       "prices": [
@@ -216,7 +276,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "cajas-camping",
@@ -232,16 +323,30 @@
         "en": "A starry camping night in the Cajas páramo, with stargazing and a bonfire by Toreadora Lake."
       },
       "categories": [
-        "trekking"
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        }
       ],
       "regions": [
         "cuenca"
       ],
       "tags": [
-        "cajas"
+        {
+          "id": "cajas",
+          "slug": "cajas",
+          "title": {
+            "es": "Parque Nacional Cajas",
+            "en": "Cajas National Park"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "2d",
       "difficulty": "moderado",
       "prices": [
@@ -420,7 +525,38 @@
           },
           "type": "camping"
         }
-      ]
+      ],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "banos-aventura",
@@ -436,17 +572,39 @@
         "en": "A day of thrills and thermal waters in Baños de Agua Santa, with hanging bridge and the mighty Pailón del Diablo waterfall."
       },
       "categories": [
-        "trekking",
-        "cultural"
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        },
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "cuenca"
       ],
       "tags": [
-        "banos"
+        {
+          "id": "banos",
+          "slug": "banos",
+          "title": {
+            "es": "Baños de Agua Santa",
+            "en": "Baños de Agua Santa"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "facil",
       "prices": [
@@ -520,7 +678,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "gualaceo-chordeleg",
@@ -536,18 +725,47 @@
         "en": "Journey through the artisan towns of Gualaceo and Chordeleg, famous for their weaving, ceramics and gold-and-silver filigree."
       },
       "categories": [
-        "cultural",
-        "city-tour"
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        },
+        {
+          "id": "city-tour",
+          "slug": "city-tour",
+          "icon": "🏙️",
+          "title": {
+            "es": "City Tour",
+            "en": "City Tour"
+          }
+        }
       ],
       "regions": [
         "cuenca"
       ],
       "tags": [
-        "gualaceo",
-        "chordeleg"
+        {
+          "id": "gualaceo",
+          "slug": "gualaceo",
+          "title": {
+            "es": "Gualaceo",
+            "en": "Gualaceo"
+          }
+        },
+        {
+          "id": "chordeleg",
+          "slug": "chordeleg",
+          "title": {
+            "es": "Chordeleg",
+            "en": "Chordeleg"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "6h",
       "difficulty": "facil",
       "prices": [
@@ -613,7 +831,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "ingapirca-desde-cuenca",
@@ -629,16 +878,30 @@
         "en": "Visit to Ecuador's most important archaeological site with an archaeologist guide, the Sun Temple and a typical community lunch."
       },
       "categories": [
-        "cultural"
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "cuenca"
       ],
       "tags": [
-        "ingapirca"
+        {
+          "id": "ingapirca",
+          "slug": "ingapirca",
+          "title": {
+            "es": "Ruinas de Ingapirca",
+            "en": "Ingapirca Ruins"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "facil",
       "prices": [
@@ -712,7 +975,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "parapente-ruta-cuenca",
@@ -728,14 +1022,21 @@
         "en": "Tandem paragliding flight over the Cuenca valley with a certified instructor, full equipment and flight video."
       },
       "categories": [
-        "trekking"
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        }
       ],
       "regions": [
         "cuenca"
       ],
       "tags": [],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "4h",
       "difficulty": "principiante",
       "prices": [
@@ -808,7 +1109,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "giron-cascada",
@@ -824,16 +1156,30 @@
         "en": "Hike to the San Martín waterfall in the subtropical Girón valley, with natural pools and views of the Yunguilla valley."
       },
       "categories": [
-        "trekking"
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        }
       ],
       "regions": [
         "azuay"
       ],
       "tags": [
-        "giron"
+        {
+          "id": "giron",
+          "slug": "giron",
+          "title": {
+            "es": "Girón",
+            "en": "Girón"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "facil",
       "prices": [
@@ -899,7 +1245,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "paute",
@@ -915,16 +1292,30 @@
         "en": "Tour of the Amaluza reservoir and the viewpoints of Paute canton, topped off with local cuisine."
       },
       "categories": [
-        "cultural"
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "azuay"
       ],
       "tags": [
-        "paute"
+        {
+          "id": "paute",
+          "slug": "paute",
+          "title": {
+            "es": "Paute",
+            "en": "Paute"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "facil",
       "prices": [
@@ -990,7 +1381,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "sigsig-tejido",
@@ -1006,16 +1428,30 @@
         "en": "Visit to Sígsig's toquilla straw hat workshops, a UNESCO Intangible Cultural Heritage, with a tasting of the famous local cheese."
       },
       "categories": [
-        "cultural"
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "azuay"
       ],
       "tags": [
-        "sigsig"
+        {
+          "id": "sigsig",
+          "slug": "sigsig",
+          "title": {
+            "es": "Sígsig",
+            "en": "Sígsig"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "facil",
       "prices": [
@@ -1089,7 +1525,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "yunguilla",
@@ -1105,16 +1572,30 @@
         "en": "Tour of fruit farms and vineyards in the subtropical Yunguilla valley, with artisan wine tasting."
       },
       "categories": [
-        "cultural"
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "azuay"
       ],
       "tags": [
-        "yunguilla"
+        {
+          "id": "yunguilla",
+          "slug": "yunguilla",
+          "title": {
+            "es": "Yunguilla",
+            "en": "Yunguilla"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "facil",
       "prices": [
@@ -1180,7 +1661,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "asis-azuay",
@@ -1196,14 +1708,21 @@
         "en": "Scenic 4x4 route through the Azuay mountains, with hidden lagoons, Andean wildlife and páramo landscapes."
       },
       "categories": [
-        "trekking"
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        }
       ],
       "regions": [
         "azuay"
       ],
       "tags": [],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "moderado",
       "prices": [
@@ -1277,7 +1796,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "cotopaxi-ascenso",
@@ -1293,17 +1843,39 @@
         "en": "Night climb up the Cotopaxi glacier to reach the 5,897 m summit at sunrise, with a night at the José Ribas refuge."
       },
       "categories": [
-        "montanismo",
-        "trekking"
+        {
+          "id": "montanismo",
+          "slug": "mountaineering",
+          "icon": "🧗",
+          "title": {
+            "es": "Montañismo y Escalada",
+            "en": "Mountaineering & Climbing"
+          }
+        },
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        }
       ],
       "regions": [
         "ecuador"
       ],
       "tags": [
-        "cotopaxi"
+        {
+          "id": "cotopaxi",
+          "slug": "cotopaxi",
+          "title": {
+            "es": "Volcán Cotopaxi",
+            "en": "Cotopaxi Volcano"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "2d",
       "difficulty": "intermedio-avanzado",
       "prices": [
@@ -1494,7 +2066,38 @@
           },
           "type": "hostal"
         }
-      ]
+      ],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "quilotoa-loop",
@@ -1510,17 +2113,39 @@
         "en": "3-day trek along the Quilotoa Loop, with its emerald crater lake and lodging in Kichwa communities."
       },
       "categories": [
-        "trekking",
-        "cultural"
+        {
+          "id": "trekking",
+          "slug": "trekking",
+          "icon": "🥾",
+          "title": {
+            "es": "Trekking & Senderismo",
+            "en": "Trekking & Hiking"
+          }
+        },
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "ecuador"
       ],
       "tags": [
-        "quilotoa"
+        {
+          "id": "quilotoa",
+          "slug": "quilotoa",
+          "title": {
+            "es": "Quilotoa",
+            "en": "Quilotoa"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "3d",
       "difficulty": "moderado",
       "prices": [
@@ -1689,7 +2314,38 @@
           },
           "type": "hostal"
         }
-      ]
+      ],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "chimborazo-ascenso",
@@ -1705,16 +2361,30 @@
         "en": "Climb to the point closest to the sun, Chimborazo at 6,263 m, with progressive acclimatization, ASEGUIM guide and technical ice gear."
       },
       "categories": [
-        "montanismo"
+        {
+          "id": "montanismo",
+          "slug": "mountaineering",
+          "icon": "🧗",
+          "title": {
+            "es": "Montañismo y Escalada",
+            "en": "Mountaineering & Climbing"
+          }
+        }
       ],
       "regions": [
         "ecuador"
       ],
       "tags": [
-        "chimborazo"
+        {
+          "id": "chimborazo",
+          "slug": "chimborazo",
+          "title": {
+            "es": "Chimborazo",
+            "en": "Chimborazo"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "3d",
       "difficulty": "muy-avanzado",
       "prices": [
@@ -1792,7 +2462,38 @@
           },
           "type": "hostal"
         }
-      ]
+      ],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "cuyabeno-4-dias",
@@ -1808,16 +2509,30 @@
         "en": "4-day expedition through the Cuyabeno reserve: 14 interconnected lagoons, pink dolphins, night walks and a Kichwa guide."
       },
       "categories": [
-        "selva"
+        {
+          "id": "selva",
+          "slug": "jungle",
+          "icon": "🐒",
+          "title": {
+            "es": "Expediciones de Selva",
+            "en": "Jungle Expeditions"
+          }
+        }
       ],
       "regions": [
         "ecuador"
       ],
       "tags": [
-        "cuyabeno"
+        {
+          "id": "cuyabeno",
+          "slug": "cuyabeno",
+          "title": {
+            "es": "Reserva Cuyabeno",
+            "en": "Cuyabeno Reserve"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "4d",
       "difficulty": "suave-moderado",
       "prices": [
@@ -1902,7 +2617,38 @@
           },
           "type": "hostal"
         }
-      ]
+      ],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "yasuni-wao",
@@ -1918,17 +2664,39 @@
         "en": "5-day immersion in the planet's greatest biodiversity with the Waorani community: navigation, cultural exchange and bonfire."
       },
       "categories": [
-        "selva",
-        "cultural"
+        {
+          "id": "selva",
+          "slug": "jungle",
+          "icon": "🐒",
+          "title": {
+            "es": "Expediciones de Selva",
+            "en": "Jungle Expeditions"
+          }
+        },
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "ecuador"
       ],
       "tags": [
-        "yasuni"
+        {
+          "id": "yasuni",
+          "slug": "yasuni",
+          "title": {
+            "es": "Parque Nacional Yasuní",
+            "en": "Yasuní National Park"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "5d",
       "difficulty": "moderado",
       "prices": [
@@ -2013,7 +2781,38 @@
           },
           "type": "hostal"
         }
-      ]
+      ],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     },
     {
       "id": "ruta-otavalo",
@@ -2029,16 +2828,30 @@
         "en": "Visit to South America's largest indigenous market, Kichwa weaving workshops and the Peguche waterfall."
       },
       "categories": [
-        "cultural"
+        {
+          "id": "cultural",
+          "slug": "cultural",
+          "icon": "🏛️",
+          "title": {
+            "es": "Cultural y Comunitario",
+            "en": "Cultural & Community"
+          }
+        }
       ],
       "regions": [
         "ecuador"
       ],
       "tags": [
-        "otavalo"
+        {
+          "id": "otavalo",
+          "slug": "otavalo",
+          "title": {
+            "es": "Otavalo",
+            "en": "Otavalo"
+          }
+        }
       ],
       "operator": "condor-expeditions",
-      "meetingPoint": "parque-calderon",
       "duration": "1d",
       "difficulty": "facil",
       "prices": [
@@ -2110,7 +2923,38 @@
       },
       "itinerary": [],
       "reviews": [],
-      "accommodations": []
+      "accommodations": [],
+      "meetingPoints": [
+        {
+          "id": "parque-calderon",
+          "title": {
+            "es": "Parque Calderón",
+            "en": "Calderón Park"
+          },
+          "location": {
+            "lat": -2.8974,
+            "lng": -79.0045
+          }
+        }
+      ],
+      "seasons": {
+        "high": [
+          "jun",
+          "jul",
+          "aug",
+          "sep",
+          "dec",
+          "jan",
+          "feb"
+        ],
+        "low": [
+          "mar",
+          "apr",
+          "may",
+          "oct",
+          "nov"
+        ]
+      }
     }
   ]
 }

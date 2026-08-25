@@ -34,7 +34,7 @@ export function getExploraMenu(lang: "es" | "en" = "es") {
 		labelEn: c.title.en || c.title.es || c.id,
 		image: firstTourImage((t) =>
 			(t.categories ?? []).some(
-				(x) => x.toLowerCase() === catSlug(c).toLowerCase(),
+				(x) => (typeof x === "string" ? x : x.id).toLowerCase() === catSlug(c).toLowerCase(),
 			),
 		),
 		href: `/explora?tipo=categoria&valor=${catSlug(c)}`,

@@ -67,11 +67,14 @@ export function getFeaturedTours(count = 6): Tour[] {
 // Re-export alias de compatibilidad
 export const getTourBySlug = getTour;
 
-// Legacy compat functions
+// Legacy compat functions — aceptan slug string o Category embebida (Adapter)
 export function getCategoryTitle(
-  categorySlug: string,
+  categorySlug: string | Category,
   lang: "es" | "en",
 ): string {
+  if (typeof categorySlug !== "string") {
+    return categorySlug.title?.[lang] ?? categorySlug.title?.es ?? categorySlug.id;
+  }
   const cat = getCategory(categorySlug);
   return cat ? cat.title[lang] ?? cat.title.es ?? categorySlug : categorySlug;
 }
