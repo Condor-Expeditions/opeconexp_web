@@ -1,4 +1,4 @@
-import { getCompany } from "./helpers";
+import { getCompany } from "../core/helpers";
 
 interface ContactInfo {
 	name: string;

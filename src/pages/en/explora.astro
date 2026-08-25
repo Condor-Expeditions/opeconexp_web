@@ -1,8 +1,8 @@
 ---
 import TourCard from "../../components/sections/TourCard.astro";
 import Container from "../../components/shared/Container.astro";
-import { getCategories, getRegions, getTours, type Category } from "../../data/helpers";
-import type { Tour } from "../../data/helpers";
+import { getCategories, getRegions, getTours, type Category } from "../../data/core/helpers";
+import type { Tour } from "../../data/core/helpers";
 import Layout from "../../layouts/Layout.astro";
 
 const activeTours: Tour[] = getTours().filter((t) => (t as any).status === "active");

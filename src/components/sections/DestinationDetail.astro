@@ -2,14 +2,14 @@
 import Container from "@/components/shared/Container.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
-import { resolveImageSrc } from "@/data/helpers";
-import { type Destination } from "../../data/destinations";
+import { resolveImageSrc } from "@/data/core/helpers";
+import { type Destination } from "../../data/destinations/destinations";
 import {
 	getCategoryTitle,
 	getDifficultyLevel,
 	getTours,
 	resolveLabel,
-} from "../../data/helpers";
+} from "../../data/core/helpers";
 
 export interface Props {
 	destination: Destination;

@@ -1,7 +1,7 @@
 ---
 import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container.astro";
-import { ROUTES, ROUTES_LABELS_EN } from "@/data/routes";
+import { ROUTES, ROUTES_LABELS_EN } from "@/data/nav/routes";
 import Button from "../Button.astro";
 
 export interface Props {
@@ -71,7 +71,7 @@ const homeHref = isEnglish ? "/en/" : "/";
 const contactHref = isEnglish ? "/en/contacto" : "/contacto";
 
 // Mega menú Explora: tabs Categoría/Región/Temporada
-import { getExploraMenu, type MenuCard } from "@/data/menuExplora";
+import { getExploraMenu, type MenuCard } from "@/data/nav/menuExplora";
 const exploraMenu = getExploraMenu(lang);
 const TABS = [
 	{ id: "categoria", es: "Categoría", en: "Category" },

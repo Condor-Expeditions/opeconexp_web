@@ -3,18 +3,18 @@
 // Las páginas y componentes NUNCA importan JSON directamente.
 // En el futuro, reemplazar estos imports por fetch() a una API real.
 
-import toursList from "./api/tours/items.json";
-import categoriesList from "./api/tours/categories.json";
-import regionsList from "./api/tours/regions.json";
-import tagsList from "./api/tours/tags.json";
-import operatorsList from "./api/tours/operators.json";
-import meetingPointsList from "./api/tours/meeting-points.json";
-import difficultiesList from "./api/tours/difficulties.json";
-import companyData from "./api/company/company.json";
-import teamData from "./api/team/team.json";
-import sustainabilityData from "./api/sustainability/items.json";
-import testimonialsData from "./api/settings/testimonials.json";
-import statsData from "./api/settings/stats.json";
+import toursList from "../api/tours/items.json";
+import categoriesList from "../api/tours/categories.json";
+import regionsList from "../api/tours/regions.json";
+import tagsList from "../api/tours/tags.json";
+import operatorsList from "../api/tours/operators.json";
+import meetingPointsList from "../api/tours/meeting-points.json";
+import difficultiesList from "../api/tours/difficulties.json";
+import companyData from "../api/company/company.json";
+import teamData from "../api/team/team.json";
+import sustainabilityData from "../api/sustainability/items.json";
+import testimonialsData from "../api/settings/testimonials.json";
+import statsData from "../api/settings/stats.json";
 
 // ─── Tipos ──────────────────────────────────────────
 
@@ -338,7 +338,7 @@ export interface Differentiator {
 // Cart Helpers — carrito JSON local (persistente durante sesión)
 // ============================================================
 
-import cartData from "./api/cart/cart.json";
+import cartData from "../api/cart/cart.json";
 
 export interface CartItem {
   tourId: string;
@@ -378,7 +378,7 @@ export function getCartTotal(): number {
 // Review Helpers — sistema de rating y reseñas
 // ============================================================
 
-import reviewsData from "./api/reviews/reviews.json";
+import reviewsData from "../api/reviews/reviews.json";
 
 export interface Review {
   id: string;
@@ -422,7 +422,7 @@ export function renderStars(rating: number): string {
 // Image Helpers — wrappers para astro:assets
 // ============================================================
 
-import councilMeetingPoints from "./api/tours/meeting-points.json";
+import councilMeetingPoints from "../api/tours/meeting-points.json";
 
 export type { ItineraryDay, Accommodation };
 

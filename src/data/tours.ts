@@ -6,7 +6,7 @@ import {
 	getTours,
 	getToursByCategory,
 	type Tour,
-} from "./helpers";
+} from "./core/helpers";
 
 export type { Tour };
 export { getFeaturedTours, getTourBySlug, getTours, getToursByCategory };

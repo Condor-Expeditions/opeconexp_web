@@ -3,8 +3,8 @@ import Container from "@/components/shared/Container.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
 import SmartImage from "@/components/ui/SmartImage.astro";
-import { getTourData, getValidImageUrl, getAllReviews, resolveLabel } from "@/data/helpers";
-import type { Review, Tour } from "@/data/helpers";
+import { getTourData, getValidImageUrl, getAllReviews, resolveLabel } from "@/data/core/helpers";
+import type { Review, Tour } from "@/data/core/helpers";
 
 export interface Props {
 	tour: Tour;

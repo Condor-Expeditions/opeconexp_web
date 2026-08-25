@@ -1,11 +1,11 @@
-import type { Region } from "@/data/helpers";
+import type { Region } from "@/data/core/helpers";
 import {
 	getCategories,
 	getRegions,
 	getTours,
 	type Category,
 	type Tour,
-} from "@/data/helpers";
+} from "@/data/core/helpers";
 
 export interface MenuCard {
 	id: string;
