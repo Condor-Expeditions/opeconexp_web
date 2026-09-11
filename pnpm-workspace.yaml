@@ -1,0 +1,8 @@
+allowBuilds:
+  esbuild: true
+
+# CVE-2026-69153 / GHSA-fxqj-rqcc-2cmp: postcss <=8.5.22 path traversal when
+# `from` is unset. Vite's transitive edge (^8.5.17) is vulnerable; converge it
+# onto the patched release (fixed in 8.5.23).
+overrides:
+  "postcss@": 8.5.28
