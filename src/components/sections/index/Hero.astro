@@ -1,41 +1,123 @@
 ---
+const data = [
+  {
+    backgroundUrl: "https://picsum.photos/1920/1080?random=1",
+    altImage: "Paisaje andino ecuatoriano",
+    title: "Expediciones",
+    subtitle: "Inolvidables",
+    accentClass: "text-primary",
+    paragraph: "Ecuador: Vive lo que otros solo visitan.",
+  },
+  {
+    backgroundUrl: "https://picsum.photos/1920/1080?random=2",
+    altImage: "Selva amazónica",
+    title: "Aventura en la",
+    subtitle: "Amazonía",
+    accentClass: "text-secondary",
+    paragraph: "Descubre la biodiversidad más impresionante del planeta.",
+  },
+  {
+    backgroundUrl: "https://picsum.photos/1920/1080?random=3",
+    altImage: "Costa ecuatoriana",
+    title: "Playas",
+    subtitle: "Paradisíacas",
+    accentClass: "text-primary",
+    paragraph: "Sol, arena y mar en cada rincón de la costa.",
+  },
+];
 ---
 
 <section class="relative min-h-screen w-full overflow-hidden">
-  <video
-    id="hero-video"
-    autoplay
-    loop
-    muted
-    playsinline
-    class="absolute inset-0 w-full h-full object-cover"
-  ></video>
-
-  <div class="absolute inset-0 bg-black/10"></div>
-
-  <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12 text-center text-white">
-    <div class="max-w-4xl mx-auto">
-
-      <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
-        <span class="block">Expediciones</span>
-        <span class="block text-primary-red">Inolvidables</span>
-      </h1>
-
-      <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">
-        Ecuador: Vive lo que otros solo visitan.
-      </p>
+  <!-- Carousel Container -->
+  <div id="hero-carousel" class="embla absolute inset-0 w-full h-full">
+    <div
+      class="embla__viewport w-full h-full overflow-hidden select-none touch-pan-y"
+    >
+      <div class="embla__container flex h-full">
+        {
+          data.map((slide, index) => (
+            <div class="embla__slide flex-[0_0_100%] min-w-0 relative h-full">
+              <img
+                src={slide.backgroundUrl}
+                alt={slide.altImage}
+                class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                loading={index === 0 ? "eager" : "lazy"}
+                draggable="false"
+              />
+              <div class="absolute inset-0 bg-black/40" />
+              <div class="relative z-10 h-full flex flex-col items-center justify-center px-4 py-12 text-center text-white">
+                <div class="max-w-4xl mx-auto">
+                  <h2 class="text-4xl md:text-6xl font-extrabold mb-6">
+                    <span class="block">{slide.title}</span>
+                    <span class={`block ${slide.accentClass}`}>
+                      {slide.subtitle}
+                    </span>
+                  </h2>
+                  <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">
+                    {slide.paragraph}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
+
+    <!-- Navigation Arrows -->
+    <!-- <button
+      type="button"
+      class="embla__prev absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+      aria-label="Slide anterior"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="embla__next absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+      aria-label="Slide siguiente"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m9 18 6-6-6-6"/>
+      </svg>
+    </button> -->
+
+    <!-- Dots Indicators -->
+    <!-- <div
+      class="embla__dots absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3"
+      role="tablist"
+      aria-label="Navegación de slides"
+    >
+      <button
+        type="button"
+        class="embla__dot w-3 h-3 rounded-full bg-white/50 transition-all hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+        aria-label="Ir al slide 1"
+        aria-selected="true"
+        role="tab"
+      ></button>
+      <button
+        type="button"
+        class="embla__dot w-3 h-3 rounded-full bg-white/50 transition-all hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+        aria-label="Ir al slide 2"
+        aria-selected="false"
+        role="tab"
+      ></button>
+      <button
+        type="button"
+        class="embla__dot w-3 h-3 rounded-full bg-white/50 transition-all hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+        aria-label="Ir al slide 3"
+        aria-selected="false"
+        role="tab"
+      ></button>
+    </div> -->
   </div>
 </section>
 
 <script>
-  const video = document.getElementById("hero-video") as HTMLVideoElement;
+  import CarouselManager from "./CarouselManager";
 
-  function setVideoSrc() {
-    const isMobile = window.innerWidth < 768;
-    video.src = isMobile ? "/videos/portrait_hero.mp4" : "/videos/landscape_hero.mp4";
-  }
-
-  setVideoSrc();
-  window.addEventListener("resize", setVideoSrc);
+  const mainCarousel = new CarouselManager();
+  mainCarousel.initHeroCarousel();
 </script>
