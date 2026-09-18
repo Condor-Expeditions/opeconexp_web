@@ -14,11 +14,9 @@
 		"lint:fix": "biome check --write ."
 	},
 	"dependencies": {
-		"astro": "^7.3.2",
-		"tailwind-animations": "^1.0.1"
+		"astro": "^7.3.2"
 	},
 	"devDependencies": {
-		"@astrojs/react": "^6.0.5",
 		"@biomejs/biome": "^2.5.4",
 		"@tailwindcss/postcss": "^4.3.3",
 		"@tailwindcss/vite": "^4.3.3",

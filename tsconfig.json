@@ -6,16 +6,14 @@
 		"baseUrl": ".",
 		"verbatimModuleSyntax": true,
 		"paths": {
-			"@/components/*": ["src/components/*.astro", "src/components/*.tsx"],
+			"@/components/*": ["src/components/*.astro"],
 			"@/layouts/*": ["src/layouts/*.astro"],
 			"@/utils": ["src/utils/index.ts"],
 			"@/data/*": ["src/data/*"],
 			"@/site-config": ["src/data/constants/site.config.ts"],
 			"@/styles": ["src/styles/"],
 			"@/assets/*": ["src/assets/*"]
-		},
-		"jsx": "react-jsx",
-		"jsxImportSource": "preact"
+		}
 	},
 	"exclude": ["node_modules", "**/node_modules/*", ".vscode", "dist"]
 }

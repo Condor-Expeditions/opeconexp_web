@@ -1,26 +1,25 @@
 ---
 import BaseHead from "@/components/shared/BaseHead";
-import Header from "@/components/ui/header/Header";
 import Footer from "@/components/ui/footer/Footer";
 import WhatsAppFloat from "@/components/ui/WhatsAppFloat";
 import "../styles/global.css";
 
 export interface Props {
-	title: string;
-	description?: string;
-	ogImage?: string;
-	articleDate?: string;
-	viewTransition?: boolean;
-	lang?: "es" | "en";
+  title: string;
+  description?: string;
+  ogImage?: string;
+  articleDate?: string;
+  viewTransition?: boolean;
+  lang?: "es" | "en";
 }
 
 const {
-	title,
-	description,
-	ogImage: image,
-	articleDate,
-	viewTransition = true,
-	lang = "es",
+  title,
+  description,
+  ogImage: image,
+  articleDate,
+  viewTransition = true,
+  lang = "es",
 } = Astro.props;
 ---
 
@@ -34,7 +33,6 @@ const {
   />
 
   <body class="font-sans bg-background text-foreground">
-    <Header lang={lang} />
     <slot />
     <Footer lang={lang} />
     <WhatsAppFloat />

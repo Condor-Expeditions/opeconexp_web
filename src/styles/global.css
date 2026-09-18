@@ -1,6 +1,5 @@
 /* biome-ignore-all lint: Tailwind CSS v4 theme file */
 @import "tailwindcss";
-@import "tailwind-animations";
 
 @theme {
 	/* Screens */

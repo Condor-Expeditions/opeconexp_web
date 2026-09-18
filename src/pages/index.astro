@@ -1,12 +1,6 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import HeroSection from "../components/sections/HeroSection.astro";
-import TrustPillars from "../components/sections/TrustPillars.astro";
-import ToursGrid from "../components/sections/ToursGrid.astro";
-import DestinationsGrid from "../components/sections/DestinationsGrid.astro";
-import TestimonialsSection from "../components/sections/TestimonialsSection.astro";
-import StoriesSection from "../components/sections/StoriesSection.astro";
-import CTASection from "../components/sections/CTASection.astro";
+import HeroSection from "@/components/sections/index/Hero";
+import Layout from "@/layouts/Layout";
 ---
 
 <Layout
@@ -15,10 +9,4 @@ import CTASection from "../components/sections/CTASection.astro";
 	lang="es"
 >
 	<HeroSection lang="es" />
-	<TrustPillars lang="es" />
-	<ToursGrid featured={true} lang="es" />
-	<DestinationsGrid lang="es" />
-	<TestimonialsSection lang="es" />
-	<StoriesSection lang="es" />
-	<CTASection lang="es" />
 </Layout>
