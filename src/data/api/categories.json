@@ -1,0 +1,8 @@
+[
+  {"id":"trekking","slug":"trekking","icon":"🥾","title":{"es":"Trekking & Senderismo","en":"Trekking & Hiking"}},
+  {"id":"rafting","slug":"rafting","icon":"🛶","title":{"es":"Rafting y Kayak","en":"Rafting & Kayaking"}},
+  {"id":"montanismo","slug":"mountaineering","icon":"🧗","title":{"es":"Montañismo y Escalada","en":"Mountaineering & Climbing"}},
+  {"id":"selva","slug":"jungle","icon":"🐒","title":{"es":"Expediciones de Selva","en":"Jungle Expeditions"}},
+  {"id":"cultural","slug":"cultural","icon":"🏛️","title":{"es":"Cultural y Comunitario","en":"Cultural & Community"}},
+  {"id":"city-tour","slug":"city-tour","icon":"🏙️","title":{"es":"City Tour","en":"City Tour"}}
+]

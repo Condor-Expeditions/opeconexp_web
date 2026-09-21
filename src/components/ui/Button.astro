@@ -1,6 +1,23 @@
 ---
-/* Minimal, JS-free render with safe TS in Astro frontmatter */
+interface Props {
+	id?: string;
+	variant?:
+		| "primary"
+		| "secondary"
+		| "outline"
+		| "ghost"
+		| "destructive"
+		| "success"
+		| "link";
+	size?: "xs" | "sm" | "md" | "lg" | "xl" | "icon";
+	disabled?: boolean;
+	href?: string;
+	fullWidth?: boolean;
+	class?: string;
+}
+
 const {
+	id,
 	variant = "primary",
 	size = "md",
 	disabled = false,
@@ -49,12 +66,14 @@ const classes = [
 const Tag = href ? "a" : "button";
 ---
 
-{ href ? (
-  <a href={href} class={classes} {...rest}>
-    <slot />
-  </a>
-) : (
-  <button class={classes} disabled={disabled} {...rest}>
-    <slot />
-  </button>
-)}
+{
+	href ? (
+		<a id={id} href={href} class={classes} {...rest}>
+			<slot />
+		</a>
+	) : (
+		<button id={id} class={classes} disabled={disabled} {...rest}>
+			<slot />
+		</button>
+	)
+}

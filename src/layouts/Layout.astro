@@ -1,10 +1,9 @@
 ---
-import BaseHead from "../components/shared/BaseHead.astro";
-import Footer from "../components/ui/Footer.astro";
-import Header from "../components/ui/header/Header.astro";
+import BaseHead from "@/components/shared/BaseHead.astro";
+import Footer from "@/components/ui/footer/Footer.astro";
+import Header from "@/components/ui/header/Header.astro";
+import WhatsAppFloat from "@/components/ui/WhatsAppFloat.astro";
 import "../styles/global.css";
-import SizeIndicator from "../components/utilities/SizeIndicator.astro";
-import WhatsAppFloat from "../components/WhatsAppFloat.astro";
 
 export interface Props {
 	title: string;
@@ -35,13 +34,10 @@ const {
     lang={lang}
   />
 
-  <body>
+  <body class="font-sans bg-background text-foreground">
     <Header lang={lang} />
-    <main>
-      <slot />
-    </main>
+    <slot />
     <Footer lang={lang} />
-    {import.meta.env.DEV && <SizeIndicator />}
     <WhatsAppFloat />
-    </body>
+  </body>
 </html>

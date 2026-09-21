@@ -1,27 +1,28 @@
 ---
+import CTASection from "../../components/sections/CTASection.astro";
+import DestinationsGrid from "../../components/sections/DestinationsGrid.astro";
+import HeroSection from "../../components/sections/HeroSection.astro";
+import StatsBar from "../../components/sections/StatsBar.astro";
+import StoriesSection from "../../components/sections/StoriesSection.astro";
+import SustainabilityBar from "../../components/sections/SustainabilityBar.astro";
+import TestimonialsSection from "../../components/sections/TestimonialsSection.astro";
+import ToursGrid from "../../components/sections/ToursGrid.astro";
+import TrustPillars from "../../components/sections/TrustPillars.astro";
 import Layout from "../../layouts/Layout.astro";
 ---
 
 <Layout
-  lang="en"
-  title="Home"
-  description="Condor Expeditions: adventure tourism in Ecuador. Trekking, rafting, mountaineering and personalized expeditions in the Andes, Amazon and Galapagos."
+	title="Home"
+	description="Condor Expeditions is a tour operator in Cuenca, Ecuador. We offer authentic expeditions to El Cajas National Park, Ingapirca, Girón, Déleg and Guachapala."
+	lang="en"
 >
-  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <span class="inline-block text-accent font-display text-sm uppercase tracking-[0.3em] mb-4 border border-accent/40 rounded-full px-4 py-1.5">
-        Where the Andes meet the jungle
-      </span>
-      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">
-        Unforgettable<br/>Expeditions
-      </h1>
-      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
-        Discover extreme adventure in the most remote corners of the planet. Authentic and sustainable expedition tourism in Ecuador.
-      </p>
-      <div class="flex gap-4 justify-center mt-8">
-        <a href="/en/experiencias" class="px-8 py-4 bg-accent text-white font-semibold rounded-full">See Experiences</a>
-        <a href="/en/contacto" class="px-8 py-4 border-2 border-primary text-primary font-semibold rounded-full">Contact Us</a>
-      </div>
-    </div>
-  </section>
+	<HeroSection lang="en" />
+	<TrustPillars lang="en" />
+	<ToursGrid featured={true} lang="en" />
+	<DestinationsGrid lang="en" />
+	<StatsBar lang="en" />
+	<SustainabilityBar lang="en" />
+	<TestimonialsSection lang="en" />
+	<StoriesSection lang="en" />
+	<CTASection lang="en" />
 </Layout>

@@ -1,54 +1,74 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getCompany } from "../data/helpers";
+import Layout from "@/layouts/Layout.astro";
 
-const faqs = [
-  { q: "¿Qué incluye el precio del tour?", a: "Cada tour especifica qué incluye en su ficha. Generalmente incluye guía, transporte, alimentación y equipo básico. Los vuelos no están incluidos salvo que se indique lo contrario." },
-  { q: "¿Necesito experiencia previa para los tours de trekking o montañismo?", a: "No. Tenemos tours para todos los niveles, desde principiantes hasta avanzados. En la ficha de cada tour encontrarás la dificultad indicada." },
-  { q: "¿Puedo cancelar o reprogramar mi reserva?", a: "Sí. Puedes cancelar hasta 48 horas antes sin costo. Reprogramaciones gratuitas hasta 24 horas antes." },
-  { q: "¿Ofrecen seguros de viaje?", a: "Todos nuestros tours incluyen seguro de accidentes personales. Para seguros de cancelación o cobertura extendida, podemos asesorarte." },
-  { q: "¿Los guías hablan inglés?", a: "Sí, todos nuestros guías son bilingües (español-inglés). También podemos coordinar guías en francés, alemán o portugués bajo petición." },
-  { q: "¿Cuántas personas van por grupo?", a: "Grupos reducidos de máximo 12 personas. Para tours personalizados el mínimo es 2 viajeros." },
-  { q: "¿Qué equipo necesito llevar?", a: "Te enviaremos una lista de equipo recomendado al confirmar tu reserva. El equipo técnico (arneses, cascos, bastones) lo proveemos nosotros." },
-  { q: "¿Cómo hago la reserva?", a: "Puedes reservar directamente desde la ficha del tour (WhatsApp), llenando el formulario de contacto, o escribiéndonos a nuestro WhatsApp." },
+const lang = "es";
+
+const sections = [
+	{
+		title: "Reservas y Pagos",
+		qas: [
+			{
+				q: "¿Cómo reservo un tour?",
+				a: "Puedes reservar directamente desde la página de cada tour con el botón «Reservar», o escribirnos por WhatsApp. Confirmamos disponibilidad en menos de 24 horas.",
+			},
+			{
+				q: "¿Qué métodos de pago aceptan?",
+				a: "Transferencia bancaria, tarjetas de crédito/débito y PayPal. Para tours de varios días solicitamos un depósito del 30% para garantir cupo.",
+			},
+			{
+				q: "¿Puedo cancelar mi reserva?",
+				a: "Sí. Cancelaciones con más de 72 horas de anticipación reciben reembolso completo del depósito. Dentro de las 72 horas, el depósito no es reembolsable.",
+			},
+		],
+	},
+	{
+		title: "Preparación para el Tour",
+		qas: [
+			{
+				q: "¿Qué debo llevar?",
+				a: "Calzado cómodo de trekking, ropa en capas (el clima en el Austro cambia rápido), impermeable ligero, protector solar y agua. Para camping enviamos lista detallada al confirmar.",
+			},
+			{
+				q: "¿Los tours son aptos para niños?",
+				a: "La mayoría de nuestros tours de día son familiares. Trekking de montaña y camping tienen edad mínima según la dificultad — revisa la ficha de cada tour.",
+			},
+		],
+	},
 ];
 ---
 
-<Layout title="Preguntas Frecuentes" description="Respuestas a las preguntas más comunes sobre tours, reservas, equipo y políticas de Cóndor Expeditions.">
-  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">Preguntas Frecuentes</h1>
-      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
-        Todo lo que necesitas saber antes de tu próxima expedición.
-      </p>
-    </div>
-  </section>
+<Layout
+	title="Preguntas Frecuentes - Cóndor Expeditions"
+	description="Respuestas a las preguntas más frecuentes sobre reservas, pagos, preparación y políticas de nuestros tours."
+	lang={lang}
+>
+	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+			<h1 class="font-display text-4xl md:text-5xl mb-4">Preguntas Frecuentes</h1>
+			<p class="text-lg text-white/70">
+				Todo lo que necesitas saber antes de tu próxima expedición.
+			</p>
+		</div>
+	</section>
 
-  <section class="py-14">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <div class="space-y-3">
-        {faqs.map((faq, i) => (
-          <details class="group bg-white rounded-xl border border-border/60 overflow-hidden">
-            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-display font-bold text-foreground hover:text-primary transition-colors">
-              <span>{faq.q}</span>
-              <svg class="w-5 h-5 text-muted-foreground group-open:rotate-180 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </summary>
-            <div class="px-6 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-3">
-              {faq.a}
-            </div>
-          </details>
-        ))}
-      </div>
-
-      <div class="mt-12 bg-background rounded-xl p-6 text-center">
-        <p class="font-display font-bold text-foreground mb-2">¿No encuentras tu pregunta?</p>
-        <p class="text-sm text-muted-foreground mb-4">Escríbenos y te responderemos en menos de 24 horas.</p>
-        <a href={getCompany().contact.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-full transition-colors">
-          💬 Preguntar por WhatsApp
-        </a>
-      </div>
-    </div>
-  </section>
+	<section class="section-padding bg-background">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-10">
+			{sections.map((sec) => (
+				<div>
+					<h2 class="font-display text-2xl text-foreground mb-4">{sec.title}</h2>
+					<div class="space-y-3">
+						{sec.qas.map((qa) => (
+							<details class="group rounded-xl border border-border bg-card p-4">
+								<summary class="cursor-pointer font-semibold text-foreground list-none flex items-center justify-between">
+									{qa.q}
+									<span class="text-primary transition-transform group-open:rotate-45">+</span>
+								</summary>
+								<p class="mt-3 text-muted-foreground leading-relaxed">{qa.a}</p>
+							</details>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
 </Layout>

@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "@/data/site.config";
+import { siteConfig } from "@/data/config/site.config";
 import "../../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { join } from "node:path";
@@ -40,12 +40,12 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-  <!-- <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-  <link rel="shortcut icon" href="/favicon/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="SIMTEC" />
-  <link rel="manifest" href="/favicon/site.webmanifest" /> -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.ico" />
+  <meta name="theme-color" content="#14110f" />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
 
   <!-- Sitemap -->
   <link rel="sitemap" href="/sitemap-index.xml" />
@@ -63,11 +63,11 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
   <meta name="title" content={siteTitle} />
   <meta name="description" content={description} />
   <meta name="author" content={siteConfig.companyName} />
-    <!-- Keywords -->
-    <meta
-      name="keywords"
-      content="expediciones Ecuador, turismo aventura Ecuador, trekking Andes, rafting Ecuador, montañismo Ecuador, turismo Galápagos, Amazonía Ecuador, operadora turística Cuenca, tours aventura, Cóndor Expeditions, expediciones personalizadas, ecoturismo Ecuador, viajes de aventura, turismo sostenible"
-    />
+  <!-- Keywords -->
+  <meta
+    name="keywords"
+    content="operadora turística Cuenca, tours Azuay, Parque Nacional El Cajas, Ingapirca, Girón, Déleg, Guachapala, tours Cuenca, Condor Expeditions, turismo de aventura Ecuador, expediciones Cuenca, turismo responsable Ecuador"
+  />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content={articleDate ? "article" : "website"} />
   <meta property="og:url" content={Astro.url} />
@@ -90,25 +90,10 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={socialImageURL} />
 
-  <!-- <script
-    type="text/partytown"
-    async
-    src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-  ></script> -->
-  <!-- <script is:inline type="text/partytown">
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag() {
-      dataLayer.push(arguments);
-    };
-    window.gtag("js", new Date());
-
-    window.gtag("config", "G-RWBNLLD0HN");
-  </script> -->
-
   <AstroFont
     config={[
       {
-        name: "Cinzel",
+        name: "Red Hat Text",
         src: [
           {
             style: "normal",
@@ -116,17 +101,17 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
               process.cwd(),
               "public",
               "fonts",
-              "Cinzel-VariableFont.ttf"
+              "RedHatText-VariableFont.woff2"
             ),
           },
         ],
-        preload: false,
+        preload: true,
         display: "swap",
         selector: "body",
         fallback: "sans-serif",
       },
       {
-        name: "DMSans",
+        name: "Give You Glory",
         src: [
           {
             style: "normal",
@@ -134,14 +119,14 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
               process.cwd(),
               "public",
               "fonts",
-              "DMSans-VariableFont.ttf"
+              "GiveYouGlory-Regular.woff2"
             ),
           },
         ],
         preload: false,
         display: "swap",
-        selector: "body",
-        fallback: "sans-serif",
+        selector: "h1, h2, h3, h4, h5, h6",
+        fallback: "serif",
       },
     ]}
   />

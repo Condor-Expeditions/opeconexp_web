@@ -1,5 +1,13 @@
 ---
-import Hero from "../components/Hero.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import DestinationsGrid from "../components/sections/DestinationsGrid.astro";
+import HeroSection from "../components/sections/HeroSection.astro";
+import StatsBar from "../components/sections/StatsBar.astro";
+import StoriesSection from "../components/sections/StoriesSection.astro";
+import SustainabilityBar from "../components/sections/SustainabilityBar.astro";
+import TestimonialsSection from "../components/sections/TestimonialsSection.astro";
+import ToursGrid from "../components/sections/ToursGrid.astro";
+import TrustPillars from "../components/sections/TrustPillars.astro";
 import Layout from "../layouts/Layout.astro";
 import DestinationsSection from "../components/sections/DestinationsSection.astro";
 import ExperiencesSection from "../components/sections/ExperiencesSection.astro";
@@ -11,15 +19,17 @@ import CTASection from "../components/sections/CTASection.astro";
 ---
 
 <Layout
-  title="Inicio"
-  description="Cóndor Expeditions: turismo de aventura en Ecuador. Trekking, rafting, montañismo y expediciones personalizadas en los Andes, Amazonía y Galápagos."
+	title="Inicio"
+	description="Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala."
+	lang="es"
 >
-  <Hero />
-  <DestinationsSection />
-  <StatsBar />
-  <ExperiencesSection />
-  <WhyUsSection />
-  <TestimonialsSection />
-  <SustainabilityBar />
-  <CTASection />
+	<HeroSection lang="es" />
+	<TrustPillars lang="es" />
+	<ToursGrid featured={true} lang="es" />
+	<DestinationsGrid lang="es" />
+	<StatsBar lang="es" />
+	<SustainabilityBar lang="es" />
+	<TestimonialsSection lang="es" />
+	<StoriesSection lang="es" />
+	<CTASection lang="es" />
 </Layout>

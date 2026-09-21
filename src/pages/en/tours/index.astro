@@ -1,101 +1,190 @@
 ---
+import TourCard from "../../../components/sections/TourCard.astro";
+import Container from "../../../components/shared/Container.astro";
+import { tours } from "../../../data/tours";
 import Layout from "../../../layouts/Layout.astro";
-import { getTours, getCategories, getRegions, resolveLabel, formatPrice } from "../../../data/helpers";
 
-const lang = "en";
-const allTours = getTours({ status: "active" });
-const categories = getCategories();
-const regions = getRegions();
+const allTours = tours;
+
+const categories = [...new Set(allTours.map((t) => t.categories?.[0]?.title?.en ?? "Other"))].sort();
+const regions = [
+	...new Set(
+		allTours.flatMap((t) => {
+			const catName = t.categories?.[0]?.title?.en ?? "";
+			return catName.includes("Cuenca")
+				? ["Cuenca"]
+				: catName.includes("Azuay")
+					? ["Azuay"]
+					: ["Ecuador"];
+		}),
+	),
+].sort();
 
 const tipoRaw = Astro.url.searchParams.get("tipo") ?? "";
 const regionRaw = Astro.url.searchParams.get("region") ?? "";
 
 const filtered = allTours.filter((t) => {
-  if (tipoRaw && !t.categories.includes(tipoRaw)) return false;
-  if (regionRaw && regionRaw !== "todas" && !t.regions.includes(regionRaw)) return false;
-  return true;
+	const tourCat = t.categories?.[0]?.id ?? "";
+		if (tipoRaw && !tourCat.toLowerCase().includes(tipoRaw.toLowerCase()))
+		return false;
+	if (regionRaw && regionRaw !== "all" && !(t.regions ?? []).includes(regionRaw.toLowerCase()))
+		return false;
+	return true;
 });
+
+const activeCategory = categories.find(
+	(c) => c.toLowerCase() === tipoRaw.toLowerCase(),
+);
+const activeRegion = regions.find(
+	(r) => r.toLowerCase() === regionRaw.toLowerCase(),
+);
+
+let pageTitle = "All Tours";
+let pageDescription =
+	"Complete catalog of tours and expeditions by Cóndor Expeditions. Explore by category, region or duration.";
+
+if (activeCategory && activeRegion) {
+	pageTitle = `${activeCategory} in ${activeRegion}`;
+	pageDescription = `${activeCategory} expeditions in the ${activeRegion} region.`;
+} else if (activeCategory) {
+	pageTitle = activeCategory;
+	pageDescription = `Our ${activeCategory.toLowerCase()} expeditions.`;
+} else if (activeRegion) {
+	pageTitle = `Tours in ${activeRegion}`;
+	pageDescription = `Discover all expeditions available in ${activeRegion}.`;
+}
 ---
 
-<Layout lang="en"
-  title="All Tours"
-  description="Complete catalog of tours and expeditions by Cóndor Expeditions. Explore by region, type or season."
+<Layout
+  lang="en"
+  title={pageTitle}
+  description={pageDescription}
 >
-  <section class="pt-32 pb-12 bg-gradient-to-b from-primary-50 to-white text-center">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">All Tours</h1>
-      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
-        {filtered.length} expeditions. Explore by region, activity type or season.
-      </p>
-    </div>
+  <!-- Hero Section -->
+  <section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
+    <Container>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">{pageTitle}</h1>
+      <p class="text-lg text-white/70 max-w-2xl">{pageDescription}</p>
+      {filtered.length > 0 && (
+        <p class="text-primary mt-4 text-sm font-medium">
+          Showing {filtered.length} of {allTours.length} tours
+          {(activeCategory || activeRegion) && (
+            <a href="/en/tours" class="ml-4 underline hover:no-underline">Clear filters</a>
+          )}
+        </p>
+      )}
+    </Container>
   </section>
 
+  <!-- Filter Bar -->
   <section class="py-6 bg-white border-b border-border/50 sticky top-0 z-30 shadow-sm">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap items-center gap-2 justify-center">
-        <a href="/en/tours" class:list={["px-4 py-2 rounded-full text-sm font-semibold transition-colors", !tipoRaw && !regionRaw ? "bg-primary text-white" : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"]}>
+    <Container>
+      <!-- Region Filter -->
+      <div class="flex flex-wrap items-center gap-2 justify-center mb-3">
+        <a
+          href="/en/tours"
+          class={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+            !regionRaw ? "bg-primary text-white" : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"
+          }`}
+        >
           All
         </a>
         {regions.map((r) => (
-          <a href={`/en/tours?region=${r.id}${tipoRaw ? `&tipo=${tipoRaw}` : ""}`} class:list={["px-4 py-2 rounded-full text-sm font-semibold transition-colors", regionRaw === r.id ? "bg-primary text-white" : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"]}>
-            {resolveLabel(r, lang)}
+          <a
+            href={`/en/tours?region=${r.toLowerCase()}${tipoRaw ? `&tipo=${tipoRaw}` : ""}`}
+            class={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+              regionRaw.toLowerCase() === r.toLowerCase()
+                ? "bg-primary text-white"
+                : "bg-background text-foreground border border-border/60 hover:border-primary hover:text-primary"
+            }`}
+          >
+            {r}
           </a>
         ))}
       </div>
-      <div class="flex flex-wrap items-center gap-2 justify-center mt-3">
+
+      <!-- Category Filter -->
+      <div class="flex flex-wrap items-center gap-2 justify-center">
         {categories.map((c) => (
-          <a href={`/en/tours?tipo=${c.id}${regionRaw ? `&region=${regionRaw}` : ""}`} class:list={["px-3 py-1.5 rounded-full text-xs font-semibold transition-colors", tipoRaw === c.id ? "bg-accent text-white" : "bg-background text-muted-foreground border border-border/60 hover:border-accent hover:text-accent"]}>
-            {c.icon} {resolveLabel(c, lang)}
+          <a
+            href={`/en/tours?tipo=${c.toLowerCase()}${regionRaw ? `&region=${regionRaw}` : ""}`}
+            class={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              tipoRaw.toLowerCase() === c.toLowerCase()
+                ? "bg-primary text-white"
+                : "bg-background text-muted-foreground border border-border/60 hover:border-primary hover:text-primary"
+            }`}
+          >
+            {c}
           </a>
         ))}
       </div>
-    </div>
+    </Container>
   </section>
 
+  <!-- Tours Grid -->
   <section class="py-14">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((tour) => {
-          const primaryRegion = regions.find((r) => r.id === tour.regions[0]);
-          const primaryCategory = categories.find((c) => c.id === tour.categories[0]);
-          const price = tour.prices[0];
-          return (
-            <a href={`/en/tours/${tour.slug}`} class="block group bg-background-alt rounded-xl p-6 border border-border/50 hover:shadow-lg transition-shadow">
-              <div class="flex flex-wrap gap-1.5 mb-2">
-                <span class="text-xs font-semibold text-nature bg-nature/10 px-2 py-0.5 rounded-full">{primaryRegion ? resolveLabel(primaryRegion, lang) : tour.regions[0]}</span>
-                <span class="text-xs text-muted-foreground bg-background border border-border/40 px-2 py-0.5 rounded-full">{primaryCategory?.icon} {primaryCategory ? resolveLabel(primaryCategory, lang) : ""}</span>
+    <Container>
+      {filtered.length > 0 ? (
+        <>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((tour, index) => (
+              <div class="animate-on-scroll" style={`--delay: ${Math.min(index, 5) * 100}ms`}>
+                <TourCard tour={tour} lang="en" />
               </div>
-              <h3 class="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{resolveLabel(tour, lang)}</h3>
-              <div class="flex flex-wrap gap-2 mb-3">
-                <span class="text-xs font-semibold bg-primary-50 text-primary px-2 py-0.5 rounded-full">⏱ {tour.duration}</span>
-                <span class="text-xs font-semibold bg-accent-light text-accent px-2 py-0.5 rounded-full">{tour.difficulty}</span>
-              </div>
-              <p class="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">{tour.includes?.[0]?.text[lang] ?? ""}</p>
-              <div class="flex items-center justify-between mt-4 pt-3 border-t border-border/30">
-                <span class="font-display text-xl font-bold text-primary">From {formatPrice(price?.amount ?? 0)}</span>
-                <span class="text-xs font-semibold text-accent uppercase tracking-wider">View →</span>
-              </div>
-            </a>
-          );
-        })}
-      </div>
+            ))}
+          </div>
 
-      {filtered.length === 0 && (
+          {filtered.length > 0 && (
+            <p class="text-center text-sm text-muted-foreground mt-10">
+              Showing {filtered.length} of {allTours.length} tours
+              {activeCategory && ` · Category: ${activeCategory}`}
+              {activeRegion && ` · Region: ${activeRegion}`}
+              {(activeCategory || activeRegion) && (
+                <a href="/en/tours" class="ml-2 text-primary hover:underline">Clear filters</a>
+              )}
+            </p>
+          )}
+        </>
+      ) : (
         <div class="text-center py-16">
-          <p class="text-muted-foreground text-lg mb-4">No tours match the selected filters.</p>
-          <a href="/en/tours" class="inline-flex px-6 py-3 bg-accent text-white font-semibold rounded-full">View all tours</a>
+          <p class="text-muted-foreground text-lg mb-4">
+            No tours match the selected filters.
+          </p>
+          <a href="/en/tours" class="inline-flex px-6 py-3 bg-primary text-white font-semibold rounded-full">
+            View all tours
+          </a>
         </div>
       )}
-    </div>
+    </Container>
   </section>
 
-  <section class="py-16 bg-dark text-center">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+  <!-- CTA Section -->
+  <section class="py-16 bg-negro text-center">
+    <Container>
       <h2 class="font-display text-2xl md:text-3xl text-white mb-4">Looking for something different?</h2>
-      <p class="text-dark-foreground/70 mb-6">We design custom tours for your group.</p>
-      <a href="/en/personalizados" class="inline-flex px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors">
+      <p class="text-white/70 mb-6">We design custom tours for your group.</p>
+      <a
+        href="/en/personalizados"
+        class="inline-flex px-8 py-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-full transition-colors"
+      >
         Create Custom Tour
       </a>
-    </div>
+    </Container>
   </section>
 </Layout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+</script>
