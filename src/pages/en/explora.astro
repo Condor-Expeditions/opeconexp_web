@@ -1,11 +1,18 @@
 ---
 import TourCard from "../../components/sections/TourCard.astro";
 import Container from "../../components/shared/Container.astro";
-import { getCategories, getRegions, getTours, type Category } from "../../data/core/helpers";
 import type { Tour } from "../../data/core/helpers";
+import {
+	type Category,
+	getCategories,
+	getRegions,
+	getTours,
+} from "../../data/core/helpers";
 import Layout from "../../layouts/Layout.astro";
 
-const activeTours: Tour[] = getTours().filter((t) => (t as any).status === "active");
+const activeTours: Tour[] = getTours().filter(
+	(t) => (t as any).status === "active",
+);
 
 // Categorías desde el catálogo API (con labels i18n)
 const categories = getCategories();
@@ -22,57 +29,60 @@ let activeFilterLabel = "";
 let filtered = activeTours;
 
 if (tipo === "region" && valor) {
-  filtered = activeTours.filter((t) =>
-    (t.regions || []).some((r) => r.toLowerCase() === valor),
-  );
-  const region = regions.find(
-    (r) => r.slug.toLowerCase() === valor || r.id.toLowerCase() === valor,
-  );
-  activeFilterLabel = region ? region.title.en : valor;
+	filtered = activeTours.filter((t) =>
+		(t.regions || []).some((r) => r.toLowerCase() === valor),
+	);
+	const region = regions.find(
+		(r) => r.slug.toLowerCase() === valor || r.id.toLowerCase() === valor,
+	);
+	activeFilterLabel = region ? region.title.en : valor;
 } else if (tipo === "temporada" && valor) {
-  filtered = activeTours.filter((t) =>
-    valor === "alta"
-      ? (t.seasons?.high?.length ?? 0) > 0
-      : (t.seasons?.low?.length ?? 0) > 0 ||
-        (t.seasons?.high?.length ?? 0) === 0,
-  );
-  activeFilterLabel = valor === "alta" ? "High Season" : "Low Season";
+	filtered = activeTours.filter((t) =>
+		valor === "alta"
+			? (t.seasons?.high?.length ?? 0) > 0
+			: (t.seasons?.low?.length ?? 0) > 0 ||
+				(t.seasons?.high?.length ?? 0) === 0,
+	);
+	activeFilterLabel = valor === "alta" ? "High Season" : "Low Season";
 } else if (tipo === "categoria" && valor) {
-  filtered = activeTours.filter((t) =>
-    (t.categories || []).some((cat) => cat.id.toLowerCase() === valor),
-  );
+	filtered = activeTours.filter((t) =>
+		(t.categories || []).some((cat) => cat.id.toLowerCase() === valor),
+	);
 } else {
-  // legacy: ?category=
-  filtered = activeTours.filter((t) => {
-    if (!safeTipoRaw) return true;
-    return (t.categories || []).some((cat) => cat.id.toLowerCase() === safeTipoRaw);
-  });
+	// legacy: ?category=
+	filtered = activeTours.filter((t) => {
+		if (!safeTipoRaw) return true;
+		return (t.categories || []).some(
+			(cat) => cat.id.toLowerCase() === safeTipoRaw,
+		);
+	});
 }
 
 const effCatSlug = tipo === "categoria" && valor ? valor : safeTipoRaw;
 
 // Encontrar categoría activa (match por slug o id, lowercased)
 const activeCategory = rawCategories.find(
-  (c) => c.slug.toLowerCase() === effCatSlug || c.id.toLowerCase() === effCatSlug,
+	(c) =>
+		c.slug.toLowerCase() === effCatSlug || c.id.toLowerCase() === effCatSlug,
 );
 const activeCategoryLabel = activeCategory
-  ? (activeCategory.title.en || activeCategory.title.es || activeCategory.id)
-  : tipoRaw
-    ? tipoRaw.charAt(0).toUpperCase() + tipoRaw.slice(1)
-    : "Explore";
+	? activeCategory.title.en || activeCategory.title.es || activeCategory.id
+	: tipoRaw
+		? tipoRaw.charAt(0).toUpperCase() + tipoRaw.slice(1)
+		: "Explore";
 
 let pageTitle = "Explore";
 let pageSubtitle =
-  "Discover our expeditions designed to connect you with the best of Ecuador.";
+	"Discover our expeditions designed to connect you with the best of Ecuador.";
 if (activeFilterLabel) {
-  pageTitle = activeFilterLabel;
-  pageSubtitle = `${activeFilterLabel} expeditions.`;
+	pageTitle = activeFilterLabel;
+	pageSubtitle = `${activeFilterLabel} expeditions.`;
 } else if (activeCategory && activeCategory.title.en) {
-  pageTitle = activeCategory.title.en;
-  pageSubtitle = `${activeCategory.title.en} expeditions.`;
+	pageTitle = activeCategory.title.en;
+	pageSubtitle = `${activeCategory.title.en} expeditions.`;
 } else if (tipoRaw) {
-  pageTitle = activeCategoryLabel;
-  pageSubtitle = `${activeCategoryLabel} expeditions.`;
+	pageTitle = activeCategoryLabel;
+	pageSubtitle = `${activeCategoryLabel} expeditions.`;
 }
 ---
 

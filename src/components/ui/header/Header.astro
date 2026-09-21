@@ -58,7 +58,7 @@ const localizedRoutes = ROUTES.map((route) => ({
 	label:
 		t[route.id.replace("-nav", "")] ??
 		(isEnglish
-			? ROUTES_LABELS_EN[route.id.replace("-nav", "")] ?? route.label
+			? (ROUTES_LABELS_EN[route.id.replace("-nav", "")] ?? route.label)
 			: route.label),
 	key: route.id.replace("-nav", ""),
 	isActive: route.href
@@ -72,6 +72,7 @@ const contactHref = isEnglish ? "/en/contacto" : "/contacto";
 
 // Mega menú Explora: tabs Categoría/Región/Temporada
 import { getExploraMenu, type MenuCard } from "@/data/nav/menuExplora";
+
 const exploraMenu = getExploraMenu(lang);
 const TABS = [
 	{ id: "categoria", es: "Categoría", en: "Category" },
@@ -151,7 +152,7 @@ const enHref = getAlternateLangHref("en");
 													{route.badge}
 												</span>
 											)}
-											<svg class="h-3 w-3 transition-transform duration-200 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+											<svg aria-hidden="true" class="h-3 w-3 transition-transform duration-200 group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
 										</button>
 										<div
 											class:list={[

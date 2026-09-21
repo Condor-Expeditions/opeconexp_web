@@ -1,12 +1,12 @@
 // Imports estáticos de assets para astro:assets + prerender
 import type { ImageMetadata } from "astro";
-import cajasImg from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
-import ingapircaImg from "@/assets/menu/tours/ingapirca.jpg";
+import chordelegImg from "@/assets/menu/tours/chordeleg-joyeria.jpg";
 import gironImg from "@/assets/menu/tours/chorro-de-giron.jpg";
 import delegImg from "@/assets/menu/tours/conoce-deleg.jpg";
 import guachapalaImg from "@/assets/menu/tours/guachapala-andacocha.jpg";
 import gualaceoImg from "@/assets/menu/tours/gualaceo-textiles.jpg";
-import chordelegImg from "@/assets/menu/tours/chordeleg-joyeria.jpg";
+import ingapircaImg from "@/assets/menu/tours/ingapirca.jpg";
+import cajasImg from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
 
 export interface Destination {
 	id: string;

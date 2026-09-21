@@ -2,14 +2,15 @@
 import Container from "@/components/shared/Container.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
-import { resolveImageSrc } from "@/data/core/helpers";
-import { type Destination } from "../../data/destinations/destinations";
+import SmartImage from "@/components/ui/SmartImage.astro";
+import { getValidImageUrl } from "@/data/core/helpers";
 import {
 	getCategoryTitle,
 	getDifficultyLevel,
 	getTours,
 	resolveLabel,
 } from "../../data/core/helpers";
+import { type Destination } from "../../data/destinations/destinations";
 
 export interface Props {
 	destination: Destination;
@@ -53,10 +54,13 @@ const labels = {
 <article>
 	<!-- Hero -->
 	<section class="relative min-h-[60vh] md:min-h-[70vh] flex items-end overflow-hidden">
-		<img
-			src={resolveImageSrc(destination.heroImage || destination.image, destination.name)}
+		<SmartImage
+			src={destination.heroImage || destination.image}
 			alt={destination.name}
 			class="absolute inset-0 w-full h-full object-cover"
+			loading="eager"
+			width={1600}
+			height={900}
 		/>
 		<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
 		<Container>
@@ -88,7 +92,7 @@ const labels = {
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 							{destination.highlights.map((h) => (
 								<div class="flex items-start gap-3 p-3 rounded-lg bg-crema border border-border">
-									<svg class="w-5 h-5 mt-0.5 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<svg aria-hidden="true" class="w-5 h-5 mt-0.5 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 										<polyline points="20 6 9 17 4 12"/>
 									</svg>
 									<span class="text-sm text-foreground">{h}</span>
@@ -148,11 +152,13 @@ const labels = {
 								class="group block bg-white rounded-xl overflow-hidden border border-border hover-lift img-zoom"
 							>
 								<div class="aspect-[4/3] overflow-hidden">
-									<img
-										src={resolveImageSrc(tour.gallery?.[0]?.src, resolveLabel(tour.title, lang))}
+									<SmartImage
+										src={getValidImageUrl(tour.gallery?.[0]?.src)}
 										alt={resolveLabel(tour.title, lang)}
 										class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 										loading="lazy"
+										width={400}
+										height={300}
 									/>
 							</div>
 								<div class="p-4">

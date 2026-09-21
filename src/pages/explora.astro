@@ -1,8 +1,13 @@
 ---
 import TourCard from "../components/sections/TourCard.astro";
 import Container from "../components/shared/Container.astro";
-import { getCategories, getRegions, getTours, type Category } from "../data/core/helpers";
 import type { Tour } from "../data/core/helpers";
+import {
+	type Category,
+	getCategories,
+	getRegions,
+	getTours,
+} from "../data/core/helpers";
 import Layout from "../layouts/Layout.astro";
 
 const activeTours: Tour[] = getTours().filter((t) => t.status === "active");
@@ -36,8 +41,7 @@ if (tipo === "region" && valor) {
 			: (t.seasons?.low?.length ?? 0) > 0 ||
 				((t.seasons?.high?.length ?? 0) === 0 && true),
 	);
-	activeFilterLabel =
-		valor === "alta" ? "Temporada Alta" : "Temporada Baja";
+	activeFilterLabel = valor === "alta" ? "Temporada Alta" : "Temporada Baja";
 } else if (tipo === "categoria" && valor) {
 	filtered = activeTours.filter((t) =>
 		(t.categories || []).some((cat) => cat.id.toLowerCase() === valor),
@@ -46,7 +50,9 @@ if (tipo === "region" && valor) {
 	// legacy: ?categoria=
 	filtered = activeTours.filter((t) => {
 		if (!safeTipoRaw) return true;
-		return (t.categories || []).some((cat) => cat.id.toLowerCase() === safeTipoRaw);
+		return (t.categories || []).some(
+			(cat) => cat.id.toLowerCase() === safeTipoRaw,
+		);
 	});
 }
 
@@ -54,10 +60,11 @@ const effCatSlug = tipo === "categoria" && valor ? valor : safeTipoRaw;
 
 // Encontrar categoría activa (match por slug o id, lowercased)
 const activeCategory = rawCategories.find(
-	(c) => c.slug.toLowerCase() === effCatSlug || c.id.toLowerCase() === effCatSlug,
+	(c) =>
+		c.slug.toLowerCase() === effCatSlug || c.id.toLowerCase() === effCatSlug,
 );
 const activeCategoryLabel = activeCategory
-	? (activeCategory.title.es || activeCategory.title.en || activeCategory.id)
+	? activeCategory.title.es || activeCategory.title.en || activeCategory.id
 	: tipoRaw
 		? tipoRaw.charAt(0).toUpperCase() + tipoRaw.slice(1)
 		: "Explora";

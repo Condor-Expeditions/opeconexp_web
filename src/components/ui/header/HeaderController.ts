@@ -62,20 +62,20 @@ export class HeaderController {
 		trigger.addEventListener("mouseenter", showMegaMenu);
 		trigger.addEventListener("focus", showMegaMenu);
 
-			this.headerNode?.addEventListener("mouseleave", hideMegaMenu, {
-				signal: this.abort.signal,
-			});
+		this.headerNode?.addEventListener("mouseleave", hideMegaMenu, {
+			signal: this.abort.signal,
+		});
 
-			this.megaMenu.addEventListener("mouseenter", showMegaMenu);
-			this.megaMenu.addEventListener("mouseleave", hideMegaMenu);
+		this.megaMenu.addEventListener("mouseenter", showMegaMenu);
+		this.megaMenu.addEventListener("mouseleave", hideMegaMenu);
 
-			this.navMenu
-				.querySelectorAll("a:not([data-mega-trigger])")
-				.forEach((link) => {
-					link.addEventListener("mouseenter", hideMegaMenu, {
-						signal: this.abort.signal,
-					});
+		this.navMenu
+			.querySelectorAll("a:not([data-mega-trigger])")
+			.forEach((link) => {
+				link.addEventListener("mouseenter", hideMegaMenu, {
+					signal: this.abort.signal,
 				});
+			});
 	}
 
 	setMobileMenuListeners() {

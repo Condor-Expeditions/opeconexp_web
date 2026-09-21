@@ -1,15 +1,19 @@
 // @ts-check
 
 import { resolve } from "node:path";
-import node from "@astrojs/node";
+import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
 	site: import.meta.env.DEV
 		? "http://localhost:4321"
 		: "https://condorexpedition.com/",
+	prefetch: {
+		prefetchAll: true,
+		defaultStrategy: "viewport",
+	},
 	vite: {
 		plugins: [tailwindcss()],
 		resolve: {
@@ -23,8 +27,6 @@ export default defineConfig({
 		},
 	},
 	output: "server",
-	adapter: node({
-		mode: "standalone",
-	}),
+	adapter: vercel(),
 	integrations: [sitemap()],
 });

@@ -1,6 +1,9 @@
 ---
-import Container from "@/components/shared/Container.astro";
 import cajasImg from "@/assets/menu/tours/parque-nacional-el-cajas.jpg";
+import Container from "@/components/shared/Container.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import SmartImage from "@/components/ui/SmartImage.astro";
+import { getTeam, resolveText } from "@/data/core/helpers";
 
 export interface Props {
 	lang?: "es" | "en";
@@ -68,11 +71,13 @@ const teamText = isEnglish
 		<!-- Mission -->
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-20 md:mb-28">
 			<div class="animate-on-scroll">
-				<img
-							src={cajasImg.src}
+				<SmartImage
+							src={cajasImg}
 							alt="Condor Expeditions"
 							class="w-full h-100 md:h-125 object-cover rounded-xl"
 							loading="lazy"
+							width={800}
+							height={600}
 						/>
 			</div>
 			<div class="animate-on-scroll stagger-2">
@@ -93,22 +98,24 @@ const teamText = isEnglish
 			}
 		</div>
 
-		<!-- Team placeholder -->
+		<!-- Equipo -->
 		<div class="text-center animate-on-scroll">
 			<h3 class="text-2xl md:text-3xl font-semibold text-foreground mb-4">{teamTitle}</h3>
 			<p class="text-base text-muted-foreground max-w-2xl mx-auto mb-8">{teamText}</p>
-			<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
 				{
-					[1, 2, 3, 4].map((_, i) => (
-						<div class="flex flex-col items-center">
-							<div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-secondary/20 flex items-center justify-center mb-3">
-								<svg class="w-10 h-10 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-									<circle cx="12" cy="7" r="4"/>
-								</svg>
-							</div>
-							<p class="text-sm font-medium text-foreground">Guía {i + 1}</p>
-							<p class="text-xs text-muted">Condor Expeditions</p>
+					(getTeam()?.equipo ?? []).map((member) => (
+						<div class="flex flex-col items-center p-6 rounded-xl bg-crema border border-border stagger-1">
+							<Avatar
+								src={member.avatar}
+								alt={member.name}
+								fallback={member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+								size="xl"
+								class="mb-3"
+							/>
+							<p class="text-base font-semibold text-foreground">{member.name}</p>
+							<p class="text-sm text-primary-red font-medium">{resolveText(member.role, lang)}</p>
+							<p class="text-xs text-muted mt-2">{resolveText(member.bio, lang)}</p>
 						</div>
 					))
 				}

@@ -21,11 +21,11 @@ const {
 	height = 600,
 	class: className = "",
 	loading = "lazy",
-	format = "auto",
+	format = "webp",
 } = Astro.props;
 ---
 
-{typeof src === "string" && src.startsWith("http") ? (
+{typeof src === "string" ? (
 	<img
 		src={src}
 		alt={alt}

@@ -59,6 +59,11 @@ const contactCards = [
 		href: null,
 	},
 ];
+
+const formStatusIdle = isEnglish ? "Send Message" : "Enviar mensaje";
+const formStatusSending = isEnglish
+	? "Opening WhatsApp..."
+	: "Abriendo WhatsApp...";
 ---
 
 <section class="section-padding bg-background">
@@ -71,32 +76,33 @@ const contactCards = [
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 			<!-- Form -->
 			<div class="animate-on-scroll">
-				<form class="space-y-5" onsubmit="event.preventDefault();">
-					<div>
-						<Label for="contact-name">{formLabels.name}</Label>
-						<Input id="contact-name" name="name" type="text" placeholder={formLabels.name} required />
-					</div>
-					<div>
-						<Label for="contact-email">{formLabels.email}</Label>
-						<Input id="contact-email" name="email" type="email" placeholder={formLabels.email} required />
-					</div>
-					<div>
-						<Label for="contact-tour">{formLabels.tour}</Label>
-						<Select
-							id="contact-tour"
-							name="tour"
-							options={tourOptions}
-							placeholder={isEnglish ? "Select a tour" : "Selecciona un tour"}
-						/>
-					</div>
-					<div>
-						<Label for="contact-message">{formLabels.message}</Label>
-						<Textarea id="contact-message" name="message" placeholder={formLabels.message} rows={5} required />
-					</div>
-					<Button variant="primary" size="lg" fullWidth type="submit">
-						{formLabels.submit}
-					</Button>
-				</form>
+<form id="contact-form" class="space-y-5">
+				<div>
+					<Label for="contact-name">{formLabels.name}</Label>
+					<Input id="contact-name" name="name" type="text" placeholder={formLabels.name} required />
+				</div>
+				<div>
+					<Label for="contact-email">{formLabels.email}</Label>
+					<Input id="contact-email" name="email" type="email" placeholder={formLabels.email} required />
+				</div>
+				<div>
+					<Label for="contact-tour">{formLabels.tour}</Label>
+					<Select
+						id="contact-tour"
+						name="tour"
+						options={tourOptions}
+						placeholder={isEnglish ? "Select a tour" : "Selecciona un tour"}
+					/>
+				</div>
+				<div>
+					<Label for="contact-message">{formLabels.message}</Label>
+					<Textarea id="contact-message" name="message" placeholder={formLabels.message} rows={5} required />
+				</div>
+				<p id="contact-form-status" class="hidden text-sm text-foreground" role="status" aria-live="polite"></p>
+				<Button id="contact-submit" variant="primary" size="lg" fullWidth type="submit">
+					{formLabels.submit}
+				</Button>
+			</form>
 			</div>
 
 			<!-- Contact Info + Map placeholder -->
@@ -107,7 +113,7 @@ const contactCards = [
 							<div class="p-4 rounded-xl bg-crema border border-border">
 								<div class="flex items-start gap-3">
 									<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-										<svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<svg aria-hidden="true" class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 											<path d={card.icon} />
 										</svg>
 									</div>
@@ -130,7 +136,7 @@ const contactCards = [
 				<!-- Map placeholder -->
 				<div class="rounded-xl overflow-hidden border border-border bg-crema h-64 md:h-80 flex items-center justify-center">
 					<div class="text-center">
-						<svg class="w-12 h-12 text-secondary mx-auto mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+						<svg aria-hidden="true" class="w-12 h-12 text-secondary mx-auto mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
 							<circle cx="12" cy="10" r="3"/>
 						</svg>
@@ -152,7 +158,13 @@ const contactCards = [
 	</Container>
 </section>
 
-<script>
+<script define:vars={{ isEnglish }}>
+	const opening = isEnglish ? "Opening WhatsApp..." : "Abriendo WhatsApp...";
+	const done = isEnglish ? "Done!" : "¡Listo!";
+	const messageIntro = isEnglish ? "Hello Condor Expeditions! I am " : "Hola Condor Expeditions! Soy ";
+	const tourLabel = isEnglish ? "\nTour: " : "\nTour: ";
+	const emailLabel = isEnglish ? "\nEmail: " : "\nEmail: ";
+	const messageLabel = isEnglish ? "\nMessage: " : "\nMensaje: ";
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
@@ -166,4 +178,36 @@ const contactCards = [
 	);
 
 	document.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+
+	const form = document.getElementById("contact-form") as HTMLFormElement | null;
+	const formStatus = document.getElementById("contact-form-status");
+	const submitBtn = document.getElementById("contact-submit");
+
+	if (form && formStatus && submitBtn) {
+		form.addEventListener("submit", (e) => {
+			e.preventDefault();
+			const data = new FormData(form);
+			const name = (data.get("name") as string) ?? "";
+			const email = (data.get("email") as string) ?? "";
+			const tour = (data.get("tour") as string) ?? "";
+			const message = (data.get("message") as string) ?? "";
+
+			const tourNote = tour ? `${tourLabel}${tour}` : "";
+
+			const text = `${messageIntro}${name}${emailLabel}${email}${tourNote}${messageLabel}${message}`;
+			const url = `https://wa.me/593995900614?text=${encodeURIComponent(text)}`;
+
+			formStatus.textContent = opening;
+			formStatus.classList.remove("hidden");
+			window.open(url, "_blank", "noopener,noreferrer");
+
+			form.reset();
+			const original = submitBtn.textContent;
+			submitBtn.textContent = done;
+			setTimeout(() => {
+				submitBtn.textContent = original;
+				formStatus.classList.add("hidden");
+			}, 4000);
+		});
+	}
 </script>

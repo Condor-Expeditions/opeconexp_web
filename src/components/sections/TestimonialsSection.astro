@@ -36,9 +36,9 @@ const testimonials = getTestimonials();
           </div>
 
           {/* Rating stars */}
-          <div class="flex items-center gap-1 mb-2">
+          <div class="flex items-center gap-1 mb-2" aria-label={`${t.stars} / 5`} role="img">
             {Array.from({ length: t.stars }).map((_, i) => (
-              <svg key={i} class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+              <svg aria-hidden="true" key={i} class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.446l-7.416 3.967 1.48-8.279L.000 8.706l8.332-1.151z"/>
               </svg>
             ))}

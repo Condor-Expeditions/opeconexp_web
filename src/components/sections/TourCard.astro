@@ -2,8 +2,12 @@
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
 import Card from "@/components/ui/Card.astro";
-import { getTourData, getValidImageUrl, resolveLabel } from "@/data/core/helpers";
 import type { Tour } from "@/data/core/helpers";
+import {
+	getTourData,
+	getValidImageUrl,
+	resolveLabel,
+} from "@/data/core/helpers";
 
 export interface Props {
 	tour: Tour;
@@ -20,8 +24,8 @@ const reserveLabel = isEnglish ? "Book" : "Reservar";
 const fromLabel = isEnglish ? "From" : "Desde";
 const detailHref = isEnglish ? `/en/tours/${tour.slug}` : `/tours/${tour.slug}`;
 const locationLabel = tour.location
-  ? `${resolveLabel(tour.location.city, lang)}, ${resolveLabel(tour.location.province, lang)}`
-  : "";
+	? `${resolveLabel(tour.location.city, lang)}, ${resolveLabel(tour.location.province, lang)}`
+	: "";
 ---
 
 <Card variant="elevated" padding="none" class="hover-lift img-zoom h-full flex flex-col">

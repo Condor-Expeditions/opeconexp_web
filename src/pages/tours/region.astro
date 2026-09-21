@@ -2,14 +2,14 @@
 import StatsBar from "@/components/sections/StatsBar.astro";
 import SustainabilityBar from "@/components/sections/SustainabilityBar.astro";
 import ToursGrid from "@/components/sections/ToursGrid.astro";
+// Import types
+import type { Tour } from "@/data/core/helpers";
 import {
 	getCategoryTitle,
 	getRegions,
 	getTours,
 	resolveLabel,
 } from "@/data/core/helpers";
-// Import types
-import type { Tour } from "@/data/core/helpers";
 import Layout from "@/layouts/Layout.astro";
 
 // Interfaces para props del TourCard

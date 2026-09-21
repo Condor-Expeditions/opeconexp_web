@@ -32,6 +32,31 @@ const titleSeparator = "•";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.companyName}`;
 
 const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+const pathname = Astro.url.pathname;
+const isEnglish = pathname.startsWith("/en/");
+const alternatePathname = isEnglish
+	? pathname.replace(/^\/en/, "") || "/"
+	: `/en${pathname}`;
+const alternateURL = new URL(alternatePathname, Astro.site);
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "TouristInformationCenter",
+	"@id": "https://condorexpedition.com/#organization",
+	name: siteConfig.companyName,
+	url: "https://condorexpedition.com/",
+	description,
+	telephone: siteConfig.companyInfo.phone.name,
+	email: siteConfig.companyInfo.email.name,
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: "Cuenca",
+		addressRegion: "Azuay",
+		addressCountry: "EC",
+	},
+	areaServed: "Ecuador",
+	sameAs: siteConfig.socials.map((s) => s.href),
+};
 ---
 
 <head>
@@ -52,6 +77,11 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
   <!-- Canonical URL -->
   <link rel="canonical" href={canonicalURL} />
+
+  <!-- Hreflang for i18n -->
+  <link rel="alternate" hreflang="es" href={isEnglish ? alternateURL : canonicalURL} />
+  <link rel="alternate" hreflang="en" href={isEnglish ? canonicalURL : alternateURL} />
+  <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
   <!-- Primary Meta Tags -->
   <title>{siteTitle}</title>
@@ -89,6 +119,9 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={socialImageURL} />
+
+  <!-- Structured Data: Organization / LocalBusiness -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
 
   <AstroFont
     config={[
@@ -130,4 +163,16 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
       },
     ]}
   />
+
+  {googleAnalyticsId && (
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
+  )}
+  {googleAnalyticsId && (
+    <script is:inline define:vars={{ googleAnalyticsId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', googleAnalyticsId);
+    </script>
+  )}
 </head>

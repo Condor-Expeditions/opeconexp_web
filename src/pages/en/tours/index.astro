@@ -6,7 +6,9 @@ import Layout from "../../../layouts/Layout.astro";
 
 const allTours = tours;
 
-const categories = [...new Set(allTours.map((t) => t.categories?.[0]?.title?.en ?? "Other"))].sort();
+const categories = [
+	...new Set(allTours.map((t) => t.categories?.[0]?.title?.en ?? "Other")),
+].sort();
 const regions = [
 	...new Set(
 		allTours.flatMap((t) => {
@@ -25,9 +27,13 @@ const regionRaw = Astro.url.searchParams.get("region") ?? "";
 
 const filtered = allTours.filter((t) => {
 	const tourCat = t.categories?.[0]?.id ?? "";
-		if (tipoRaw && !tourCat.toLowerCase().includes(tipoRaw.toLowerCase()))
+	if (tipoRaw && !tourCat.toLowerCase().includes(tipoRaw.toLowerCase()))
 		return false;
-	if (regionRaw && regionRaw !== "all" && !(t.regions ?? []).includes(regionRaw.toLowerCase()))
+	if (
+		regionRaw &&
+		regionRaw !== "all" &&
+		!(t.regions ?? []).includes(regionRaw.toLowerCase())
+	)
 		return false;
 	return true;
 });
@@ -164,7 +170,7 @@ if (activeCategory && activeRegion) {
       <h2 class="font-display text-2xl md:text-3xl text-white mb-4">Looking for something different?</h2>
       <p class="text-white/70 mb-6">We design custom tours for your group.</p>
       <a
-        href="/en/personalizados"
+        href="/en/contacto"
         class="inline-flex px-8 py-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-full transition-colors"
       >
         Create Custom Tour

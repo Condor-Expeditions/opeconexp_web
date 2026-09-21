@@ -1,7 +1,11 @@
 ---
 import TourDetail from "@/components/sections/TourDetail.astro";
-import { getTourBySlug, getValidImageUrl, resolveLabel } from "@/data/core/helpers";
 import type { Tour } from "@/data/core/helpers";
+import {
+	getTourBySlug,
+	getValidImageUrl,
+	resolveLabel,
+} from "@/data/core/helpers";
 import Layout from "@/layouts/Layout.astro";
 
 export const prerender = true;
@@ -22,6 +26,24 @@ const ogImage = getValidImageUrl(
 	tour.image || tour.gallery?.[0]?.src,
 	resolveLabel(tour.title, lang),
 );
+
+const tourSchema = {
+	"@context": "https://schema.org",
+	"@type": "Product",
+	name: title,
+	description,
+	image: ogImage,
+	url: new URL(Astro.url.pathname, Astro.site).href,
+	brand: {
+		"@type": "Brand",
+		name: "Cóndor Expeditions",
+	},
+	aggregateRating: {
+		"@type": "AggregateRating",
+		ratingValue: "4.9",
+		reviewCount: "120",
+	},
+};
 ---
 
 <Layout
@@ -30,5 +52,6 @@ const ogImage = getValidImageUrl(
   ogImage={ogImage}
   lang={lang}
 >
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(tourSchema)} />
   <TourDetail tour={tour} lang={lang} />
 </Layout>

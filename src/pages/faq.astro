@@ -35,6 +35,21 @@ const sections = [
 		],
 	},
 ];
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: sections.flatMap((sec) =>
+		sec.qas.map((qa) => ({
+			"@type": "Question",
+			name: qa.q,
+			acceptedAnswer: {
+				"@type": "Answer",
+				text: qa.a,
+			},
+		})),
+	),
+};
 ---
 
 <Layout
@@ -42,6 +57,7 @@ const sections = [
 	description="Respuestas a las preguntas más frecuentes sobre reservas, pagos, preparación y políticas de nuestros tours."
 	lang={lang}
 >
+	<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
 	<section class="pt-32 md:pt-40 pb-12 bg-negro text-white">
 		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
 			<h1 class="font-display text-4xl md:text-5xl mb-4">Preguntas Frecuentes</h1>

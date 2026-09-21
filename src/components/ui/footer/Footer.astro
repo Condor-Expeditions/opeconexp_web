@@ -1,8 +1,8 @@
 ---
 import Logo from "@/assets/logo.svg";
 import Container from "@/components/shared/Container.astro";
-import { ROUTES } from "@/data/nav/routes";
 import { siteConfig } from "@/data/config/site.config";
+import { ROUTES } from "@/data/nav/routes";
 
 export interface Props {
 	lang?: "es" | "en";
@@ -11,17 +11,18 @@ export interface Props {
 const { lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
 
-const quickLinks = ROUTES.map((route) => ({
+const quickLinksLabels: Record<string, string> = {
+	explora: "Explore",
+	destinos: "Destinations",
+	nosotros: "About",
+	contacto: "Contact",
+};
+
+const quickLinks = ROUTES.filter((route) => route.href).map((route) => ({
 	...route,
 	href: isEnglish ? `/en${route.href}` : route.href,
 	label: isEnglish
-		? route.label === "Explora"
-			? "Explore"
-			: route.label === "Destinos"
-				? "Destinations"
-				: route.label === "Nosotros"
-					? "About"
-					: "Contact"
+		? (quickLinksLabels[route.id.replace("-nav", "")] ?? route.label)
 		: route.label,
 }));
 
@@ -122,7 +123,7 @@ const socialIcons: Record<string, string> = {
 				</h3>
 				<ul class="space-y-3">
 					<li class="flex items-start gap-2.5">
-						<svg class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<svg aria-hidden="true" class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
 						</svg>
 						<a href={siteConfig.companyInfo.phone.href} class="text-sm text-white/80 hover:text-primary-red transition-colors">
@@ -130,7 +131,7 @@ const socialIcons: Record<string, string> = {
 						</a>
 					</li>
 					<li class="flex items-start gap-2.5">
-						<svg class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<svg aria-hidden="true" class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
 							<polyline points="22,6 12,13 2,6"/>
 						</svg>
@@ -139,14 +140,14 @@ const socialIcons: Record<string, string> = {
 						</a>
 					</li>
 					<li class="flex items-start gap-2.5">
-						<svg class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<svg aria-hidden="true" class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
 							<circle cx="12" cy="10" r="3"/>
 						</svg>
 						<span class="text-sm text-white/80">{siteConfig.companyInfo.address}</span>
 					</li>
 					<li class="flex items-start gap-2.5">
-						<svg class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<svg aria-hidden="true" class="w-4 h-4 mt-0.5 text-primary-red shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<circle cx="12" cy="12" r="10"/>
 							<polyline points="12 6 12 12 16 14"/>
 						</svg>
@@ -161,19 +162,23 @@ const socialIcons: Record<string, string> = {
 					{newsletterTitle}
 				</h3>
 				<p class="text-sm text-white/70 mb-3">{newsletterDesc}</p>
-				<form class="flex flex-col gap-2" onsubmit="event.preventDefault();">
+				<form id="newsletter-form" class="flex flex-col gap-2">
 					<input
+						id="newsletter-email"
 						type="email"
 						placeholder={newsletterPlaceholder}
 						class="w-full h-10 px-3 text-sm bg-white/10 border border-white/20 rounded-md text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-red"
 						aria-label={newsletterPlaceholder}
+						required
 					/>
 					<button
+						id="newsletter-submit"
 						type="submit"
 						class="w-full h-10 px-4 text-sm font-medium bg-primary-red text-white rounded-md hover:bg-primary-red/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
 					>
 						{newsletterBtn}
 					</button>
+					<p id="newsletter-status" class="hidden text-xs text-white/70" role="status" aria-live="polite"></p>
 				</form>
 			</div>
 		</div>
@@ -192,3 +197,38 @@ const socialIcons: Record<string, string> = {
 		</div>
 	</Container>
 </footer>
+
+<script define:vars={{ isEnglish }}>
+	const newsletterOpening = isEnglish ? "Opening WhatsApp..." : "Abriendo WhatsApp...";
+	const newsletterDone = isEnglish ? "Done!" : "¡Listo!";
+	const newsletterMessage = isEnglish
+		? "Hello Condor Expeditions! I want to subscribe to the newsletter.\nMy email is: "
+		: "Hola Condor Expeditions! Quiero suscribirme al boletín de noticias.\nMi correo electrónico es: ";
+	const newsletterForm = document.getElementById("newsletter-form") as HTMLFormElement | null;
+	const newsletterInput = document.getElementById("newsletter-email") as HTMLInputElement | null;
+	const newsletterStatus = document.getElementById("newsletter-status");
+	const newsletterSubmit = document.getElementById("newsletter-submit");
+
+	if (newsletterForm && newsletterInput && newsletterStatus && newsletterSubmit) {
+		newsletterForm.addEventListener("submit", (e) => {
+			e.preventDefault();
+			const email = newsletterInput.value.trim();
+			if (!email) return;
+
+			const text = `${newsletterMessage}${email}`;
+			const url = `https://wa.me/593995900614?text=${encodeURIComponent(text)}`;
+
+			newsletterStatus.textContent = newsletterOpening;
+			newsletterStatus.classList.remove("hidden");
+			window.open(url, "_blank", "noopener,noreferrer");
+
+			newsletterInput.value = "";
+			const original = newsletterSubmit.textContent;
+			newsletterSubmit.textContent = newsletterDone;
+			setTimeout(() => {
+				newsletterSubmit.textContent = original;
+				newsletterStatus.classList.add("hidden");
+			}, 4000);
+		});
+	}
+</script>
