@@ -1,0 +1,48 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export type TextareaSize = "sm" | "md" | "lg";
+
+export interface Props extends HTMLAttributes<"textarea"> {
+	size?: TextareaSize;
+	error?: boolean;
+	errorMessage?: string;
+	disabled?: boolean;
+	rows?: number;
+	class?: string;
+}
+
+const {
+	size = "md",
+	error = false,
+	errorMessage,
+	disabled = false,
+	rows = 4,
+	class: className = "",
+	...rest
+} = Astro.props;
+
+const baseClasses =
+	"flex w-full border bg-background text-foreground transition-colors duration-200 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y";
+
+const sizeClasses: Record<TextareaSize, string> = {
+	sm: "px-2.5 py-1.5 text-sm rounded-md",
+	md: "px-3 py-2 text-sm rounded-md",
+	lg: "px-4 py-3 text-base rounded-lg",
+};
+
+const stateClasses = error
+	? "border-destructive focus-visible:ring-destructive"
+	: "border-input";
+
+const classes = [baseClasses, sizeClasses[size], stateClasses, className]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<div class="w-full">
+	<textarea class={classes} disabled={disabled} rows={rows} {...rest}></textarea>
+	{error && errorMessage && (
+		<p class="mt-1.5 text-sm text-destructive">{errorMessage}</p>
+	)}
+</div>

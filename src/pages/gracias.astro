@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Gracias"
+  description="Gracias por escribirnos. Te responderemos en menos de 24 horas."
+>
+  <section class="min-h-[70vh] flex items-center justify-center py-16">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-success/10 flex items-center justify-center">
+        <span class="text-4xl">✅</span>
+      </div>
+      <h1 class="font-display text-3xl md:text-5xl text-foreground mb-4">
+        ¡Gracias por tu Mensaje!
+      </h1>
+      <p class="text-muted-foreground text-lg mb-8">
+        Hemos recibido tu solicitud y te responderemos en menos de 24 horas.
+        Mientras tanto, sueña con tu próxima aventura.
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center px-8 py-4 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors"
+      >
+        Volver al Inicio
+      </a>
+    </div>
+  </section>
+</Layout>

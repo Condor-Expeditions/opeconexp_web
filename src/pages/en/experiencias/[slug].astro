@@ -1,0 +1,16 @@
+---
+import { getTours } from "../../../data/helpers";
+
+export function getStaticPaths() {
+  return getTours({ status: "active" }).map((t) => ({
+    params: { slug: t.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+return Astro.redirect(`/en/tours/${slug}`, 301);
+---
+<html>
+  <head><meta http-equiv="refresh" content="0;url=/en/tours/{Astro.params.slug}" /></head>
+  <body><p>Redirecting...</p></body>
+</html>

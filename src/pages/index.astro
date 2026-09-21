@@ -1,8 +1,25 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import Hero from '../components/Hero.astro';
+import Hero from "../components/Hero.astro";
+import Layout from "../layouts/Layout.astro";
+import DestinationsSection from "../components/sections/DestinationsSection.astro";
+import ExperiencesSection from "../components/sections/ExperiencesSection.astro";
+import WhyUsSection from "../components/sections/WhyUsSection.astro";
+import StatsBar from "../components/sections/StatsBar.astro";
+import TestimonialsSection from "../components/sections/TestimonialsSection.astro";
+import SustainabilityBar from "../components/sections/SustainabilityBar.astro";
+import CTASection from "../components/sections/CTASection.astro";
 ---
 
-<MainLayout>
+<Layout
+  title="Inicio"
+  description="Cóndor Expeditions: turismo de aventura en Ecuador. Trekking, rafting, montañismo y expediciones personalizadas en los Andes, Amazonía y Galápagos."
+>
   <Hero />
-</MainLayout>
+  <DestinationsSection />
+  <StatsBar />
+  <ExperiencesSection />
+  <WhyUsSection />
+  <TestimonialsSection />
+  <SustainabilityBar />
+  <CTASection />
+</Layout>

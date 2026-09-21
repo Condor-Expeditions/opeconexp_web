@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const proposito = [
+  { title: "Mission", description: "To offer every traveler an intimate experience connected to Ecuador's nature and local cultures, with minimal environmental impact and maximal respect." },
+  { title: "Vision", description: "To be recognized as one of South America's top 5 expedition operators by 2030, leaders in sustainable tourism and personalized service." },
+];
+
+const valor = [
+  { name: "Safety First", desc: "Certified safety standards on every expedition. Rigorous planning. Zero exceptions." },
+  { name: "Unique Store", desc: "Every journey is non-repeatable. We design tailor-made itineraries — no two groups are the same." },
+  { name: "Passion for Ecuador", desc: "We love what we do and where we live. Sharing our country is our greatest honor." },
+  { name: "Local Support", desc: "Providers, guides, and local communities. We believe in sharing wealth where we operate." },
+];
+
+const team = [
+  { name: "Xavier Cun", role: "Expedition Director", bio: "Mountaineer with over 15 years guiding Andean ascents. ASEGUIN-certified and Wilderness First Responder (WFR). Knows every corner of Ecuador on foot." },
+  { name: "Karla Trini", role: "Head Jungle Guide", bio: "Biologist and conservationist. Leads Yasuní and Cuyabeno expeditions. 10+ years in jungle." },
+  { name: "Pablo Santillana", role: "Rafting Guide", bio: "IRF-certified with 8 years in Napo waterways. Certified swiftwater rescue instructor." },
+];
+---
+
+<Layout
+  lang="en"
+  title="About Us"
+  description="Meet the Condor Expeditions team: certified guides, environmental commitment, and 15+ years creating unique mountain and jungle adventures in Ecuador."
+>
+  <section class="pt-32 pb-16 bg-gradient-to-b from-primary-50 to-white text-center">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <span class="text-accent font-display text-sm uppercase tracking-widest">About Us</span>
+      <h1 class="font-display text-4xl md:text-6xl mt-3 mb-4 text-foreground">The Spirit of Exploration</h1>
+      <p class="text-muted-foreground text-lg max-w-3xl mx-auto">
+        We are a team driven by adventure, nature and the Ecuador that we've been credited to call home. Every expedition is a new story.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+        {proposito.map((p) => (
+          <div class="text-center">
+            <h2 class="font-display text-2xl text-accent mb-3">{p.title}</h2>
+            <p class="text-muted-foreground leading-relaxed">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-background">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl text-center text-foreground mb-12">Our Values</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {valor.map((v) => (
+          <div class="text-center p-6 bg-white rounded-xl border border-border/50">
+            <h3 class="font-display font-bold text-foreground mb-2">{v.name}</h3>
+            <p class="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display text-3xl text-center text-foreground mb-12">Our Team</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {team.map((e) => (
+          <div class="text-center">
+            <div class="w-24 h-24 mx-auto rounded-full bg-primary-100 mb-4 flex items-center justify-center text-3xl font-display text-primary">
+              {e.name.charAt(0)}
+            </div>
+            <h3 class="font-display font-bold text-foreground text-lg">{e.name}</h3>
+            <p class="text-accent text-sm font-semibold mb-2">{e.role}</p>
+            <p class="text-muted-foreground text-sm leading-relaxed">{e.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

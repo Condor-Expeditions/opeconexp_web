@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <text x="600" y="380" font-family="system-ui,sans-serif" font-size="36" fill="white" text-anchor="middle" font-weight="bold">Giron Cascada</text>
+  <text x="600" y="430" font-family="system-ui,sans-serif" font-size="18" fill="rgba(255,255,255,0.7)" text-anchor="middle">Cóndor Expeditions</text>
+</svg>

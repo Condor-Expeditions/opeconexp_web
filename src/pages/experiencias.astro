@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Página de transición — las experiencias ahora son tours
+// Redirección vía meta refresh
+---
+<Layout title="Redirigiendo...">
+  <meta http-equiv="refresh" content="0;url=/tours" />
+  <link rel="canonical" href="/tours" />
+  <section class="min-h-[70vh] flex items-center justify-center bg-gradient-to-b from-primary-50 to-white">
+    <div class="text-center">
+      <p class="text-muted-foreground text-lg">Redirigiendo a Tours...</p>
+      <a href="/tours" class="text-accent hover:underline mt-4 inline-block">Ir a todos los tours</a>
+    </div>
+  </section>
+</Layout>

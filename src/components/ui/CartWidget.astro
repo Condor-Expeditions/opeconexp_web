@@ -1,0 +1,98 @@
+---
+import { getCart, getCartTotal, removeFromCart, renderStars, formatPrice, getRating, getReviews, resolveLabel, getTourScheduleText } from "../../data/helpers";
+import type { Tour } from "../../data/helpers";
+
+interface Props {
+  tour: Tour;
+  lang: string;
+}
+
+const { tour, lang } = Astro.props;
+const cart = getCart();
+const rating = getRating(tour.id);
+const reviews = getReviews(tour.id);
+const scheduleText = getTourScheduleText(tour.schedules[0] ?? { start: "", end: "", days: [] }, lang);
+---
+
+<aside class="lg:col-span-1">
+  <div class="bg-dark text-white rounded-2xl p-6 sticky top-24 space-y-5">
+
+    <!-- Rating -->
+    {rating.count > 0 && (
+      <div class="flex items-center gap-3">
+        <div class="flex text-yellow-400 text-lg">{renderStars(rating.average)}</div>
+        <span class="text-sm text-dark-foreground/70">{rating.average} ({rating.count} {lang === "es" ? "reseñas" : "reviews"})</span>
+      </div>
+    )}
+
+    <!-- Precio -->
+    <div>
+      <p class="text-sm text-dark-foreground/60 mb-1">{lang === "es" ? "Desde" : "From"}</p>
+      <p class="font-display text-4xl font-bold text-white">{formatPrice(tour.prices[0]?.amount ?? 0)}</p>
+      <p class="text-xs text-dark-foreground/60">{lang === "es" ? "por persona" : "per person"} · {tour.duration}</p>
+    </div>
+
+    <!-- Horarios -->
+    {tour.schedules.length > 0 && (
+      <div>
+        <p class="text-sm text-dark-foreground/60 mb-2">{lang === "es" ? "Horarios de salida" : "Departure times"}</p>
+        <p class="text-xs text-dark-foreground/70 mb-2">{scheduleText}</p>
+        <div class="flex flex-wrap gap-2">
+          {tour.schedules.map((s) => (
+            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/20 hover:border-accent cursor-pointer transition-colors">
+              <input type="radio" name="schedule" value={s.start} class="accent-accent" />
+              <span class="text-sm">{s.start}{s.end ? ` – ${s.end}` : ""}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Selector viajeros (placeholder) -->
+    <div>
+      <p class="text-sm text-dark-foreground/60 mb-2">{lang === "es" ? "Viajeros" : "Travelers"}</p>
+      <div class="flex items-center gap-3">
+        <button class="w-10 h-10 rounded-full border border-white/30 text-white text-lg hover:bg-white/10">–</button>
+        <span class="text-lg font-semibold w-8 text-center">1</span>
+        <button class="w-10 h-10 rounded-full border border-white/30 text-white text-lg hover:bg-white/10">+</button>
+      </div>
+    </div>
+
+    <!-- CTA principal -->
+    <a
+      href={`https://wa.me/${encodeURIComponent("+593995537007")}?text=${encodeURIComponent(`Hola, quiero reservar el tour "${resolveLabel(tour, lang)}" para el día [fecha] a las [hora].`)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block w-full text-center px-6 py-3.5 bg-accent hover:bg-accent-dark text-white font-semibold rounded-full transition-colors"
+    >
+      {lang === "es" ? "Reservar por WhatsApp" : "Book via WhatsApp"}
+    </a>
+
+    <a href="/personalizados" class="block w-full text-center px-6 py-3 border border-white/30 hover:border-white text-white text-sm font-semibold rounded-full transition-colors">
+      {lang === "es" ? "Personalizar tour" : "Customize tour"}
+    </a>
+
+    <!-- Seguridad -->
+    <div class="text-center">
+      <p class="text-xs text-dark-foreground/50">🔒 {lang === "es" ? "Reserva rápida y segura" : "Quick & secure booking"}</p>
+      <p class="text-xs text-dark-foreground/50">{lang === "es" ? "Confirmación inmediata" : "Instant confirmation"}</p>
+    </div>
+
+    <!-- Reviews preview -->
+    {reviews.length > 0 && (
+      <div class="border-t border-white/10 pt-4 mt-2">
+        <p class="text-sm font-semibold mb-3">{lang === "es" ? "Opiniones destacadas" : "Top reviews"}</p>
+        {reviews.slice(0, 2).map((r) => (
+          <div class="mb-3">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-yellow-400 text-sm">{renderStars(r.rating)}</span>
+              <span class="text-xs text-dark-foreground/70">{r.author}</span>
+            </div>
+            <p class="text-xs text-dark-foreground/60 leading-relaxed line-clamp-2">{r.comment[lang] ?? r.comment.es}</p>
+          </div>
+        ))}
+      </div>
+    )}
+
+  </div>
+</aside>

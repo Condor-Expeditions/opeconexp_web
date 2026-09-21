@@ -1,0 +1,38 @@
+---
+/**
+ * FormGroup: Wrapper para agrupar Label + campo de formulario + mensaje de ayuda.
+ * Uso:
+ *   <FormGroup label="Email" for="email" required helpText="Ingresa tu correo">
+ *     <Input id="email" type="email" placeholder="tu@email.com" />
+ *   </FormGroup>
+ */
+import Label from "./Label.astro";
+
+export interface Props {
+	label?: string;
+	for?: string;
+	required?: boolean;
+	helpText?: string;
+	class?: string;
+}
+
+const {
+	label,
+	for: htmlFor,
+	required = false,
+	helpText,
+	class: className = "",
+} = Astro.props;
+---
+
+<div class:list={["flex flex-col gap-1.5", className]}>
+	{label && (
+		<Label for={htmlFor} required={required}>
+			{label}
+		</Label>
+	)}
+	<slot />
+	{helpText && (
+		<p class="text-sm text-muted-foreground">{helpText}</p>
+	)}
+</div>

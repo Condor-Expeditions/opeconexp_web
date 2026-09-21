@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+export type LabelSize = "sm" | "md" | "lg";
+
+export interface Props extends HTMLAttributes<"label"> {
+	for?: string;
+	required?: boolean;
+	size?: LabelSize;
+	class?: string;
+}
+
+const {
+	for: htmlFor,
+	required = false,
+	size = "md",
+	class: className = "",
+	...rest
+} = Astro.props;
+
+const sizeClasses: Record<LabelSize, string> = {
+	sm: "text-xs",
+	md: "text-sm",
+	lg: "text-base",
+};
+
+const classes = [
+	"font-medium text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+	sizeClasses[size],
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+---
+
+<label for={htmlFor} class={classes} {...rest}>
+	<slot />
+	{required && <span class="text-destructive ml-0.5">*</span>}
+</label>

@@ -1,0 +1,200 @@
+{
+  "es": {
+    "nav": {
+      "inicio": "Inicio",
+      "destinos": "Destinos",
+      "experiencias": "Experiencias",
+      "nosotros": "Nosotros",
+      "contacto": "Contacto",
+      "reservar": "Reservar",
+      "lang": "EN"
+    },
+    "footer": {
+      "about": "Operadora de turismo de aventura especializada en expediciones personalizadas en Ecuador. Descubre los Andes, la Amazonía, la Costa y Galápagos con guías expertos.",
+      "explore": "Explora",
+      "adventures": "Aventuras",
+      "contact": "Contacto",
+      "whatsapp": "Chatea por WhatsApp",
+      "rights": "Todos los derechos reservados."
+    },
+    "home": {
+      "hero_title_1": "Expediciones",
+      "hero_title_2": "Inolvidables",
+      "hero_subtitle": "Descubre la aventura en los rincones más remotos del planeta. Turismo de expedición auténtico y sostenible.",
+      "destinos_title": "Destinos que Inspiran",
+      "destinos_tagline": "Explora",
+      "destinos_subtitle": "Desde las cumbres andinas hasta las profundidades de la Amazonía. Cuatro mundos, una sola expedición.",
+      "experiencias_title": "Experiencias Épicas",
+      "experiencias_tagline": "Vive la Aventura",
+      "experiencias_subtitle": "Trekking, rafting, escalada y exploración. Elige tu desafío.",
+      "whyus_title": "¿Por qué Cóndor Expeditions?",
+      "whyus_tagline": "Nuestra Diferencia",
+      "testimonials_title": "Lo que Dicen Nuestros Viajeros",
+      "testimonials_tagline": "Testimonios",
+      "cta_title": "¿Listo para tu próxima aventura?",
+      "cta_subtitle": "Cuéntanos qué tipo de experiencia buscas y diseñaremos juntos la expedición perfecta para ti.",
+      "cta_reserva": "Reserva tu Expedición",
+      "cta_ver": "Ver Experiencias",
+      "stats": {
+        "years": "Años de experiencia",
+        "destinations": "Destinos explorados",
+        "travelers": "Viajeros felices",
+        "safety": "Seguridad garantizada"
+      }
+    },
+    "destinos": {
+      "title": "Nuestros Destinos",
+      "tagline": "Descubre Ecuador",
+      "subtitle": "Cuatro mundos, una sola aventura. Desde las cumbres andinas hasta las profundidades del Pacífico."
+    },
+    "experiencias": {
+      "title": "Experiencias de Aventura",
+      "tagline": "Tu Próximo Reto",
+      "subtitle": "Más de 30 expediciones pensadas para todo nivel. Grupos reducidos, guías nativos, y un compromiso real con la naturaleza.",
+      "includes_label": "Incluye",
+      "cta_title": "¿No encuentras lo que buscas?",
+      "cta_subtitle": "Diseñamos experiencias completamente a tu medida. Contáctanos y cuéntanos tu sueño de aventura.",
+      "cta_button": "Diseña tu Expedición Personalizada"
+    },
+    "nosotros": {
+      "title": "El Espíritu de la Exploración",
+      "tagline": "Quiénes Somos",
+      "subtitle": "Somos un equipo apasionado por la aventura, la naturaleza y el Ecuador. Cada expedición es una historia nueva y cada viajero un compañero de ruta.",
+      "valores_title": "Nuestros Valores",
+      "equipo_title": "Nuestro Equipo"
+    },
+    "contacto": {
+      "title": "Reserva tu Expedición",
+      "tagline": "Hablemos",
+      "subtitle": "Cuéntanos qué tipo de aventura sueñas y diseñaremos la experiencia perfecta para ti.",
+      "form_title": "Envíanos un Mensaje",
+      "name": "Nombre",
+      "name_placeholder": "Tu nombre completo",
+      "email": "Email",
+      "email_placeholder": "tu@email.com",
+      "phone": "Teléfono / WhatsApp",
+      "phone_placeholder": "+590 XX XXX XXXX",
+      "experience": "Tipo de Experiencia",
+      "experience_options": ["Selecciona una categoría", "Trekking / Senderismo", "Rafting / Singular", "Montañismo / Escalada", "Expedición de Selva", "Cultural / Comunitario", "Expedición personalizada"],
+      "dates": "Fechas estimadas",
+      "dates_placeholder": "Ej: Julio 2026",
+      "travelers": "Número de viajeros",
+      "message": "Tu mensaje",
+      "message_placeholder": "Cuéntanos tus sueños de aventura, nivel de experiencia y preferencias...",
+      "submit": "Enviar Mensaje",
+      "direct_title": "Contacto Directo",
+      "phone_label": "Teléfono",
+      "whatsapp_label": "Chatea con nosotros",
+      "email_label": "Email",
+      "office_label": "Oficina",
+      "maps_link": "Ver en Google Maps →",
+      "faq_title": "¿Preguntas?",
+      "faq_text": "¿Necesitas equipo? ¿Seguro incluido? ¿Cancelaciones? Escríbenos y te respondemos en menos de 24 horas.",
+      "faq_cta": "Preguntar por WhatsApp"
+    },
+    "gracias": {
+      "title": "¡Gracias por tu Mensaje!",
+      "subtitle": "Te responderemos en menos de 24 horas. Mientras tanto, sueña con tu próxima aventura.",
+      "back": "Volver al Inicio"
+    }
+  },
+  "en": {
+    "nav": {
+      "inicio": "Home",
+      "destinos": "Destinations",
+      "experiencias": "Experiences",
+      "nosotros": "About Us",
+      "contacto": "Contact",
+      "reservar": "Book Now",
+      "lang": "ES"
+    },
+    "footer": {
+      "about": "Adventure tourism operator specializing in custom expeditions across Ecuador. Discover the Andes, Amazon, Pacific Coast and Galapagos with expert local guides.",
+      "explore": "Explore",
+      "adventures": "Adventures",
+      "contact": "Contact",
+      "whatsapp": "Chat on WhatsApp",
+      "rights": "All rights reserved."
+    },
+    "home": {
+      "hero_title_1": "Unforgettable",
+      "hero_title_2": "Expeditions",
+      "hero_subtitle": "Discover extreme adventure in the most remote corners of the planet. Authentic and sustainable expedition tourism.",
+      "destinos_title": "Inspiring Destinations",
+      "destinos_tagline": "Discover",
+      "destinos_subtitle": "From Andean peaks to the Amazon depths. Four worlds, one expedition.",
+      "experiencias_title": "Epic Experiences",
+      "experiencias_tagline": "Live the Adventure",
+      "experiencias_subtitle": "Trekking, rafting, climbing and exploration. Choose your challenge.",
+      "whyus_title": "Why Condor Expeditions?",
+      "whyus_tagline": "Our Difference",
+      "testimonials_title": "What Our Travelers Say",
+      "testimonials_tagline": "Testimonials",
+      "cta_title": "Ready for your next adventure?",
+      "cta_subtitle": "Tell us what kind of experience you're looking for and we'll design the perfect expedition together.",
+      "cta_reserva": "Book Your Expedition",
+      "cta_ver": "See Experiences",
+      "stats": {
+        "years": "Years of experience",
+        "destinations": "Destinations explored",
+        "travelers": "Happy travelers",
+        "safety": "Guaranteed safety"
+      }
+    },
+    "destinos": {
+      "title": "Our Destinations",
+      "tagline": "Discover Ecuador",
+      "subtitle": "Four worlds, one adventure. From Andean heights to Pacific depths."
+    },
+    "experiencias": {
+      "title": "Adventure Experiences",
+      "tagline": "Your Next Challenge",
+      "subtitle": "Over 30 expeditions across all levels. Small groups, native guides, and real commitment to nature.",
+      "includes_label": "Includes",
+      "cta_title": "Can't find what you're looking for?",
+      "cta_subtitle": "We design fully customized experiences. Contact us and tell us your adventure dream.",
+      "cta_button": "Design Your Custom Expedition"
+    },
+    "nosotros": {
+      "title": "The Spirit of Exploration",
+      "tagline": "About Us",
+      "subtitle": "We're a team driven by adventure, nature and our homeland Ecuador. Every expedition is a new story and every traveler a companion.",
+      "values_title": "Our Values",
+      "team_title": "Our Team"
+    },
+    "contacto": {
+      "title": "Book Your Expedition",
+      "tagline": "Let's Talk",
+      "subtitle": "Tell us what kind of adventure you dream of and we'll design the perfect experience for you.",
+      "form_title": "Send Us a Message",
+      "name": "Name",
+      "name_placeholder": "Full name",
+      "email": "Email",
+      "email_placeholder": "you@email.com",
+      "phone": "Phone / WhatsApp",
+      "phone_placeholder": "+593 XX XXX XXXX",
+      "experience": "Experience Type",
+      "experience_options": ["Select category", "Trekking / Hiking", "Rafting / Kayak", "Mountaineering / Climbing", "Jungle Expedition", "Cultural / Community", "Custom expedition"],
+      "dates": "Estimated dates",
+      "dates_placeholder": "e.g. July 2026",
+      "travelers": "Number of travelers",
+      "message": "Your message",
+      "message_placeholder": "Tell us about your adventure dreams, experience level and preferences...",
+      "submit": "Send Message",
+      "direct_title": "Direct Contact",
+      "phone_label": "Phone",
+      "whatsapp_label": "Chat with Us",
+      "email_label": "Email",
+      "office_label": "Office",
+      "maps_link": "Google Maps →",
+      "faq_title": "Questions?",
+      "faq_text": "Need equipment? Is insurance included? Cancellations? Write us and we'll reply within 24 hours.",
+      "faq_cta": "Ask via WhatsApp"
+    },
+    "thanks": {
+      "title": "Thank You for Your Message!",
+      "subtitle": "We'll reply within 24 hours. In the meantime, dream of your next adventure.",
+      "back": "Back to Home"
+    }
+  }
+}

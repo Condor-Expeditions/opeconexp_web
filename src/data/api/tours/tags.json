@@ -1,0 +1,21 @@
+[
+  {"id":"cajas","slug":"cajas","title":{"es":"Parque Nacional Cajas","en":"Cajas National Park"}},
+  {"id":"cotopaxi","slug":"cotopaxi","title":{"es":"Volcán Cotopaxi","en":"Cotopaxi Volcano"}},
+  {"id":"chimborazo","slug":"chimborazo","title":{"es":"Chimborazo","en":"Chimborazo"}},
+  {"id":"quilotoa","slug":"quilotoa","title":{"es":"Quilotoa","en":"Quilotoa"}},
+  {"id":"cuyabeno","slug":"cuyabeno","title":{"es":"Reserva Cuyabeno","en":"Cuyabeno Reserve"}},
+  {"id":"yasuni","slug":"yasuni","title":{"es":"Parque Nacional Yasuní","en":"Yasuní National Park"}},
+  {"id":"ingapirca","slug":"ingapirca","title":{"es":"Ruinas de Ingapirca","en":"Ingapirca Ruins"}},
+  {"id":"otavalo","slug":"otavalo","title":{"es":"Otavalo","en":"Otavalo"}},
+  {"id":"giron","slug":"giron","title":{"es":"Girón","en":"Girón"}},
+  {"id":"paute","slug":"paute","title":{"es":"Paute","en":"Paute"}},
+  {"id":"sigsig","slug":"sigsig","title":{"es":"Sígsig","en":"Sígsig"}},
+  {"id":"yunguilla","slug":"yunguilla","title":{"es":"Yunguilla","en":"Yunguilla"}},
+  {"id":"banos","slug":"banos","title":{"es":"Baños de Agua Santa","en":"Baños de Agua Santa"}},
+  {"id":"gualaceo","slug":"gualaceo","title":{"es":"Gualaceo","en":"Gualaceo"}},
+  {"id":"chordeleg","slug":"chordeleg","title":{"es":"Chordeleg","en":"Chordeleg"}},
+  {"id":"cojitambo","slug":"cojitambo","title":{"es":"Cojitambo","en":"Cojitambo"}},
+  {"id":"sangay","slug":"sangay","title":{"es":"Parque Nacional Sangay","en":"Sangay National Park"}},
+  {"id":"jatunyaku","slug":"jatunyaku","title":{"es":"Río Jatunyaku","en":"Jatunyaku River"}},
+  {"id":"san-pablo","slug":"san-pablo","title":{"es":"Lago San Pablo","en":"San Pablo Lake"}}
+]

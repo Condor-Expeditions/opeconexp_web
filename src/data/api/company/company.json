@@ -1,0 +1,24 @@
+{
+  "name": "Cóndor Expeditions",
+  "author": "Cóndor Expeditions",
+  "seo": {
+    "description": {"es": "Operadora de turismo de aventura en Ecuador. Expediciones personalizadas de trekking, rafting, montañismo y selva en los Andes, Amazonía y Galápagos.", "en": "Adventure tourism operator in Ecuador. Customized trekking, rafting, mountaineering and jungle expeditions in the Andes, Amazon and Galapagos."},
+    "keywords": {"es": "expediciones Ecuador, turismo aventura Ecuador, trekking Andes", "en": "Ecuador expeditions, adventure tourism, Andes trekking"}
+  },
+  "contact": {
+    "address": {"es": "Cuenca, Ecuador", "en": "Cuenca, Ecuador"},
+    "scheduleWeekdays": {"es": "Lunes a Viernes de 08:00h a 18:00h", "en": "Monday to Friday 8:00 AM to 6:00 PM"},
+    "scheduleWeekends": {"es": "Sábados de 09:00h a 13:00h", "en": "Saturdays 9:00 AM to 1:00 PM"},
+    "phone": {"name": "+593 99 590 0614", "href": "tel:+593****0614"},
+    "email": {"name": "info@condorexpedition.com", "href": "mailto:info@condorexpedition.com"},
+    "whatsapp": "https://wa.me/593995900614?text=Hola,%20quiero%20información%20de%20expediciones",
+    "maps": "https://maps.app.goo.gl/ze7uN4dYkhENdh767"
+  },
+  "socials": [
+    {"name": "Facebook", "href": "https://www.facebook.com/condorexpeditions", "icon": "facebook"},
+    {"name": "Instagram", "href": "https://www.instagram.com/condorexpeditions/", "icon": "instagram"},
+    {"name": "TikTok", "href": "https://www.tiktok.com/@condorexpeditions", "icon": "tiktok"},
+    {"name": "YouTube", "href": "https://www.youtube.com/@condorexpeditions", "icon": "youtube"},
+    {"name": "WhatsApp", "href": "https://wa.me/593995900614", "icon": "whatsapp"}
+  ]
+}
