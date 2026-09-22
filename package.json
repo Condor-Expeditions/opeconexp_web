@@ -15,7 +15,8 @@
 	},
 	"dependencies": {
 		"astro": "^7.3.2",
-		"embla-carousel": "^8.6.0"
+		"embla-carousel": "^8.6.0",
+		"embla-carousel-fade": "^8.6.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.4",

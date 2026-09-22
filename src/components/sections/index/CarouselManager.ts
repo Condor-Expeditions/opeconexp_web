@@ -1,4 +1,7 @@
 import EmblaCarousel, { type EmblaCarouselType } from "embla-carousel";
+import Fade from "embla-carousel-fade";
+
+const SWIPE_THRESHOLD = 50;
 
 class CarouselManager {
     emblaInstance: EmblaCarouselType | null;
@@ -18,16 +21,53 @@ class CarouselManager {
             return;
         }
 
+        const emblaApi = EmblaCarousel(
+            this.viewportNode,
+            {
+                loop: true,
+                duration: 200,
+                watchDrag: false,
+            },
+            [Fade()],
+        );
 
-        this.emblaInstance = EmblaCarousel(this.viewportNode, {
-            loop: true,
+        this.emblaInstance = emblaApi;
+        this.bindSwipe(emblaApi);
+        this.others();
+    }
+
+    bindSwipe(emblaApi: EmblaCarouselType) {
+        const viewportNode = this.viewportNode;
+        if (!viewportNode) return;
+
+        let startX: number | null = null;
+
+        viewportNode.addEventListener("pointerdown", (event) => {
+            startX = event.clientX;
+        });
+
+        // Un scroll vertical cancela el pointer y no llega `pointerup`:
+        // limpiamos para no arrastrar un `startX` viejo.
+        viewportNode.addEventListener("pointercancel", () => {
+            startX = null;
+        });
+
+        viewportNode.addEventListener("pointerup", (event) => {
+            if (startX === null) return;
+
+            const deltaX = event.clientX - startX;
+            startX = null;
+
+            if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+
+            if (deltaX < 0) emblaApi.scrollNext();
+            else emblaApi.scrollPrev();
         });
     }
 
     others() {
-
-        // const prevBtn = wrapperNode?.querySelector(".embla__prev");
-        // const nextBtn = wrapperNode?.querySelector(".embla__next");
+        const prevBtn = this.wrapperNode?.querySelector(".embla__prev");
+        const nextBtn = this.wrapperNode?.querySelector(".embla__next");
         // const dotNodes = wrapperNode?.querySelectorAll(".embla__dot");
         // const updateDots = () => {
         //   const selected = emblaApi.selectedScrollSnap();
@@ -41,8 +81,8 @@ class CarouselManager {
         //   });
         // };
 
-        // prevBtn?.addEventListener("click", () => emblaApi.scrollPrev());
-        // nextBtn?.addEventListener("click", () => emblaApi.scrollNext());
+        prevBtn?.addEventListener("click", () => this.emblaInstance?.scrollPrev());
+        nextBtn?.addEventListener("click", () => this.emblaInstance?.scrollNext());
 
         // dotNodes?.forEach((dot, index) => {
         //   dot.addEventListener("click", () => emblaApi.scrollTo(index));
