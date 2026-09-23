@@ -7,6 +7,9 @@ class CarouselManager {
     emblaInstance: EmblaCarouselType | null;
     wrapperNode: HTMLElement | null;
     viewportNode: HTMLElement | null;
+    titleNode: HTMLElement | null;
+    subtitleNode: HTMLElement | null;
+    paragraphNode: HTMLElement | null;
 
     constructor() {
         this.emblaInstance = null;
@@ -14,6 +17,9 @@ class CarouselManager {
         this.viewportNode = this.wrapperNode?.querySelector(
             ".embla__viewport",
         ) as HTMLElement;
+        this.titleNode = document.querySelector("#hero-title");
+        this.subtitleNode = document.querySelector("#hero-subtitle");
+        this.paragraphNode = document.querySelector("#hero-paragraph");
     }
 
     initHeroCarousel() {
@@ -21,22 +27,49 @@ class CarouselManager {
             return;
         }
 
-        const emblaApi = EmblaCarousel(
+        this.emblaInstance = EmblaCarousel(
             this.viewportNode,
             {
                 loop: true,
-                duration: 200,
+                duration: 150,
                 watchDrag: false,
             },
             [Fade()],
         );
 
-        this.emblaInstance = emblaApi;
-        this.bindSwipe(emblaApi);
+        this.bindSwipe();
+        this.onChangeUpdateHeroContent();
         this.others();
     }
 
-    bindSwipe(emblaApi: EmblaCarouselType) {
+    onChangeUpdateHeroContent() {
+        if (this.emblaInstance === null) {
+            return;
+        }
+
+        this.emblaInstance.on("select", () => {
+
+            if (this.emblaInstance === null) {
+                return;
+            }
+
+            const activeSlide = this.viewportNode?.querySelectorAll<HTMLElement>(
+                ".embla__slide",
+            )[this.emblaInstance.selectedScrollSnap()];
+
+            if (!activeSlide) return;
+
+            this.titleNode?.replaceChildren(activeSlide.dataset.title ?? "");
+            this.subtitleNode?.replaceChildren(activeSlide.dataset.subtitle ?? "");
+            this.paragraphNode?.replaceChildren(activeSlide.dataset.paragraph ?? "");
+
+            if (this.subtitleNode) {
+                this.subtitleNode.className = `block ${activeSlide.dataset.accentClass ?? ""}`;
+            }
+        });
+    }
+
+    bindSwipe() {
         const viewportNode = this.viewportNode;
         if (!viewportNode) return;
 
@@ -60,8 +93,12 @@ class CarouselManager {
 
             if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
 
-            if (deltaX < 0) emblaApi.scrollNext();
-            else emblaApi.scrollPrev();
+            if (this.emblaInstance === null) {
+                return;
+            }
+
+            if (deltaX < 0) this.emblaInstance.scrollNext();
+            else this.emblaInstance.scrollPrev();
         });
     }
 

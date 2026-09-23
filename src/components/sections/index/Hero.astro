@@ -1,20 +1,24 @@
 ---
+import ContainerHeader from "@/components/shared/ContainerHeader";
+
 const data = [
   {
     backgroundUrl: "https://picsum.photos/1920/1080?random=1",
     altImage: "Paisaje andino ecuatoriano",
-    title: "Expediciones",
-    subtitle: "Inolvidables",
+    title: "Ecuador:",
+    subtitle: " Vive lo que otros solo visitan",
     accentClass: "text-primary",
-    paragraph: "Ecuador: Vive lo que otros solo visitan.",
+    paragraph:
+      "Conoce Condor Expeditions, operadora turística enfocada a la experiencia de vivir algo único en nuestro hermoso páis.",
   },
   {
     backgroundUrl: "https://picsum.photos/1920/1080?random=2",
-    altImage: "Selva amazónica",
-    title: "Aventura en la",
-    subtitle: "Amazonía",
+    altImage: "Parque Nacional El Cajas",
+    title: "Parque Nacional",
+    subtitle: "El Cajas",
     accentClass: "text-secondary",
-    paragraph: "Descubre la biodiversidad más impresionante del planeta.",
+    paragraph:
+      "Descubre este increible parque nacional, reserva natural nacional del Ecuador.",
   },
   {
     backgroundUrl: "https://picsum.photos/1920/1080?random=3",
@@ -36,7 +40,13 @@ const data = [
       <div class="embla__container flex h-full">
         {
           data.map((slide, index) => (
-            <div class="embla__slide flex-[0_0_100%] min-w-0 relative h-full">
+            <div
+              class="embla__slide flex-[0_0_100%] min-w-0 relative h-full"
+              data-title={slide.title}
+              data-subtitle={slide.subtitle}
+              data-accent-class={slide.accentClass}
+              data-paragraph={slide.paragraph}
+            >
               <img
                 src={slide.backgroundUrl}
                 alt={slide.altImage}
@@ -45,19 +55,6 @@ const data = [
                 draggable="false"
               />
               <div class="absolute inset-0 bg-black/20" />
-              <div class="relative z-10 h-full flex flex-col items-center justify-center px-4 py-12 text-center text-white">
-                {/* <div class="max-w-4xl mx-auto">
-                  <h2 class="text-4xl md:text-6xl font-extrabold mb-6">
-                    <span class="block">{slide.title}</span>
-                    <span class={`block ${slide.accentClass}`}>
-                      {slide.subtitle}
-                    </span>
-                  </h2>
-                  <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">
-                    {slide.paragraph}
-                  </p>
-                </div> */}
-              </div>
             </div>
           ))
         }
@@ -135,6 +132,23 @@ const data = [
       ></button>
     </div> -->
   </div>
+
+  <!-- Fixed hero content, synchronized with the active slide -->
+  <ContainerHeader class="pb-52 absolute inset-0 z-10 pointer-events-none flex">
+    <div
+      class="hero-content flex flex-row items-end justify-start text-white gap-5 w-full"
+    >
+      <h2 class="mb-6 text-4xl font-extrabold md:text-6xl flex-2">
+        <span id="hero-title" class="block">{data[0].title}</span>
+        <span id="hero-subtitle" class={`block ${data[0].accentClass}`}>
+          {data[0].subtitle}
+        </span>
+      </h2>
+      <p id="hero-paragraph" class="mb-10 text-xl flex-4">
+        {data[0].paragraph}
+      </p>
+    </div>
+  </ContainerHeader>
 </section>
 
 <script>
