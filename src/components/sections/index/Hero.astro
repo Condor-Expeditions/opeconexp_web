@@ -44,9 +44,9 @@ const data = [
                 loading={index === 0 ? "eager" : "lazy"}
                 draggable="false"
               />
-              <div class="absolute inset-0 bg-black/40" />
+              <div class="absolute inset-0 bg-black/20" />
               <div class="relative z-10 h-full flex flex-col items-center justify-center px-4 py-12 text-center text-white">
-                <div class="max-w-4xl mx-auto">
+                {/* <div class="max-w-4xl mx-auto">
                   <h2 class="text-4xl md:text-6xl font-extrabold mb-6">
                     <span class="block">{slide.title}</span>
                     <span class={`block ${slide.accentClass}`}>
@@ -56,7 +56,7 @@ const data = [
                   <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">
                     {slide.paragraph}
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           ))
@@ -67,7 +67,7 @@ const data = [
     <!-- Navigation Arrows -->
     <button
       type="button"
-      class="embla__prev absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+      class="hidden embla__prev absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
       aria-label="Slide anterior"
     >
       <svg
@@ -87,7 +87,7 @@ const data = [
     </button>
     <button
       type="button"
-      class="embla__next absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
+      class="hidden embla__next absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
       aria-label="Slide siguiente"
     >
       <svg

@@ -1,8 +1,9 @@
 ---
 import BaseHead from "@/components/shared/BaseHead";
 import Footer from "@/components/ui/footer/Footer";
-import WhatsAppFloat from "@/components/ui/WhatsAppFloat";
+// import WhatsAppFloat from "@/components/ui/WhatsAppFloat";
 import "../styles/global.css";
+import Header from "@/components/ui/header/Header";
 
 export interface Props {
   title: string;
@@ -33,6 +34,7 @@ const {
   />
 
   <body class="font-sans bg-background text-foreground">
+    <Header />
     <slot />
     <Footer lang={lang} />
     <!-- <WhatsAppFloat /> -->
