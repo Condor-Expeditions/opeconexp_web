@@ -1,0 +1,219 @@
+---
+// Timeline.astro — Línea de tiempo vertical con imágenes y animaciones
+// Fade-in on scroll usando IntersectionObserver (JS nativo).
+import SmartImage from "@/components/ui/SmartImage.astro";
+
+export interface TimelinePoint {
+	titulo: string;
+	descripcion: string;
+	imagen?: string;
+	hora: string;
+	duracion: string;
+	coordenadas?: string;
+}
+
+interface Props {
+	items: TimelinePoint[];
+	lang?: "es" | "en";
+}
+
+const { items, lang = "es" } = Astro.props;
+
+const durationLabel = lang === "en" ? "Duration" : "Duración";
+const timeLabel = lang === "en" ? "Time" : "Hora";
+---
+
+{items.length > 0 && (
+	<section class="timeline-section">
+		<div class="timeline">
+			{items.map((item, index) => (
+				<div
+					class={`timeline-item ${index % 2 === 0 ? "is-left" : "is-right"}`}
+					data-index={index}
+				>
+					<div class="timeline-dot"></div>
+					<div class="timeline-card">
+						<div class="timeline-head">
+							<span class="timeline-time">{item.hora}</span>
+						<span class="timeline-duration">{durationLabel}: {item.duracion}</span>
+					</div>
+					<h4 class="timeline-title">{item.titulo}</h4>
+					<p class="timeline-desc">{item.descripcion}</p>
+						{item.imagen && (
+							<div class="timeline-img-wrap">
+								<SmartImage
+									src={item.imagen}
+									alt={item.titulo}
+									width={600}
+									height={360}
+									class="timeline-img"
+									loading="lazy"
+								/>
+							</div>
+						)}
+						{item.coordenadas && (
+							<span class="timeline-coords">{item.coordenadas}</span>
+						)}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+)}
+
+<script>
+(function () {
+	var items = Array.prototype.slice.call(document.querySelectorAll('.timeline-item'));
+	if (!items.length) return;
+
+	var observer = new IntersectionObserver(function (entries) {
+		entries.forEach(function (entry) {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('is-visible');
+				observer.unobserve(entry.target);
+			}
+		});
+	}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+	items.forEach(function (item, index) {
+		item.style.transitionDelay = (index * 100) + 'ms';
+		observer.observe(item);
+	});
+})();
+</script>
+
+<style>
+	.timeline-section {
+		padding: 3rem 0;
+	}
+
+	.timeline {
+		position: relative;
+		max-width: 45rem;
+		margin: 0 auto;
+	}
+
+	.timeline-item {
+		position: relative;
+		margin-bottom: 2.5rem;
+		display: flex;
+		align-items: flex-start;
+		opacity: 0;
+		transform: translateY(24px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+	}
+
+	.timeline-item.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.timeline-item.is-left {
+		justify-self: start;
+	}
+
+	.timeline-item.is-right {
+		justify-self: end;
+	}
+
+	.timeline-dot {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 1rem;
+		height: 1rem;
+		border-radius: 9999px;
+		background: #db0d00;
+		border: 4px solid #ffffff;
+		z-index: 10;
+	}
+
+	.timeline-card {
+		width: calc(50% - 2rem);
+		padding: 1rem;
+		border-radius: 0.75rem;
+		background: #f4efdc;
+		border: 1px solid #e5e5e5;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	}
+
+	.timeline-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.timeline-time {
+		display: inline-block;
+		padding: 0.125rem 0.5rem;
+		border-radius: 0.25rem;
+		background: rgba(219, 13, 0, 0.1);
+		color: #db0d00;
+		font-size: 0.75rem;
+		font-weight: 600;
+	}
+
+	.timeline-duration {
+		font-size: 0.75rem;
+		color: #64748b;
+	}
+
+	.timeline-title {
+		font-size: 1rem;
+		font-weight: 600;
+		color: #000000;
+		margin-bottom: 0.25rem;
+	}
+
+	.timeline-desc {
+		font-size: 0.875rem;
+		color: #64748b;
+		line-height: 1.5;
+		margin-bottom: 0.5rem;
+	}
+
+	.timeline-img-wrap {
+		margin-top: 0.5rem;
+		overflow: hidden;
+		border-radius: 0.5rem;
+	}
+
+	.timeline-img {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.timeline-card:hover .timeline-img {
+		transform: scale(1.03);
+	}
+
+	.timeline-coords {
+		display: block;
+		font-size: 0.75rem;
+		color: #64748b;
+		margin-top: 0.25rem;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	}
+
+	@media (max-width: 768px) {
+		.timeline-item,
+		.timeline-item.is-left,
+		.timeline-item.is-right {
+			justify-content: flex-start;
+			margin-left: 1.5rem;
+		}
+		.timeline-card {
+			width: 100%;
+		}
+		.timeline-dot {
+			left: 0;
+			transform: none;
+			width: 0.75rem;
+			height: 0.75rem;
+		}
+	}
+</style>

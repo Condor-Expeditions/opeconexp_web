@@ -15,10 +15,19 @@ import { type Destination } from "../../data/destinations/destinations";
 export interface Props {
 	destination: Destination;
 	lang?: "es" | "en";
+	showRelatedTours?: boolean;
 }
 
-const { destination, lang = "es" } = Astro.props;
+const { destination, lang = "es", showRelatedTours = true } = Astro.props;
 const isEnglish = lang === "en";
+
+const safeResenas = destination.resenas ?? [];
+const totalRating = safeResenas.reduce(
+	(sum, r) => sum + (r.calificacion || 0),
+	0,
+);
+const averageRating =
+	safeResenas.length > 0 ? totalRating / safeResenas.length : 0;
 
 const allTours = getTours();
 
@@ -80,12 +89,30 @@ const labels = {
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
 				<!-- Main Content -->
 				<div class="lg:col-span-2 space-y-10">
-					<div>
-						<h2 class="text-2xl font-semibold text-foreground mb-4">
-							{isEnglish ? "About this destination" : "Sobre este destino"}
-						</h2>
-						<p class="text-base text-muted-foreground leading-relaxed">{destination.longDescription}</p>
-					</div>
+<div>
+							<h2 class="text-2xl font-semibold text-foreground mb-4">
+								{isEnglish ? "About this destination" : "Sobre este destino"}
+							</h2>
+							<div class="flex flex-wrap items-center gap-2 mb-4">
+								{destination.disponibilidad &&
+									destination.disponibilidad.dias &&
+									destination.disponibilidad.dias.length > 0 && (
+										<Badge
+											variant="success"
+											size="sm"
+										>
+											{isEnglish ? "Available" : "Disponible"}
+										</Badge>
+									)}
+								{destination.resenas && destination.resenas.length > 0 && (
+									<Badge variant="warning" size="sm">
+										★ {averageRating.toFixed(1)} ({destination.resenas.length}{" "}
+										{isEnglish ? "reviews" : "reseñas"})
+									</Badge>
+								)}
+							</div>
+							<p class="text-base text-muted-foreground leading-relaxed">{destination.longDescription}</p>
+						</div>
 
 					<div>
 						<h2 class="text-xl font-semibold text-foreground mb-3">{labels.highlights}</h2>
@@ -140,8 +167,8 @@ const labels = {
 			</Container>
 		</section>
 
-		<!-- Related Tours -->
-			{relatedTours.length > 0 && (
+	<!-- Related Tours -->
+		{showRelatedTours && relatedTours.length > 0 && (
 				<section class="section-padding-sm bg-crema">
 					<Container>
 						<h2 class="text-2xl font-semibold text-foreground mb-8">{labels.relatedTours}</h2>

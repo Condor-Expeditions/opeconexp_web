@@ -57,3 +57,88 @@ export function getCartTotal(): number {
 export function clearCart(): void {
 	saveCart([]);
 }
+
+// ─── Destinos (/destinos/[slug]) ─────────────────────────────
+// Reserva de destino con categorías de viajeros, datos de viajeros
+// y datos del comprador. Clave separada para no romper el carrito de tours.
+
+export type TravelerCategory =
+	| "adults"
+	| "seniors"
+	| "disabled"
+	| "children"
+	| "babies";
+
+export interface DestinationTraveler {
+	name: string;
+	doc: string;
+	birth: string;
+	role: "buyer" | "companion";
+}
+
+export interface DestinationBuyer {
+	email: string;
+	phone: string;
+	whatsapp: boolean;
+}
+
+export interface DestinationCartItem {
+	kind: "destination";
+	slug: string;
+	name: string;
+	lang: "es" | "en";
+	date: string;
+	time: string;
+	qty: Record<TravelerCategory, number>;
+	childRange?: string;
+	travelers: DestinationTraveler[];
+	buyer: DestinationBuyer;
+	subtotal: number;
+	total: number;
+	currency: "USD";
+	createdAt: string;
+}
+
+const DEST_CART_KEY = "coexp_cart_destinations";
+
+function loadDestinationCart(): DestinationCartItem[] {
+	try {
+		const stored = localStorage.getItem(DEST_CART_KEY);
+		return stored ? JSON.parse(stored) : [];
+	} catch {
+		return [];
+	}
+}
+
+function saveDestinationCart(items: DestinationCartItem[]): void {
+	localStorage.setItem(DEST_CART_KEY, JSON.stringify(items));
+}
+
+export function getDestinationCart(): DestinationCartItem[] {
+	return loadDestinationCart();
+}
+
+export function addDestinationToCart(item: DestinationCartItem): void {
+	const items = loadDestinationCart();
+	items.push(item);
+	saveDestinationCart(items);
+}
+
+export function removeDestinationFromCart(
+	slug: string,
+	date: string,
+	time: string,
+): void {
+	const items = loadDestinationCart().filter(
+		(i) => !(i.slug === slug && i.date === date && i.time === time),
+	);
+	saveDestinationCart(items);
+}
+
+export function getDestinationCartTotal(): number {
+	return loadDestinationCart().reduce((sum, i) => sum + i.total, 0);
+}
+
+export function clearDestinationCart(): void {
+	saveDestinationCart([]);
+}

@@ -1,0 +1,1032 @@
+---
+// Cart.astro — Carrito de reserva para /destinos/[slug]
+// Desktop: columna sticky dentro del flujo (el grid lo posiciona la página).
+// Móvil: bottom-sheet colapsable con botón flotante.
+// Precios: adulto, tercera edad, discapacitado, niños por rango, bebés gratis.
+// Niños 3-10: descuento % o $2 fijo (se aplica el mayor). Checkout: localStorage + WhatsApp.
+import Button from "@/components/ui/Button.astro";
+import Input from "@/components/ui/Input.astro";
+import Label from "@/components/ui/Label.astro";
+import Select from "@/components/ui/Select.astro";
+
+export interface PrecioRango {
+	rango: string;
+	precio: number;
+	descuento?: number;
+}
+
+export interface Precios {
+	adulto: number;
+	terceraEdad: number;
+	discapacitado: number;
+	ninos?: PrecioRango[];
+	niños?: PrecioRango[];
+	bebes: number;
+}
+
+export interface Disponibilidad {
+	dias: string[];
+	horarios: string[];
+}
+
+export interface CartProps {
+	slug: string;
+	name: string;
+	lang?: "es" | "en";
+	precios: Precios;
+	disponibilidad: Disponibilidad;
+}
+
+const {
+	slug,
+	name,
+	lang = "es",
+	precios,
+	disponibilidad,
+} = Astro.props as CartProps;
+
+const isEnglish = lang === "en";
+
+const labels = {
+	title: isEnglish ? "Book your tour" : "Reserva tu tour",
+	from: isEnglish ? "From" : "Desde",
+	configuration: isEnglish ? "Tour configuration" : "Configuración del tour",
+	date: isEnglish ? "Tour date" : "Día del tour",
+	time: isEnglish ? "Departure time" : "Horario de salida",
+	travelers: isEnglish ? "Travelers" : "Viajeros",
+	adults: isEnglish ? "Adults" : "Adultos",
+	seniors: isEnglish ? "Seniors (65+)" : "Tercera edad",
+	disabled: isEnglish ? "Disabled" : "Discapacitados",
+	children: isEnglish ? "Children (3-10)" : "Niños (3-10)",
+	childRange: isEnglish ? "Child rate" : "Tarifa de niño",
+	babies: isEnglish ? "Babies (0-2, free)" : "Bebés (0-2, gratis)",
+	travelerData: isEnglish ? "Traveler data" : "Datos de los viajeros",
+	travelerHint: isEnglish
+		? "Complete one card per traveler (buyer first)."
+		: "Completa una tarjeta por viajero (primero el comprador).",
+	buyerCard: isEnglish ? "Buyer" : "Comprador",
+	companionCard: isEnglish ? "Companion" : "Acompañante",
+	extraTravelersNote: isEnglish
+		? "For groups larger than 12, remaining traveler data will be requested via WhatsApp."
+		: "Para grupos mayores a 12, los datos restantes se pedirán por WhatsApp.",
+	buyerData: isEnglish ? "Buyer data" : "Datos del comprador",
+	fullName: isEnglish ? "Full name" : "Nombres completos",
+	doc: isEnglish ? "ID / Passport" : "Cédula / Pasaporte",
+	birth: isEnglish ? "Date of birth" : "Fecha de nacimiento",
+	buyerEmail: isEnglish ? "Email" : "Correo electrónico",
+	buyerPhone: isEnglish ? "Contact number" : "Número de contacto",
+	whatsapp: isEnglish
+		? "This number has WhatsApp"
+		: "Este número tiene WhatsApp",
+	submit: isEnglish ? "Add to cart" : "Agregar al carrito",
+	subtotal: isEnglish ? "Subtotal" : "Subtotal",
+	total: isEnglish ? "Total" : "Total",
+	openCart: isEnglish ? "Open booking cart" : "Abrir carrito de reserva",
+	closeCart: isEnglish ? "Close booking cart" : "Cerrar carrito de reserva",
+	successTitle: isEnglish ? "Booking added!" : "¡Reserva agregada!",
+	successText: isEnglish
+		? "We opened WhatsApp with your order summary. We'll confirm availability shortly."
+		: "Abrimos WhatsApp con el resumen de tu pedido. Te confirmaremos disponibilidad enseguida.",
+	newBooking: isEnglish ? "New booking" : "Nueva reserva",
+	required: isEnglish ? "required" : "obligatorio",
+};
+
+const errors = {
+	noTravelers: isEnglish
+		? "Select at least 1 traveler."
+		: "Selecciona al menos 1 viajero.",
+	email: isEnglish ? "Enter a valid email." : "Ingresa un correo válido.",
+	phone: isEnglish
+		? "Enter a valid contact number (7+ digits)."
+		: "Ingresa un número de contacto válido (7+ dígitos).",
+	whatsapp: isEnglish
+		? "Confirm the WhatsApp checkbox."
+		: "Confirma la casilla de WhatsApp.",
+	travelerName: isEnglish
+		? "Traveler name is required (3+ characters)."
+		: "El nombre del viajero es obligatorio (3+ caracteres).",
+	travelerDoc: isEnglish
+		? "Traveler ID is required (4+ characters)."
+		: "La cédula/pasaporte del viajero es obligatoria (4+ caracteres).",
+	travelerBirth: isEnglish
+		? "Traveler birth date is invalid."
+		: "La fecha de nacimiento del viajero no es válida.",
+};
+
+// ── Date options: next 14 days, filtered by disponibilidad.dias when possible ──
+const diasDisponibles = (disponibilidad.dias ?? []).map((d) =>
+	d
+		.toLowerCase()
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, ""),
+);
+const weekdayEs = [
+	"domingo",
+	"lunes",
+	"martes",
+	"miercoles",
+	"jueves",
+	"viernes",
+	"sabado",
+];
+const allDayOptions = Array.from({ length: 14 }, (_, i) => {
+	const d = new Date();
+	d.setDate(d.getDate() + i + 1);
+	const value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+	const label = d.toLocaleDateString(isEnglish ? "en-US" : "es-ES", {
+		weekday: "short",
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	});
+	return { value, label, weekday: weekdayEs[d.getDay()] };
+});
+const dayOptions =
+	allDayOptions.filter((o) => diasDisponibles.includes(o.weekday)).length > 0
+		? allDayOptions.filter((o) => diasDisponibles.includes(o.weekday))
+		: allDayOptions;
+
+const timeOptions = (
+	disponibilidad.horarios?.length ? disponibilidad.horarios : ["08:00"]
+).map((h) => ({ value: h, label: h }));
+
+// ── Child pricing: selected range (default = entry with descuento, else first paid) ──
+const childRanges = precios.niños ?? precios.ninos ?? [];
+const paidRanges = childRanges.filter((n) => Number(n.precio) > 0);
+const defaultChildRange =
+	childRanges.find((n) => Number(n.descuento) > 0) ??
+	paidRanges[0] ??
+	childRanges[0];
+const childOptions = (
+	defaultChildRange
+		? [
+				defaultChildRange,
+				...childRanges.filter((n) => n !== defaultChildRange),
+			]
+		: childRanges
+).map((n) => ({
+	value: n.rango,
+	label: `${n.rango} — $${Number(n.precio).toFixed(2)}`,
+}));
+const hasChildren = childOptions.length > 0;
+const CHILD_FIXED_OFF = 2;
+const MAX_TRAVELER_FORMS = 12;
+
+const formatPrice = (amount: number) =>
+	`$${amount.toLocaleString("es-EC", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+const qtyKeys = [
+	"adults",
+	"seniors",
+	"disabled",
+	"children",
+	"babies",
+] as const;
+const qtyLabels: Record<(typeof qtyKeys)[number], string> = {
+	adults: labels.adults,
+	seniors: labels.seniors,
+	disabled: labels.disabled,
+	children: labels.children,
+	babies: labels.babies,
+};
+
+const pricesJson = JSON.stringify({
+	adulto: Number(precios.adulto) || 0,
+	terceraEdad: Number(precios.terceraEdad) || 0,
+	discapacitado: Number(precios.discapacitado) || 0,
+	ninos: childRanges.map((n) => ({
+		rango: n.rango,
+		precio: Number(n.precio) || 0,
+		descuento: Number(n.descuento) || 0,
+	})),
+	bebes: Number(precios.bebes) || 0,
+	childFixed: CHILD_FIXED_OFF,
+	maxForms: MAX_TRAVELER_FORMS,
+	whatsappNumber: "593995900614",
+	defaultChildRange: defaultChildRange?.rango ?? "",
+});
+const stringsJson = JSON.stringify({ labels, errors });
+---
+
+<aside
+	class="dest-cart"
+	data-cart-root
+	data-testid="dest-cart"
+	data-slug={slug}
+	data-name={name}
+	data-lang={lang}
+>
+	<script type="application/json" data-cart-prices set:html={pricesJson}></script>
+	<script type="application/json" data-cart-strings set:html={stringsJson}></script>
+
+	<button
+		type="button"
+		class="dest-cart-toggle"
+		data-cart-toggle
+		aria-expanded="false"
+		aria-controls="dest-cart-panel"
+		aria-label={labels.openCart}
+	>
+		<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<circle cx="9" cy="21" r="1" />
+			<circle cx="20" cy="21" r="1" />
+			<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+		</svg>
+		<span class="dest-cart-count" data-cart-count hidden>0</span>
+	</button>
+
+	<form class="dest-cart-panel" id="dest-cart-panel" data-cart-form novalidate>
+		<header class="dest-cart-header">
+			<h3 class="dest-cart-title">{labels.title}</h3>
+			<p class="dest-cart-subtitle">{name}</p>
+			<p class="dest-cart-from">
+				{labels.from} <strong data-cart-from>{formatPrice(Number(precios.adulto) || 0)}</strong>
+			</p>
+		</header>
+
+		<div class="dest-cart-body">
+			<section class="dest-cart-section" aria-labelledby="cart-conf">
+				<h4 class="dest-cart-section-title" id="cart-conf">{labels.configuration}</h4>
+				<div class="dest-cart-field">
+					<Label for="cart-date" required>{labels.date}</Label>
+					<Select id="cart-date" name="date" options={dayOptions} />
+				</div>
+				<div class="dest-cart-field">
+					<Label for="cart-time" required>{labels.time}</Label>
+					<Select id="cart-time" name="time" options={timeOptions} />
+				</div>
+				<fieldset class="dest-cart-fieldset">
+					<legend class="dest-cart-legend">{labels.travelers}</legend>
+					<div class="dest-cart-qty-grid">
+						{qtyKeys.map((k) => (
+							<div class="dest-cart-qty-row" data-qty={k}>
+								<span class="dest-cart-qty-name" id={`qty-label-${k}`}>{qtyLabels[k]}</span>
+								<div class="dest-cart-qty-controls" role="group" aria-labelledby={`qty-label-${k}`}>
+									<button type="button" class="dest-cart-qty-btn" data-dec aria-label="−">−</button>
+									<input
+										type="number"
+										class="dest-cart-qty-input"
+										data-qty-input
+										name={k}
+										min="0"
+										max="10"
+										step="1"
+										value="0"
+										inputmode="numeric"
+										aria-label={qtyLabels[k]}
+									/>
+									<button type="button" class="dest-cart-qty-btn" data-inc aria-label="+">+</button>
+								</div>
+							</div>
+						))}
+					</div>
+					{hasChildren && (
+						<div class="dest-cart-field">
+							<Label for="cart-child-range">{labels.childRange}</Label>
+							<Select id="cart-child-range" name="childRange" options={childOptions} />
+						</div>
+					)}
+				</fieldset>
+			</section>
+
+			<section class="dest-cart-section" aria-labelledby="cart-trav">
+				<h4 class="dest-cart-section-title" id="cart-trav">{labels.travelerData}</h4>
+				<p class="dest-cart-hint" data-traveler-hint>{labels.travelerHint}</p>
+				<p class="dest-cart-hint" data-extra-note hidden>{labels.extraTravelersNote}</p>
+				<div class="dest-cart-traveler-grid" data-traveler-grid></div>
+			</section>
+
+			<section class="dest-cart-section" aria-labelledby="cart-buyer">
+				<h4 class="dest-cart-section-title" id="cart-buyer">{labels.buyerData}</h4>
+				<div class="dest-cart-field">
+					<Label for="cart-email" required>{labels.buyerEmail}</Label>
+					<Input id="cart-email" type="email" name="buyerEmail" autocomplete="email" required />
+				</div>
+				<div class="dest-cart-field">
+					<Label for="cart-phone" required>{labels.buyerPhone}</Label>
+					<Input id="cart-phone" type="tel" name="buyerPhone" inputmode="tel" autocomplete="tel" required />
+				</div>
+				<label class="dest-cart-checkbox">
+					<input type="checkbox" name="whatsapp" required />
+					<span>{labels.whatsapp} *</span>
+				</label>
+			</section>
+
+			<div class="dest-cart-status" data-cart-status role="status" aria-live="polite" hidden></div>
+
+			<footer class="dest-cart-footer">
+				<div class="dest-cart-summary" aria-live="polite">
+					<div class="dest-cart-summary-row">
+						<span>{labels.subtotal}</span>
+						<span data-cart-subtotal>{formatPrice(0)}</span>
+					</div>
+					<div class="dest-cart-summary-row dest-cart-total">
+						<span>{labels.total}</span>
+						<span data-cart-total>{formatPrice(0)}</span>
+					</div>
+				</div>
+				<Button type="submit" variant="primary" size="lg" fullWidth class="dest-cart-submit" data-testid="dest-cart-submit">
+					{labels.submit}
+				</Button>
+			</footer>
+		</div>
+
+		<div class="dest-cart-success" data-cart-success hidden>
+			<p class="dest-cart-success-title">{labels.successTitle}</p>
+			<p class="dest-cart-success-text">{labels.successText}</p>
+			<p class="dest-cart-success-total" data-cart-success-total></p>
+			<Button type="button" variant="outline" fullWidth data-cart-reset>{labels.newBooking}</Button>
+		</div>
+	</form>
+</aside>
+
+<script>
+	import { addDestinationToCart } from "@/lib/cart";
+
+	(function () {
+		var root = document.querySelector("[data-cart-root]");
+		if (!root) return;
+
+		var form = root.querySelector("[data-cart-form]");
+		var toggle = root.querySelector("[data-cart-toggle]");
+		var countBadge = root.querySelector("[data-cart-count]");
+		var subtotalEl = root.querySelector("[data-cart-subtotal]");
+		var totalEl = root.querySelector("[data-cart-total]");
+		var statusEl = root.querySelector("[data-cart-status]");
+		var travelerGrid = root.querySelector("[data-traveler-grid]");
+		var travelerHint = root.querySelector("[data-traveler-hint]");
+		var extraNote = root.querySelector("[data-extra-note]");
+		var successBox = root.querySelector("[data-cart-success]");
+		var successTotal = root.querySelector("[data-cart-success-total]");
+		var resetBtn = root.querySelector("[data-cart-reset]");
+		var pricesTag = root.querySelector("[data-cart-prices]");
+		var stringsTag = root.querySelector("[data-cart-strings]");
+
+		var prices = pricesTag ? JSON.parse(pricesTag.textContent || "{}") : {};
+		var strings = stringsTag ? JSON.parse(stringsTag.textContent || "{}") : {};
+		var L = strings.labels || {};
+		var E = strings.errors || {};
+
+		var slug = root.getAttribute("data-slug") || "";
+		var tourName = root.getAttribute("data-name") || "";
+		var lang = root.getAttribute("data-lang") || "es";
+
+		var QTY_KEYS = ["adults", "seniors", "disabled", "children", "babies"];
+		var QTY_MAX = 10;
+		var MAX_FORMS = Number(prices.maxForms) || 12;
+		var CHILD_FIXED = Number(prices.childFixed) || 2;
+		var WA_NUMBER = prices.whatsappNumber || "593995900614";
+		var ranges = Array.isArray(prices.ninos) ? prices.ninos : [];
+
+		function fmt(n) {
+			return "$" + Number(n).toLocaleString("es-EC", {
+				minimumFractionDigits: 2,
+				maximumFractionDigits: 2,
+			});
+		}
+
+		function unitPrices() {
+			return {
+				adults: Number(prices.adulto) || 0,
+				seniors: Number(prices.terceraEdad) || 0,
+				disabled: Number(prices.discapacitado) || 0,
+				children: childUnit(),
+				babies: Number(prices.bebes) || 0,
+			};
+		}
+
+		function selectedRange() {
+			var sel = form.querySelector('[name="childRange"]');
+			var val = sel ? sel.value : prices.defaultChildRange;
+			for (var i = 0; i < ranges.length; i++) {
+				if (ranges[i].rango === val) return ranges[i];
+			}
+			return null;
+		}
+
+		function childUnit() {
+			var range = selectedRange();
+			var base = range ? Number(range.precio) || 0 : 0;
+			if (base <= 0) base = (Number(prices.adulto) || 0) * 0.9;
+			var discount = range ? Number(range.descuento) || 0 : 0;
+			if (discount <= 0) return base;
+			var pctOff = base * (discount / 100);
+			return Math.max(base - pctOff, base - CHILD_FIXED, 0);
+		}
+
+		function readQty(key) {
+			var el = form.querySelector('[data-qty-input][name="' + key + '"]');
+			if (!el) return 0;
+			var v = parseInt(el.value, 10);
+			return isNaN(v) ? 0 : Math.max(0, Math.min(QTY_MAX, v));
+		}
+
+		function totalTravelers() {
+			return QTY_KEYS.reduce(function (sum, k) { return sum + readQty(k); }, 0);
+		}
+
+		function computeTotal() {
+			var units = unitPrices();
+			return QTY_KEYS.reduce(function (sum, k) { return sum + readQty(k) * units[k]; }, 0);
+		}
+
+		function renderTravelerForms() {
+			if (!travelerGrid) return;
+			var total = totalTravelers();
+			var count = Math.min(total, MAX_FORMS);
+			travelerGrid.innerHTML = "";
+			for (var i = 0; i < count; i++) {
+				var role = i === 0 ? (L.buyerCard || "Buyer") : ((L.companionCard || "Companion") + " " + i);
+				var card = document.createElement("div");
+				card.className = "dest-cart-traveler-card";
+				card.setAttribute("data-traveler", String(i));
+				card.innerHTML =
+					'<span class="dest-cart-traveler-num">' + (i + 1) + " · " + role + "</span>" +
+					'<label class="dest-cart-mini-label">' + (L.fullName || "Name") + " *" +
+					'<input class="dest-cart-mini-input" type="text" name="traveler_' + i + '_name" autocomplete="off" /></label>' +
+					'<label class="dest-cart-mini-label">' + (L.doc || "ID") + " *" +
+					'<input class="dest-cart-mini-input" type="text" name="traveler_' + i + '_doc" autocomplete="off" /></label>' +
+					'<label class="dest-cart-mini-label">' + (L.birth || "Birth") + " *" +
+					'<input class="dest-cart-mini-input" type="date" name="traveler_' + i + '_birth" max="' + new Date().toISOString().slice(0, 10) + '" /></label>';
+				travelerGrid.appendChild(card);
+			}
+			if (travelerHint) travelerHint.hidden = total === 0;
+			if (extraNote) extraNote.hidden = total <= MAX_FORMS;
+		}
+
+		function recompute() {
+			var total = computeTotal();
+			if (subtotalEl) subtotalEl.textContent = fmt(total);
+			if (totalEl) totalEl.textContent = fmt(total);
+			var travelers = totalTravelers();
+			if (countBadge) {
+				countBadge.hidden = travelers === 0;
+				countBadge.textContent = String(travelers);
+			}
+			renderTravelerForms();
+		}
+
+		function setStatus(messages) {
+			if (!statusEl) return;
+			if (!messages.length) {
+				statusEl.hidden = true;
+				statusEl.innerHTML = "";
+				return;
+			}
+			statusEl.hidden = false;
+			statusEl.innerHTML =
+				"<ul>" + messages.map(function (m) { return "<li>" + m + "</li>"; }).join("") + "</ul>";
+		}
+
+		function mark(el, invalid) {
+			if (!el) return;
+			if (invalid) el.setAttribute("aria-invalid", "true");
+			else el.removeAttribute("aria-invalid");
+		}
+
+		function validBirth(value) {
+			if (!value) return false;
+			var d = new Date(value + "T00:00:00");
+			if (isNaN(d.getTime())) return false;
+			var now = new Date();
+			if (d > now) return false;
+			var age = (now.getTime() - d.getTime()) / (365.25 * 24 * 3600 * 1000);
+			return age <= 120;
+		}
+
+		function validate() {
+			var messages = [];
+			var firstInvalid = null;
+			function fail(el, msg) {
+				mark(el, true);
+				messages.push(msg);
+				if (!firstInvalid) firstInvalid = el;
+			}
+
+			var total = totalTravelers();
+			if (total < 1) {
+				messages.push(E.noTravelers || "Select at least 1 traveler.");
+			}
+
+			var count = Math.min(total, MAX_FORMS);
+			for (var i = 0; i < count; i++) {
+				var nameEl = form.querySelector('[name="traveler_' + i + '_name"]');
+				var docEl = form.querySelector('[name="traveler_' + i + '_doc"]');
+				var birthEl = form.querySelector('[name="traveler_' + i + '_birth"]');
+				var badName = !nameEl || nameEl.value.trim().length < 3;
+				var badDoc = !docEl || docEl.value.trim().length < 4;
+				var badBirth = !birthEl || !validBirth(birthEl.value);
+				mark(nameEl, badName);
+				mark(docEl, badDoc);
+				mark(birthEl, badBirth);
+				if (badName) { messages.push((E.travelerName || "Name required.") + " (#" + (i + 1) + ")"); if (!firstInvalid) firstInvalid = nameEl; }
+				if (badDoc) { messages.push((E.travelerDoc || "ID required.") + " (#" + (i + 1) + ")"); if (!firstInvalid) firstInvalid = docEl; }
+				if (badBirth) { messages.push((E.travelerBirth || "Birth invalid.") + " (#" + (i + 1) + ")"); if (!firstInvalid) firstInvalid = birthEl; }
+			}
+
+			var emailEl = form.querySelector('[name="buyerEmail"]');
+			var phoneEl = form.querySelector('[name="buyerPhone"]');
+			var waEl = form.querySelector('[name="whatsapp"]');
+			var emailOk = !!emailEl && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim());
+			var digits = phoneEl ? phoneEl.value.replace(/\D/g, "") : "";
+			var phoneOk = digits.length >= 7;
+			var waOk = !!waEl && waEl.checked;
+			mark(emailEl, !emailOk);
+			mark(phoneEl, !phoneOk);
+			mark(waEl, !waOk);
+			if (!emailOk) { messages.push(E.email || "Invalid email."); if (!firstInvalid) firstInvalid = emailEl; }
+			if (!phoneOk) { messages.push(E.phone || "Invalid phone."); if (!firstInvalid) firstInvalid = phoneEl; }
+			if (!waOk) { messages.push(E.whatsapp || "WhatsApp required."); if (!firstInvalid) firstInvalid = waEl; }
+
+			setStatus(messages);
+			if (firstInvalid && firstInvalid.focus) firstInvalid.focus();
+			return messages.length === 0;
+		}
+
+		function travelerLines(count) {
+			var lines = [];
+			for (var i = 0; i < count; i++) {
+				var n = form.querySelector('[name="traveler_' + i + '_name"]');
+				var d = form.querySelector('[name="traveler_' + i + '_doc"]');
+				var b = form.querySelector('[name="traveler_' + i + '_birth"]');
+				lines.push(
+					(i + 1) + ". " + (n ? n.value.trim() : "") +
+					" | " + (d ? d.value.trim() : "") +
+					" | " + (b ? b.value : "")
+				);
+			}
+			return lines;
+		}
+
+		function buildWhatsAppText(item) {
+			var qtyParts = [];
+			if (item.qty.adults) qtyParts.push(item.qty.adults + " adultos");
+			if (item.qty.seniors) qtyParts.push(item.qty.seniors + " tercera edad");
+			if (item.qty.disabled) qtyParts.push(item.qty.disabled + " discapacitados");
+			if (item.qty.children) qtyParts.push(item.qty.children + " niños");
+			if (item.qty.babies) qtyParts.push(item.qty.babies + " bebés");
+			var lines = [
+				(lang === "en" ? "Hello Condor Expeditions! I want to book:" : "Hola Condor Expeditions! Quiero reservar:") + " " + item.name,
+				(lang === "en" ? "Date: " : "Fecha: ") + item.date + " · " + (lang === "en" ? "Time: " : "Hora: ") + item.time,
+				(lang === "en" ? "Travelers: " : "Viajeros: ") + qtyParts.join(", "),
+				(lang === "en" ? "Total: " : "Total: ") + fmt(item.total),
+				"Email: " + item.buyer.email + " · Tel: " + item.buyer.phone + " (WhatsApp ✓)",
+			];
+			return lines.concat(travelerLines(item.travelers.length)).join("\n");
+		}
+
+		function onSubmit(e) {
+			e.preventDefault();
+			if (!validate()) return;
+			var dateEl = form.querySelector('[name="date"]');
+			var timeEl = form.querySelector('[name="time"]');
+			var range = selectedRange();
+			var total = computeTotal();
+			var count = Math.min(totalTravelers(), MAX_FORMS);
+			var travelers = [];
+			for (var i = 0; i < count; i++) {
+				travelers.push({
+					name: form.querySelector('[name="traveler_' + i + '_name"]').value.trim(),
+					doc: form.querySelector('[name="traveler_' + i + '_doc"]').value.trim(),
+					birth: form.querySelector('[name="traveler_' + i + '_birth"]').value,
+					role: i === 0 ? "buyer" : "companion",
+				});
+			}
+			var item = {
+				kind: "destination",
+				slug: slug,
+				name: tourName,
+				lang: lang,
+				date: dateEl ? dateEl.value : "",
+				time: timeEl ? timeEl.value : "",
+				qty: {
+					adults: readQty("adults"),
+					seniors: readQty("seniors"),
+					disabled: readQty("disabled"),
+					children: readQty("children"),
+					babies: readQty("babies"),
+				},
+				childRange: range ? range.rango : "",
+				travelers: travelers,
+				buyer: {
+					email: form.querySelector('[name="buyerEmail"]').value.trim(),
+					phone: form.querySelector('[name="buyerPhone"]').value.trim(),
+					whatsapp: true,
+				},
+				subtotal: total,
+				total: total,
+				currency: "USD",
+				createdAt: new Date().toISOString(),
+			};
+			try {
+				addDestinationToCart(item);
+			} catch (err) {
+				/* localStorage may be unavailable; continue with WhatsApp */
+			}
+			var url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(buildWhatsAppText(item));
+			window.open(url, "_blank", "noopener,noreferrer");
+			if (successTotal) successTotal.textContent = fmt(total);
+			var body = root.querySelector(".dest-cart-body");
+			if (body) body.hidden = true;
+			if (successBox) successBox.hidden = false;
+			setStatus([]);
+			closePanel();
+		}
+
+		function openPanel() {
+			root.classList.add("is-open");
+			if (toggle) toggle.setAttribute("aria-expanded", "true");
+		}
+		function closePanel() {
+			root.classList.remove("is-open");
+			if (toggle) toggle.setAttribute("aria-expanded", "false");
+		}
+
+		if (toggle) {
+			toggle.addEventListener("click", function () {
+				if (root.classList.contains("is-open")) closePanel();
+				else openPanel();
+			});
+		}
+
+		if (resetBtn) {
+			resetBtn.addEventListener("click", function () {
+				form.reset();
+				if (successBox) successBox.hidden = true;
+				var body = root.querySelector(".dest-cart-body");
+				if (body) body.hidden = false;
+				recompute();
+				openPanel();
+			});
+		}
+
+		form.querySelectorAll("[data-qty-row], .dest-cart-qty-row").forEach(function (row) {
+			var dec = row.querySelector("[data-dec]");
+			var inc = row.querySelector("[data-inc]");
+			var input = row.querySelector("[data-qty-input]");
+			if (dec) dec.addEventListener("click", function () {
+				var v = readQty(input.getAttribute("name")) - 1;
+				input.value = String(Math.max(0, v));
+				recompute();
+			});
+			if (inc) inc.addEventListener("click", function () {
+				var v = readQty(input.getAttribute("name")) + 1;
+				input.value = String(Math.min(QTY_MAX, v));
+				recompute();
+			});
+			if (input) input.addEventListener("input", recompute);
+		});
+		var childRangeSel = form.querySelector('[name="childRange"]');
+		if (childRangeSel) childRangeSel.addEventListener("change", recompute);
+
+		form.addEventListener("submit", onSubmit);
+		recompute();
+	})();
+</script>
+
+<style>
+	.dest-cart {
+		position: relative;
+		align-self: start;
+		min-width: 0;
+	}
+
+	@media (min-width: 1024px) {
+		.dest-cart {
+			position: sticky;
+			top: 6rem;
+		}
+		.dest-cart-toggle {
+			display: none;
+		}
+	}
+
+	.dest-cart-toggle {
+		position: fixed;
+		bottom: 6rem;
+		right: 1.5rem;
+		z-index: 60;
+		width: 3.25rem;
+		height: 3.25rem;
+		border-radius: 9999px;
+		background: #8b1d20;
+		color: #fff;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+	}
+
+	.dest-cart-toggle svg {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+
+	.dest-cart-count {
+		position: absolute;
+		top: -4px;
+		right: -4px;
+		min-width: 1.25rem;
+		height: 1.25rem;
+		padding: 0 0.25rem;
+		border-radius: 9999px;
+		background: #fff;
+		color: #8b1d20;
+		font-size: 0.75rem;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid #8b1d20;
+	}
+
+	.dest-cart-panel {
+		background: #fff;
+		border: 1px solid #e5e5e5;
+		border-radius: 1rem;
+		overflow: hidden;
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+	}
+
+	.dest-cart-header {
+		padding: 1.25rem 1.25rem 1rem;
+		background: #8b1d20;
+		color: #fff;
+	}
+
+	.dest-cart-title {
+		font-size: 1.125rem;
+		font-weight: 700;
+		margin: 0 0 0.25rem;
+	}
+
+	.dest-cart-subtitle {
+		font-size: 0.8125rem;
+		opacity: 0.9;
+		margin: 0;
+	}
+
+	.dest-cart-from {
+		font-size: 0.8125rem;
+		margin: 0.5rem 0 0;
+		opacity: 0.95;
+	}
+
+	.dest-cart-body {
+		max-height: none;
+		overflow-y: visible;
+	}
+
+	.dest-cart-section {
+		padding: 1rem 1.25rem;
+		border-bottom: 1px solid #f0f0f0;
+	}
+
+	.dest-cart-section-title {
+		font-size: 0.8125rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #8b1d20;
+		margin: 0 0 0.75rem;
+	}
+
+	.dest-cart-field {
+		margin-bottom: 0.75rem;
+	}
+
+	.dest-cart-fieldset {
+		border: none;
+		padding: 0;
+		margin: 0.75rem 0 0;
+	}
+
+	.dest-cart-legend {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #1f2937;
+		padding: 0;
+		margin-bottom: 0.5rem;
+	}
+
+	.dest-cart-qty-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
+	}
+
+	.dest-cart-qty-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.625rem;
+	}
+
+	.dest-cart-qty-name {
+		font-size: 0.8125rem;
+		color: #374151;
+		flex: 1;
+	}
+
+	.dest-cart-qty-controls {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+	}
+
+	.dest-cart-qty-btn {
+		width: 1.875rem;
+		height: 1.875rem;
+		border-radius: 0.375rem;
+		border: 1px solid #d1d5db;
+		background: #f9fafb;
+		font-size: 1.125rem;
+		line-height: 1;
+		cursor: pointer;
+		color: #111827;
+	}
+
+	.dest-cart-qty-btn:hover {
+		background: #f3f4f6;
+	}
+
+	.dest-cart-qty-input {
+		width: 3.5rem;
+		text-align: center;
+		border: 1px solid #d1d5db;
+		border-radius: 0.375rem;
+		padding: 0.25rem;
+		font-size: 0.875rem;
+		color: #111827;
+	}
+
+	.dest-cart-hint {
+		font-size: 0.8125rem;
+		color: #6b7280;
+		margin: 0 0 0.75rem;
+	}
+
+	.dest-cart-traveler-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.dest-cart-traveler-card {
+		border: 1px solid #e5e7eb;
+		border-radius: 0.625rem;
+		padding: 0.75rem;
+		background: #fafafa;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.dest-cart-traveler-num {
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: #8b1d20;
+	}
+
+	.dest-cart-mini-label {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: #374151;
+	}
+
+	.dest-cart-mini-input {
+		border: 1px solid #d1d5db;
+		border-radius: 0.375rem;
+		padding: 0.375rem 0.5rem;
+		font-size: 0.875rem;
+		font-weight: 400;
+		color: #111827;
+		background: #fff;
+		width: 100%;
+	}
+
+	.dest-cart-checkbox {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-size: 0.8125rem;
+		color: #374151;
+		cursor: pointer;
+		margin-top: 0.25rem;
+	}
+
+	.dest-cart-checkbox input {
+		margin-top: 0.2rem;
+		accent-color: #8b1d20;
+	}
+
+	.dest-cart-status {
+		margin: 0 1.25rem;
+		padding: 0.75rem;
+		border-radius: 0.5rem;
+		background: #fef2f2;
+		border: 1px solid #fecaca;
+		color: #991b1b;
+		font-size: 0.8125rem;
+	}
+
+	.dest-cart-status ul {
+		margin: 0;
+		padding-left: 1.1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.dest-cart-footer {
+		padding: 1rem 1.25rem 1.25rem;
+		background: #fafafa;
+	}
+
+	.dest-cart-summary {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375rem;
+		margin-bottom: 0.875rem;
+	}
+
+	.dest-cart-summary-row {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.875rem;
+		color: #374151;
+	}
+
+	.dest-cart-total {
+		font-size: 1rem;
+		font-weight: 700;
+		color: #111827;
+		border-top: 1px solid #e5e7eb;
+		padding-top: 0.5rem;
+		margin-top: 0.25rem;
+	}
+
+	.dest-cart [aria-invalid="true"] {
+		border-color: #dc2626 !important;
+		outline: 2px solid rgba(220, 38, 38, 0.25);
+		outline-offset: 1px;
+	}
+
+	.dest-cart-success {
+		padding: 1.5rem 1.25rem;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.dest-cart-success-title {
+		font-size: 1.125rem;
+		font-weight: 700;
+		color: #15803d;
+		margin: 0;
+	}
+
+	.dest-cart-success-text {
+		font-size: 0.875rem;
+		color: #4b5563;
+		margin: 0;
+	}
+
+	.dest-cart-success-total {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #111827;
+		margin: 0;
+	}
+
+	@media (max-width: 1023.98px) {
+		.dest-cart {
+			position: static;
+		}
+		.dest-cart-panel {
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 55;
+			max-height: 82vh;
+			border-radius: 1rem 1rem 0 0;
+			transform: translateY(105%);
+			transition: transform 0.3s ease;
+			display: flex;
+			flex-direction: column;
+		}
+		.dest-cart.is-open .dest-cart-panel {
+			transform: translateY(0);
+		}
+		.dest-cart-body {
+			overflow-y: auto;
+		}
+	}
+</style>

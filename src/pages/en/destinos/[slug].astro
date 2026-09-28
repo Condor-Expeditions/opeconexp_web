@@ -1,8 +1,18 @@
 ---
+import TourCard from "@/components/sections/TourCard.astro";
+import Container from "@/components/shared/Container.astro";
+import Cart from "@/components/ui/Cart.astro";
+import FAQ from "@/components/ui/FAQ.astro";
+import Gallery from "@/components/ui/Gallery.astro";
+import MapEmbed from "@/components/ui/MapEmbed.astro";
+import Reviews from "@/components/ui/Reviews.astro";
+import SmartImage from "@/components/ui/SmartImage.astro";
+import Timeline from "@/components/ui/Timeline.astro";
 import DestinationDetail from "../../../components/sections/DestinationDetail.astro";
 import {
 	destinations,
 	getDestinationBySlug,
+	getRelatedToursForDestination,
 } from "../../../data/destinations/destinations";
 import Layout from "../../../layouts/Layout.astro";
 
@@ -16,6 +26,93 @@ export async function getStaticPaths() {
 }
 
 const { destination } = Astro.props;
+
+const labels = {
+	about: "About this destination",
+	tourDetails: "Tour details",
+	experience: "Experience description",
+	data: "Data",
+	departures: "Departures",
+	schedule: "Schedule",
+	duration: "Duration",
+	adultPrice: "Adult price",
+	agePrices: "Prices by age",
+	seniors: "Seniors",
+	disabled: "Disabled",
+	children: "Children",
+	babies: "Babies (0-2)",
+	included: "What is included",
+	notIncluded: "What is not included",
+	meetingPoint: "Meeting point",
+	recommendations: "Recommended",
+	itinerary: "Trip itinerary",
+	faq: "Frequently asked questions",
+	reviews: "Reviews",
+	routeMap: "Route map",
+	origin: "From",
+	destinationLabel: "To",
+	waypoints: "Waypoints",
+	earlyArrival: "Arrive 15 minutes early",
+};
+
+const relatedSlugs = destination.recomendaciones ?? [];
+const relatedDestinations = destinations.filter((d) =>
+	relatedSlugs.includes(d.slug),
+);
+
+const formatPrice = (amount: number) =>
+	`$${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+const childPrices = destination.precios.niños ?? [];
+const hasAvailability =
+	destination.disponibilidad &&
+	((destination.disponibilidad.dias &&
+		destination.disponibilidad.dias.length > 0) ||
+		(destination.disponibilidad.horarios &&
+			destination.disponibilidad.horarios.length > 0));
+
+const itinerario = destination.itinerario ?? [];
+const rutaMapa = destination.rutaMapa;
+const galeria = destination.galeria ?? [];
+const resenas = destination.resenas ?? [];
+const faqs = destination.faqs ?? [];
+const incluye = destination.incluye ?? [];
+const noIncluye = destination.noIncluye ?? [];
+const puntoEncuentro = destination.puntoEncuentro;
+const disponibilidad = destination.disponibilidad;
+const recomendaciones = destination.recomendaciones ?? [];
+
+const hasReviews = resenas.length > 0;
+const hasFaq = faqs.length > 0;
+const hasItinerary = itinerario.length > 0;
+const hasMap = Boolean(rutaMapa && rutaMapa.urlEmbed);
+const hasMeetingPoint = Boolean(puntoEncuentro && puntoEncuentro.nombre);
+const hasIncluded = incluye.length > 0 || noIncluye.length > 0;
+const hasDepartures = Boolean(
+	disponibilidad && disponibilidad.dias && disponibilidad.dias.length > 0,
+);
+const hasSchedules = Boolean(
+	disponibilidad &&
+		disponibilidad.horarios &&
+		disponibilidad.horarios.length > 0,
+);
+
+// Related tours (TourCard) + related destinations (fallback cards)
+const relatedTours = getRelatedToursForDestination(destination, "en", 3);
+
+// Gallery fallback chain: gallery with src → destination image → related images.
+// Gallery hides the section when the result is empty.
+const galleryResolved = (() => {
+	const withSrc = galeria.filter((g) => g && g.src);
+	if (withSrc.length > 0) return withSrc;
+	const fallback = [];
+	if (destination.image)
+		fallback.push({ src: destination.image, alt: destination.name });
+	for (const d of relatedDestinations.slice(0, 3)) {
+		if (d.image) fallback.push({ src: d.image, alt: d.name });
+	}
+	return fallback;
+})();
 ---
 
 <Layout
@@ -24,5 +121,248 @@ const { destination } = Astro.props;
 	ogImage={destination.image}
 	lang="en"
 >
-	<DestinationDetail destination={destination} lang="en" />
+	<DestinationDetail destination={destination} lang="en" showRelatedTours={false} />
+
+	<!-- Short description + photo gallery (fallback chain; hidden when empty) -->
+	<div data-testid="dest-galeria">
+		<Gallery images={galleryResolved} lang="en" />
+	</div>
+
+	<!-- Sticky cart layout: details → map in left column, cart sticky right (desktop) -->
+	<div class="dest-layout">
+	<!-- Tour details -->
+	<section class="section-padding bg-background" data-testid="dest-detalles">
+		<Container>
+			<h2 class="text-2xl font-semibold text-foreground mb-6">{labels.tourDetails}</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+				<div class="p-4 rounded-xl bg-crema border border-border">
+					<p class="text-xs text-muted uppercase tracking-wide mb-1">{labels.departures}</p>
+					<p class="text-sm font-medium text-foreground">{hasDepartures ? (disponibilidad.dias.join(", ")) : "-"}</p>
+				</div>
+				<div class="p-4 rounded-xl bg-crema border border-border">
+					<p class="text-xs text-muted uppercase tracking-wide mb-1">{labels.schedule}</p>
+					<p class="text-sm font-medium text-foreground">{hasSchedules ? (disponibilidad.horarios.join(", ")) : "-"}</p>
+				</div>
+				<div class="p-4 rounded-xl bg-crema border border-border">
+					<p class="text-xs text-muted uppercase tracking-wide mb-1">{labels.duration}</p>
+					<p class="text-sm font-medium text-foreground">{destination.duracion || destination.difficulty || "-"}</p>
+				</div>
+				<div class="p-4 rounded-xl bg-crema border border-border">
+					<p class="text-xs text-muted uppercase tracking-wide mb-1">{labels.adultPrice}</p>
+					<p class="text-sm font-medium text-foreground">{formatPrice(destination.precios.adulto)}</p>
+				</div>
+			</div>
+		</Container>
+	</section>
+
+	<!-- Cart (sticky right from Tour details on desktop, collapsible on mobile) -->
+	<Cart
+		slug={destination.slug}
+		name={destination.name}
+		lang="en"
+		precios={destination.precios}
+		disponibilidad={destination.disponibilidad}
+	/>
+
+	<!-- Experience description -->
+	<section class="section-padding-sm bg-crema" data-testid="dest-experiencia">
+		<Container>
+			<h2 class="text-2xl font-semibold text-foreground mb-4">{labels.experience}</h2>
+			<p class="text-base text-muted-foreground leading-relaxed max-w-4xl">
+				{destination.longDescription}
+			</p>
+		</Container>
+	</section>
+
+	<!-- Data section -->
+	<section class="section-padding bg-background" data-testid="dest-datos">
+		<Container>
+			<h2 class="text-2xl font-semibold text-foreground mb-6">{labels.data}</h2>
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+				<div>
+					<h3 class="text-lg font-semibold text-foreground mb-3">{labels.departures}</h3>
+					{hasDepartures ? (
+						<div class="flex flex-wrap gap-2">
+							{disponibilidad.dias.map((d) => (
+								<span class="px-3 py-1 rounded-full bg-crema text-sm text-foreground">{d}</span>
+							))}
+						</div>
+					) : <p class="text-muted text-sm">{labels.departures}</p>}
+					<h3 class="text-lg font-semibold text-foreground mt-6 mb-3">{labels.schedule}</h3>
+					{hasSchedules ? (
+						<div class="flex flex-wrap gap-2">
+							{disponibilidad.horarios.map((h) => (
+								<span class="px-3 py-1 rounded-full bg-crema text-sm text-foreground font-mono">{h}</span>
+							))}
+						</div>
+					) : <p class="text-muted text-sm">{labels.schedule}</p>}
+				</div>
+				<div>
+					<h3 class="text-lg font-semibold text-foreground mb-3">{labels.adultPrice}</h3>
+					<p class="text-3xl font-bold text-primary-red">{formatPrice(destination.precios.adulto)}</p>
+					<h3 class="text-lg font-semibold text-foreground mt-6 mb-3">{labels.agePrices}</h3>
+					<ul class="space-y-2 text-sm text-foreground">
+						<li><strong>{labels.seniors}:</strong> {formatPrice(destination.precios.terceraEdad)}</li>
+						<li><strong>{labels.disabled}:</strong> {formatPrice(destination.precios.discapacitado)}</li>
+						<li><strong>{labels.children}:</strong>
+							{childPrices.length > 0 ? (
+								<ul class="ml-4 mt-1 space-y-1">
+									{childPrices.map((cp) => (
+										<li>{cp.rango} - {formatPrice(cp.precio)}{cp.descuento ? " (" + cp.descuento + "% off)" : ""}</li>
+									))}
+								</ul>
+							) : "-"}
+						</li>
+						<li><strong>{labels.babies}:</strong> {formatPrice(destination.precios.bebes)}</li>
+					</ul>
+				</div>
+			</div>
+		</Container>
+	</section>
+
+	<!-- Included / Not included -->
+	{hasIncluded && (
+		<section class="section-padding-sm bg-crema" data-testid="dest-incluye">
+			<Container>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div>
+						<h3 class="text-lg font-semibold text-foreground mb-3">{labels.included}</h3>
+						<ul class="space-y-2">
+							{incluye.map((item) => (
+								<li class="flex items-start gap-2 text-sm text-foreground">
+									<svg class="w-4 h-4 mt-0.5 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+									<span>{item}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+					<div>
+						<h3 class="text-lg font-semibold text-foreground mb-3">{labels.notIncluded}</h3>
+						<ul class="space-y-2">
+							{noIncluye.map((item) => (
+								<li class="flex items-start gap-2 text-sm text-foreground">
+									<svg class="w-4 h-4 mt-0.5 text-muted shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+									<span>{item}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</Container>
+		</section>
+	)}
+
+	<!-- Meeting point -->
+	{hasMeetingPoint && (
+		<section class="section-padding bg-background" data-testid="dest-encuentro">
+			<Container>
+				<h2 class="text-2xl font-semibold text-foreground mb-6">{labels.meetingPoint}</h2>
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<div class="p-6 rounded-xl bg-crema border border-border">
+						<p class="text-sm font-medium text-foreground">{puntoEncuentro.nombre}</p>
+						<p class="text-sm text-muted mt-1">{puntoEncuentro.direccion}</p>
+						{puntoEncuentro.urlMapa && (
+							<a href={puntoEncuentro.urlMapa} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-3 text-sm text-primary-red hover:underline">
+								<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+								View on map
+							</a>
+						)}
+					</div>
+					<div class="p-6 rounded-xl bg-crema border border-border">
+						<h3 class="text-sm font-semibold text-foreground mb-2">{labels.earlyArrival}</h3>
+						<p class="text-sm text-muted">{puntoEncuentro.recomendacion || labels.earlyArrival}</p>
+					</div>
+				</div>
+			</Container>
+		</section>
+	)}
+
+	<!-- Related tours (TourCard) with related destinations as fallback -->
+	{(relatedTours.length > 0 || relatedDestinations.length > 0) && (
+		<section class="section-padding-sm bg-crema" data-testid="dest-recomendaciones">
+			<Container>
+				<h2 class="text-2xl font-semibold text-foreground mb-8">{labels.recommendations}</h2>
+				{relatedTours.length > 0 ? (
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+						{relatedTours.map((t) => (
+							<TourCard tour={t} lang="en" />
+						))}
+					</div>
+				) : (
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+						{relatedDestinations.map((d) => (
+							<a href={"/en/destinos/" + d.slug} class="group block bg-white rounded-xl overflow-hidden border border-border hover-lift img-zoom">
+								<div class="aspect-[4/3] overflow-hidden">
+									<SmartImage src={d.image} alt={d.name} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width={400} height={300} />
+								</div>
+								<div class="p-4">
+									<h3 class="font-semibold text-foreground group-hover:text-primary-red transition-colors">{d.name}</h3>
+									<p class="text-xs text-muted mt-1">{d.shortDescription}</p>
+								</div>
+							</a>
+						))}
+					</div>
+				)}
+			</Container>
+		</section>
+	)}
+
+	<!-- Trip itinerary -->
+	{hasItinerary && (
+		<section class="section-padding bg-background" data-testid="dest-itinerario">
+			<Container>
+				<h2 class="text-2xl font-semibold text-foreground mb-8">{labels.itinerary}</h2>
+				<Timeline items={itinerario} lang="en" />
+			</Container>
+		</section>
+	)}
+
+	<!-- FAQ -->
+	{hasFaq && (
+		<section class="section-padding-sm bg-crema" data-testid="dest-faq">
+			<Container>
+				<FAQ items={faqs} lang="en" />
+			</Container>
+		</section>
+	)}
+
+	<!-- Reviews -->
+	{hasReviews && (
+		<section class="section-padding bg-background" data-testid="dest-reviews">
+			<Container>
+				<Reviews resenas={resenas} lang="en" />
+			</Container>
+		</section>
+	)}
+
+	<!-- Route map -->
+	{hasMap && (
+		<section class="section-padding-sm bg-crema" data-testid="dest-mapa">
+			<Container>
+				<MapEmbed ruta={rutaMapa} lang="en" />
+			</Container>
+		</section>
+	)}
+	</div><!-- /.dest-layout -->
 </Layout>
+
+<style>
+	/* Sticky cart layout: left content column + right sticky cart (desktop).
+	   Mobile: single column, DOM order keeps cart right after Tour details. */
+	@media (min-width: 1024px) {
+		.dest-layout {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) 380px;
+			column-gap: 2.5rem;
+			align-items: start;
+		}
+		.dest-layout > section {
+			grid-column: 1;
+			min-width: 0;
+		}
+		.dest-layout .dest-cart {
+			grid-column: 2;
+			grid-row: 2 / 30;
+		}
+	}
+</style>

@@ -1,0 +1,196 @@
+---
+// Reviews.astro — Sistema de reseñas con calificación promedio y lista
+import Avatar from "@/components/ui/Avatar.astro";
+
+export interface Resena {
+	autor: string;
+	avatar: string;
+	fecha: string;
+ calificacion: number;
+	comentario: string;
+}
+
+interface Props {
+	resenas: Resena[];
+	lang?: "es" | "en";
+}
+
+const { resenas, lang = "es" } = Astro.props;
+
+const reviewsLabel = lang === "en" ? "Reviews" : "Reseñas";
+const ratingLabel = lang === "en" ? "out of 5" : "de 5";
+
+function renderStars(rating: number): string {
+	const full = Math.floor(rating);
+	const half = rating % 1 >= 0.5 ? 1 : 0;
+	return "★".repeat(full) + (half ? "½" : "") + "☆".repeat(5 - full - half);
+}
+
+const average =
+	resenas.length > 0
+		? Math.round((resenas.reduce((s, r) => s + r.calificacion, 0) / resenas.length) * 10) / 10
+		: 0;
+---
+
+{resenas.length > 0 && (
+	<section class="reviews-section">
+		<div class="reviews-header">
+			<h3 class="reviews-title">{reviewsLabel}</h3>
+			<div class="reviews-summary">
+				<div class="reviews-average">
+					<span class="reviews-average-num">{average}</span>
+					<span class="reviews-average-out">{ratingLabel}</span>
+				</div>
+				<div class="reviews-stars" aria-label={`${average} ${ratingLabel}`}>
+					<span class="reviews-stars-fill" style={`width: ${(average / 5) * 100}%`}></span>
+				</div>
+				<span class="reviews-count">{resenas.length} {lang === "en" ? "reviews" : "reseñas"}</span>
+			</div>
+		</div>
+
+		<div class="reviews-list">
+			{resenas.map((r) => (
+				<div class="review-card">
+					<div class="review-avatar">
+						<Avatar src={r.avatar} alt={r.autor} size="md" />
+					</div>
+					<div class="review-body">
+						<div class="review-head">
+							<span class="review-author">{r.autor}</span>
+							<span class="review-date">{r.fecha}</span>
+						</div>
+						<div class="review-stars" aria-label={`${r.calificacion} ${ratingLabel}`}>
+							{renderStars(r.calificacion)}
+						</div>
+						<p class="review-comment">{r.comentario}</p>
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+)}
+
+<style>
+	.reviews-section {
+		padding: 3rem 0;
+		border-top: 1px solid #e5e5e5;
+	}
+
+	.reviews-header {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	@media (min-width: 768px) {
+		.reviews-header {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+
+	.reviews-title {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #000000;
+	}
+
+	.reviews-summary {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.reviews-average {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.reviews-average-num {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #db0d00;
+	}
+
+	.reviews-average-out {
+		font-size: 0.75rem;
+		color: #64748b;
+	}
+
+	.reviews-stars {
+		position: relative;
+		display: inline-block;
+		color: #facc15;
+		font-size: 1.25rem;
+		letter-spacing: 0.125em;
+	}
+
+	.reviews-stars-fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background: #facc15;
+	}
+
+	.reviews-count {
+		font-size: 0.875rem;
+		color: #64748b;
+	}
+
+	.reviews-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.review-card {
+		display: flex;
+		gap: 1rem;
+		padding: 1.5rem;
+		border-radius: 0.75rem;
+		background: #f4efdc;
+		border: 1px solid #e5e5e5;
+	}
+
+	.review-avatar {
+		flex-shrink: 0;
+	}
+
+	.review-body {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.review-head {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.review-author {
+		font-weight: 600;
+		color: #000000;
+		font-size: 0.875rem;
+	}
+
+	.review-date {
+		font-size: 0.75rem;
+		color: #64748b;
+	}
+
+	.review-stars {
+		color: #facc15;
+		font-size: 0.875rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.review-comment {
+		font-size: 0.875rem;
+		color: #64748b;
+		line-height: 1.6;
+	}
+</style>

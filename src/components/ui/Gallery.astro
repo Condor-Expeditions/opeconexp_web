@@ -1,0 +1,239 @@
+---
+import type { ImageMetadata } from "astro";
+// Gallery.astro — Galería de fotos responsive con lightbox
+// Usa CSS/JS nativo, sin dependencias externas.
+// Los items con src vacío se filtran (nunca se renderizan rotos).
+import SmartImage from "@/components/ui/SmartImage.astro";
+
+export interface GalleryItem {
+	src: string | ImageMetadata;
+	alt: string;
+	caption?: string;
+}
+
+interface Props {
+	images: GalleryItem[];
+	lang?: "es" | "en";
+}
+
+const rawItems = Astro.props.images ?? [];
+const items = (Array.isArray(rawItems) ? rawItems : []).filter(
+	(i) => i && i.src,
+);
+const lang = Astro.props.lang ?? "es";
+
+const closeLabel = lang === "en" ? "Close" : "Cerrar";
+const ariaLabel = lang === "en" ? "View image" : "Ver imagen";
+---
+
+{items.length > 0 && (
+	<section class="gallery-section">
+		<div class="gallery-grid">
+			{items.map((item, index) => (
+				<button
+					type="button"
+					class="gallery-item"
+					data-index={index}
+					aria-label={ariaLabel}
+				>
+					<SmartImage
+						src={item.src}
+						alt={item.alt}
+						width={600}
+						height={400}
+						class="gallery-img"
+						loading="lazy"
+					/>
+					{item.caption && <span class="gallery-caption">{item.caption}</span>}
+				</button>
+			))}
+		</div>
+
+		<!-- Lightbox -->
+		<div id="gallery-lightbox" class="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Gallery">
+			<button class="gallery-close" id="gallery-close" aria-label={closeLabel}>×</button>
+			<img id="gallery-lightbox-img" class="gallery-lightbox-img" alt="" />
+			<span id="gallery-lightbox-caption" class="gallery-lightbox-caption"></span>
+		</div>
+	</section>
+)}
+
+<script>
+(function () {
+	var lightbox = document.getElementById('gallery-lightbox');
+	var lightboxImg = document.getElementById('gallery-lightbox-img');
+	var lightboxCaption = document.getElementById('gallery-lightbox-caption');
+	var closeBtn = document.getElementById('gallery-close');
+	if (!lightbox || !lightboxImg || !closeBtn) return;
+
+	var items = Array.prototype.slice.call(document.querySelectorAll('.gallery-item'));
+	var currentIndex = -1;
+
+	function openGallery(index) {
+		var item = items[index];
+		if (!item) return;
+		var img = item.querySelector('img');
+		var caption = item.querySelector('.gallery-caption');
+		if (!img) return;
+		lightboxImg.src = img.src;
+		lightboxImg.alt = img.alt;
+		lightboxCaption.textContent = caption ? caption.textContent : '';
+		currentIndex = index;
+		lightbox.classList.add('is-open');
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeGallery() {
+		lightbox.classList.remove('is-open');
+		document.body.style.overflow = '';
+		currentIndex = -1;
+	}
+
+	items.forEach(function (item) {
+		item.addEventListener('click', function () {
+			openGallery(parseInt(item.getAttribute('data-index'), 10));
+		});
+	});
+
+	closeBtn.addEventListener('click', closeGallery);
+
+	document.addEventListener('keydown', function (e) {
+		if (!lightbox.classList.contains('is-open')) return;
+		if (e.key === 'Escape') closeGallery();
+		else if (e.key === 'ArrowRight' && items.length > 1) {
+			e.preventDefault();
+			openGallery((currentIndex + 1) % items.length);
+		} else if (e.key === 'ArrowLeft' && items.length > 1) {
+			e.preventDefault();
+			openGallery((currentIndex - 1 + items.length) % items.length);
+		}
+	});
+
+	lightbox.addEventListener('click', function (e) {
+		if (e.target === lightbox) closeGallery();
+	});
+})();
+</script>
+
+<style>
+.gallery-section {
+	padding: 3rem 0;
+}
+
+.gallery-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+@media (min-width: 640px) {
+	.gallery-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 1024px) {
+	.gallery-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.gallery-item {
+	position: relative;
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+	border-radius: 0.75rem;
+	border: 1px solid #e5e5e5;
+	background: #f4efdc;
+	cursor: pointer;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .gallery-img {
+	transform: scale(1.05);
+}
+
+.gallery-caption {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+	color: #ffffff;
+	font-size: 0.875rem;
+	padding: 0.75rem 1rem;
+}
+
+/* Lightbox */
+.gallery-lightbox {
+	position: fixed;
+	inset: 0;
+	z-index: 50;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.9);
+	padding: 1rem;
+}
+
+.gallery-lightbox.is-open {
+	display: flex;
+}
+
+.gallery-close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	color: #ffffff;
+	font-size: 2.5rem;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	transition: background-color 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.gallery-close:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.gallery-lightbox-img {
+	max-width: 100%;
+	max-height: 85vh;
+	object-fit: contain;
+	border-radius: 0.5rem;
+}
+
+.gallery-lightbox-caption {
+	position: absolute;
+	bottom: 1rem;
+	left: 0;
+	right: 0;
+	text-align: center;
+	color: #ffffff;
+	font-size: 1.25rem;
+}
+
+@media (max-width: 640px) {
+	.gallery-grid {
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+	}
+}
+</style>

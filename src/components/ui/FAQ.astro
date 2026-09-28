@@ -1,0 +1,160 @@
+---
+// FAQ.astro — Preguntas frecuentes con acordeón (JS nativo, sin dependencias)
+export interface FaqItem {
+	pregunta: string;
+	respuesta: string;
+}
+
+interface Props {
+	items: FaqItem[];
+	lang?: "es" | "en";
+}
+
+const { items, lang = "es" } = Astro.props;
+
+const faqLabel = lang === "en" ? "Frequently Asked Questions" : "Preguntas frecuentes";
+---
+
+{items.length > 0 && (
+	<section class="faq-section">
+		<h3 class="faq-title">{faqLabel}</h3>
+		<div class="faq-list">
+			{items.map((item, index) => (
+				<div class="faq-item" data-index={index}>
+					<button class="faq-question" aria-expanded={index === 0 ? "true" : "false"} aria-controls={`faq-answer-${index}`}>
+						<span class="faq-question-text">{item.pregunta}</span>
+						<span class="faq-icon" aria-hidden="true">+</span>
+					</button>
+					<div id={`faq-answer-${index}`} class="faq-answer" hidden={index !== 0}>
+						<div class="faq-answer-inner">
+							<p class="faq-answer-text">{item.respuesta}</p>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+)}
+
+<script>
+(function () {
+	var items = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+	if (!items.length) return;
+
+	items.forEach(function (item, index) {
+		var btn = item.querySelector('.faq-question');
+		var answer = item.querySelector('.faq-answer');
+		var icon = item.querySelector('.faq-icon');
+		if (!btn || !answer) return;
+
+		// Open first by default
+		if (index === 0) {
+			answer.hidden = false;
+			btn.setAttribute('aria-expanded', 'true');
+			if (icon) icon.textContent = '−';
+		}
+
+		btn.addEventListener('click', function () {
+			var isOpen = btn.getAttribute('aria-expanded') === 'true';
+			if (isOpen) {
+				answer.hidden = true;
+				btn.setAttribute('aria-expanded', 'false');
+				if (icon) icon.textContent = '+';
+			} else {
+				// Close others
+				items.forEach(function (otherItem, otherIndex) {
+					if (otherIndex === index) return;
+					var otherBtn = otherItem.querySelector('.faq-question');
+					var otherAnswer = otherItem.querySelector('.faq-answer');
+					var otherIcon = otherItem.querySelector('.faq-icon');
+					if (otherAnswer) otherAnswer.hidden = true;
+					if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+					if (otherIcon) otherIcon.textContent = '+';
+				});
+				answer.hidden = false;
+				btn.setAttribute('aria-expanded', 'true');
+				if (icon) icon.textContent = '−';
+				// Scroll into view on mobile
+				if (window.innerWidth < 768) {
+					item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+				}
+			}
+		});
+	});
+})();
+</script>
+
+<style>
+	.faq-section {
+		padding: 3rem 0;
+		border-top: 1px solid #e5e5e5;
+	}
+
+	.faq-title {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #000000;
+		margin-bottom: 2rem;
+	}
+
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		max-width: 56rem;
+	}
+
+	.faq-item {
+		border: 1px solid #e5e5e5;
+		border-radius: 0.75rem;
+		background: #f4efdc;
+		overflow: hidden;
+	}
+
+	.faq-question {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		text-align: left;
+		padding: 1.25rem 1.5rem;
+		font-weight: 600;
+		color: #000000;
+		background: transparent;
+		transition: background-color 0.2s;
+		cursor: pointer;
+	}
+
+	.faq-question:hover {
+		background: rgba(255, 255, 255, 0.5);
+	}
+
+	.faq-question-text {
+		flex: 1;
+	}
+
+	.faq-icon {
+		flex-shrink: 0;
+		font-size: 1.25rem;
+		color: #db0d00;
+		font-weight: 700;
+		transition: transform 0.2s ease;
+	}
+
+	.faq-answer {
+		overflow: hidden;
+		transition: all 0.3s ease;
+	}
+
+	.faq-answer-inner {
+		padding: 1.25rem 1.5rem;
+		border-top: 1px solid #e5e5e5;
+	}
+
+	.faq-answer-text {
+		font-size: 0.875rem;
+		color: #64748b;
+		line-height: 1.6;
+	}
+</style>
