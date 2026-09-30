@@ -26,24 +26,16 @@ class CarouselManager {
 			this.viewportNode,
 			{
 				loop: true,
-				duration: 80,
-				watchDrag: false,
+				duration: 250,
+				// watchDrag: false,
 			},
 			[Fade()],
 		);
 
 		this.bindSwipe();
-		this.onChangeUpdateHeroContent();
 		this.others();
 	}
 
-	onChangeUpdateHeroContent() {
-		if (this.emblaInstance === null) {
-			return;
-		}
-
-		// this.emblaInstance.on("select", () => this.updateHeroContent());
-	}
 
 	parseSlideList<T>(slide: HTMLElement, key: "tours" | "tags"): T[] {
 		try {

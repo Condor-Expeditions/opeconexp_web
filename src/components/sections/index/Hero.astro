@@ -20,18 +20,33 @@ const data = [
     altImage: "Paisaje andino ecuatoriano",
     title: "Ecuador:",
     subtitle: " Vive lo que otros solo visitan.",
-    colorClass: "text-primary",
+    textColor: "text-primary",
+    bgColor: "bg-primary",
     description:
       "Conoce Condor Expeditions, operadora turística enfocada a la experiencia de vivir algo único en nuestro hermoso páis. Crea nuevas experiencias y recuerdos con los tours de Condor Expeditions, no dudes en contactarnos. Cada uno de tus sueños los cumplimos.",
-    tours: [],
-    tags: [],
+    tours: [
+      {
+        slug: "/cajas-al-descubierto",
+        name: "Cajas Al Descubierto",
+      },
+      {
+        slug: "/joyas-de-los-andes",
+        name: "Joyas de Los Andes",
+      },
+      {
+        slug: "/ruta-andina-vip",
+        name: "Ruta Andina VIP",
+      },
+    ],
+    tags: ["Naturaleza", "Aventura", "Senderismo", "Fotografía"],
   },
   {
     image: "cajas.jpg",
     altImage: "Parque Nacional El Cajas",
     title: "Parque Nacional",
     subtitle: "El Cajas",
-    colorClass: "text-secondary",
+    textColor: "text-green-default",
+    bgColor: "bg-green-default",
     description:
       "Una reserva natural protegida, con paisajes montañosos impresionantes. Vive una experiencia única, el clima frío del parque invita a tomar una bebida caliente y estar en movimiento, escalar, caminar por sus senderos te lleva a lugares maravillos que te dejan sin aliento como si de una pelicula se tratara.",
     tours: [
@@ -55,7 +70,8 @@ const data = [
     altImage: "Ruinas de Ingapirca",
     title: "Ruinas de",
     subtitle: "Ingapirca",
-    colorClass: "text-primary",
+    textColor: "text-primary",
+    bgColor: "bg-primary",
     description:
       "Son ruinas arqueologicas de los incas, que muestras como fue un día hace cientos de años. Nuestro antepasados, conoce este lugar donde vivieron personas en un tiempo tan lejado como un pequeño recuerdo de la vida misma de nuestras raices ancestrales y nuestro pueblos originarios del Ecuador.",
     tours: [
@@ -106,7 +122,7 @@ const slides = data.map((slide) => {
               <div class="absolute inset-0 bg-black/10" />
 
               <ContainerHeader class="pb-15 absolute inset-0 z-10 pointer-events-none flex">
-                <div class="hero-content flex flex-col justify-end text-white gap-8 w-full md:flex-row md:items-end md:gap-5">
+                <div class="hero-content flex flex-col justify-end text-white gap-8 w-full md:flex-row md:items-end md:gap-10">
                   <div class="md:mb-6 flex-2">
                     <h2 class="text-4xl font-extrabold md:text-6xl">
                       <span
@@ -118,7 +134,7 @@ const slides = data.map((slide) => {
                       </span>
                       <span
                         id="hero-subtitle"
-                        class={`block ${slide.colorClass} ${HERO_TEXT_ANIMATION_CLASS}`}
+                        class={`block ${slide.textColor} ${HERO_TEXT_ANIMATION_CLASS}`}
                         style={`animation-delay: ${HERO_TEXT_DELAY_MS.subtitle}ms`}
                       >
                         {slide.subtitle}
@@ -127,11 +143,13 @@ const slides = data.map((slide) => {
                     <div id="hero-tours" class="mt-6 flex flex-col gap-3">
                       <h4 class="text-3xl">Tours:</h4>
 
-                      <div class="flex flex-wrap gap-3">
+                      <div
+                        class={`flex flex-col gap-3 ${slide.bgColor} rounded-2xl p-4`}
+                      >
                         {slide.tours.map((tour, tourIndex) => (
                           <a
                             href={tour.slug}
-                            class={`${HERO_TOUR_BUTTON_CLASSES} ${HERO_CHIP_ANIMATION_CLASS}`}
+                            class={`${HERO_TOUR_BUTTON_CLASSES} ${HERO_CHIP_ANIMATION_CLASS} justify-between`}
                             style={`animation-delay: ${tourIndex * HERO_CHIP_STAGGER_MS}ms`}
                           >
                             <span>{tour.name}</span>
@@ -144,7 +162,7 @@ const slides = data.map((slide) => {
                       </div>
                     </div>
                   </div>
-                  <div class="md:mb-10 flex-4">
+                  <div class="md:mb-10 flex-6">
                     <p
                       id="hero-paragraph"
                       class={`text-base ${HERO_TEXT_ANIMATION_CLASS}`}
