@@ -1,34 +1,48 @@
 ---
+import { Image } from "astro:assets";
 import ContainerHeader from "@/components/shared/ContainerHeader";
+import { getTourImage } from "@/utils";
+
+const heroWidths = [640, 960, 1280, 1920, 2560];
 
 const data = [
   {
-    backgroundUrl: "https://picsum.photos/1920/1080?random=1",
+    image: "nevado.jpg",
     altImage: "Paisaje andino ecuatoriano",
     title: "Ecuador:",
-    subtitle: " Vive lo que otros solo visitan",
+    subtitle: " Vive lo que otros solo visitan.",
     accentClass: "text-primary",
-    paragraph:
-      "Conoce Condor Expeditions, operadora turística enfocada a la experiencia de vivir algo único en nuestro hermoso páis.",
+    description:
+      "Conoce Condor Expeditions, operadora turística enfocada a la experiencia de vivir algo único en nuestro hermoso páis. Crea nuevas experiencias y recuerdos con los tours de Condor Expeditions, no dudes en contactarnos. Cada uno de tus sueños los cumplimos.",
   },
   {
-    backgroundUrl: "https://picsum.photos/1920/1080?random=2",
+    image: "cajas.jpg",
     altImage: "Parque Nacional El Cajas",
     title: "Parque Nacional",
     subtitle: "El Cajas",
     accentClass: "text-secondary",
-    paragraph:
-      "Descubre este increible parque nacional, reserva natural nacional del Ecuador.",
+    description:
+      "Una reserva natural protegida, con paisajes montañosos impresionantes. Vive una experiencia única, el clima frío del parque invita a tomar una bebida caliente y estar en movimiento, escalar, caminar por sus senderos te lleva a lugares maravillos que te dejan sin aliento como si de una pelicula se tratara.",
   },
   {
-    backgroundUrl: "https://picsum.photos/1920/1080?random=3",
-    altImage: "Costa ecuatoriana",
-    title: "Playas",
-    subtitle: "Paradisíacas",
+    image: "ingapirca.jpg",
+    altImage: "Ruinas de Ingapirca",
+    title: "Ruinas de",
+    subtitle: "Ingapirca",
     accentClass: "text-primary",
-    paragraph: "Sol, arena y mar en cada rincón de la costa.",
+    description:
+      "Son ruinas arqueologicas de los incas, que muestras como fue un día hace cientos de años. Nuestro antepasados, conoce este lugar donde vivieron personas en un tiempo tan lejado como un pequeño recuerdo de la vida misma de nuestras raices ancestrales y nuestro pueblos originarios del Ecuador.",
   },
 ];
+
+const slides = data.map((slide) => {
+  const background = getTourImage(slide.image);
+  return {
+    ...slide,
+    background,
+    renderWidth: Math.min(heroWidths[heroWidths.length - 1], background.width),
+  };
+});
 ---
 
 <section class="relative min-h-screen w-full overflow-hidden">
@@ -39,19 +53,23 @@ const data = [
     >
       <div class="embla__container flex h-full">
         {
-          data.map((slide, index) => (
+          slides.map((slide, index) => (
             <div
               class="embla__slide flex-[0_0_100%] min-w-0 relative h-full"
               data-title={slide.title}
               data-subtitle={slide.subtitle}
               data-accent-class={slide.accentClass}
-              data-paragraph={slide.paragraph}
+              data-paragraph={slide.description}
             >
-              <img
-                src={slide.backgroundUrl}
+              <Image
+                src={slide.background}
                 alt={slide.altImage}
+                layout="full-width"
+                widths={heroWidths}
+                width={slide.renderWidth}
+                quality={80}
+                priority={index === 0}
                 class="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                loading={index === 0 ? "eager" : "lazy"}
                 draggable="false"
               />
               <div class="absolute inset-0 bg-black/20" />
@@ -60,6 +78,29 @@ const data = [
         }
       </div>
     </div>
+
+    <!-- Fixed hero content, synchronized with the active slide -->
+    <ContainerHeader
+      class="pb-52 absolute inset-0 z-10 pointer-events-none flex"
+    >
+      <div
+        class="hero-content flex flex-row items-end justify-start text-white gap-5 w-full"
+      >
+        <div class="mb-6 flex-2">
+          <h2 class="text-4xl font-extrabold md:text-6xl">
+            <span id="hero-title" class="block">{slides[0].title}</span>
+            <span id="hero-subtitle" class={`block ${slides[0].accentClass}`}>
+              {slides[0].subtitle}
+            </span>
+          </h2>
+        </div>
+        <div class="mb-10 flex-4">
+          <p id="hero-paragraph" class="text-base">
+            {slides[0].description}
+          </p>
+        </div>
+      </div>
+    </ContainerHeader>
 
     <!-- Navigation Arrows -->
     <button
@@ -132,23 +173,6 @@ const data = [
       ></button>
     </div> -->
   </div>
-
-  <!-- Fixed hero content, synchronized with the active slide -->
-  <ContainerHeader class="pb-52 absolute inset-0 z-10 pointer-events-none flex">
-    <div
-      class="hero-content flex flex-row items-end justify-start text-white gap-5 w-full"
-    >
-      <h2 class="mb-6 text-4xl font-extrabold md:text-6xl flex-2">
-        <span id="hero-title" class="block">{data[0].title}</span>
-        <span id="hero-subtitle" class={`block ${data[0].accentClass}`}>
-          {data[0].subtitle}
-        </span>
-      </h2>
-      <p id="hero-paragraph" class="mb-10 text-xl flex-4">
-        {data[0].paragraph}
-      </p>
-    </div>
-  </ContainerHeader>
 </section>
 
 <script>

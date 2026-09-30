@@ -17,12 +17,14 @@
 		"astro": "^7.3.2",
 		"astro-icon": "^1.2.0",
 		"embla-carousel": "^8.6.0",
-		"embla-carousel-fade": "^8.6.0"
+		"embla-carousel-fade": "^8.6.0",
+		"sharp": "^0.35.5"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.4",
 		"@tailwindcss/postcss": "^4.3.3",
 		"@tailwindcss/vite": "^4.3.3",
+		"@types/node": "^26.6.3",
 		"astro-font": "^1.1.0",
 		"postcss": "^8.5.28",
 		"tailwindcss": "^4.3.3"
