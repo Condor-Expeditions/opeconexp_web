@@ -1,8 +1,9 @@
 import EmblaCarousel, { type EmblaCarouselType } from "embla-carousel";
 import Fade from "embla-carousel-fade";
 
-
 const SWIPE_THRESHOLD = 50;
+const DRAG_THRESHOLD = 10;
+const HORIZONTAL_SWIPE_RATIO = 1.2;
 
 class CarouselManager {
 	emblaInstance: EmblaCarouselType | null;
@@ -26,8 +27,8 @@ class CarouselManager {
 			this.viewportNode,
 			{
 				loop: true,
-				duration: 250,
-				// watchDrag: false,
+				duration: 30,
+				watchDrag: false,
 			},
 			[Fade()],
 		);
@@ -35,7 +36,6 @@ class CarouselManager {
 		this.bindSwipe();
 		this.others();
 	}
-
 
 	parseSlideList<T>(slide: HTMLElement, key: "tours" | "tags"): T[] {
 		try {
@@ -47,37 +47,104 @@ class CarouselManager {
 		}
 	}
 
-
 	bindSwipe() {
 		const viewportNode = this.viewportNode;
 		if (!viewportNode) return;
 
-		let startX: number | null = null;
+		const listeners = new AbortController();
+		let gesture: AbortController | null = null;
+		let suppressClick = false;
+		const resetGesture = () => {
+			gesture?.abort();
+			gesture = null;
+		};
 
-		viewportNode.addEventListener("pointerdown", (event) => {
-			startX = event.clientX;
-		});
+		viewportNode.addEventListener(
+			"pointerdown",
+			(event) => {
+				if (!event.isPrimary || event.button !== 0 || gesture) return;
 
-		// Un scroll vertical cancela el pointer y no llega `pointerup`:
-		// limpiamos para no arrastrar un `startX` viejo.
-		viewportNode.addEventListener("pointercancel", () => {
-			startX = null;
-		});
+				suppressClick = false;
+				const { clientX: startX, clientY: startY, pointerId } = event;
+				gesture = new AbortController();
+				const { signal } = gesture;
+				const isHorizontal = (deltaX: number, deltaY: number) =>
+					Math.abs(deltaX) > Math.abs(deltaY) * HORIZONTAL_SWIPE_RATIO;
 
-		viewportNode.addEventListener("pointerup", (event) => {
-			if (startX === null) return;
+				// Escuchamos fuera del viewport sin capturar el pointer para conservar
+				// el destino de los clics normales sobre los enlaces.
+				window.addEventListener(
+					"pointermove",
+					(moveEvent) => {
+						if (moveEvent.pointerId !== pointerId) return;
+						const deltaX = moveEvent.clientX - startX;
+						const deltaY = moveEvent.clientY - startY;
+						if (
+							Math.abs(deltaX) >= DRAG_THRESHOLD &&
+							isHorizontal(deltaX, deltaY)
+						) {
+							suppressClick = true;
+						}
+					},
+					{ signal },
+				);
 
-			const deltaX = event.clientX - startX;
-			startX = null;
+				window.addEventListener(
+					"pointerup",
+					(upEvent) => {
+						if (upEvent.pointerId !== pointerId) return;
+						const deltaX = upEvent.clientX - startX;
+						const deltaY = upEvent.clientY - startY;
+						resetGesture();
 
-			if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+						if (
+							Math.abs(deltaX) < SWIPE_THRESHOLD ||
+							!isHorizontal(deltaX, deltaY)
+						)
+							return;
 
-			if (this.emblaInstance === null) {
-				return;
-			}
+						suppressClick = true;
+						if (deltaX < 0) this.emblaInstance?.scrollNext();
+						else this.emblaInstance?.scrollPrev();
+					},
+					{ signal },
+				);
 
-			if (deltaX < 0) this.emblaInstance.scrollNext();
-			else this.emblaInstance.scrollPrev();
+				// El navegador cancela el pointer cuando empieza el scroll vertical.
+				window.addEventListener(
+					"pointercancel",
+					(cancelEvent) => {
+						if (cancelEvent.pointerId === pointerId) resetGesture();
+					},
+					{ signal },
+				);
+				window.addEventListener("blur", resetGesture, { signal });
+			},
+			{ signal: listeners.signal },
+		);
+
+		viewportNode.addEventListener(
+			"click",
+			(event) => {
+				if (!suppressClick || event.detail === 0) return;
+				event.preventDefault();
+				event.stopImmediatePropagation();
+				suppressClick = false;
+			},
+			{ capture: true, signal: listeners.signal },
+		);
+
+		viewportNode.addEventListener(
+			"dragstart",
+			(event) => {
+				if (gesture) event.preventDefault();
+			},
+			{ signal: listeners.signal },
+		);
+
+		this.emblaInstance?.on("destroy", () => {
+			resetGesture();
+			listeners.abort();
 		});
 	}
 
