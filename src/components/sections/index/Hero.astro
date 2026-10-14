@@ -20,7 +20,7 @@ const data = [
     altImage: "Paisaje andino ecuatoriano",
     title: "Ecuador:",
     subtitle: " Vive lo que otros solo visitan.",
-    textColor: "text-primary",
+    subtitleColor: "text-white",
     bgColor: "bg-primary",
     description:
       "Conoce Condor Expeditions, operadora turística enfocada a la experiencia de vivir algo único en nuestro hermoso páis. Crea nuevas experiencias y recuerdos con los tours de Condor Expeditions, no dudes en contactarnos. Cada uno de tus sueños los cumplimos.",
@@ -45,7 +45,7 @@ const data = [
     altImage: "Parque Nacional El Cajas",
     title: "Parque Nacional",
     subtitle: "El Cajas",
-    textColor: "text-green-default",
+    subtitleColor: "text-green-default",
     bgColor: "bg-green-default",
     description:
       "Una reserva natural protegida, con paisajes montañosos impresionantes. Vive una experiencia única, el clima frío del parque invita a tomar una bebida caliente y estar en movimiento, escalar, caminar por sus senderos te lleva a lugares maravillos que te dejan sin aliento como si de una pelicula se tratara.",
@@ -70,7 +70,7 @@ const data = [
     altImage: "Ruinas de Ingapirca",
     title: "Ruinas de",
     subtitle: "Ingapirca",
-    textColor: "text-primary",
+    subtitleColor: "text-primary",
     bgColor: "bg-primary",
     description:
       "Son ruinas arqueologicas de los incas, que muestras como fue un día hace cientos de años. Nuestro antepasados, conoce este lugar donde vivieron personas en un tiempo tan lejado como un pequeño recuerdo de la vida misma de nuestras raices ancestrales y nuestro pueblos originarios del Ecuador.",
@@ -130,11 +130,19 @@ const slides = data.map((slide) => {
                         class={`block ${HERO_TEXT_ANIMATION_CLASS}`}
                         style={`animation-delay: ${HERO_TEXT_DELAY_MS.title}ms`}
                       >
-                        {slide.title}
+                        {index === 0 ? (
+                          <>
+                            <span class="f-color">Ec</span>
+                            <span class="s-color">ua</span>
+                            <span class="t-color">dor</span>:
+                          </>
+                        ) : (
+                          slide.title
+                        )}
                       </span>
                       <span
                         id="hero-subtitle"
-                        class={`block ${slide.textColor} ${HERO_TEXT_ANIMATION_CLASS}`}
+                        class={`block ${slide.subtitleColor} ${HERO_TEXT_ANIMATION_CLASS}`}
                         style={`animation-delay: ${HERO_TEXT_DELAY_MS.subtitle}ms`}
                       >
                         {slide.subtitle}
@@ -261,6 +269,18 @@ const slides = data.map((slide) => {
     </div> -->
   </div>
 </section>
+
+<style>
+  .f-color {
+    color: red;
+  }
+  .s-color {
+    color: yellow;
+  }
+  .t-color {
+    color: blue;
+  }
+</style>
 
 <script>
   import CarouselManager from "./CarouselManager";
