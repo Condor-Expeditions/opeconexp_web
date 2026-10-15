@@ -39,10 +39,10 @@ export const siteConfig: SiteConfig = {
 		scheduleWeekdays: "Lunes a Domingo de 08:00h a 18:00h",
 		scheduleWeekends: "Fines de semana: salidas programadas",
 		whatsApp:
-			"https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
+			"https://wa.me/593995900614?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
 		phone: {
-			name: "+593 98 600 6849",
-			href: "tel:+593986006849",
+			name: "+593 99 590 0614",
+			href: "tel:+593995900614",
 		},
 		email: {
 			name: "info@condorexpedition.com",
@@ -53,17 +53,17 @@ export const siteConfig: SiteConfig = {
 	socials: [
 		{
 			name: "Facebook",
-			href: "https://www.facebook.com/CondorExpeditionsCuenca",
+			href: "https://www.facebook.com/share/1ZTwuhkEyo/",
 			icon: "facebook",
 		},
 		{
 			name: "Instagram",
-			href: "https://www.instagram.com/condorexpeditionscuenca",
+			href: "https://www.instagram.com/condorexpedition/",
 			icon: "instagram",
 		},
 		{
 			name: "TikTok",
-			href: "https://www.tiktok.com/@condorexpeditionscuenca",
+			href: "https://www.tiktok.com/@condorexpeditions",
 			icon: "tiktok",
 		},
 		{
@@ -73,7 +73,7 @@ export const siteConfig: SiteConfig = {
 		},
 		{
 			name: "WhatsApp",
-			href: "https://wa.me/593986006849?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
+			href: "https://wa.me/593995900614?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
 			icon: "whatsapp",
 		},
 	],
