@@ -1,12 +1,20 @@
 ---
 import HeroSection from "@/components/sections/index/Hero";
+import Countdown from "@/components/sections/launch/Countdown";
+import { launchConfig } from "@/data/launch.config";
 import Layout from "@/layouts/Layout";
 ---
 
-<Layout
-	title="Inicio"
-	description="Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala."
-	lang="es"
->
-	<HeroSection lang="es" />
-</Layout>
+{
+	launchConfig.showCountdown ? (
+		<Countdown />
+	) : (
+		<Layout
+			title="Inicio"
+			description="Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala."
+			lang="es"
+		>
+			<HeroSection lang="es" />
+		</Layout>
+	)
+}
