@@ -1,15 +1,15 @@
 ---
-export type BadgeVariant =
-	| "primary"
-	| "secondary"
-	| "outline"
-	| "destructive"
-	| "success"
-	| "warning"
-	| "muted";
-export type BadgeSize = "sm" | "md" | "lg";
+type BadgeVariant =
+	"primary" |
+	"secondary" |
+	"outline" |
+	"destructive" |
+	"success" |
+	"warning" |
+	"muted";
+type BadgeSize = "sm" | "md" | "lg";
 
-export interface Props {
+interface Props {
 	variant?: BadgeVariant;
 	size?: BadgeSize;
 	class?: string;

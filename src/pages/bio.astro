@@ -1,0 +1,524 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Logo from "@/assets/logo.svg";
+import landscape from "@/assets/tours/cajas.jpg";
+import BaseHead from "@/components/shared/BaseHead";
+import { siteConfig } from "@/data/site.config";
+
+const { companyInfo } = siteConfig;
+const socialDescriptions: Record<string, string> = {
+	instagram: "Un poco de inspiración para tu próximo viaje",
+	facebook: "Novedades y experiencias para compartir",
+	tiktok: "Ecuador, una aventura a la vez",
+};
+const socials = ["instagram", "facebook", "tiktok"].flatMap((icon) =>
+	siteConfig.socials.filter((social) => social.icon === icon),
+);
+---
+
+<html lang="es">
+	<BaseHead
+		title="Enlaces y contacto"
+		description="Tu próxima aventura en Ecuador empieza aquí. Contacta a Condor Expeditions por WhatsApp, descubre nuestras redes y planifica tu viaje desde Cuenca."
+		viewTransition={false}
+	/>
+	<body>
+		<main class="link-page">
+			<article class="link-card" aria-labelledby="page-title">
+				<header>
+					<div class="cover">
+						<Image
+							src={landscape}
+							alt="Paisaje andino del Parque Nacional El Cajas, Ecuador"
+							widths={[520, 1040]}
+							sizes="(max-width: 560px) 100vw, 520px"
+							width={1040}
+							height={460}
+							loading="eager"
+							fetchpriority="high"
+						/>
+						<span class="cover-label"
+							><span></span> ECUADOR · NATURALEZA & AVENTURA</span
+						>
+					</div>
+					<div class="intro">
+						<a
+							class="brand"
+							href="/"
+							aria-label="Condor Expeditions — ir al inicio"
+							><Logo /></a
+						>
+						<p class="eyebrow">
+							DESDE CUENCA, HACIA LO EXTRAORDINARIO
+						</p>
+						<h1 id="page-title">
+							Vive lo que otros<br />solo visitan.
+						</h1>
+						<p class="intro-description">
+							Naturaleza, cultura y caminos por descubrir.<br />Tu
+							próxima aventura empieza aquí.
+						</p>
+					</div>
+				</header>
+
+				<div class="content">
+					<nav aria-label="Reserva y sitio web" class="main-links">
+						<a
+							class="link featured"
+							href={companyInfo.whatsApp}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<span class="link-icon"
+								><Icon
+									name="brand-whatsapp"
+									size={24}
+									aria-hidden="true"
+								/></span
+							>
+							<span class="link-copy"
+								><strong>Planea tu aventura</strong><span
+									>Escríbenos por WhatsApp</span
+								></span
+							>
+							<Icon
+								name="arrow-up-right"
+								class="link-arrow"
+								aria-hidden="true"
+							/>
+						</a>
+						<a class="link website" href="/">
+							<span class="link-icon"
+								><Icon
+									name="world"
+									size={24}
+									aria-hidden="true"
+								/></span
+							>
+							<span class="link-copy"
+								><strong>Conoce Condor Expeditions</strong><span
+									>Explora nuestro sitio web</span
+								></span
+							>
+							<Icon
+								name="chevron-right"
+								class="link-arrow"
+								aria-hidden="true"
+							/>
+						</a>
+					</nav>
+
+					<section
+						class="social-section"
+						aria-labelledby="social-title"
+					>
+						<h2 id="social-title" class="section-label">
+							SÍGUENOS EN EL CAMINO
+						</h2>
+						<nav aria-label="Redes sociales" class="social-links">
+							{
+								socials.map((social) => (
+									<a
+										class="link social"
+										href={social.href}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<span class="link-icon">
+											<Icon
+												name={`brand-${social.icon}`}
+												size={24}
+												aria-hidden="true"
+											/>
+										</span>
+										<span class="link-copy">
+											<>
+												<strong>{social.name}</strong>
+												<span>
+													{
+														socialDescriptions[
+															social.icon
+														]
+													}
+												</span>
+											</>
+										</span>
+										<Icon
+											name="arrow-up-right"
+											class="link-arrow"
+											aria-hidden="true"
+										/>
+									</a>
+								))
+							}
+						</nav>
+					</section>
+
+					<section class="contact" aria-labelledby="contact-title">
+						<h2 id="contact-title" class="section-label">
+							HABLEMOS DE TU PRÓXIMO VIAJE
+						</h2>
+						<address>
+							<a href={companyInfo.phone.href}
+								><Icon name="phone" aria-hidden="true" /><span
+									>{companyInfo.phone.name}</span
+								><Icon
+									name="arrow-up-right"
+									class="contact-arrow"
+									aria-hidden="true"
+								/></a
+							>
+							<a href={companyInfo.email.href}
+								><Icon name="mail" aria-hidden="true" /><span
+									>{companyInfo.email.name}</span
+								><Icon
+									name="arrow-up-right"
+									class="contact-arrow"
+									aria-hidden="true"
+								/></a
+							>
+						</address>
+					</section>
+				</div>
+				<footer class="flex flex-col items-center gap-4">
+					<Icon
+						name="brand/condor_color"
+						class="w-40 h-auto"
+						aria-hidden="true"
+					/><p>Los mejores recuerdos empiezan con un viaje.</p><a
+						href="/"
+						>© {new Date().getFullYear()}
+						{siteConfig.companyName}</a
+					>
+				</footer>
+			</article>
+		</main>
+	</body>
+</html>
+
+<style>
+	:global(body) {
+		margin: 0;
+		background: var(--color-crema);
+		color: #262822;
+	}
+	.link-page {
+		min-height: 100svh;
+		padding: 48px 20px;
+		background-image:
+			radial-gradient(ellipse at 0% 0%, #5f92ae18, transparent 55%),
+			repeating-radial-gradient(
+				ellipse at 110% 20%,
+				transparent 0 44px,
+				#786f5310 45px 46px,
+				transparent 47px 80px
+			);
+	}
+	.link-card {
+		max-width: 520px;
+		margin: 0 auto;
+		background: #fffdf7;
+		border: 1px solid #ddd8c8;
+		border-radius: 22px;
+		overflow: hidden;
+		box-shadow: 0 16px 64px #433c2510;
+		animation: arrive 0.65s ease-out both;
+	}
+	.cover {
+		height: 208px;
+		position: relative;
+		background: #395a62;
+	}
+	.cover::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(transparent 35%, #10292b88);
+	}
+	.cover img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 55%;
+	}
+	.cover-label {
+		position: absolute;
+		z-index: 1;
+		top: 22px;
+		left: 24px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: white;
+		font-size: 10px;
+		letter-spacing: 1.8px;
+		font-weight: 600;
+		text-shadow: 0 1px 6px #000;
+	}
+	.cover-label > span {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--color-crema);
+	}
+	.intro {
+		position: relative;
+		text-align: center;
+		padding: 0 24px 24px;
+	}
+	.brand {
+		position: relative;
+		display: flex;
+		width: 190px;
+		height: 88px;
+		align-items: center;
+		justify-content: center;
+		margin: -44px auto 23px;
+		border-radius: 12px;
+		background: #fffdf7;
+		box-shadow: 0 4px 16px #242b2310;
+	}
+	.brand svg {
+		width: 156px;
+		height: auto;
+	}
+	.eyebrow,
+	.section-label {
+		font-family: "Red Hat Text", sans-serif;
+		font-size: 10px;
+		font-weight: 650;
+		letter-spacing: 1.5px;
+	}
+	.eyebrow {
+		margin: 0 0 14px;
+		color: #66695c;
+	}
+	h1 {
+		margin: 0;
+		font-size: clamp(42px, 8vw, 54px);
+		line-height: 1.08;
+		font-weight: 400;
+		color: #292d26;
+	}
+	.intro-description {
+		margin: 15px 0 0;
+		color: #64665e;
+		font-size: 14px;
+		line-height: 1.65;
+	}
+	.content {
+		padding: 0 30px;
+	}
+	.main-links,
+	.social-links {
+		display: grid;
+		gap: 10px;
+	}
+	a {
+		-webkit-tap-highlight-color: transparent;
+	}
+	.link {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		min-height: 74px;
+		padding: 14px 17px;
+		border: 1px solid #e3dfd2;
+		border-radius: 12px;
+		color: inherit;
+		text-decoration: none;
+		transition:
+			transform 0.2s,
+			background 0.2s,
+			border-color 0.2s;
+	}
+	.link:hover {
+		transform: translateY(-2px);
+		border-color: #aea58e;
+		background: #f4efdc70;
+	}
+	.link-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 36px;
+		height: 36px;
+	}
+	.link-copy {
+		display: grid;
+		gap: 3px;
+	}
+	.link-copy strong {
+		font-size: 15px;
+		font-weight: 650;
+		line-height: 1.4;
+	}
+	.link-copy > span {
+		color: #696b61;
+		font-size: 11px;
+		line-height: 1.5;
+	}
+	.link-arrow {
+		width: 18px;
+		height: 18px;
+		margin-left: auto;
+		flex-shrink: 0;
+		color: #7d7e73;
+	}
+	.featured {
+		background: var(--color-rojo);
+		border-color: var(--color-rojo);
+		color: white;
+	}
+	.featured:hover {
+		background: #bd0c00;
+		border-color: #bd0c00;
+	}
+	.featured .link-icon {
+		border-radius: 50%;
+		background: #ffffff18;
+	}
+	.featured .link-copy > span {
+		color: #fff;
+	}
+	.featured .link-arrow {
+		color: white;
+	}
+	.website .link-icon {
+		color: #47748b;
+	}
+	.social-section {
+		margin-top: 28px;
+	}
+	.section-label {
+		margin: 0 0 12px;
+		color: #717264;
+		font-size: 10px;
+	}
+	.social {
+		min-height: 68px;
+		background: #fff;
+	}
+	.social .link-icon {
+		border-radius: 9px;
+		background: #f4efdc80;
+	}
+	.contact {
+		margin-top: 28px;
+		padding-top: 23px;
+		border-top: 1px solid #e3dfd2;
+	}
+	address {
+		font-style: normal;
+	}
+	address a {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		min-height: 44px;
+		color: #4c5046;
+		text-decoration: none;
+		font-size: 13px;
+		border-radius: 5px;
+	}
+	address a:hover {
+		color: var(--color-rojo);
+	}
+	address svg,
+	.schedule svg {
+		width: 17px;
+		height: 17px;
+		flex-shrink: 0;
+		color: #73776a;
+	}
+	address .contact-arrow {
+		margin-left: auto;
+		width: 14px;
+		height: 14px;
+	}
+	.schedule {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin: 8px 0 0;
+		padding: 12px 0;
+		font-size: 12px;
+		color: #65695c;
+		line-height: 1.6;
+	}
+	footer {
+		text-align: center;
+		padding: 25px 20px 28px;
+	}
+	footer p {
+		margin: 8px 0 10px;
+		font-size: 11px;
+		color: #676a5d;
+	}
+	footer a {
+		color: #76786d;
+		text-decoration: none;
+		font-size: 10px;
+		letter-spacing: 0.4px;
+	}
+	a:focus-visible {
+		outline: 3px solid #47748b;
+		outline-offset: 4px;
+	}
+	@keyframes arrive {
+		from {
+			opacity: 0;
+			transform: translateY(14px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	@media (max-width: 560px) {
+		.link-page {
+			padding: 16px 12px;
+		}
+		.link-card {
+			border-radius: 17px;
+		}
+		.cover {
+			height: 180px;
+		}
+		.cover-label {
+			left: 18px;
+			font-size: 9px;
+			letter-spacing: 1.2px;
+		}
+		.content {
+			padding: 0 20px;
+		}
+		.eyebrow {
+			font-size: 9px;
+			letter-spacing: 1.1px;
+		}
+		.link {
+			gap: 10px;
+			padding: 13px 12px;
+		}
+		.link-copy strong {
+			font-size: 14px;
+		}
+		.link-copy > span {
+			font-size: 10px;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.link-card {
+			animation: none;
+		}
+		.link {
+			transition: none;
+		}
+		.link:hover {
+			transform: none;
+		}
+	}
+</style>

@@ -1,46 +1,41 @@
 ---
-import Container from "@/components/shared/Container";
-import Dropdown from "@/components/ui/Dropdown";
-import DropdownItem from "@/components/ui/DropdownItem";
-import { ROUTES } from "@/data/routes";
-import Button from "../Button.astro";
-// import DropdownDivider from "@/components/ui/DropdownDivider";
-
-export interface Props {
-	logoSrc?: string;
-	logoAlt?: string;
-}
-const { logoSrc = "/logo.svg", logoAlt = "Logo" } = Astro.props as Props;
+import { Icon } from "astro-icon/components";
+import Logo from "@/assets/logo.svg";
+import ContainerHeader from "@/components/shared/ContainerHeader";
 ---
 
-<header class="bg-white fixed w-full z-50 border-b border-gray-300/40">
-  <Container class="flex items-center justify-between">
-    <a href="/" class="">
-      <img src={logoSrc} alt={logoAlt} class="w-auto h-24" />
-    </a>
-
-    <!-- Navigation -->
-    <nav class="py-3 flex gap-1 flex-1 px-10">
-      {
-        ROUTES.map((route) => (
-          <Button href={route.href} variant="ghost" class="text-base!">
-            {route.label}
-          </Button>
-        ))
-      }
-    </nav>
-
-    <div>
-      <Dropdown align="right" width="md" class="[&_button]:border-none!">
-        <span slot="trigger">ES</span>
-
-        <DropdownItem href="/en">English</DropdownItem>
-      </Dropdown>
-
-      <!-- Desktop Section -->
-      <Button variant="primary" class="rounded-full!">
-        <a href="/contacto">Reservar</a>
-      </Button>
-    </div>
-  </Container>
+<header
+	id="site-header"
+	class="header-top fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+>
+	<div
+		class="header-contrast-guard pointer-events-none absolute inset-0 z-0"
+		aria-hidden="true"
+	>
+	</div>
+	<section id="header-landscape">
+		<ContainerHeader class="py-28">
+			<nav class="flex items-start gap-5">
+				<button
+					id="menu-button"
+					class="text-white cursor-pointer [&>svg]:size-6"
+				>
+					<Icon name="hamburger" />
+				</button>
+				<a
+					href="/"
+					class="relative z-10 flex items-center"
+					aria-label="Condor Expeditions Home"
+				>
+					<Logo class="w-auto h-14 md:h-20 lg:h-24 py-1" />
+				</a>
+			</nav>
+		</ContainerHeader>
+	</section>
 </header>
+
+<script>
+	import { HeaderController } from "./HeaderController";
+	const headerController = new HeaderController();
+	headerController.init();
+</script>
