@@ -1,0 +1,64 @@
+---
+import { Icon } from "astro-icon/components";
+import ContainerHeader from "@/components/shared/ContainerHeader";
+import { siteConfig } from "@/data/site.config";
+
+interface Props {
+	lang?: "es" | "en";
+}
+
+const { lang = "es" } = Astro.props;
+const text = lang === "en" ? {
+	eyebrow: "Ecuador, waiting to be discovered",
+	title: "Your next story",
+	titleAccent: "starts here.",
+	cta: "Let's talk on WhatsApp",
+	newTab: "opens in a new tab",
+} : {
+	eyebrow: "Ecuador, por descubrir",
+	title: "Tu próxima historia",
+	titleAccent: "empieza aquí.",
+	cta: "Hablemos por WhatsApp",
+	newTab: "abre en otra pestaña",
+};
+---
+
+<section class="contact-cta" aria-labelledby="contact-cta-title">
+	<ContainerHeader>
+		<p class="contact-cta-eyebrow">{text.eyebrow}</p>
+		<div class="contact-cta-row">
+			<h2 id="contact-cta-title">{text.title}<span>{text.titleAccent}</span></h2>
+			<a class="contact-cta-button" href={siteConfig.companyInfo.whatsApp} target="_blank" rel="noopener noreferrer" aria-label={`${text.cta} (${text.newTab})`}>
+				<Icon name="brand-whatsapp" class="contact-cta-whatsapp" aria-hidden="true" />
+				<span>{text.cta}</span><Icon name="arrow-up-right" class="contact-cta-arrow" aria-hidden="true" />
+			</a>
+		</div>
+	</ContainerHeader>
+</section>
+
+<style>
+	.contact-cta { background: var(--color-rojo); color: var(--color-blanco); padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+	.contact-cta-eyebrow { margin: 0 0 1.5rem; font-family: var(--font-family-sans); font-size: .875rem; font-weight: 700; line-height: 1.6; text-transform: uppercase; letter-spacing: .1em; }
+	.contact-cta-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+	h2 { margin: 0; font-size: clamp(2rem, 4.5vw, 4.5rem); font-weight: 400; line-height: 1.08; letter-spacing: -.045em; }
+	h2 span { display: block; }
+	.contact-cta-button { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; flex-shrink: 0; min-height: 3.5rem; padding: 1rem 1.5rem; border: 1px solid var(--color-blanco); border-radius: 999px; background: var(--color-blanco); color: var(--color-negro); font-size: .875rem; font-weight: 600; text-decoration: none; transition: background 250ms, border-color 250ms, color 250ms, transform 250ms; }
+	.contact-cta-button :global(svg) { width: 1.25rem; height: 1.25rem; flex-shrink: 0; transition: transform 250ms, color 250ms; }
+	.contact-cta-button :global(.contact-cta-whatsapp) { width: 1.5rem; height: 1.5rem; color: var(--color-rojo); }
+	.contact-cta-button:focus-visible { outline: 2px solid var(--color-blanco); outline-offset: 6px; }
+	@media (hover: hover) {
+		.contact-cta-button:hover { background: var(--color-negro); border-color: var(--color-negro); color: var(--color-blanco); transform: translateY(-3px); }
+		.contact-cta-button:hover :global(.contact-cta-whatsapp) { color: var(--color-celeste); }
+		.contact-cta-button:hover :global(.contact-cta-arrow) { transform: translate(2px, -2px); }
+	}
+	@media (max-width: 1023px) {
+		.contact-cta-row { align-items: flex-start; flex-direction: column; }
+	}
+	@media (max-width: 539px) {
+		.contact-cta-button { max-width: 100%; gap: .65rem; padding-inline: 1rem; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.contact-cta-button, .contact-cta-button :global(svg) { transition: none; }
+		.contact-cta-button:hover, .contact-cta-button:hover :global(.contact-cta-arrow) { transform: none; }
+	}
+</style>
