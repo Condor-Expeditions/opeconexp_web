@@ -1,0 +1,69 @@
+---
+import { Image, getImage } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { Tour } from "@/data/tours/types";
+import { getTourPhoto } from "@/data/tours/images";
+
+interface Props { tour: Tour; }
+const { tour } = Astro.props;
+const photos = await Promise.all(tour.photos.map(async (photo) => {
+	const image = getTourPhoto(photo);
+	const full = await getImage({ src: image, width: Math.min(2000, image.width), format: "webp", quality: 85 });
+	return { ...photo, image, full };
+}));
+---
+
+<section class="tour-gallery-section" aria-label={`Galería de ${tour.title}`}>
+	<div class="tour-gallery" id="tour-gallery">
+		{photos.map((photo, index) => <a
+			href={photo.full.src}
+			class:list={["gallery-photo", { "gallery-extra": index > 4 }]}
+			data-pswp-width={photo.full.attributes.width}
+			data-pswp-height={photo.full.attributes.height}
+			data-cropped="true"
+			aria-label={`Ampliar foto ${index + 1} de ${photos.length}: ${photo.alt}${tour.illustrativePhotos ? " (ilustrativa)" : ""}`}
+			style={`--photo-position: ${photo.position ?? "50% 50%"}`}
+			data-astro-reload
+		>
+			<Image src={photo.image} alt={photo.alt} widths={[400, 640, 960, 1280]} sizes={index === 0 ? "(max-width: 600px) 90vw, 45vw" : "(max-width: 600px) 44vw, 22vw"} width={Math.min(1280, photo.image.width)} format="webp" quality={82} loading={index === 0 ? "eager" : "lazy"} fetchpriority={index === 0 ? "high" : "auto"} />
+			<span class="gallery-zoom" aria-hidden="true"><Icon name="arrow-up-right" /></span>
+		</a>)}
+		<button type="button" class="gallery-all" data-gallery-open hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Ver todas las fotos <span>{photos.length}</span></button>
+	</div>
+	<div class="gallery-footnote">
+		<span>EXPEDICIÓN <strong>{tour.id}</strong></span>
+	</div>
+</section>
+
+<script>
+	import PhotoSwipeLightbox from "photoswipe/lightbox";
+	import "photoswipe/style.css";
+
+	let lightbox: PhotoSwipeLightbox | undefined;
+	let abort: AbortController | undefined;
+	const initGallery = () => {
+		lightbox?.destroy();
+		abort?.abort();
+		const gallery = document.getElementById("tour-gallery");
+		if (!gallery) return;
+		abort = new AbortController();
+		const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		lightbox = new PhotoSwipeLightbox({
+			gallery, children: "a", pswpModule: () => import("photoswipe"),
+			showHideAnimationType: reduced ? "none" : "zoom",
+			bgOpacity: 0.96, closeTitle: "Cerrar galería", zoomTitle: "Ampliar imagen",
+			arrowPrevTitle: "Foto anterior", arrowNextTitle: "Foto siguiente",
+			errorMsg: "No se pudo cargar la imagen. Intenta abrir otra foto.",
+			indexIndicatorSep: " de ",
+		});
+		lightbox.init();
+		const button = gallery.querySelector<HTMLButtonElement>("[data-gallery-open]");
+		if (button) {
+			button.hidden = false;
+			button.addEventListener("click", () => lightbox?.loadAndOpen(0, { gallery }), { signal: abort.signal });
+		}
+	};
+	initGallery();
+	document.addEventListener("astro:page-load", initGallery);
+	document.addEventListener("astro:before-swap", () => { lightbox?.destroy(); abort?.abort(); });
+</script>

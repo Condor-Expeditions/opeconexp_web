@@ -1,0 +1,78 @@
+import assert from "node:assert/strict";
+import { readdir, readFile } from "node:fs/promises";
+import test from "node:test";
+
+// Build first: pnpm build && node --test tests/*.test.mjs
+const cases = [
+	["NAT-001", "cajas-al-descubierto", "25", 7],
+	["NAT-002", "cajas-de-laguna-a-lo-ancestral", "40", 6],
+	["ARQ-001", "raices-ancestrales-del-ecuador", "40", 8],
+	["CULT-001", "pueblitos-magicos", "45", 13],
+	["NAT-003", "aventura-en-cuadron", "85", 7],
+	["FWT-001", "free-walking-tour-cuenca", null, 5],
+];
+
+for (const [id, slug, price, stops] of cases) {
+	test(`${id}: complete detail, gallery, price and inquiry`, async () => {
+		const html = await readFile(new URL(`../dist/tours/${slug}/index.html`, import.meta.url), "utf8");
+		assert.equal((html.match(/<h1\b/g) || []).length, 1);
+		assert.match(html, new RegExp(`EXPEDICIÓN <strong>${id}</strong>`));
+		assert.doesNotMatch(html, /hero-image|breadcrumb|92,029|123 4567|Radio VHF|tarifa neta/i);
+		assert.doesNotMatch(html, /Fotografías ilustrativas|Pronto compartiremos imágenes/);
+		assert.match(html, /data-icon="share"/);
+		assert.match(html, /Ver todas las fotos/);
+		assert.equal((html.match(/class="tour-more-photo"/g) || []).length, 3);
+		const gallery = html.match(/<div class="tour-gallery"[\s\S]*?<\/section>/)?.[0];
+		assert.ok(gallery);
+		assert.ok((gallery.match(/data-pswp-width="\d+"/g) || []).length >= 5);
+		assert.ok((gallery.match(/data-pswp-height="\d+"/g) || []).length >= 5);
+		assert.match(gallery, /fetchpriority="high"/);
+		assert.match(gallery, /srcset=/);
+		const timeline = html.match(/<ol class="tour-timeline"[\s\S]*?<\/ol>/)?.[0];
+		assert.equal((timeline?.match(/<li>/g) || []).length, stops);
+		for (const section of ["experiencia", "itinerario", "incluye", "preparacion", "encuentro", "consultar"]) assert.match(html, new RegExp(`id="${section}"`));
+		const inquiry = html.match(/<aside id="consultar"[\s\S]*?<\/aside>/)?.[0];
+		assert.ok(inquiry);
+		assert.match(inquiry, /https:\/\/wa\.me\/593995900614/);
+		assert.match(inquiry, /Sujeto a confirmación/);
+		assert.match(inquiry, /type="date" required/);
+		if (price) {
+			assert.match(inquiry, /class="price-from">Desde/);
+			assert.match(inquiry, new RegExp(`<strong>\\$${price}</strong>`));
+		} else {
+			assert.match(inquiry, /<strong>Gratis<\/strong>\s*<small>Aporte voluntario al finalizar<\/small>/);
+			assert.doesNotMatch(inquiry, /price-from|\$0|50%|anticipo/i);
+		}
+		for (const match of html.matchAll(/href="(\/tours\/[^"#?]+)"/g)) {
+			await assert.doesNotReject(readFile(new URL(`../dist${match[1]}index.html`, import.meta.url)));
+		}
+	});
+	test(`${id}: full FICHA TOUR provenance is preserved`, async () => {
+		const snapshot = JSON.parse(await readFile(new URL(`../src/data/tours/source/${id}.json`, import.meta.url), "utf8"));
+		assert.equal(snapshot.sheet, "FICHA TOUR");
+		assert.equal(snapshot.cells.B6, id);
+		assert.match(snapshot.file, /\.xlsx$/);
+		assert.ok(Object.keys(snapshot.cells).length > 100);
+		assert.ok(Object.keys(snapshot.formulas).length > 0);
+		assert.ok(snapshot.cells.B8);
+	});
+}
+
+test("brand styles contain no cream token, hex or alpha variants", async () => {
+	const walk = async (directory) => {
+		for (const entry of await readdir(directory, { withFileTypes: true })) {
+			const path = new URL(entry.name + (entry.isDirectory() ? "/" : ""), directory);
+			if (entry.isDirectory()) await walk(path);
+			else if (/\.(astro|css|ts)$/.test(entry.name)) assert.doesNotMatch(await readFile(path, "utf8"), /--color-crema|#f4efdc/i, path.pathname);
+		}
+	};
+	await walk(new URL("../src/", import.meta.url));
+});
+
+test("internal source snapshots and editorial notes are absent from client bundles", async () => {
+	for (const file of await readdir(new URL("../dist/_astro/", import.meta.url))) {
+		if (!file.endsWith(".js")) continue;
+		const js = await readFile(new URL(`../dist/_astro/${file}`, import.meta.url), "utf8");
+		assert.doesNotMatch(js, /pendingReview|PLANTILLA MAESTRA DE CREACIÓN|123 4567/);
+	}
+});

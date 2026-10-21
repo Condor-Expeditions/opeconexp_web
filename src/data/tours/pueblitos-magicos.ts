@@ -1,0 +1,52 @@
+import { mountainPacking, paidConditions, source } from "./shared";
+import type { Tour } from "./types";
+
+export default {
+	id: "CULT-001", slug: "pueblitos-magicos", title: "Pueblitos Mágicos: Historia, Oro y Tradición", signature: "Hecho a mano, vivido de cerca",
+	category: "Cultura · Artesanía", location: "Sígsig · Chordeleg · Gualaceo",
+	description: "Descubre la riqueza artesanal, histórica y arqueológica del Austro recorriendo Sígsig, Chordeleg y Gualaceo en una sola jornada. Un encuentro con las huellas de Chobshi, la filigrana de los joyeros y los hilos de la macana.",
+	duration: "Día completo", durationNote: "Encuentro a las 08:15 y regreso previsto a las 18:00. Confirma la duración y los horarios de tu salida al consultar.",
+	difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias.", season: "Todo el año",
+	price: { kind: "paid", adult: 45, child: 36, childAges: "6–11 años" },
+	meeting: "San Blas / Parque Calderón, Cuenca", returnPoint: "San Blas / Parque Calderón, Cuenca",
+	operation: "Miércoles a domingo", operatingDays: [0, 3, 4, 5, 6], departures: ["08:15–08:30"], minimumPeople: 4,
+	transport: "Transporte turístico privado · van de 12–16 plazas", transferDuration: "La ficha consigna 8 horas para la jornada completa.",
+	highlights: [
+		{ title: "Los orígenes en Chobshi", description: "Cueva Negra, Castillo de Duma y una caminata para descubrir la historia de Sígsig." },
+		{ title: "El oro se vuelve arte", description: "Conoce de cerca la filigrana, sus joyeros y la candonga gigante de Chordeleg." },
+		{ title: "Historias entre hilos", description: "Descubre el proceso de la macana y la técnica Ikat en Gualaceo." },
+	],
+	itinerary: [
+		{ time: "08:15–08:30", title: "Encuentro y salida", description: "Organización de pasajeros en San Blas / Parque Calderón." },
+		{ time: "08:30–09:45", title: "Camino a Sígsig", description: "Traslado en transporte turístico desde Cuenca." },
+		{ time: "09:45–10:30", title: "Chobshi y Castillo de Duma", description: "Visita a la Cueva Negra y al complejo arqueológico." },
+		{ time: "10:30–11:00", title: "Museo de Chobshi", description: "Recorrido guiado por el museo arqueológico." },
+		{ time: "11:00–12:00", title: "Pailón de Chobshi", description: "Caminata interpretativa y observación del paisaje." },
+		{ time: "12:00–13:00", title: "Almuerzo en Sígsig", description: "Tiempo libre para almorzar. Alimentación no incluida." },
+		{ time: "13:00–13:45", title: "Valle del río Santa Bárbara", description: "Traslado hacia Chordeleg por el valle." },
+		{ time: "13:45–14:15", title: "Museo de Chordeleg", description: "Visita al museo y su candonga gigante de filigrana." },
+		{ time: "14:15–14:45", title: "El oficio de la joyería", description: "Microtour del proceso joyero y tiempo para compras." },
+		{ time: "14:45–16:15", title: "Chordeleg a tu ritmo", description: "Recorrido por el centro histórico, plaza y talleres." },
+		{ time: "16:15–16:30", title: "Hacia Gualaceo", description: "Traslado intercantonal." },
+		{ time: "16:30–17:15", title: "Casa Museo de la Macana", description: "Demostración de creación de macanas con técnica Ikat." },
+		{ time: "17:15–18:00", title: "Regreso a Cuenca", description: "Retorno y despedida en el punto de encuentro." },
+	],
+	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional de turismo acreditado.", "Ingreso al Complejo Chobshi y Castillo de Duma.", "Ingreso a los museos de Chobshi, Chordeleg y Casa de la Macana.", "Microtours artesanales de joyería e Ikat.", "Botella de agua y snack."],
+	excludes: ["Almuerzo y consumos de alimentos.", "Compras de joyería, macanas y souvenirs.", "Propinas voluntarias.", "Seguro de viaje, asistencia médica o accidentes personales.", "Actividades o traslados fuera del itinerario."],
+	packing: mountainPacking,
+	restrictions: [
+		{ title: "Edad y condición física", description: "Apto para todas las edades. Nivel regular a moderado para las caminatas en Chobshi." },
+		{ title: "Movilidad y salud", description: "Precaución para personas con movilidad reducida o cardiopatías. Consulta las condiciones de la ruta antes de reservar." },
+		{ title: "Cultura que se cuida", description: "No dañar los sitios arqueológicos, fumar ni botar basura." },
+	],
+	conditions: paidConditions,
+	practical: ["Lleva efectivo en billetes pequeños para compras y talleres.", "Consulta con el guía la disponibilidad de servicios durante la ruta."],
+	photos: [
+		{ src: "/src/assets/tours/demo/joyeria.jpg", alt: "Detalle de piezas de joyería" },
+		{ src: "/src/assets/tours/demo/tejidos.jpg", alt: "Texturas y colores de prendas textiles" },
+		{ src: "/public/assets/menu/tours/ruta-artesano.jpg", alt: "Utensilios de colores en un mercado" },
+		{ src: "/public/assets/menu/tours/walking-tour-cuenca.webp", alt: "Arquitectura patrimonial y cúpulas azules en Cuenca" },
+		{ src: "/public/assets/menu/destinos/azuay.jpg", alt: "Un paisaje de la provincia del Azuay" },
+	], illustrativePhotos: true,
+	source: source("CULT-001", ["A82", "C82"], ["B9 indica 8h, A22:A34 abarca 08:15–18:00.", "D10 español vs A56 bilingüe: no prometer inglés sin confirmar.", "C58 excluye seguro: no heredar seguro de otros tours.", "B73:E77 repiten logística del Cajas (km28); omitir como dato no fiable.", "A82 promocional $39 no es tarifa general: usar adulto $45."]),
+} satisfies Tour;

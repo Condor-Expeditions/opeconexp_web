@@ -13,7 +13,7 @@ import "./header.css";
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
-<header id="site-header" class="site-header" data-menu-state="closed" data-light-page={currentPath !== "/"}>
+<header id="site-header" class="site-header" data-menu-state="closed" data-light-page={currentPath !== "/"} data-tour-page={currentPath.startsWith("/tours/")}>
 	<div class="menu-curtain" aria-hidden="true"></div>
 	<section id="header-landscape" class="header-toolbar">
 		<ContainerHeader class="py-28">

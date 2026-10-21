@@ -16,37 +16,37 @@ export const navigationLinks = [
 	{ title: "Contacto", href: "/contacto" },
 ];
 
-// Replace these shared destinations with individual tour routes when available.
+// Link destinations to the available tour details; others keep the shared route.
 export const featuredTours = [
 	{
 		title: "El Cajas",
 		caption: "Entre lagunas y montañas",
 		image: cajas,
-		href: "/tours",
+		href: "/tours/cajas-al-descubierto/",
 	},
 	{
 		title: "Ingapirca",
 		caption: "Huellas de nuestra historia",
 		image: ingapirca,
-		href: "/tours",
+		href: "/tours/raices-ancestrales-del-ecuador/",
 	},
 	{
 		title: "Los Andes",
 		caption: "Un poco más cerca del cielo",
 		image: nevado,
-		href: "/tours",
+		href: "/tours/cajas-de-laguna-a-lo-ancestral/",
 	},
 	{
 		title: "Cuenca",
 		caption: "Calles que cuentan historias",
 		image: cuenca,
-		href: "/tours",
+		href: "/tours/free-walking-tour-cuenca/",
 	},
 	{
 		title: "Girón",
 		caption: "La fuerza de la naturaleza",
 		image: giron,
-		href: "/tours",
+		href: "/tours/aventura-en-cuadron/",
 	},
 	{
 		title: "Déleg",
@@ -58,13 +58,13 @@ export const featuredTours = [
 		title: "Chordeleg",
 		caption: "El arte de nuestras manos",
 		image: chordeleg,
-		href: "/tours",
+		href: "/tours/pueblitos-magicos/",
 	},
 	{
 		title: "Gualaceo",
 		caption: "Tradición entre hilos y colores",
 		image: gualaceo,
-		href: "/tours",
+		href: "/tours/pueblitos-magicos/",
 	},
 	{
 		title: "Guachapala",

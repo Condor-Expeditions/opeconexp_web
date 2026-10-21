@@ -20,5 +20,9 @@ export default defineConfig({
     },
     vite: {
         plugins: [tailwindcss()],
+        // Discover both modules before serving the page, not on the first gallery click.
+        optimizeDeps: {
+            include: ["photoswipe", "photoswipe/lightbox"],
+        },
     },
 });

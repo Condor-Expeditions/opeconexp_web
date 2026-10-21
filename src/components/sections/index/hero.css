@@ -39,7 +39,7 @@
 .hero-tour-link { pointer-events: auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 2.875rem; padding-block: .65rem; border-bottom: 1px solid rgb(255 255 255 / .25); font-size: .875rem; font-weight: 400; transition: color 200ms ease, border-color 200ms ease; }
 .hero-tour-link svg { width: 1rem; height: 1rem; flex-shrink: 0; transition: transform 200ms ease; }
 .hero-arrow svg { width: 1.1rem; height: 1.1rem; }
-.hero-tour-link:hover { color: #f4efdc; border-color: #fff; }
+.hero-tour-link:hover { color: var(--color-blanco); border-color: var(--color-blanco); }
 .hero-tour-link:hover svg { transform: translate(2px, -2px); }
 .hero .hero-navigation-shell { position: absolute; inset: auto 0 max(1.5rem, env(safe-area-inset-bottom)); z-index: 2; pointer-events: none; }
 .hero-navigation { display: flex; align-items: center; justify-content: flex-end; gap: .65rem; }
