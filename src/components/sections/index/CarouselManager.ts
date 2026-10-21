@@ -12,7 +12,7 @@ class CarouselManager {
 
 	constructor() {
 		this.emblaInstance = null;
-		this.wrapperNode = document.querySelector(".embla");
+		this.wrapperNode = document.querySelector("#hero-carousel");
 		this.viewportNode = this.wrapperNode?.querySelector(
 			".embla__viewport",
 		) as HTMLElement;
@@ -151,28 +151,30 @@ class CarouselManager {
 	others() {
 		const prevBtn = this.wrapperNode?.querySelector(".embla__prev");
 		const nextBtn = this.wrapperNode?.querySelector(".embla__next");
-		// const dotNodes = wrapperNode?.querySelectorAll(".embla__dot");
-		// const updateDots = () => {
-		//   const selected = emblaApi.selectedScrollSnap();
-		//   dotNodes?.forEach((dot, index) => {
-		//     const isSelected = index === selected;
-		//     dot.setAttribute("aria-selected", isSelected ? "true" : "false");
-		//     dot.classList.toggle("bg-white", isSelected);
-		//     dot.classList.toggle("bg-white/50", !isSelected);
-		//     dot.classList.toggle("w-8", isSelected);
-		//     dot.classList.toggle("w-3", !isSelected);
-		//   });
-		// };
-
-		prevBtn?.addEventListener("click", () => this.emblaInstance?.scrollPrev());
-		nextBtn?.addEventListener("click", () => this.emblaInstance?.scrollNext());
-
-		// dotNodes?.forEach((dot, index) => {
-		//   dot.addEventListener("click", () => emblaApi.scrollTo(index));
-		// });
-
-		// emblaApi.on("select", updateDots);
-		// updateDots();
+		const listeners = new AbortController();
+		prevBtn?.addEventListener("click", () => this.emblaInstance?.scrollPrev(), {
+			signal: listeners.signal,
+		});
+		nextBtn?.addEventListener("click", () => this.emblaInstance?.scrollNext(), {
+			signal: listeners.signal,
+		});
+		const updateSelection = () => {
+			const api = this.emblaInstance;
+			if (!api) return;
+			const selected = api.selectedScrollSnap();
+			api.slideNodes().forEach((slide, index) => {
+				const active = index === selected;
+				slide.inert = !active;
+				if (active) slide.removeAttribute("aria-hidden");
+				else slide.setAttribute("aria-hidden", "true");
+			});
+			const counter = this.wrapperNode?.querySelector(".hero-current");
+			if (counter) counter.textContent = String(selected + 1).padStart(2, "0");
+		};
+		this.emblaInstance?.on("select", updateSelection);
+		this.emblaInstance?.on("reInit", updateSelection);
+		this.emblaInstance?.on("destroy", () => listeners.abort());
+		updateSelection();
 	}
 }
 
