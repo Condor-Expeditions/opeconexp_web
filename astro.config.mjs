@@ -20,9 +20,9 @@ export default defineConfig({
     },
     vite: {
         plugins: [tailwindcss()],
-        // Discover both modules before serving the page, not on the first gallery click.
+        // Prebundle gallery and carousel dependencies before serving any route.
         optimizeDeps: {
-            include: ["photoswipe", "photoswipe/lightbox"],
+            include: ["photoswipe", "photoswipe/lightbox", "embla-carousel", "embla-carousel-fade"],
         },
     },
 });

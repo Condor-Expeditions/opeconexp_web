@@ -5,6 +5,8 @@ export default {
 	id: "NAT-002", slug: "cajas-de-laguna-a-lo-ancestral",
 	title: "Cajas: de Laguna a lo Ancestral", signature: "Otra forma de sentir los Andes",
 	category: "Naturaleza · Cultura · Gastronomía", location: "El Cajas · Cuenca",
+	destinations: ["el-cajas"], experienceTypes: ["naturaleza", "cultura", "gastronomia"],
+	summary: "Un día entre paisajes andinos, tradiciones y experiencias del campo.",
 	description: "Redescubre el Cajas desde una perspectiva ancestral y vivencial: la Laguna de Patoquinoa, el Santuario de la Virgen y una experiencia entre arte y pizza artesanal en Dos Chorreras o el Poblado de Guavidula. El día continúa con pesca deportiva en La Casa del Abuelo.",
 	duration: "8 horas", difficulty: "Media", languages: "Español · Inglés",
 	audience: "Familias, aventureros, amantes de la cultura, fotógrafos, viajeros y grupos.", season: "Todo el año",

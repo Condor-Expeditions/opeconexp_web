@@ -4,6 +4,8 @@ import type { Tour } from "./types";
 export default {
 	id: "CULT-001", slug: "pueblitos-magicos", title: "Pueblitos Mágicos: Historia, Oro y Tradición", signature: "Hecho a mano, vivido de cerca",
 	category: "Cultura · Artesanía", location: "Sígsig · Chordeleg · Gualaceo",
+	destinations: ["sigsig", "chordeleg", "gualaceo"], experienceTypes: ["cultura", "artesania"],
+	summary: "Filigrana, tejidos y memoria: tres pueblos para conocer sin prisa.",
 	description: "Descubre la riqueza artesanal, histórica y arqueológica del Austro recorriendo Sígsig, Chordeleg y Gualaceo en una sola jornada. Un encuentro con las huellas de Chobshi, la filigrana de los joyeros y los hilos de la macana.",
 	duration: "Día completo", durationNote: "Encuentro a las 08:15 y regreso previsto a las 18:00. Confirma la duración y los horarios de tu salida al consultar.",
 	difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias.", season: "Todo el año",

@@ -1,3 +1,5 @@
+import type { DestinationId, ExperienceId } from "./taxonomy";
+
 export interface TourPhoto {
 	/** Local image path. The gallery optimizes the image and reads its dimensions. */
 	src: string;
@@ -13,6 +15,12 @@ export interface Tour {
 	signature: string;
 	category: string;
 	location: string;
+	destinations: DestinationId[];
+	experienceTypes: ExperienceId[];
+	/** Short, factual introduction for the listing card. */
+	summary: string;
+	/** Editorial proposal, not an operating product yet. */
+	provisional?: boolean;
 	description: string;
 	duration: string;
 	durationNote?: string;
@@ -21,7 +29,7 @@ export interface Tour {
 	languageNote?: string;
 	audience: string;
 	season: string;
-	price: { kind: "paid"; adult: number; child?: number; childAges?: string } | { kind: "free" };
+	price: { kind: "paid"; adult: number; child?: number; childAges?: string } | { kind: "free" } | { kind: "pending" };
 	meeting: string;
 	returnPoint: string;
 	operation: string;

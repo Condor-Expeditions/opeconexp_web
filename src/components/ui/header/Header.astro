@@ -6,14 +6,14 @@ import blackCondorUrl from "@/assets/brand/symbol/black.svg?url";
 import Logo from "@/assets/logo.svg";
 import ContainerHeader from "@/components/shared/ContainerHeader";
 import SocialLinks from "@/components/shared/SocialLinks";
-import { navigationLinks, featuredTours } from "@/data/navigation.config";
+import { navigationLinks, featuredDestinations } from "@/data/navigation.config";
 import { siteConfig } from "@/data/site.config";
 import "./header.css";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
-<header id="site-header" class="site-header" data-menu-state="closed" data-light-page={currentPath !== "/"} data-tour-page={currentPath.startsWith("/tours/")}>
+<header id="site-header" class="site-header" data-menu-state="closed" data-light-page={currentPath !== "/"} data-tour-page={currentPath === "/tours" || currentPath.startsWith("/tours/")}>
 	<div class="menu-curtain" aria-hidden="true"></div>
 	<section id="header-landscape" class="header-toolbar">
 		<ContainerHeader class="py-28">
@@ -47,7 +47,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 			</nav>
 			<div class="menu-destinations" aria-label="Destinos destacados">
 				<div class="destination-grid">
-				{featuredTours.map((tour, index) => (
+				{featuredDestinations.map((tour, index) => (
 					<a href={tour.href} class={`destination destination-${index + 1}`} style={`--item-index: ${index + 2}`}>
 						<Image src={tour.image} alt="" widths={[320, 640, 960, 1280]} sizes={index === 0 ? "(max-width: 767px) 75vh, 120vh" : "(max-width: 767px) 40vw, (max-width: 1023px) 25vw, 20vw"} loading="lazy" />
 						<div class="destination-caption"><div><span>{tour.caption}</span><strong>{tour.title}</strong></div><Icon name="arrow-up-right" /></div>

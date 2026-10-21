@@ -7,7 +7,7 @@ const { price, compact = false } = Astro.props;
 	{price.kind === "free" ? <>
 		<strong>Gratis</strong>
 		<small>Aporte voluntario al finalizar</small>
-	</> : <>
+	</> : price.kind === "pending" ? <><strong>Por confirmar</strong><small>Propuesta en preparación</small></> : <>
 		<span class="price-from">Desde</span>
 		<div><strong>${price.adult.toLocaleString("es-EC")}</strong><span class="price-currency">USD <span>/ persona</span></span></div>
 	</>}

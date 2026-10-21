@@ -4,6 +4,13 @@ Cada archivo `.ts` con el nombre de un tour contiene su contenido público. Camb
 
 - `price: { kind: "paid", adult: 25 }` → **Desde $25 USD**. Es la tarifa adulta general, no una promoción condicionada. La infantil se informa aparte, también con «Desde».
 - `price: { kind: "free" }` → **Gratis**, con «Aporte voluntario al finalizar» en pequeño.
+- `price: { kind: "pending" }` → **Precio por confirmar** en el listado. Úsalo con `provisional: true` mientras se prepara una propuesta: no se muestran formularios de fechas ni se prometen salidas.
+- `summary`: frase breve para la tarjeta; evita copiar la descripción completa.
+- `destinations`: identificadores de lugares visitados (no del simple punto de salida). Un tour puede incluir varios. El filtro combina lugares con OR y los cruza con los tipos de experiencia con AND.
+- `experienceTypes`: identificadores de `taxonomy.ts`; admite varias experiencias por tour.
+- El catálogo `../destinations.ts` define imagen, encuadres y textos de cada lugar. `taxonomy.ts` define sus nombres e identificadores estables para enlaces `/tours/?lugar=chordeleg`. Admite varios `lugar` y `experiencia` en la URL.
+- Hero, masonry y filtros se generan con los mismos destinos y relaciones. Para añadir un lugar, registra su etiqueta, presentación y al menos un tour relacionado; no añadas enlaces manuales.
+- Guachapala (`PROV-001`) es una propuesta provisional solicitada para el catálogo, **sin ficha de operación ni precio confirmado**. Revisa todo su archivo antes de convertirlo en un tour operativo.
 - `photos`: rutas locales desde la raíz del proyecto, como `/public/assets/menu/tours/mi-foto.jpg` o `/src/assets/tours/mi-foto.jpg`. La galería obtiene dimensiones y genera versiones optimizadas automáticamente. Usa al menos cinco fotos, con textos alternativos descriptivos.
 - Para nuevas carpetas de imágenes, añade el patrón a `import.meta.glob` en `images.ts`. La primera foto de cada tour se utiliza también como miniatura en «Otra ruta, otra historia».
 - Cambia `illustrativePhotos` a `false` únicamente cuando sean fotografías aprobadas del tour. Este campo identifica las fotos de ejemplo en las etiquetas accesibles, sin mostrar un aviso bajo la galería.
@@ -25,3 +32,5 @@ Los originales están en `public/tmp` por solicitud inicial; recuerda que cualqu
 - Compilación: `pnpm build`.
 - Pruebas de contenido, precios, procedencia y estilos: `node --test tests/*.test.mjs` (después de compilar).
 - Navegador: con Playwright y Chromium disponibles, inicia `pnpm preview --port 4322` y ejecuta `node tests/tours.browser.mjs`. También admite `BASE_URL` y `PLAYWRIGHT_MODULE` para usar otra URL o instalación externa de Playwright. No envía consultas reales.
+- Listado, filtros, carruseles, hero y masonry: `node tests/catalog.browser.mjs` con el mismo servidor y variables. Incluye navegación cliente, historial, táctil landscape y fallback sin JavaScript.
+- Los filtros usan botones accesibles (`aria-expanded`) y casillas; las galerías de las tarjetas usan scroll-snap nativo, sin Embla ni observadores de tamaño. Embla se mantiene únicamente en el hero.

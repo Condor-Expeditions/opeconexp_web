@@ -1,4 +1,71 @@
 ---
-import PlaceholderPage from "@/components/shared/PlaceholderPage";
+import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout";
+import { tours } from "@/data/tours";
+import { destinations } from "@/data/destinations";
+import { experienceLabels } from "@/data/tours/taxonomy";
+import TourCard from "@/components/sections/tours/TourCard";
+import "../components/sections/tours/tours.css";
+
+const places = destinations.filter(place => tours.some(tour => tour.destinations.includes(place.id)));
+const experiences = Object.entries(experienceLabels).filter(([id]) => tours.some(tour => tour.experienceTypes.some(type => type === id)));
+const filters = [
+	{ key: "lugar", title: "Lugares", icon: "map-pin", hint: "¿A dónde quieres ir?", items: places.map(place => [place.id, place.title]) },
+	{ key: "experiencia", title: "Tipo de experiencia", icon: "asterisk", hint: "¿Qué te mueve?", items: experiences },
+];
 ---
-<PlaceholderPage title="Tours" />
+
+<Layout title="Tours por Ecuador" description="Encuentra tu próxima experiencia con Condor Expeditions. Explora tours por El Cajas, Cuenca, Ingapirca y los pueblos del Austro; filtra por lugar y tipo de experiencia.">
+	<main class="tour-catalog" data-tour-catalog>
+		<div class="catalog-shell">
+			<header class="catalog-heading">
+				<div><p class="catalog-eyebrow"><span></span> Ecuador, de cerca</p><h1>Tu próxima historia<br /><em>empieza aquí.</em></h1></div>
+				<div class="catalog-intro"><p>Hay un Ecuador que se descubre caminando, compartiendo y dejándose sorprender. Encuentra tu forma de vivirlo.</p><span>Rutas locales. Historias que se quedan.</span></div>
+			</header>
+			<section class="catalog-filter-section" aria-label="Filtrar tours" hidden data-filter-section>
+				<div class="catalog-filter-bar">
+					<div class="catalog-filter-label"><Icon name="asterisk" aria-hidden="true" /><span>Encuentra tu ruta</span></div>
+					<div class="catalog-filters">{filters.map(filter => <div class="catalog-filter" data-filter={filter.key}>
+						<button class="filter-toggle" type="button" aria-expanded="false" aria-controls={`filter-panel-${filter.key}`}><Icon name={filter.icon} aria-hidden="true" /><span>{filter.title}</span><span class="filter-selection-count" data-filter-count hidden>0</span><Icon name="chevron-right" class="filter-chevron" aria-hidden="true" /></button>
+						<div class="filter-panel" id={`filter-panel-${filter.key}`} hidden><p>{filter.hint}</p><fieldset><legend class="sr-only">{filter.title}</legend>{filter.items.map(([id, label]) => <label><input type="checkbox" name={filter.key} value={id} data-label={label} /><span>{label}</span></label>)}</fieldset></div>
+					</div>)}</div>
+					<button class="catalog-clear" type="button" data-clear-filters disabled>Limpiar filtros <Icon name="rotate-ccw" aria-hidden="true" /></button>
+				</div>
+				<div class="catalog-active-filters" data-active-filters aria-label="Filtros seleccionados" hidden></div>
+			</section>
+			<div class="catalog-results" id="resultados">
+				<div class="catalog-results-heading"><p role="status" aria-live="polite" aria-atomic="true" data-results-count><strong>{tours.length}</strong> experiencias por descubrir</p><span>Tu viaje, a tu ritmo</span></div>
+				<div class="tour-grid">{tours.map((tour, index) => <TourCard tour={tour} index={index} />)}</div>
+				<div class="catalog-empty" hidden data-empty-results><Icon name="map-pin" aria-hidden="true" /><h2>Otro camino te espera.</h2><p>No encontramos tours con esa combinación. Prueba otro lugar o quita algún filtro.</p><button type="button" data-clear-filters>Ver todas las experiencias <Icon name="arrow-up-right" aria-hidden="true" /></button></div>
+			</div>
+			<noscript><p class="catalog-noscript">Estás viendo todas las experiencias. Activa JavaScript para filtrar por lugar y navegar por las fotos de cada tarjeta.</p></noscript>
+			<div class="catalog-closing"><Icon name="asterisk" aria-hidden="true" /><p>Menos prisa.<br /><span>Más historias que contar.</span></p><a href="/contacto">¿No sabes por dónde empezar? <span>Hablemos de tu viaje <Icon name="arrow-up-right" aria-hidden="true" /></span></a></div>
+		</div>
+		<script is:inline>
+			// Apply incoming filters before paint, without downloading the carousel code first.
+			{
+				const root = document.currentScript.closest("[data-tour-catalog]");
+				const params = new URLSearchParams(location.search);
+				const inputs = [...root.querySelectorAll('input[type="checkbox"]')];
+				for (const input of inputs) input.checked = params.getAll(input.name).includes(input.value);
+				const selected = inputs.filter(input => input.checked);
+				const places = selected.filter(input => input.name === "lugar").map(input => input.value);
+				const types = selected.filter(input => input.name === "experiencia").map(input => input.value);
+				const cards = [...root.querySelectorAll("[data-tour-card]")];
+				for (const card of cards) card.hidden = !((!places.length || places.some(id => card.dataset.destinations.split(" ").includes(id))) && (!types.length || types.some(id => card.dataset.experiences.split(" ").includes(id))));
+				const count = cards.filter(card => !card.hidden).length;
+				if (selected.length) root.querySelector("[data-results-count]").textContent = `${count} de ${cards.length} experiencias`;
+				root.querySelector("[data-empty-results]").hidden = count !== 0;
+			}
+		</script>
+	</main>
+</Layout>
+
+<script>
+	import { initTourCatalog } from "../components/sections/tours/catalog-interactions";
+	let cleanup: (() => void) | undefined;
+	const init = () => { cleanup?.(); cleanup = initTourCatalog(); };
+	init();
+	document.addEventListener("astro:page-load", init);
+	document.addEventListener("astro:before-swap", () => cleanup?.());
+</script>

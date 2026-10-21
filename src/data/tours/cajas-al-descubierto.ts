@@ -8,6 +8,8 @@ export default {
 	signature: "Entre lagunas y cielo",
 	category: "Naturaleza · Aventura",
 	location: "Parque Nacional El Cajas",
+	destinations: ["el-cajas"], experienceTypes: ["naturaleza", "aventura"],
+	summary: "Lagunas, senderos de páramo y una pausa entre sabores de montaña.",
 	description: "Descubre la magia andina, paisajes glaciares y tradición gastronómica recorriendo el Mirador Tres Cruces, la Laguna Toreadora, el Santuario de la Virgen y la Chocolatería Dos Chorreras en una excursión de medio día desde Cuenca.",
 	duration: "Medio día",
 	durationNote: "Regreso previsto a Cuenca: 13:00 en la salida de mañana y 18:30 en la de tarde. Confirma la duración y los horarios al consultar.",

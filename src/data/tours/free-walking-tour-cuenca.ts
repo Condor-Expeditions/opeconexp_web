@@ -4,6 +4,8 @@ import type { Tour } from "./types";
 export default {
 	id: "FWT-001", slug: "free-walking-tour-cuenca", title: "Free Walking Tour de Cuenca", signature: "La ciudad, paso a paso",
 	category: "Cultura · Recorrido a pie", location: "Centro Histórico de Cuenca",
+	destinations: ["cuenca"], experienceTypes: ["cultura", "recorrido-a-pie"],
+	summary: "Patios, plazas y cacao: conoce las historias del centro de Cuenca.",
 	description: "Descubre el encanto colonial y patrimonial de Cuenca en un recorrido a pie dinámico y sin tarifa fija. Entre patios, flores, arquitectura y cacao, conoce la ciudad con un guía local y aporta al finalizar según tu satisfacción.",
 	duration: "2–2,5 horas", difficulty: "Fácil", languages: "Español · Inglés", audience: "Familias y viajeros. Apto para todas las edades.", season: "Todo el año",
 	price: { kind: "free" }, meeting: "Parque Calderón, Centro Histórico de Cuenca", returnPoint: "Museo del Cacao, Centro Histórico de Cuenca",

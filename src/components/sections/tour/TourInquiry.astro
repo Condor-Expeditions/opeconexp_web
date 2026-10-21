@@ -5,18 +5,20 @@ import type { Tour } from "@/data/tours/types";
 import TourPrice from "./TourPrice.astro";
 interface Props { tour: Tour; }
 const { tour } = Astro.props;
-const message = `Hola, quisiera consultar una salida para ${tour.title} (${tour.id}). ¿Me ayudan con disponibilidad y detalles?`;
+const message = tour.provisional
+	? `Hola, quisiera conocer los avances de la propuesta ${tour.title} (${tour.id}). Entiendo que todavía está en preparación.`
+	: `Hola, quisiera consultar una salida para ${tour.title} (${tour.id}). ¿Me ayudan con disponibilidad y detalles?`;
 const contact = new URL(siteConfig.companyInfo.whatsApp);
 contact.searchParams.set("text", message);
 ---
 
 <aside id="consultar" class="tour-inquiry" aria-labelledby="inquiry-title" data-tour-title={tour.title} data-tour-id={tour.id} data-operating-days={JSON.stringify(tour.operatingDays)}>
 	<div class="inquiry-top"><span class="tour-eyebrow">Tu próxima experiencia</span><Icon name="asterisk" aria-hidden="true" /></div>
-	<h2 id="inquiry-title" class="sr-only">Consulta una salida</h2>
+	<h2 id="inquiry-title" class="sr-only">{tour.provisional ? "Consulta esta propuesta" : "Consulta una salida"}</h2>
 	<TourPrice price={tour.price} />
 	{tour.price.kind === "paid" && tour.price.child !== undefined && <p class="child-price">Niños ({tour.price.childAges}): desde ${tour.price.child} USD</p>}
 	<div class="inquiry-divider"></div>
-	<form class="inquiry-form" action={contact.origin + contact.pathname} method="get" target="_blank" hidden>
+	{!tour.provisional && <form class="inquiry-form" action={contact.origin + contact.pathname} method="get" target="_blank" hidden>
 		<input type="hidden" name="text" value={message} />
 		<label class="inquiry-field" for="tour-date">¿Cuándo te gustaría ir?<span class="field-control"><Icon name="calendar" aria-hidden="true" /><input id="tour-date" type="date" required aria-describedby="date-help" /></span></label>
 		<p id="date-help" class="field-help">{tour.operation}. Sujeto a confirmación.</p>
@@ -27,7 +29,7 @@ contact.searchParams.set("text", message);
 		{tour.price.kind === "paid" && <p class="field-help">Indícanos las edades de los niños por WhatsApp para confirmar su tarifa.</p>}
 		<label class="inquiry-field" for="tour-departure">Salida preferida<select id="tour-departure">{tour.departures.map(departure => <option>{departure}</option>)}</select></label>
 		<button type="submit" class="tour-button inquiry-submit"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar salida<Icon name="arrow-up-right" aria-hidden="true" /></button>
-	</form>
+	</form>}
 	<a class="tour-button inquiry-fallback" href={contact.href} target="_blank" rel="noopener noreferrer"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar por WhatsApp<Icon name="arrow-up-right" aria-hidden="true" /></a>
 	<p class="inquiry-disclaimer">Sin cobros en esta página. Coordinamos disponibilidad, tarifa y detalles contigo por WhatsApp.</p>
 	<div class="inquiry-bottom"><Icon name="world" aria-hidden="true" /><span>Equipo local en Cuenca<br /><strong>Te acompañamos desde el primer mensaje.</strong></span></div>

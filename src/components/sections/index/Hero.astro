@@ -3,6 +3,9 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import ContainerHeader from "@/components/shared/ContainerHeader";
 import { getTourImage } from "@/utils";
+import { destinations } from "@/data/destinations";
+import { tours, tourHref } from "@/data/tours";
+import { experienceLabels } from "@/data/tours/taxonomy";
 import {
   HERO_CHIP_ANIMATION_CLASS,
   HERO_CHIP_STAGGER_MS,
@@ -14,52 +17,31 @@ import {
 import "./hero.css";
 
 const heroWidths = [640, 960, 1280, 1920, 2560];
-const andeanTours = [
-  { slug: "/tours/cajas-al-descubierto/", name: "Cajas al Descubierto" },
-  { slug: "/tours/cajas-de-laguna-a-lo-ancestral/", name: "De Laguna a lo Ancestral" },
-  { slug: "/tours/aventura-en-cuadron/", name: "Aventura en Cuadrón" },
-];
 const data = [
   {
-    image: "nevado.jpg",
+    background: getTourImage("nevado.jpg"),
     altImage: "Paisaje andino ecuatoriano",
     title: "Ecuador",
     subtitle: "Vive lo que otros solo visitan.",
     description: "Somos Condor Expeditions. Descubre Ecuador con experiencias auténticas, paisajes que sorprenden y recuerdos que se quedan contigo.",
     position: "50% 45%",
     portraitPosition: "55% 40%",
-    tours: andeanTours,
+    tours: [] as { slug: string; name: string }[],
     tags: ["Naturaleza", "Aventura", "Senderismo", "Fotografía"],
   },
-  {
-    image: "cajas.jpg",
-    altImage: "Parque Nacional El Cajas",
-    title: "Parque Nacional",
-    subtitle: "El Cajas",
-    description: "Entre lagunas y montañas, descubre los senderos de El Cajas. Respira el aire del páramo y vive los Andes a tu propio ritmo.",
-    position: "50% 50%",
-    portraitPosition: "55% 50%",
-    tours: andeanTours,
-    tags: ["Naturaleza", "Aventura", "Senderismo", "Fotografía"],
-  },
-  {
-    image: "ingapirca.jpg",
-    altImage: "Ruinas de Ingapirca",
-    title: "Ruinas de",
-    subtitle: "Ingapirca",
-    description: "Camina entre vestigios cañaris e incas y conoce las historias que guardan estas piedras. Un encuentro con las raíces ancestrales de Ecuador.",
-    position: "50% 50%",
-    portraitPosition: "60% 50%",
-    tours: [
-      { slug: "/tours/raices-ancestrales-del-ecuador/", name: "Raíces Ancestrales del Ecuador" },
-      { slug: "/tours/pueblitos-magicos/", name: "Pueblitos Mágicos" },
-    ],
-    tags: ["Historia", "Arqueología", "Cultura"],
-  },
+  ...destinations.filter(place => tours.some(tour => tour.destinations.includes(place.id))).map(place => {
+    const related = tours.filter(tour => tour.destinations.includes(place.id));
+    return {
+      background: place.image, altImage: `Vista ilustrativa de ${place.title}`,
+      title: "Descubre", subtitle: place.title, description: place.description,
+      position: place.position ?? "50% 50%", portraitPosition: place.portraitPosition ?? "50% 50%",
+      tours: related.map(tour => ({ slug: tourHref(tour), name: tour.title })),
+      tags: [...new Set(related.flatMap(tour => tour.experienceTypes))].map(type => experienceLabels[type]),
+    };
+  }),
 ];
 const slides = data.map((slide) => {
-  const background = getTourImage(slide.image);
-  return { ...slide, background, renderWidth: Math.min(heroWidths[heroWidths.length - 1], background.width) };
+  return { ...slide, renderWidth: Math.min(heroWidths[heroWidths.length - 1], slide.background.width) };
 });
 ---
 
@@ -68,18 +50,20 @@ const slides = data.map((slide) => {
     <div id="hero-carousel" class="embla" role="region" aria-roledescription="carrusel" aria-label="Destinos destacados">
       <div class="embla__viewport select-none touch-pan-y">
         <div class="embla__container">
-          {slides.map((slide, index) => (
+          {slides.map((slide, index) => {
+            const Heading = index === 0 ? "h1" : "h2";
+            return (
             <section class="embla__slide" role="group" aria-roledescription="diapositiva" aria-label={`${index + 1} de ${slides.length}: ${slide.title} ${slide.subtitle}`} aria-hidden={index !== 0 ? "true" : undefined} inert={index !== 0} style={`--hero-position: ${slide.position}; --hero-portrait-position: ${slide.portraitPosition}`}>
               <Image src={slide.background} alt={slide.altImage} layout="full-width" widths={heroWidths} width={slide.renderWidth} quality={80} priority={index === 0} class="hero-image" draggable="false" />
               <div class="hero-shade" aria-hidden="true" />
               <ContainerHeader class="hero-shell">
-                <div class="hero-content">
+                <div class:list={["hero-content", { "hero-content-intro": index === 0 }]}>
                   <div class="hero-heading">
                     <p class="hero-eyebrow">Condor Expeditions <span aria-hidden="true">/</span> <span class="hero-signature">Ecuador</span></p>
-                    <h1 class:list={["hero-title", { "hero-title-intro": index === 0 }]}>
+                    <Heading class:list={["hero-title", { "hero-title-intro": index === 0 }]}>
                       <span class={HERO_TEXT_ANIMATION_CLASS} style={`animation-delay: ${HERO_TEXT_DELAY_MS.title}ms`}>{slide.title}</span>
                       <span class={`hero-subtitle ${HERO_TEXT_ANIMATION_CLASS}`} style={`animation-delay: ${HERO_TEXT_DELAY_MS.subtitle}ms`}>{slide.subtitle}</span>
-                    </h1>
+                    </Heading>
                   </div>
                   <div class="hero-story">
                     <p class={`hero-description ${HERO_TEXT_ANIMATION_CLASS}`} style={`animation-delay: ${HERO_TEXT_DELAY_MS.paragraph}ms`}>{slide.description}</p>
@@ -89,7 +73,7 @@ const slides = data.map((slide) => {
                       ))}
                     </div>
                   </div>
-                  <div class="hero-tours">
+                  {slide.tours.length > 0 && <div class="hero-tours">
                     <p class="hero-eyebrow">Explora nuestros tours</p>
                     <div class="hero-tour-list">
                       {slide.tours.map((tour, tourIndex) => (
@@ -98,11 +82,11 @@ const slides = data.map((slide) => {
                         </a>
                       ))}
                     </div>
-                  </div>
+                  </div>}
                 </div>
               </ContainerHeader>
             </section>
-          ))}
+          ); })}
         </div>
       </div>
       <ContainerHeader class="hero-navigation-shell">

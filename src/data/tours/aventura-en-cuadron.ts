@@ -4,6 +4,8 @@ import type { Tour } from "./types";
 export default {
 	id: "NAT-003", slug: "aventura-en-cuadron", title: "Aventura en Cuadrón: Cascada & Laguna", signature: "Un día para sentirlo todo",
 	category: "Naturaleza · Aventura · Historia", location: "Girón · San Fernando",
+	destinations: ["giron", "san-fernando"], experienceTypes: ["naturaleza", "aventura", "historia"],
+	summary: "La fuerza de El Chorro, una aventura en cuadrón y la calma de Busa.",
 	description: "Combina historia, cascadas y paisajes andinos: recorre el Templete de Tarqui y la Casa de los Tratados, descubre el Centro Histórico de Girón, siente la adrenalina de 30 minutos en cuadrón, contempla El Chorro y relájate en la Laguna de Busa.",
 	duration: "8 horas", difficulty: "Intermedia", languages: "Español · Inglés", audience: "Familias, aventureros y grupos.", season: "Todo el año",
 	price: { kind: "paid", adult: 85 }, meeting: "Parque Calderón / San Blas, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",

@@ -267,3 +267,4 @@ details[open] > summary .details-toggle::after { transform: rotate(0); }
 @media (prefers-reduced-motion: reduce) {
 	.tour-detail :is(.gallery-photo img, .gallery-zoom, .gallery-all, .tour-section-nav > a, .tour-section-nav > a::after, .details-toggle::before, .details-toggle::after, .tour-button, .tour-more-links > a, .tour-more-meta > svg, .tour-more-photo img) { transition: none; }
 }
+.tour-provisional-notice { margin-block: 0 1.5rem; padding: 1rem 1.25rem; background: #eef3f6; border-left: 3px solid var(--color-celeste); font-size: .85rem; line-height: 1.7; }

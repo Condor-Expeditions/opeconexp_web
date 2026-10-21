@@ -62,6 +62,7 @@
 	.hero-heading { grid-column: 1; grid-row: 1; }
 	.hero-tours { grid-column: 1; grid-row: 2; }
 	.hero-story { grid-column: 2; grid-row: 2; align-self: center; }
+	.hero-content-intro .hero-story { grid-row: 1; align-self: end; padding-bottom: .5rem; }
 	.hero .hero-navigation-shell { bottom: 2.5rem; }
 }
 @media (max-height: 550px) {
