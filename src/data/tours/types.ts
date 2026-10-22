@@ -35,12 +35,14 @@ export interface Tour {
 	operation: string;
 	/** JavaScript weekday numbers. These are operating days, NOT live availability. */
 	operatingDays: number[];
+	/** Preferred periods (e.g. Mañana / Tarde), never fixed clock times. */
 	departures: string[];
 	minimumPeople: number;
 	transport: string;
 	transferDuration: string;
 	highlights: { title: string; description: string }[];
-	itinerary: { time: string; title: string; description: string }[];
+	/** Approximate stage duration, including transfers when grouped. null = not confirmed. */
+	itinerary: { durationMinutes: number | null; title: string; description: string }[];
 	includes: string[];
 	excludes: string[];
 	packing: { title: string; description: string }[];

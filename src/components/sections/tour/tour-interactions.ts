@@ -39,7 +39,7 @@ export function initTourDetail() {
 			const message = [
 				`Hola, quisiera consultar una salida para ${inquiry.dataset.tourTitle} (${inquiry.dataset.tourId}).`,
 				`Fecha propuesta: ${formattedDate}.`,
-				`Salida preferida: ${departure}.`,
+				`Turno preferido: ${departure}.`,
 				children === undefined ? `Personas: ${adults}.` : `Adultos: ${adults}. Niños: ${children} (edades por confirmar).`,
 				"¿Podrían confirmarme disponibilidad, condiciones y tarifa aplicable? Entiendo que esta consulta no confirma una reserva.",
 			].join("\n");

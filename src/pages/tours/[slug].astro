@@ -6,6 +6,7 @@ import Layout from "@/layouts/Layout";
 import { tours, tourHref } from "@/data/tours";
 import type { Tour } from "@/data/tours/types";
 import { getTourPhoto } from "@/data/tours/images";
+import { formatStageDuration } from "@/data/tours/duration";
 import TourGallery from "../../components/sections/tour/TourGallery.astro";
 import TourInquiry from "../../components/sections/tour/TourInquiry.astro";
 import TourPrice from "../../components/sections/tour/TourPrice.astro";
@@ -48,8 +49,8 @@ const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { ic
 					</section>
 					<section id="itinerario" class="tour-content-section" aria-labelledby="itinerary-title">
 						<div class="section-heading"><div><p class="tour-eyebrow"><span>02</span> El recorrido</p><h2 id="itinerary-title">Así se vive <em>el día.</em></h2></div><span class="section-aside">{tour.itinerary.length} momentos<br />Una experiencia</span></div>
-						<p class="section-description">{tour.provisional ? "Programa preliminar, pendiente de validación. No representa un itinerario confirmado." : tour.id === "NAT-001" ? "Horarios de mañana / tarde. Los tiempos pueden variar según las condiciones de la ruta." : tour.price.kind === "free" ? "Tiempos orientativos por parada. La ruta se adapta al grupo y a las condiciones del día." : "Horarios orientativos. Los tiempos pueden variar según las condiciones de la ruta."}</p>
-						<ol class="tour-timeline">{tour.itinerary.map((stop, i) => <li><span class="timeline-dot" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><details open={i === 0}><summary><span class="timeline-time">{stop.time}</span><h3>{stop.title}</h3><span class="details-toggle" aria-hidden="true"></span></summary><p>{stop.description}</p></details></li>)}</ol>
+						<p class="section-description">{tour.provisional ? "Programa preliminar, pendiente de validación. No representa un itinerario confirmado." : "Duraciones aproximadas por etapa; incluyen los traslados indicados en cada actividad. Pueden variar según el ritmo del grupo y las condiciones de la ruta."}</p>
+						<ol class="tour-timeline">{tour.itinerary.map((stop, i) => <li><span class="timeline-dot" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><details open={i === 0}><summary><span class="timeline-duration">{formatStageDuration(stop.durationMinutes)}</span><h3>{stop.title}</h3><span class="details-toggle" aria-hidden="true"></span></summary><p>{stop.description}</p></details></li>)}</ol>
 					</section>
 					<section id="incluye" class="tour-content-section" aria-labelledby="includes-title">
 						<p class="tour-eyebrow"><span>03</span> Sin sorpresas</p><h2 id="includes-title">Todo <em>en claro.</em></h2>
@@ -63,7 +64,7 @@ const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { ic
 					<section id="encuentro" class="tour-content-section" aria-labelledby="meeting-title">
 						<p class="tour-eyebrow"><span>05</span> Aquí comienza</p><h2 id="meeting-title">Nos vemos <em>en Cuenca.</em></h2>
 						<div class="tour-meeting"><div class="meeting-icon"><Icon name="map-pin" aria-hidden="true" /></div><div><span class="tour-eyebrow">Punto de encuentro</span><h3>{tour.meeting}</h3><p>Confirma el punto exacto con nuestro equipo antes de salir.</p>{!tour.provisional && <a href={mapSearch} target="_blank" rel="noopener noreferrer">Buscar en Google Maps <Icon name="arrow-up-right" aria-hidden="true" /></a>}</div></div>
-						<dl class="tour-logistics"><div><dt>Salidas habituales</dt><dd>{tour.operation}</dd></div><div><dt>Horarios</dt><dd>{tour.departures.join(" / ") || "Por confirmar"}</dd></div><div><dt>Regreso</dt><dd>{tour.returnPoint}</dd></div><div><dt>Cómo nos movemos</dt><dd>{tour.transport}</dd></div><div><dt>Grupo mínimo</dt><dd>{tour.provisional ? "Por confirmar" : `${tour.minimumPeople} personas confirmadas para operar`}</dd></div><div><dt>Temporada</dt><dd>{tour.season}</dd></div><div><dt>Para quién</dt><dd>{tour.audience}</dd></div></dl>
+						<dl class="tour-logistics"><div><dt>Salidas habituales</dt><dd>{tour.operation}</dd></div><div><dt>Turnos de salida</dt><dd>{tour.departures.join(" / ") || "Por confirmar"}</dd></div><div><dt>Regreso</dt><dd>{tour.returnPoint}</dd></div><div><dt>Cómo nos movemos</dt><dd>{tour.transport}</dd></div><div><dt>Grupo mínimo</dt><dd>{tour.provisional ? "Por confirmar" : `${tour.minimumPeople} personas confirmadas para operar`}</dd></div><div><dt>Temporada</dt><dd>{tour.season}</dd></div><div><dt>Para quién</dt><dd>{tour.audience}</dd></div></dl>
 						<ul class="tour-practical-list">{tour.practical.map(item => <li>{item}</li>)}</ul>
 						<div class="tour-practical tour-conditions"><h3>Antes de confirmar</h3>{tour.conditions.map(item => <details><summary>{item.title}<span class="details-toggle" aria-hidden="true"></span></summary><p>{item.description}</p></details>)}</div>
 					</section>

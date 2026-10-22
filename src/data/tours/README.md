@@ -2,6 +2,14 @@
 
 Cada archivo `.ts` con el nombre de un tour contiene su contenido público. Cambia textos, precio, itinerario, horarios, recomendaciones y fotos allí; no hace falta editar componentes. `types.ts` documenta los campos y detecta omisiones.
 
+### Duraciones y turnos
+
+- Cada etapa del itinerario usa `durationMinutes`, por ejemplo `45`, `60` o `150`. Se muestra como **45 min**, **1 h** o **2 h 30 min**. No uses horas de reloj en los títulos, descripciones ni notas visibles.
+- Los minutos se calcularon a partir de los intervalos del programa original. En Cajas al Descubierto se tomó la diferencia entre el inicio de una etapa y la siguiente; el regreso dura 40 minutos según la llegada indicada. No se han repartido artificialmente las etapas que combinan traslado y visita.
+- Son duraciones aproximadas por etapa, no tiempos exclusivos de permanencia en cada atractivo. La bienvenida previa está incluida como etapa independiente; por ello la suma puede superar la duración comercial. Se conservan las discrepancias de la fuente en `source.pendingReview`.
+- Para programas aún no validados usa `durationMinutes: null`: aparecerá **Por confirmar**, nunca una duración inventada.
+- `departures` solo contiene turnos como `Mañana` o `Tarde`. Se comparten entre el selector, la logística y la consulta de WhatsApp. La hora concreta se coordina con el equipo, no se publica en el detalle.
+
 - `price: { kind: "paid", adult: 25 }` → **Desde $25 USD**. Es la tarifa adulta general, no una promoción condicionada. La infantil se informa aparte, también con «Desde».
 - `price: { kind: "free" }` → **Gratis**, con «Aporte voluntario al finalizar» en pequeño.
 - `price: { kind: "pending" }` → **Precio por confirmar** en el listado. Úsalo con `provisional: true` mientras se prepara una propuesta: no se muestran formularios de fechas ni se prometen salidas.

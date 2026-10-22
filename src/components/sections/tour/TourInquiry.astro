@@ -27,7 +27,8 @@ contact.searchParams.set("text", message);
 			{tour.price.kind === "paid" && <label class="inquiry-field" for="tour-children">Niños<select id="tour-children">{Array.from({ length: 13 }, (_, i) => <option value={i}>{i}</option>)}</select></label>}
 		</div>
 		{tour.price.kind === "paid" && <p class="field-help">Indícanos las edades de los niños por WhatsApp para confirmar su tarifa.</p>}
-		<label class="inquiry-field" for="tour-departure">Salida preferida<select id="tour-departure">{tour.departures.map(departure => <option>{departure}</option>)}</select></label>
+		<label class="inquiry-field" for="tour-departure">Turno preferido<select id="tour-departure">{tour.departures.map(departure => <option>{departure}</option>)}</select></label>
+		<p class="field-help">La hora exacta se coordina con el equipo al confirmar la salida.</p>
 		<button type="submit" class="tour-button inquiry-submit"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar salida<Icon name="arrow-up-right" aria-hidden="true" /></button>
 	</form>}
 	<a class="tour-button inquiry-fallback" href={contact.href} target="_blank" rel="noopener noreferrer"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar por WhatsApp<Icon name="arrow-up-right" aria-hidden="true" /></a>

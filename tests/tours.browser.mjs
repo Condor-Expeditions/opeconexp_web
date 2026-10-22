@@ -65,7 +65,8 @@ try {
 	assert.match(message, /NAT-001/);
 	assert.match(message, /2099/);
 	assert.match(message, /Adultos: 3. Niños: 1/);
-	assert.match(message, /Tarde · 14:00/);
+	assert.match(message, /Turno preferido: Tarde\./);
+	assert.doesNotMatch(message, /\b\d{1,2}:\d{2}\b/);
 	assert.match(message, /no confirma una reserva/);
 	await page.locator("#tour-date").fill("2000-01-01");
 	assert.equal(await page.locator("#tour-date").evaluate(input => input.checkValidity()), false);

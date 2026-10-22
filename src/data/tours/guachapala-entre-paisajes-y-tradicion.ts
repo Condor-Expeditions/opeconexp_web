@@ -18,7 +18,7 @@ export default {
 		{ title: "El entorno de Andacocha", description: "Una visita contemplada en el recorrido preliminar, sujeta a confirmación." },
 		{ title: "Tiempo para descubrir", description: "Estamos preparando una experiencia con espacio para la cultura y la vida local." },
 	],
-	itinerary: [{ time: "Propuesta", title: "Un recorrido en preparación", description: "Los puntos de visita, tiempos y actividades se publicarán cuando el equipo valide el programa." }],
+	itinerary: [{ durationMinutes: null, title: "Un recorrido en preparación", description: "Los puntos de visita, tiempos y actividades se publicarán cuando el equipo valide el programa." }],
 	includes: ["Los servicios incluidos se definirán en el programa final."],
 	excludes: ["Todavía no existe una tarifa ni un paquete confirmado."],
 	packing: [{ title: "Antes de preparar tu viaje", description: "Consulta al equipo el estado de esta propuesta y las recomendaciones del recorrido final." }],
