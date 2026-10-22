@@ -1,3 +1,13 @@
+/** Use the same landing line as anchor navigation, including CSS scroll-margin. */
+export function getActiveTourSection(
+	sections: { id: string; top: number; scrollMarginTop: number }[],
+	stickyBottom: number,
+) {
+	return [...sections].reverse().find(section =>
+		section.top <= Math.max(stickyBottom + 16, section.scrollMarginTop) + 2,
+	)?.id ?? sections[0]?.id;
+}
+
 export function initTourDetail() {
 	const root = document.querySelector<HTMLElement>(".tour-detail");
 	if (!root) return;
@@ -64,18 +74,70 @@ export function initTourDetail() {
 	}, { rootMargin: "-160px 0px -80px 0px" });
 	if (inquiry) inquiryObserver.observe(inquiry);
 	const sections = navLinks.map(link => root.querySelector<HTMLElement>(link.hash)).filter((item): item is HTMLElement => !!item);
-	const markActive = () => {
-		const offset = innerWidth < 768 ? 155 : 180;
-		const active = [...sections].reverse().find(section => section.getBoundingClientRect().top <= offset) ?? sections[0];
+	const nav = root.querySelector<HTMLElement>(".tour-section-nav");
+	let pendingSection: HTMLElement | undefined;
+	let pendingUntil = 0;
+	const setActive = (id: string | undefined) => {
 		for (const link of navLinks) {
-			if (link.hash === `#${active?.id}`) link.setAttribute("aria-current", "location");
-			else link.removeAttribute("aria-current");
+			if (link.hash === `#${id}`) {
+				const changed = !link.hasAttribute("aria-current");
+				link.setAttribute("aria-current", "location");
+				// Keep the selected tab visible without scrolling the page vertically.
+				if (changed && nav) {
+					const bounds = nav.getBoundingClientRect();
+					const tab = link.getBoundingClientRect();
+					if (tab.left < bounds.left) nav.scrollBy({ left: tab.left - bounds.left - 4 });
+					else if (tab.right > bounds.right) nav.scrollBy({ left: tab.right - bounds.right + 4 });
+				}
+			} else link.removeAttribute("aria-current");
 		}
 	};
+	const markActive = () => {
+		if (pendingSection && performance.now() < pendingUntil) {
+			const landing = Number.parseFloat(getComputedStyle(pendingSection).scrollMarginTop) || 0;
+			if (Math.abs(pendingSection.getBoundingClientRect().top - landing) > 2) {
+				setActive(pendingSection.id);
+				return;
+			}
+		}
+		pendingSection = undefined;
+		const stickyBottom = nav
+			? (Number.parseFloat(getComputedStyle(nav).top) || 0) + nav.getBoundingClientRect().height
+			: 0;
+		setActive(getActiveTourSection(sections.map(section => ({
+			id: section.id,
+			top: section.getBoundingClientRect().top,
+			scrollMarginTop: Number.parseFloat(getComputedStyle(section).scrollMarginTop) || 0,
+		})), stickyBottom));
+	};
 	let frame = 0;
-	window.addEventListener("scroll", () => {
+	const scheduleUpdate = () => {
 		if (!frame) frame = requestAnimationFrame(() => { markActive(); frame = 0; });
-	}, { ...options, passive: true });
+	};
+	const interruptNavigation = () => { pendingSection = undefined; scheduleUpdate(); };
+	for (const link of navLinks) {
+		link.addEventListener("click", event => {
+			if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+			pendingSection = sections.find(section => `#${section.id}` === link.hash);
+			pendingUntil = performance.now() + 2000;
+			setActive(pendingSection?.id);
+		}, options);
+	}
+	window.addEventListener("scroll", scheduleUpdate, { ...options, passive: true });
+	window.addEventListener("scrollend", event => {
+		if (event.target === document || event.target === window) interruptNavigation();
+	}, options);
+	window.addEventListener("wheel", interruptNavigation, { ...options, passive: true });
+	window.addEventListener("touchstart", interruptNavigation, { ...options, passive: true });
+	window.addEventListener("resize", interruptNavigation, options);
+	window.addEventListener("hashchange", scheduleUpdate, options);
+	window.addEventListener("keydown", event => {
+		if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) interruptNavigation();
+	}, options);
+	const layoutObserver = new ResizeObserver(scheduleUpdate);
+	if (nav) layoutObserver.observe(nav);
+	const story = root.querySelector(".tour-story");
+	if (story) layoutObserver.observe(story);
 	markActive();
-	return () => { abort.abort(); cancelAnimationFrame(frame); inquiryObserver.disconnect(); };
+	return () => { abort.abort(); cancelAnimationFrame(frame); inquiryObserver.disconnect(); layoutObserver.disconnect(); };
 }
