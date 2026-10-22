@@ -26,6 +26,7 @@ const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { ic
 	<main class="tour-detail">
 		<div class="tour-shell">
 			<header class="tour-heading">
+				<a class="tour-back-link" href="/tours"><Icon name="chevron-right" aria-hidden="true" /><span>Todos los tours</span></a>
 				<div class="tour-heading-meta"><p><Icon name="map-pin" aria-hidden="true" />{tour.location}</p><span>{tour.category}</span></div>
 				<div class="tour-title-row"><h1>{tour.title}</h1><button class="tour-share" type="button" data-tour-share hidden aria-label="Compartir este tour"><Icon name="share" aria-hidden="true" /><span>Compartir</span></button></div>
 				<div class="tour-signature-row"><p class="tour-signature">{tour.signature}</p><span class="tour-share-status" role="status"></span></div>

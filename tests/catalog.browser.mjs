@@ -13,6 +13,7 @@ const openFilter = key => page.locator(`[data-filter="${key}"] > .filter-toggle`
 try {
 	await page.goto(`${base}/tours/`, { waitUntil: "networkidle" });
 	await expectCards(7);
+	const archaeologyPlace = (await page.locator('[data-tour-card][data-experiences~="arqueologia"]').first().getAttribute("data-destinations")).split(" ")[0];
 	// Only cover images are downloaded before interaction; templates stay inert.
 	assert.equal(await page.locator(".card-slide img").count(), 7);
 	for (const [width, height] of [[1440, 1000], [1024, 768], [768, 1024], [390, 844], [360, 740], [844, 390]]) {
@@ -106,13 +107,13 @@ try {
 	assert.match(await visibleCards().innerText(), /Pueblitos Mágicos/);
 	assert.equal(await page.locator('input[value="chordeleg"]').isChecked(), true);
 	await openFilter("lugar");
-	await page.locator('input[value="ingapirca"]').check();
+	await page.locator(`input[value="${archaeologyPlace}"]`).check();
 	await expectCards(2); // OR within destinations.
 	await openFilter("experiencia");
 	await page.locator('input[value="arqueologia"]').check();
 	await expectCards(1); // AND between filter groups.
 	assert.match(await visibleCards().innerText(), /Raíces Ancestrales/);
-	assert.ok(new URL(page.url()).searchParams.getAll("lugar").includes("ingapirca"));
+	assert.ok(new URL(page.url()).searchParams.getAll("lugar").includes(archaeologyPlace));
 	await page.keyboard.press("Escape");
 	await visibleCards().locator(".card-cta").click();
 	await page.waitForURL("**/tours/raices-ancestrales-del-ecuador/");
@@ -138,7 +139,7 @@ try {
 
 	await page.goto(`${base}/`, { waitUntil: "networkidle" });
 	const slides = page.locator(".hero .embla__slide");
-	assert.equal(await slides.count(), 12);
+	assert.equal(await slides.count(), destinations.length + 1);
 	assert.equal(await slides.first().locator(".hero-tours").count(), 0);
 	assert.equal(await page.locator(".hero h1").count(), 1);
 	await page.locator(".embla__next").click();
@@ -152,7 +153,7 @@ try {
 		await page.setViewportSize({ width, height });
 		await page.locator("#menu-button").click();
 		await page.waitForFunction(() => document.querySelector("#site-header").dataset.menuState === "open");
-		assert.equal(await page.locator(".destination-grid a").count(), 11);
+		assert.equal(await page.locator(".destination-grid a").count(), destinations.length);
 		const guachapala = page.locator('.destination-grid a[href="/tours/?lugar=guachapala"]');
 		await guachapala.waitFor({ state: "visible" });
 		await guachapala.scrollIntoViewIfNeeded();

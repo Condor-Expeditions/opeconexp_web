@@ -4,7 +4,7 @@ import type { Tour } from "./types";
 export default {
 	id: "ARQ-001", slug: "raices-ancestrales-del-ecuador", title: "Raíces Ancestrales del Ecuador", signature: "Historias que siguen vivas",
 	category: "Arqueología · Historia · Cultura", location: "Pumapungo · Cojitambo · Coyoctor · Ingapirca",
-	destinations: ["cuenca", "cojitambo", "coyoctor", "ingapirca"], experienceTypes: ["arqueologia", "historia", "cultura"],
+	destinations: ["canar"], experienceTypes: ["arqueologia", "historia", "cultura"],
 	summary: "De Pumapungo a Ingapirca: un viaje por las huellas cañaris e incas.",
 	description: "Sumérgete en las huellas vivas de las civilizaciones cañari e inca: desde los vestigios de Tomebamba en Pumapungo y la fortaleza del Cerro Cojitambo, hasta los Baños del Inca en Coyoctor y el emblemático Templo del Sol en Ingapirca.",
 	duration: "Día completo", durationNote: "Encuentro a las 08:15 y regreso previsto a las 17:30. Confirma la duración y los horarios de tu salida al consultar.",

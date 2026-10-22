@@ -29,11 +29,14 @@ const presentation: Record<DestinationId, DestinationPresentation> = {
 	guachapala: { image: guachapala, caption: "Un encuentro con nuestras raíces", description: "Una propuesta para descubrir Guachapala, su paisaje y el entorno de Andacocha. Estamos preparando los detalles de esta experiencia." },
 	sigsig: { image: artesano, caption: "Saberes que siguen vivos", description: "Artesanía, memoria y paisajes del Austro. Descubre Sígsig como parte de un viaje por nuestros pueblos y sus tradiciones." },
 	"san-fernando": { image: azuay, caption: "Una pausa junto al agua", description: "El recorrido continúa en San Fernando, entre el paisaje de la laguna de Busa y la tranquilidad de los Andes." },
-	cojitambo: { image: canar, caption: "Historia en lo alto", description: "Acércate a la fortaleza cañari-inca de Cojitambo y descubre su lugar en las rutas ancestrales del Ecuador." },
-	coyoctor: { image: canar, caption: "Memoria y caminos ancestrales", description: "Explora el complejo de Coyoctor y los Baños del Inca como parte de una ruta por el patrimonio del Cañar." },
+	canar: { image: canar, caption: "Memoria y caminos ancestrales", description: "Descubre el patrimonio del Cañar: paisajes andinos, caminos ancestrales e historias que conectan con las raíces cañaris e incas." },
 };
 
 /** Presentation images are illustrative; replace with approved destination photography. */
-export const destinations = Object.entries(destinationLabels).map(([id, title]) => ({
-	id: id as DestinationId, title, ...presentation[id as DestinationId],
-}));
+export const destinations = Object.entries(destinationLabels).map(([id, title]) => {
+	const detail = presentation[id as DestinationId];
+	if (!detail?.image) {
+		throw new Error(`El destino "${id}" necesita imagen, caption y description en src/data/destinations.ts. Su nombre está definido en src/data/tours/taxonomy.ts, pero falta completar su presentación.`);
+	}
+	return { id: id as DestinationId, title, ...detail };
+});

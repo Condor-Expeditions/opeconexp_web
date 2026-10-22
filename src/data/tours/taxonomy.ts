@@ -9,8 +9,7 @@ export const destinationLabels = {
 	guachapala: "Guachapala",
 	sigsig: "Sígsig",
 	"san-fernando": "San Fernando",
-	cojitambo: "Cojitambo",
-	coyoctor: "Coyoctor",
+	canar: "Cañar"
 } as const;
 
 export const experienceLabels = {

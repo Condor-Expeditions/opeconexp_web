@@ -3,7 +3,9 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const load = path => readFile(new URL(`../dist/${path}`, import.meta.url), "utf8");
-const places = ["el-cajas", "ingapirca", "cuenca", "giron", "chordeleg", "gualaceo", "guachapala", "sigsig", "san-fernando", "cojitambo", "coyoctor"];
+// Destination assignments are editable content, not fixed test fixtures.
+const listing = await load("tours/index.html");
+const places = [...new Set([...listing.matchAll(/data-destinations="([^"]+)"/g)].flatMap(match => match[1].split(" ")))];
 
 test("catalog: seven data-backed cards, destinations, experience filters and real links", async () => {
 	const html = await load("tours/index.html");
@@ -15,7 +17,8 @@ test("catalog: seven data-backed cards, destinations, experience filters and rea
 	for (const card of cards) {
 		assert.match(card, /data-destinations="[^"]+"/);
 		assert.match(card, /data-experiences="[^"]+"/);
-		assert.match(card, /Fotos ilustrativas/);
+		assert.doesNotMatch(card, /Fotos ilustrativas|card-photo-note|card-photo-count/);
+		assert.match(card, /class="sr-only" aria-live="polite"/);
 		assert.match(card, /<template data-card-image/);
 		const href = card.match(/href="(\/tours\/[^"?]+\/)/)?.[1];
 		assert.ok(href);

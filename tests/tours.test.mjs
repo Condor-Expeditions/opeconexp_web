@@ -16,6 +16,10 @@ for (const [id, slug, price, stops] of cases) {
 	test(`${id}: complete detail, gallery, price and inquiry`, async () => {
 		const html = await readFile(new URL(`../dist/tours/${slug}/index.html`, import.meta.url), "utf8");
 		assert.equal((html.match(/<h1\b/g) || []).length, 1);
+		const backLink = html.match(/<a class="tour-back-link" href="\/tours"[\s\S]*?<\/a>/)?.[0];
+		assert.ok(backLink, "Detail links directly to the tour catalog");
+		assert.match(backLink, /Todos los tours/);
+		assert.ok(html.indexOf(backLink) < html.indexOf("<h1"), "Back link appears above the tour title");
 		assert.match(html, new RegExp(`EXPEDICIÓN <strong>${id}</strong>`));
 		assert.doesNotMatch(html, /hero-image|breadcrumb|92,029|123 4567|Radio VHF|tarifa neta/i);
 		assert.doesNotMatch(html, /Fotografías ilustrativas|Pronto compartiremos imágenes/);
