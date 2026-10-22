@@ -4,7 +4,7 @@ import test from "node:test";
 
 // Run after `pnpm build`: node --test tests/footer.test.mjs
 const routes = ["", "tours", "ediciones", "sobre-nosotros", "contacto"];
-const navigation = ["/", "/tours", "/ediciones", "/sobre-nosotros", "/contacto"];
+const navigation = ["/", "/tours", "/sobre-nosotros", "/contacto"];
 
 for (const route of routes) {
 	test(`footer on /${route}: navigation, contact and shared social icons`, async () => {
@@ -14,8 +14,8 @@ for (const route of routes) {
 		assert.doesNotMatch(footer, /<form\b|<input\b|newsletter|primary-red/i);
 		assert.doesNotMatch(footer, /footer-invitation|contact-cta|Hablemos por WhatsApp/);
 		const cta = html.match(/<section class="contact-cta"[\s\S]*?<\/section>/)?.[0];
-		if (route === "") {
-			assert.ok(cta, "CTA appears on the index");
+		if (route === "" || route === "sobre-nosotros") {
+			assert.ok(cta, "CTA appears on the index and about page");
 			assert.match(cta, /data-icon="brand-whatsapp"/, "WhatsApp CTA includes its icon");
 			assert.ok(html.indexOf(cta) < html.indexOf(footer), "CTA is outside and before the footer");
 		} else {
@@ -33,9 +33,11 @@ for (const route of routes) {
 		for (const href of navigation) {
 			assert.ok(nav.includes(`href="${href}"`), `Navigation includes ${href}`);
 		}
-		assert.equal((nav.match(/aria-current="page"/g) || []).length, 1);
+		assert.doesNotMatch(nav, /href="\/ediciones"/);
+		assert.equal((nav.match(/aria-current="page"/g) || []).length, route === "ediciones" ? 0 : 1);
 
 		const header = html.match(/<header\b[\s\S]*?<\/header>/)?.[0];
+		assert.doesNotMatch(header, /href="\/ediciones"/);
 		const socialPattern = /<div class="social-links"[^>]*>([\s\S]*?)<\/div>/;
 		const headerSocials = header?.match(socialPattern)?.[1];
 		const footerSocials = footer.match(socialPattern)?.[1];

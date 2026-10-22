@@ -17,6 +17,19 @@ export class HeaderController {
 	init() {
 		if (!this.header || !this.button || !this.panel) return;
 		const options = { signal: this.abort.signal };
+		const hero = document.querySelector<HTMLElement>(".hero");
+		if (hero) {
+			const updateHeader = () => {
+				const pastHero = hero.getBoundingClientRect().bottom <= 80;
+				if (this.header) {
+					this.header.dataset.pastHero = String(pastHero);
+					this.header.dataset.lightPage = String(pastHero);
+				}
+			};
+			window.addEventListener("scroll", updateHeader, { ...options, passive: true });
+			window.addEventListener("resize", updateHeader, options);
+			updateHeader();
+		}
 		this.button.addEventListener(
 			"click",
 			() => {

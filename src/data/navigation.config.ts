@@ -5,7 +5,7 @@ import { destinationHref } from "./tours/taxonomy";
 export const navigationLinks = [
 	{ title: "Inicio", href: "/" },
 	{ title: "Tours", href: "/tours" },
-	{ title: "Ediciones", href: "/ediciones" },
+	// { title: "Ediciones", href: "/ediciones" },
 	{ title: "Sobre Nosotros", href: "/sobre-nosotros" },
 	{ title: "Contacto", href: "/contacto" },
 ];

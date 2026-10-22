@@ -1,4 +1,31 @@
 ---
-import PlaceholderPage from "@/components/shared/PlaceholderPage";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout";
+import ContactCTA from "@/components/sections/index/ContactCTA";
+import { destinations } from "@/data/destinations";
+import "../styles/information.css";
+
+const cuenca = destinations.find(place => place.id === "cuenca")!;
+const cajas = destinations.find(place => place.id === "el-cajas")!;
+const commitments = [
+  { title: "Información que te ayuda a decidir", text: "Explicamos el recorrido, el esfuerzo y los servicios de cada experiencia. Antes de confirmar, revisamos contigo las condiciones de tu salida." },
+  { title: "Atención desde la primera pregunta", text: "Detrás de cada consulta está nuestro equipo en Cuenca. Cuéntanos qué buscas y te ayudamos a encontrar una opción del catálogo que se ajuste a tus intereses." },
+  { title: "Respeto por lo que descubrimos", text: "Promovemos el cuidado de los senderos, la naturaleza y el patrimonio. Respetar las indicaciones y a las personas del lugar también es parte del viaje." },
+];
 ---
-<PlaceholderPage title="Sobre Nosotros" />
+<Layout title="Sobre nosotros" description="Conoce a Condor Expeditions, una operadora turística en Cuenca. Nuestra propuesta: descubrir la naturaleza, la cultura y las historias del Austro con información clara y atención cercana.">
+  <main class="info-page">
+    <section class="info-section"><div class="info-shell info-split">
+      <div><p class="info-eyebrow">Somos Condor Expeditions</p><h1 class="info-title">No solo llegar.<br /><em>Conectar con el lugar.</em></h1><p class="info-lead">Somos una operadora turística en Cuenca que busca acercarte a la naturaleza, la cultura y las historias de nuestra región. Queremos que disfrutes el recorrido con información clara y menos preocupaciones logísticas.</p><a class="info-link" href="/tours/">Encuentra tu próxima experiencia <Icon name="arrow-up-right" aria-hidden="true" /></a></div>
+      <figure class="info-photo"><Image src={cuenca.image} alt="Vista ilustrativa del patrimonio de Cuenca" width={1000} height={800} widths={[480, 768, 1000]} sizes="(min-width: 768px) 42vw, 88vw" format="webp" /><figcaption>Cuenca, nuestro punto de partida. Fotografía ilustrativa.</figcaption></figure>
+    </div></section>
+
+    <section class="info-section info-soft" aria-labelledby="story-title"><div class="info-shell info-split"><div><p class="info-eyebrow">Por qué nace Condor</p><h2 id="story-title" class="info-title">Hay más historias<br /><em>por vivir aquí.</em></h2></div><div class="info-copy"><p>Condor Expeditions nace de una idea: facilitar el encuentro entre quienes quieren conocer nuestra región y los lugares, saberes y paisajes que la hacen especial.</p><p>Nuestro proyecto parte de la experiencia del equipo en el entorno hotelero y del interés por coordinar experiencias turísticas desde Cuenca. Somos una marca en construcción, con la mirada puesta en una atención cercana y una oferta clara.</p><p>Hoy, esa propuesta toma forma en recorridos por El Cajas, el patrimonio de Cuenca, los pueblos artesanos del Azuay y las huellas ancestrales de Cañar. Cada ruta es una invitación a mirar con más atención.</p></div></div></section>
+
+    <section class="info-section" aria-labelledby="commitments-title"><div class="info-shell"><p class="info-eyebrow">Nuestra manera de viajar</p><h2 id="commitments-title" class="info-title">Cercanía en el trato.<br /><em>Claridad en el camino.</em></h2><div class="info-values">{commitments.map((item, index) => <article class="info-value"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>
+
+    <section class="info-section info-soft" aria-labelledby="people-title"><div class="info-shell info-split"><figure class="info-photo"><Image src={cajas.image} alt="Paisaje ilustrativo del Parque Nacional El Cajas" width={1000} height={800} widths={[480, 768, 1000]} sizes="(min-width: 768px) 42vw, 88vw" format="webp" loading="lazy" /><figcaption>El páramo invita a caminar con atención y respeto. Fotografía ilustrativa.</figcaption></figure><div><p class="info-eyebrow">Personas detrás del viaje</p><h2 id="people-title" class="info-title">Tu viaje comienza<br /><em>con una conversación.</em></h2><div class="info-copy"><p>Nuestro equipo te orienta sobre los recorridos del catálogo y coordina los detalles de la salida. Antes de elegir, conversemos sobre tus intereses, la fecha y las necesidades de quienes viajan contigo.</p><p>Los servicios varían según la experiencia: transporte, guía, entradas o alimentación se detallan en cada ficha. No todos los tours incluyen lo mismo.</p><a class="info-link" href="/contacto/">Hablemos de tu viaje <Icon name="arrow-up-right" aria-hidden="true" /></a></div></div></div></section>
+    <ContactCTA />
+  </main>
+</Layout>

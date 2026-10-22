@@ -1,4 +1,74 @@
 ---
-import PlaceholderPage from "@/components/shared/PlaceholderPage";
+import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout";
+import JourneySteps from "@/components/sections/information/JourneySteps";
+import { siteConfig } from "@/data/site.config";
+import { tours } from "@/data/tours";
+import "../styles/information.css";
+
+const info = siteConfig.companyInfo;
+const whatsApp = new URL(info.whatsApp);
+const availableTours = tours.filter(tour => !tour.provisional);
 ---
-<PlaceholderPage title="Contacto" />
+<Layout title="Contacto" description="Conversa con Condor Expeditions sobre tours desde Cuenca. Consulta recorridos, fechas y condiciones por WhatsApp, teléfono o correo electrónico.">
+  <main class="info-page">
+    <section class="info-section"><div class="info-shell">
+      <header><p class="info-eyebrow">Hablemos de tu viaje</p><h1 class="info-title">Cuéntanos tu<br /><em>próximo plan.</em></h1><p class="info-lead">¿Ya elegiste un tour o necesitas orientación? Conversemos sobre lo que te gustaría descubrir y revisemos juntos las opciones.</p></header>
+      <div class="contact-layout">
+        <div class="contact-details">
+          <a class="info-button" href={info.whatsApp} target="_blank" rel="noopener noreferrer"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar por WhatsApp<span class="sr-only"> (abre en otra pestaña)</span><Icon name="arrow-up-right" aria-hidden="true" /></a>
+          <dl><div><dt>También puedes llamarnos</dt><dd><a href={info.phone.href}>{info.phone.name}</a></dd></div><div><dt>Escríbenos por correo</dt><dd><a href={info.email.href}>{info.email.name}</a></dd></div><div><dt>Horario de atención</dt><dd>{info.scheduleWeekdays}</dd></div><div><dt>Nuestro punto de partida</dt><dd>{info.address}</dd></div></dl>
+          <p class="info-note">El punto de encuentro de cada tour puede ser distinto. Confirma la ubicación y la hora con el equipo; esta referencia no indica una oficina de atención presencial.</p>
+          <a class="info-link" href="/tours/">Prefiero explorar los tours <Icon name="arrow-up-right" aria-hidden="true" /></a>
+        </div>
+
+        <div class="contact-compose"><p class="info-eyebrow">Preparemos tu consulta</p><h2>Tu idea, en un mensaje.</h2><p>Completa lo que ya sabes. Abriremos WhatsApp con tu mensaje preparado; tú decides cuándo enviarlo.</p>
+          <form action={whatsApp.origin + whatsApp.pathname} method="get" data-contact-form hidden>
+            <input type="hidden" name="text" value="Hola, quisiera información sobre los tours de Condor Expeditions." />
+            <label for="contact-name">¿Cómo te llamas? <span>(opcional)</span><input id="contact-name" autocomplete="given-name" maxlength="80" /></label>
+            <label for="contact-tour">¿Qué te interesa?<select id="contact-tour"><option value="Necesito ayuda para elegir una experiencia">Ayúdenme a elegir</option>{availableTours.map(tour => <option value={tour.title}>{tour.title}</option>)}<option value="Consulta para una agencia, empresa o grupo">Agencias, empresas y grupos</option></select></label>
+            <div class="contact-fields"><label for="contact-date">Fecha aproximada <span>(opcional)</span><input id="contact-date" type="date" /></label><label for="contact-travelers">Personas <span>(opcional)</span><input id="contact-travelers" type="number" min="1" max="200" step="1" inputmode="numeric" /></label></div>
+            <label for="contact-message">¿Qué te gustaría saber? <span>(opcional)</span><textarea id="contact-message" rows="4" maxlength="1500" placeholder="Tus intereses o dudas sobre el recorrido. Evita incluir datos sensibles." /></label>
+            <p class="info-note" id="contact-privacy">Este formulario no guarda tus datos ni los envía a nuestros servidores. Al continuar, los campos completados se incluyen en un enlace a WhatsApp y se comparten con ese servicio para preparar tu mensaje. No incluyas información médica ni documentos personales.</p>
+            <button class="info-button" type="submit" aria-describedby="contact-privacy contact-disclaimer">Continuar en WhatsApp <Icon name="arrow-up-right" aria-hidden="true" /></button>
+          </form>
+          <noscript><p class="info-note">Para preparar el mensaje aquí necesitas JavaScript. También puedes escribirnos directamente por WhatsApp, teléfono o correo con los datos de tu viaje.</p><a class="info-button" href={info.whatsApp}>Consultar por WhatsApp</a></noscript>
+          <p class="info-note" id="contact-disclaimer">Es una solicitud de información, no una reserva. La disponibilidad, los precios y las condiciones se confirman con el equipo. No se realizan cobros en esta página.</p>
+        </div>
+      </div>
+    </div></section>
+    <JourneySteps />
+    <section class="info-section" aria-labelledby="groups-title"><div class="info-shell info-split"><div><p class="info-eyebrow">Agencias, empresas y grupos</p><h2 class="info-title" id="groups-title">Más personas.<br /><em>Una misma idea.</em></h2></div><div class="info-copy"><p>Si representas a una agencia, una empresa o un grupo, cuéntanos el número de participantes, las fechas tentativas y el recorrido de interés. Revisaremos qué opciones y condiciones podemos ofrecerte.</p><a class="info-link" href={info.email.href}>Conversemos por correo <Icon name="arrow-up-right" aria-hidden="true" /></a></div></div></section>
+  </main>
+</Layout>
+
+<script>
+  import { initContactForm } from "../components/sections/information/contact-form";
+  let cleanup: (() => void) | undefined;
+  const init = () => { cleanup?.(); cleanup = initContactForm(); };
+  init();
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => cleanup?.());
+</script>
+
+<style>
+  .contact-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 7vw, 7rem); margin-top: 3.5rem; align-items: start; }
+  .contact-details dl { margin-top: 2.5rem; }
+  .contact-details dl > div { padding-block: 1.25rem; border-bottom: 1px solid var(--color-border); }
+  .contact-details dt { margin-bottom: .5rem; color: var(--color-muted-foreground); font-size: .75rem; }
+  .contact-details dd { font-size: 1.05rem; overflow-wrap: anywhere; }
+  .contact-details dd a:hover { color: var(--color-rojo); }
+  .contact-details > .info-link { margin-top: 1.5rem; }
+  .contact-compose { padding: clamp(1.25rem, 3vw, 3rem); background: color-mix(in srgb, var(--color-celeste) 8%, var(--color-blanco)); border-radius: .5rem; }
+  .contact-compose h2 { font-size: 1.75rem; font-weight: 400; letter-spacing: -.04em; }
+  .contact-compose > p:not(.info-eyebrow) { margin-top: 1rem; color: var(--color-muted-foreground); font-size: .85rem; line-height: 1.8; }
+  form { margin-top: 1.5rem; }
+  form label { display: block; margin-top: 1.25rem; font-size: .8rem; }
+  form label > span { font-size: .7rem; color: var(--color-muted-foreground); }
+  form :is(input:not([type="hidden"]), select, textarea) { display: block; width: 100%; min-width: 0; min-height: 3rem; margin-top: .5rem; padding: .8rem; background: var(--color-blanco); border: 1px solid var(--color-border); border-radius: .3rem; color: var(--color-negro); font: inherit; }
+  form textarea { resize: vertical; }
+  .contact-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  form .info-button { margin-top: 1.25rem; }
+  @media (max-width: 900px) { .contact-layout { grid-template-columns: 1fr; } }
+  @media (max-width: 400px) { .contact-fields { grid-template-columns: 1fr; gap: 0; } }
+</style>

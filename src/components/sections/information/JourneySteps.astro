@@ -1,0 +1,14 @@
+---
+const steps = [
+  { title: "Encuentra tu experiencia", text: "Explora los tours y revisa su duración, dificultad, servicios incluidos y recomendaciones. Si tienes dudas, te orientamos." },
+  { title: "Conversemos de tu salida", text: "Cuéntanos qué tour te interesa, tu fecha aproximada y cuántas personas viajan. Revisamos disponibilidad y condiciones contigo." },
+  { title: "Confirma antes de viajar", text: "Acuerda con el equipo la tarifa, el punto de encuentro, los servicios y las condiciones de pago y cancelación. Una consulta no confirma tu reserva." },
+];
+---
+<section class="info-section info-soft" aria-labelledby="journey-title">
+  <div class="info-shell">
+    <p class="info-eyebrow">Del primer mensaje al camino</p>
+    <h2 class="info-title" id="journey-title">Tú imagina la salida.<br /><em>Coordinémosla juntos.</em></h2>
+    <div class="info-values">{steps.map((step, index) => <article class="info-value"><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}</div>
+  </div>
+</section>

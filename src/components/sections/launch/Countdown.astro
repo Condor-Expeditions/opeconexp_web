@@ -33,7 +33,7 @@ const units = [
 		ogImage={horizontal.src}
 		viewTransition={false}
 	/>
-	<body>
+	<body class="launch-body">
 		<div class="launch-page">
 			<picture class="landscape" aria-hidden="true">
 				<source
@@ -222,9 +222,9 @@ const units = [
 </script>
 
 <style>
-	:global(body) {
+	:global(body.launch-body) {
 		margin: 0;
-		background: #162522;
+		background: var(--color-negro);
 		color: #fff;
 	}
 	.launch-page {
