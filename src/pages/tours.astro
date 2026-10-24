@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout";
 import { tours } from "@/data/tours";
 import { destinations } from "@/data/destinations";
-import { experienceLabels } from "@/data/tours/taxonomy";
+import { destinationAliases, experienceLabels } from "@/data/tours/taxonomy";
 import TourCard from "@/components/sections/tours/TourCard";
 import "../components/sections/tours/tours.css";
 
@@ -16,7 +16,7 @@ const filters = [
 ---
 
 <Layout title="Tours por Ecuador" description="Encuentra tu próxima experiencia con Condor Expeditions. Explora tours por El Cajas, Cuenca, Ingapirca y los pueblos del Austro; filtra por lugar y tipo de experiencia.">
-	<main class="tour-catalog" data-tour-catalog>
+	<main class="tour-catalog" data-tour-catalog data-destination-aliases={JSON.stringify(destinationAliases)}>
 		<div class="catalog-shell">
 			<header class="catalog-heading">
 				<div><p class="catalog-eyebrow"><span></span> Ecuador, de cerca</p><h1>Tu próxima historia<br /><em>empieza aquí.</em></h1></div>
@@ -46,8 +46,9 @@ const filters = [
 			{
 				const root = document.currentScript.closest("[data-tour-catalog]");
 				const params = new URLSearchParams(location.search);
+				const aliases = JSON.parse(root.dataset.destinationAliases || "{}");
 				const inputs = [...root.querySelectorAll('input[type="checkbox"]')];
-				for (const input of inputs) input.checked = params.getAll(input.name).includes(input.value);
+				for (const input of inputs) input.checked = params.getAll(input.name).map(value => input.name === "lugar" ? aliases[value] || value : value).includes(input.value);
 				const selected = inputs.filter(input => input.checked);
 				const places = selected.filter(input => input.name === "lugar").map(input => input.value);
 				const types = selected.filter(input => input.name === "experiencia").map(input => input.value);

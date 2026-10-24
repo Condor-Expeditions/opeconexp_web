@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
 const base = process.env.BASE_URL || "http://localhost:4322";
-const routes = ["cajas-al-descubierto", "cajas-de-laguna-a-lo-ancestral", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "aventura-en-cuadron", "free-walking-tour-cuenca"];
+const routes = ["cajas-al-descubierto", "cajas-de-laguna-a-lo-ancestral", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "aventura-en-cuadron", "free-walking-tour-cuenca", "cascada-de-giron", "compras-y-artesanias", "raices-ancestrales-sigsig", "guachapala-entre-paisajes-y-tradicion", "paute-dinosaurios-naturaleza-y-sabores"];
 const browser = await chromium.launch();
 const errors = [];
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce", locale: "es-EC" });
@@ -44,7 +44,9 @@ try {
 		await page.getByRole("button", { name: "Cerrar galería", exact: true }).click();
 		await page.waitForFunction(() => !document.querySelector(".pswp"));
 		const free = route === "free-walking-tour-cuenca";
-		assert.equal(await page.locator(".tour-inquiry .tour-price strong").innerText(), free ? "Gratis" : route === "pueblitos-magicos" ? "$45" : route === "aventura-en-cuadron" ? "$85" : route === "cajas-al-descubierto" ? "$25" : "$40");
+		const thirtyFive = ["pueblitos-magicos", "cascada-de-giron", "compras-y-artesanias", "paute-dinosaurios-naturaleza-y-sabores"];
+		assert.equal(await page.locator(".tour-inquiry .tour-price strong").innerText(), free ? "Gratuito" : thirtyFive.includes(route) ? "$35" : route === "aventura-en-cuadron" ? "$85" : route === "cajas-al-descubierto" ? "$25" : "$40");
+		assert.equal(await page.locator(".child-price").count(), 0);
 		if (free) {
 			assert.equal(await page.locator(".tour-inquiry .tour-price small").innerText(), "Aporte voluntario al finalizar");
 			assert.equal(await page.locator("#tour-children").count(), 0);
@@ -65,8 +67,8 @@ try {
 	assert.match(message, /NAT-001/);
 	assert.match(message, /2099/);
 	assert.match(message, /Adultos: 3. Niños: 1/);
-	assert.match(message, /Turno preferido: Tarde\./);
-	assert.doesNotMatch(message, /\b\d{1,2}:\d{2}\b/);
+	assert.match(message, /Horario de salida solicitado: 14:00\./);
+	assert.doesNotMatch(message, /Turno preferido:|Mañana|Tarde/);
 	assert.match(message, /no confirma una reserva/);
 	await page.locator("#tour-date").fill("2000-01-01");
 	assert.equal(await page.locator("#tour-date").evaluate(input => input.checkValidity()), false);

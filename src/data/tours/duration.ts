@@ -7,3 +7,9 @@ export function formatStageDuration(minutes: number | null): string {
 	if (!hours) return `${rest} min`;
 	return rest ? `${hours} h ${rest} min` : `${hours} h`;
 }
+
+/** The published total always follows the itinerary, including pauses and transfers. */
+export function itineraryDuration(stages: { durationMinutes: number | null }[]): string {
+	if (!stages.length || stages.some(stage => stage.durationMinutes === null)) return "Por confirmar";
+	return formatStageDuration(stages.reduce((total, stage) => total + (stage.durationMinutes ?? 0), 0));
+}

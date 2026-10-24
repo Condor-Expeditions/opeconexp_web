@@ -7,9 +7,14 @@ const cases = [
 	["NAT-001", "cajas-al-descubierto", "25", 7],
 	["NAT-002", "cajas-de-laguna-a-lo-ancestral", "40", 6],
 	["ARQ-001", "raices-ancestrales-del-ecuador", "40", 8],
-	["CULT-001", "pueblitos-magicos", "45", 13],
-	["NAT-003", "aventura-en-cuadron", "85", 7],
+	["CULT-001", "pueblitos-magicos", "35", 11],
+	["NAT-003", "cascada-de-giron", "35", 5],
+	["NAT-004", "aventura-en-cuadron", "85", 7],
 	["FWT-001", "free-walking-tour-cuenca", null, 5],
+	["ARTE-001", "compras-y-artesanias", "35", 6],
+	["ARQ-002", "raices-ancestrales-sigsig", "40", 7],
+	["CULT-002", "guachapala-entre-paisajes-y-tradicion", "40", 7],
+	["NAT-006", "paute-dinosaurios-naturaleza-y-sabores", "35", 7],
 ];
 
 for (const [id, slug, price, stops] of cases) {
@@ -40,11 +45,13 @@ for (const [id, slug, price, stops] of cases) {
 		assert.match(inquiry, /https:\/\/wa\.me\/593995900614/);
 		assert.match(inquiry, /Sujeto a confirmación/);
 		assert.match(inquiry, /type="date" required/);
+		assert.doesNotMatch(inquiry, /child-price|Niños \([^<]+\): desde/);
+		assert.match(html, /Consulta disponibilidad de guía en inglés/);
 		if (price) {
 			assert.match(inquiry, /class="price-from">Desde/);
 			assert.match(inquiry, new RegExp(`<strong>\\$${price}</strong>`));
 		} else {
-			assert.match(inquiry, /<strong>Gratis<\/strong>\s*<small>Aporte voluntario al finalizar<\/small>/);
+			assert.match(inquiry, /<strong>Gratuito<\/strong>\s*<small>Aporte voluntario al finalizar<\/small>/);
 			assert.doesNotMatch(inquiry, /price-from|\$0|50%|anticipo/i);
 		}
 		for (const match of html.matchAll(/href="(\/tours\/[^"#?]+)"/g)) {
@@ -54,13 +61,43 @@ for (const [id, slug, price, stops] of cases) {
 	test(`${id}: full FICHA TOUR provenance is preserved`, async () => {
 		const snapshot = JSON.parse(await readFile(new URL(`../src/data/tours/source/${id}.json`, import.meta.url), "utf8"));
 		assert.equal(snapshot.sheet, "FICHA TOUR");
-		assert.equal(snapshot.cells.B6, id);
+		assert.equal(snapshot.tourId, id);
+		assert.ok(snapshot.cells.B6, "Preserve the original workbook ID, including known mismatches");
 		assert.match(snapshot.file, /\.xlsx$/);
 		assert.ok(Object.keys(snapshot.cells).length > 100);
 		assert.ok(Object.keys(snapshot.formulas).length > 0);
 		assert.ok(snapshot.cells.B8);
+		const content = await readFile(new URL(`../src/data/tours/${slug}.ts`, import.meta.url), "utf8");
+		const published = [...content.matchAll(/durationMinutes:\s*(\d+)/g)].map(match => Number(match[1]));
+		const original = Array.from({ length: stops }, (_, index) => {
+			const value = snapshot.cells[`A${22 + index}`];
+			assert.ok(value, `${id}: missing stage duration in FICHA TOUR`);
+			const hours = Number(value.match(/(\d+)\s*h/i)?.[1] ?? 0);
+			const minutes = Number(value.match(/(\d+)\s*min/i)?.[1] ?? 0);
+			return hours * 60 + minutes;
+		});
+		assert.deepEqual(published, original, "Every published stage follows FICHA TOUR, not commercial summaries");
 	});
 }
+
+test("catalog IDs, one starting price, updated routes and source cells", async () => {
+	assert.equal(new Set(cases.map(([id]) => id)).size, 11);
+	const pueblos = await readFile(new URL("../dist/tours/pueblitos-magicos/index.html", import.meta.url), "utf8");
+	const story = pueblos.match(/<div class="tour-story">[\s\S]*?<div class="tour-inquiry-column">/)?.[0];
+	assert.match(story, /Ingapirca/);
+	assert.doesNotMatch(story, /Sígsig|Chobshi|Castillo de Duma/);
+	const sigsig = await readFile(new URL("../dist/tours/raices-ancestrales-sigsig/index.html", import.meta.url), "utf8");
+	assert.match(sigsig, /almuerzo se paga por separado/);
+	const cajas = await readFile(new URL("../dist/tours/cajas-de-laguna-a-lo-ancestral/index.html", import.meta.url), "utf8");
+	assert.match(cajas, /dos variantes al mismo precio/i);
+	for (const [id, slug] of cases) {
+		const content = await readFile(new URL(`../src/data/tours/${slug}.ts`, import.meta.url), "utf8");
+		assert.doesNotMatch(content, /child:|childAges:/);
+		const snapshot = JSON.parse(await readFile(new URL(`../src/data/tours/source/${id}.json`, import.meta.url), "utf8"));
+		const refs = content.match(/source\("[^"]+", \[([^\]]*)\]/)?.[1] ?? "";
+		for (const [, cell] of refs.matchAll(/"([A-Z]+\d+)"/g)) assert.ok(snapshot.cells[cell], `${id}: missing price source ${cell}`);
+	}
+});
 
 test("brand styles contain no cream token, hex or alpha variants", async () => {
 	const walk = async (directory) => {

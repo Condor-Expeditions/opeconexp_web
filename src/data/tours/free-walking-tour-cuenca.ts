@@ -7,10 +7,10 @@ export default {
 	destinations: ["cuenca"], experienceTypes: ["cultura", "recorrido-a-pie"],
 	summary: "Patios, plazas y cacao: conoce las historias del centro de Cuenca.",
 	description: "Descubre el encanto colonial y patrimonial de Cuenca en un recorrido a pie dinámico y sin tarifa fija. Entre patios, flores, arquitectura y cacao, conoce la ciudad con un guía local y aporta al finalizar según tu satisfacción.",
-	duration: "2–2,5 horas", difficulty: "Fácil", languages: "Español · Inglés", audience: "Familias y viajeros. Apto para todas las edades.", season: "Todo el año",
+	duration: "2 h 30 min", difficulty: "Fácil", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias y aventureros. Apto para todas las edades.", season: "Todo el año",
 	price: { kind: "free" }, meeting: "Parque Calderón, Centro Histórico de Cuenca", returnPoint: "Museo del Cacao, Centro Histórico de Cuenca",
-	operation: "Lunes y martes · otras salidas según demanda", operatingDays: [0, 1, 2, 3, 4, 5, 6],
-	departures: ["Mañana", "Tarde"], minimumPeople: 2,
+	operation: "Lunes a domingo · salidas según demanda", operatingDays: [0, 1, 2, 3, 4, 5, 6],
+	departures: ["Horario a convenir"], minimumPeople: 2,
 	transport: "100% a pie · sin transporte vehicular", transferDuration: "Sin traslados vehiculares",
 	highlights: [
 		{ title: "Patios que cuentan historias", description: "La Catedral Antigua y el Seminario San Luis, entre memoria y arquitectura colonial." },
@@ -24,8 +24,8 @@ export default {
 		{ durationMinutes: 30, title: "Palacio de Justicia y eje patrimonial", description: "Arquitectura neoclásica e historia institucional republicana." },
 		{ durationMinutes: 45, title: "Museo del Cacao y despedida", description: "Historia del cacao y cierre del recorrido con aporte voluntario. Las entradas a interiores con costo no están incluidas." },
 	],
-	includes: ["Acompañamiento de un guía turístico local profesional y calificado.", "Recorrido interpretativo e interactivo por el Centro Histórico.", "Flexibilidad del itinerario y personalización de paradas.", "Orientación turística, datos históricos y recomendaciones.", "Asistencia en ruta durante el recorrido."],
-	excludes: ["Entradas a museos e iglesias con costo.", "Alimentos y bebidas.", "Transporte o traslados vehiculares.", "Aporte voluntario al guía, que tú decides al finalizar.", "Visitas vinculadas a otros tours comerciales."],
+	includes: ["Acompañamiento de un guía turístico local profesional y calificado.", "Recorrido interpretativo e interactivo por el Centro Histórico.", "Flexibilidad del itinerario y personalización de paradas.", "Orientación turística, datos históricos y recomendaciones.", "Asistencia en ruta durante el recorrido.", "Degustación introductoria en el Museo del Cacao."],
+	excludes: ["Entradas a museos e iglesias con costo.", "Alimentos y bebidas fuera de la degustación introductoria.", "Transporte o traslados vehiculares.", "Aporte voluntario al guía, que tú decides al finalizar.", "Visitas vinculadas a otros tours comerciales.", "Compras personales de chocolate o souvenirs."],
 	packing: [
 		{ title: "Camina con comodidad", description: "Calzado cómodo para adoquines, ropa liviana por capas e impermeable." },
 		{ title: "Protección solar", description: "Protector solar, gorra o sombrero y gafas UV." },
@@ -33,13 +33,13 @@ export default {
 		{ title: "Efectivo menudo", description: "Para entradas opcionales y el aporte voluntario al guía." },
 	],
 	restrictions: [
-		{ title: "Para todas las edades", description: "Ambiente familiar. Se requiere condición física básica para una caminata urbana de 2–2,5 horas." },
+		{ title: "Para todas las edades", description: "Ambiente familiar. Se requiere condición física básica para una caminata urbana." },
 		{ title: "Movilidad", description: "Consulta las necesidades de accesibilidad antes de coordinar la ruta: el centro tiene tramos adoquinados." },
 		{ title: "Cuida la ciudad", description: "No botar basura, dañar el patrimonio ni fumar durante el recorrido." },
 	],
 	conditions: [
 		{ title: "Sin pago anticipado", description: "No hay tarifa fija ni anticipo. El aporte al guía es voluntario al finalizar, según tu satisfacción." },
-		{ title: "Coordinemos tu salida", description: "Mínimo 2 personas. Horario a convenir en la mañana o tarde y salidas sujetas a demanda. Consultar no confirma tu plaza." },
+		{ title: "Coordinemos tu salida", description: "Mínimo 2 personas. Horario a convenir y salidas sujetas a demanda. Consultar no confirma tu plaza." },
 		{ title: "Antes de caminar", description: "Preséntate 10 minutos antes. El itinerario es flexible por clima o preferencias del grupo." },
 	],
 	practical: ["El recorrido comienza en Parque Calderón y termina en el Museo del Cacao.", "Las entradas a interiores de museos e iglesias no están cubiertas.", "Coméntanos tus necesidades de movilidad para coordinar el recorrido."],
@@ -50,5 +50,5 @@ export default {
 		{ src: "/public/assets/menu/tours/ruta-artesano.jpg", alt: "Colores de los utensilios en un mercado" },
 		{ src: "/public/assets/menu/destinos/azuay.jpg", alt: "El paisaje del Azuay" },
 	], illustrativePhotos: true,
-	source: source("FWT-001", ["A82", "C82"], ["B14 indica lunes a martes y salidas diarias según demanda: no prometer salidas diarias confirmadas.", "A22:A26 suman 150 min: consistente con máximo 2,5h.", "D65 dice itinerario accesible sin evidencia de accesibilidad universal. Consultar necesidades, no prometer acceso universal.", "B73:E77 repiten logística vehicular/km28 del Cajas: no publicar."]),
+	source: source("FWT-001", [], ["Total calculado con A22:A26; operación según B14 y mínimo operativo según B30, no rentabilidad D15.", "D51 dice itinerario accesible sin evidencia de accesibilidad universal. Consultar necesidades, no prometer acceso universal.", "Degustación introductoria incluida según A45; entradas pagadas siguen excluidas según C40."]),
 } satisfies Tour;

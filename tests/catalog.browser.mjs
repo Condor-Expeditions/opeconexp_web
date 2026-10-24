@@ -12,10 +12,10 @@ const openFilter = key => page.locator(`[data-filter="${key}"] > .filter-toggle`
 
 try {
 	await page.goto(`${base}/tours/`, { waitUntil: "networkidle" });
-	await expectCards(7);
-	const archaeologyPlace = (await page.locator('[data-tour-card][data-experiences~="arqueologia"]').first().getAttribute("data-destinations")).split(" ")[0];
+	await expectCards(11);
+	const archaeologyPlace = "canar";
 	// Only cover images are downloaded before interaction; templates stay inert.
-	assert.equal(await page.locator(".card-slide img").count(), 7);
+	assert.equal(await page.locator(".card-slide img").count(), 11);
 	for (const [width, height] of [[1440, 1000], [1024, 768], [768, 1024], [390, 844], [360, 740], [844, 390]]) {
 		await page.setViewportSize({ width, height });
 		assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `overflow ${width}×${height}`);
@@ -94,7 +94,7 @@ try {
 		await stress.waitForFunction(() => [...document.querySelectorAll("[data-tour-card]")].every(card => card.hidden !== card.hasAttribute("data-carousel-ready")));
 		assert.equal(await stress.locator("[data-tour-card][hidden][data-carousel-ready]").count(), 0);
 		await stress.locator(".catalog-clear").click();
-		assert.equal(await stress.locator("[data-carousel-ready]").count(), 7);
+		assert.equal(await stress.locator("[data-carousel-ready]").count(), 11);
 	}
 	await stress.locator(".card-gallery").first().hover();
 	await stress.locator(".card-next").first().click();
@@ -103,28 +103,28 @@ try {
 	console.log("PASS 1920×1080: 33 filter cycles during animation; hidden carousels destroyed and restored without duplicate handlers");
 
 	await page.goto(`${base}/tours/?lugar=chordeleg`, { waitUntil: "networkidle" });
-	await expectCards(1);
-	assert.match(await visibleCards().innerText(), /Pueblitos Mágicos/);
+	await expectCards(2);
+	assert.match((await visibleCards().allTextContents()).join(" "), /Pueblitos Mágicos/);
 	assert.equal(await page.locator('input[value="chordeleg"]').isChecked(), true);
 	await openFilter("lugar");
 	await page.locator(`input[value="${archaeologyPlace}"]`).check();
-	await expectCards(2); // OR within destinations.
+	await expectCards(3); // OR within destinations.
 	await openFilter("experiencia");
 	await page.locator('input[value="arqueologia"]').check();
-	await expectCards(1); // AND between filter groups.
-	assert.match(await visibleCards().innerText(), /Raíces Ancestrales/);
+	await expectCards(2); // AND between filter groups.
+	assert.match((await visibleCards().allTextContents()).join(" "), /Raíces Ancestrales/);
 	assert.ok(new URL(page.url()).searchParams.getAll("lugar").includes(archaeologyPlace));
 	await page.keyboard.press("Escape");
-	await visibleCards().locator(".card-cta").click();
+	await visibleCards().locator('.card-cta[href="/tours/raices-ancestrales-del-ecuador/"]').click();
 	await page.waitForURL("**/tours/raices-ancestrales-del-ecuador/");
 	await page.goBack();
 	await page.waitForURL("**/tours/?**");
-	await expectCards(1);
+	await expectCards(2);
 	assert.equal(await page.locator('input[value="arqueologia"]').isChecked(), true);
 	await page.locator('[aria-label="Quitar filtro Arqueología"]').click();
-	await expectCards(2);
+	await expectCards(3);
 	await page.locator(".catalog-clear").click();
-	await expectCards(7);
+	await expectCards(11);
 	assert.equal(new URL(page.url()).search, "");
 	console.log("PASS filters: incoming URL, OR/AND, selection labels, detail/back restoration, clearing");
 
@@ -132,10 +132,19 @@ try {
 	await expectCards(0);
 	assert.equal(await page.locator("[data-empty-results]").isVisible(), true);
 	await page.locator("[data-empty-results] button").click();
-	await expectCards(7);
+	await expectCards(11);
 	await page.goto(`${base}/tours/?lugar=unknown&experiencia=unknown`, { waitUntil: "networkidle" });
-	await expectCards(7);
+	await expectCards(11);
 	console.log("PASS empty state, reset and unknown URL parameters");
+
+	await page.goto(`${base}/tours/?lugar=san-fernando`, { waitUntil: "networkidle" });
+	await expectCards(2);
+	assert.equal(await page.locator('input[name="lugar"][value="san-fernando"]').count(), 0);
+	assert.equal(await page.locator('input[name="lugar"][value="giron"]').isChecked(), true);
+	assert.equal(new URL(page.url()).searchParams.get("lugar"), "giron");
+	assert.match((await visibleCards().allTextContents()).join(" "), /Aventura en Girón/);
+	assert.match((await visibleCards().allTextContents()).join(" "), /Cascada de Girón/);
+	console.log("PASS San Fernando is grouped under Girón, including legacy filter links");
 
 	await page.goto(`${base}/`, { waitUntil: "networkidle" });
 	const slides = page.locator(".hero .embla__slide");
@@ -160,7 +169,7 @@ try {
 		await guachapala.click();
 		await page.waitForURL("**/tours/?lugar=guachapala");
 		await expectCards(1);
-		assert.match(await visibleCards().innerText(), /En preparación|EN PREPARACIÓN/);
+		assert.match(await visibleCards().innerText(), /Entre Montañas y Milagros/);
 		await visibleCards().locator(".card-gallery").hover();
 		await visibleCards().locator(".card-next").click();
 		await page.waitForFunction(() => document.querySelector('[data-tour-card]:not([hidden]) [data-photo-current]').textContent === "2");
@@ -169,30 +178,30 @@ try {
 	console.log("PASS hero and masonry: destination counts, real tour links, filtered client navigation on three viewports");
 
 	await page.goto(`${base}/tours/guachapala-entre-paisajes-y-tradicion/`, { waitUntil: "networkidle" });
-	assert.equal(await page.locator(".tour-provisional-notice").isVisible(), true);
-	assert.equal(await page.locator(".inquiry-form").count(), 0);
-	assert.equal(await page.locator(".inquiry-fallback").isVisible(), true);
+	assert.equal(await page.locator(".tour-provisional-notice").count(), 0);
+	assert.equal(await page.locator(".inquiry-form").isVisible(), true);
+	assert.equal(await page.locator(".tour-inquiry .tour-price strong").innerText(), "$40");
 	const withoutCarousel = await browser.newPage();
 	withoutCarousel.on("pageerror", error => errors.push(error.message));
 	await withoutCarousel.route(/embla-carousel.*\.js/, route => route.abort());
 	await withoutCarousel.goto(`${base}/tours/?lugar=chordeleg`, { waitUntil: "networkidle" });
 	assert.equal(await withoutCarousel.locator("[data-filter-section]").isVisible(), true);
-	assert.equal(await withoutCarousel.locator("[data-tour-card]:visible").count(), 1);
+	assert.equal(await withoutCarousel.locator("[data-tour-card]:visible").count(), 2);
 	await withoutCarousel.locator(".catalog-clear").click();
-	assert.equal(await withoutCarousel.locator("[data-tour-card]:visible").count(), 7);
+	assert.equal(await withoutCarousel.locator("[data-tour-card]:visible").count(), 11);
 	assert.equal(await withoutCarousel.locator(".card-gallery-controls").first().getAttribute("hidden"), null);
 	assert.equal(await withoutCarousel.locator(".card-next").first().isVisible(), true);
 	await withoutCarousel.close();
 	console.log("PASS filters and native galleries work without third-party carousel code");
 	const noJS = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
 	await noJS.goto(`${base}/tours/?lugar=chordeleg`);
-	assert.equal(await noJS.locator("[data-tour-card]:visible").count(), 7);
+	assert.equal(await noJS.locator("[data-tour-card]:visible").count(), 11);
 	assert.equal(await noJS.locator(".catalog-filter-section").isVisible(), false);
 	assert.equal(await noJS.locator(".card-gallery-controls").first().isVisible(), false);
-	assert.equal(await noJS.locator(".card-cta").count(), 7);
+	assert.equal(await noJS.locator(".card-cta").count(), 11);
 	await noJS.close();
 	assert.deepEqual(errors, []);
-	console.log("PASS provisional tour, no-JS fallback and zero browser errors");
+	console.log("PASS updated Guachapala tour, no-JS fallback and zero browser errors");
 } finally {
 	await browser.close();
 }

@@ -29,13 +29,14 @@ export interface Tour {
 	languageNote?: string;
 	audience: string;
 	season: string;
-	price: { kind: "paid"; adult: number; child?: number; childAges?: string } | { kind: "free" } | { kind: "pending" };
+	/** One public starting price per person, never a separate child tariff. */
+	price: { kind: "paid"; adult: number } | { kind: "free" } | { kind: "pending" };
 	meeting: string;
 	returnPoint: string;
 	operation: string;
 	/** JavaScript weekday numbers. These are operating days, NOT live availability. */
 	operatingDays: number[];
-	/** Preferred periods (e.g. Mañana / Tarde), never fixed clock times. */
+	/** Departure times from FICHA TOUR (HH:mm), or "Horario a convenir" for flexible departures. */
 	departures: string[];
 	minimumPeople: number;
 	transport: string;

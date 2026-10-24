@@ -7,10 +7,10 @@ const load = path => readFile(new URL(`../dist/${path}`, import.meta.url), "utf8
 const listing = await load("tours/index.html");
 const places = [...new Set([...listing.matchAll(/data-destinations="([^"]+)"/g)].flatMap(match => match[1].split(" ")))];
 
-test("catalog: seven data-backed cards, destinations, experience filters and real links", async () => {
+test("catalog: eleven data-backed cards, destinations, experience filters and real links", async () => {
 	const html = await load("tours/index.html");
 	const cards = [...html.matchAll(/<article class="tour-card"[\s\S]*?<\/article>/g)].map(match => match[0]);
-	assert.equal(cards.length, 7);
+	assert.equal(cards.length, 11);
 	assert.equal((html.match(/<h1\b/g) || []).length, 1);
 	for (const place of places) assert.match(html, new RegExp(`name="lugar" value="${place}"`));
 	for (const type of ["naturaleza", "aventura", "cultura", "historia", "arqueologia", "gastronomia", "artesania", "recorrido-a-pie"]) assert.match(html, new RegExp(`name="experiencia" value="${type}"`));
@@ -42,6 +42,55 @@ test("hero: intro without tours and exactly one slide per destination", async ()
 	}
 });
 
+test("hero and listing: all eleven updated tours have matching names and destination assignments", async () => {
+	const home = await load("index.html");
+	const cards = [...listing.matchAll(/<article class="tour-card"[\s\S]*?<\/article>/g)].map(match => match[0]);
+	const tours = cards.map(card => {
+		const [, href, title] = card.match(/<h2[^>]*>\s*<a href="([^"]+)">([^<]+)<\/a>/);
+		return { href, title, destinations: card.match(/data-destinations="([^"]+)"/)[1].split(" ") };
+	});
+	const places = [...listing.matchAll(/name="lugar" value="([^"]+)" data-label="([^"]+)"/g)];
+	const slides = [...home.matchAll(/<section class="embla__slide"[\s\S]*?<\/section>/g)].map(match => match[0]);
+	const heroLinks = new Set();
+	for (const [, id, label] of places) {
+		const slide = slides.find(slide => slide.includes(`: Descubre ${label}"`));
+		assert.ok(slide, `Missing hero slide for ${label}`);
+		const actual = [...slide.matchAll(/<a href="([^"]+)" class="hero-tour-link[^>]*>\s*<span>([^<]+)<\/span>/g)]
+			.map(([, href, title]) => ({ href, title }));
+		const expected = tours.filter(tour => tour.destinations.includes(id)).map(({ href, title }) => ({ href, title }));
+		assert.deepEqual(actual, expected, `${label}: hero links match current catalog, without missing or stale tours`);
+		for (const link of actual) heroLinks.add(link.href);
+	}
+	assert.equal(places.length, 10);
+	assert.equal(heroLinks.size, 11);
+	for (const tour of tours) {
+		assert.ok(heroLinks.has(tour.href), `${tour.title} is reachable from the hero`);
+		const detail = await load(`${tour.href.slice(1)}index.html`);
+		assert.equal(detail.match(/<h1[^>]*>([^<]+)<\/h1>/)?.[1], tour.title);
+	}
+	assert.doesNotMatch(listing, /USD \/ adulto|child-price|En preparación/);
+	assert.doesNotMatch(home, /Por adulto · sujeto a confirmación/);
+});
+
+test("San Fernando is grouped under Girón without losing the Busa itinerary", async () => {
+	const home = await load("index.html");
+	const slides = [...home.matchAll(/<section class="embla__slide"[\s\S]*?<\/section>/g)].map(match => match[0]);
+	assert.equal(slides.length, 11, "Intro plus ten destinations");
+	assert.ok(!slides.some(slide => slide.includes(": Descubre San Fernando\"")));
+	const giron = slides.find(slide => slide.includes(": Descubre Girón\""));
+	assert.ok(giron);
+	assert.match(giron, /href="\/tours\/aventura-en-cuadron\/"/);
+	assert.match(giron, /href="\/tours\/cascada-de-giron\/"/);
+	assert.match(giron, /laguna de Busa en San Fernando/);
+	assert.doesNotMatch(listing, /name="lugar" value="san-fernando"|data-destinations="[^"]*san-fernando/);
+	const menu = home.match(/<div class="destination-grid">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/)?.[0];
+	assert.doesNotMatch(menu, /lugar=san-fernando/);
+	assert.match(menu, /lugar=giron/);
+	const detail = await load("tours/aventura-en-cuadron/index.html");
+	assert.match(detail, /Laguna de Busa/);
+	assert.match(detail, /San Fernando/);
+});
+
 test("masonry: every destination opens a filtered list, without Déleg or Los Andes", async () => {
 	const html = await load("index.html");
 	const menu = html.match(/<div class="destination-grid">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/)?.[0];
@@ -50,14 +99,12 @@ test("masonry: every destination opens a filtered list, without Déleg or Los An
 	assert.doesNotMatch(menu, /Déleg|Los Andes|\/tours\/(?!\?)/);
 });
 
-test("Guachapala: clearly provisional, no invented tariff, reservation form or operational promises", async () => {
+test("Guachapala: updated operational itinerary, starting price and inquiry", async () => {
 	const html = await load("tours/guachapala-entre-paisajes-y-tradicion/index.html");
-	assert.match(html, /Experiencia en preparación/);
-	assert.match(html, /Fotografías ilustrativas/);
-	assert.match(html, /Todavía no hay salidas disponibles/);
-	assert.doesNotMatch(html, /class="inquiry-form"|id="tour-date"|0 personas confirmadas/);
+	assert.doesNotMatch(html, /Experiencia en preparación|Todavía no hay salidas disponibles|0 personas confirmadas/);
+	assert.match(html, /id="tour-date"/);
+	assert.match(html, /Puente tibetano y columpio/);
 	const inquiry = html.match(/<aside id="consultar"[\s\S]*?<\/aside>/)?.[0];
-	assert.match(inquiry, /Por confirmar/);
+	assert.match(inquiry, /\$40/);
 	assert.match(inquiry, /inquiry-fallback/);
-	assert.doesNotMatch(inquiry, /\$\d/);
 });

@@ -140,8 +140,10 @@ export function initTourCatalog() {
 	};
 	const readURL = () => {
 		const params = new URLSearchParams(location.search);
-		for (const input of inputs) input.checked = params.getAll(input.name).includes(input.value);
-		render();
+		const aliases: Record<string, string> = JSON.parse(root.dataset.destinationAliases ?? "{}");
+		for (const input of inputs) input.checked = params.getAll(input.name)
+			.map(value => input.name === "lugar" ? aliases[value] ?? value : value).includes(input.value);
+		render(params.getAll("lugar").some(value => value in aliases));
 	};
 	readURL();
 	for (const input of inputs) input.addEventListener("change", () => render(true), options);

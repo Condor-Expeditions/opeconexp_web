@@ -7,10 +7,13 @@ export const destinationLabels = {
 	chordeleg: "Chordeleg",
 	gualaceo: "Gualaceo",
 	guachapala: "Guachapala",
+	paute: "Paute",
 	sigsig: "Sígsig",
-	"san-fernando": "San Fernando",
 	canar: "Cañar"
 } as const;
+
+/** Catalog grouping, not administrative geography. Preserve old destination links. */
+export const destinationAliases: Record<string, string> = { "san-fernando": "giron" };
 
 export const experienceLabels = {
 	naturaleza: "Naturaleza",
