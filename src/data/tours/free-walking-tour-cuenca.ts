@@ -40,7 +40,7 @@ export default {
 	conditions: [
 		{ title: "Sin pago anticipado", description: "No hay tarifa fija ni anticipo. El aporte al guía es voluntario al finalizar, según tu satisfacción." },
 		{ title: "Coordinemos tu salida", description: "Mínimo 2 personas. Horario a convenir y salidas sujetas a demanda. Consultar no confirma tu plaza." },
-		{ title: "Antes de caminar", description: "Preséntate 10 minutos antes. El itinerario es flexible por clima o preferencias del grupo." },
+		{ title: "Antes de caminar", description: "Preséntate 15 minutos antes. El itinerario es flexible por clima o preferencias del grupo." },
 	],
 	practical: ["El recorrido comienza en Parque Calderón y termina en el Museo del Cacao.", "Las entradas a interiores de museos e iglesias no están cubiertas.", "Coméntanos tus necesidades de movilidad para coordinar el recorrido."],
 	photos: [

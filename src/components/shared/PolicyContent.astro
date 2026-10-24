@@ -1,0 +1,18 @@
+---
+import { commercialPolicies } from "@/data/commercial-policies";
+interface Props { sectionId: string; }
+const { sectionId } = Astro.props;
+const section = commercialPolicies.find(item => item.id === sectionId)!;
+---
+<div class="policy-copy">
+	{section.intro && <p>{section.intro}</p>}
+	<dl>{section.items.map(item => <div><dt>{item.title}:</dt><dd>{item.text}</dd></div>)}</dl>
+</div>
+
+<style>
+	.policy-copy { color: var(--color-muted-foreground); font-size: .9rem; line-height: 1.85; }
+	.policy-copy p { margin: 0 0 1.25rem; }
+	.policy-copy dl { display: grid; gap: 1.25rem; margin: 0; }
+	.policy-copy dt { color: var(--color-negro); font-weight: 600; }
+	.policy-copy dd { margin: .25rem 0 0; }
+</style>

@@ -10,6 +10,7 @@ import { formatStageDuration } from "@/data/tours/duration";
 import TourGallery from "../../components/sections/tour/TourGallery.astro";
 import TourInquiry from "../../components/sections/tour/TourInquiry.astro";
 import TourPrice from "../../components/sections/tour/TourPrice.astro";
+import TourPolicies from "../../components/sections/tour/TourPolicies.astro";
 // Shared styles keep all tour details consistent.
 import "../../components/sections/tour/tour.css";
 
@@ -17,7 +18,7 @@ export const getStaticPaths = (() => tours.map(tour => ({ params: { slug: tour.s
 interface Props { tour: Tour; }
 const { tour } = Astro.props;
 const related = tours.filter(item => item.id !== tour.id).slice(0, 3);
-const sections = [{ id: "experiencia", title: "La experiencia" }, { id: "itinerario", title: "Itinerario" }, { id: "incluye", title: "Qué incluye" }, { id: "preparacion", title: "Antes de ir" }, { id: "encuentro", title: "Punto de encuentro" }];
+const sections = [{ id: "experiencia", title: "La experiencia" }, { id: "itinerario", title: "Itinerario" }, { id: "incluye", title: "Qué incluye" }, { id: "preparacion", title: "Antes de ir" }, { id: "encuentro", title: "Punto de encuentro" }, { id: "politicas", title: "Políticas" }];
 const mapSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tour.meeting)}`;
 const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { icon: "mountain", label: "Dificultad", value: tour.difficulty }, { icon: "world", label: "Idiomas", value: tour.languages }, { icon: "map-pin", label: "Salida desde", value: "Cuenca, Ecuador" }];
 ---
@@ -68,6 +69,7 @@ const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { ic
 						<ul class="tour-practical-list">{tour.practical.map(item => <li>{item}</li>)}</ul>
 						{tour.conditions.length > 0 && <div class="tour-practical tour-conditions"><h3>Antes de confirmar</h3>{tour.conditions.map(item => <details><summary>{item.title}<span class="details-toggle" aria-hidden="true"></span></summary><p>{item.description}</p></details>)}</div>}
 					</section>
+					<TourPolicies free={tour.price.kind === "free"} />
 				</div>
 				<div class="tour-inquiry-column"><TourInquiry tour={tour} /><p class="inquiry-signature">Menos prisa.<br />Más historias que contar.</p></div>
 			</div>

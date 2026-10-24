@@ -21,6 +21,8 @@
 .footer-schedule { max-width: 17rem; margin-top: 1rem; font-size: .75rem; line-height: 1.8; color: var(--color-muted-foreground); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--color-border); padding-block: 1.5rem; font-size: .7rem; line-height: 1.7; color: var(--color-muted-foreground); }
 .site-footer a { text-decoration: none; }
+.footer-bottom a { padding-block: .35rem; text-decoration: underline; text-underline-offset: .25em; }
+.footer-bottom a:hover { color: var(--color-rojo); }
 .footer-contact a { transition: color 200ms; }
 .site-footer a:focus-visible { outline: 2px solid var(--color-rojo); outline-offset: 6px; }
 @media (hover: hover) {

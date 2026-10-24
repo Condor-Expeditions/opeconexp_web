@@ -4,12 +4,12 @@ const questions = [
   { question: "¿Todos los tours incluyen transporte y alimentación?", answer: "No. Cada ficha detalla sus inclusiones y exclusiones. El Walking Tour se realiza a pie; los recorridos fuera de la ciudad tienen condiciones propias de transporte, entradas y alimentación. No asumas que todos los consumos están incluidos." },
   { question: "¿Puedo viajar con niños o si no hago senderismo?", answer: "Depende del recorrido. Consulta la edad recomendada, el nivel de esfuerzo y las restricciones de cada ficha. Las rutas de altura, como El Cajas, requieren especial atención. Cuéntanos tus necesidades de movilidad o salud antes de coordinar la salida." },
   { question: "¿Cómo funciona el Free Walking Tour?", answer: "No tiene una tarifa fija ni requiere anticipo. Al finalizar puedes dejar un aporte voluntario al guía. Las entradas opcionales con costo no están incluidas; la salida y el horario se coordinan previamente, sujetos a demanda." },
-  { question: "¿Qué pasa si cambia el clima o necesito cancelar?", answer: "Las condiciones dependen de cada experiencia. Revisa su ficha y confirma las políticas de cambio, cancelación y reembolso antes de pagar. El clima y las condiciones de la ruta pueden requerir ajustes; el equipo te indicará las opciones que correspondan." },
+  { question: "¿Qué pasa si cambia el clima o necesito cancelar?", answer: "Consulta las políticas comerciales completas y sus excepciones en el enlace siguiente o en la ficha de cada tour. Allí se detallan los plazos de cancelación, los reembolsos, los cambios de fecha y las opciones por fuerza mayor.", policyLink: true },
   { question: "¿Consultar por WhatsApp confirma mi reserva?", answer: "No. El mensaje inicia una conversación. La disponibilidad, la tarifa y las condiciones se revisan con el equipo; la reserva solo queda confirmada cuando completes el proceso acordado." },
 ];
 ---
 <section class="info-section" aria-labelledby="faq-title"><div class="info-shell">
   <p class="info-eyebrow">Antes de hacer la mochila</p>
   <h2 class="info-title" id="faq-title">Unas respuestas.<br /><em>Mucho por descubrir.</em></h2>
-  <div class="info-faq">{questions.map(item => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
+  <div class="info-faq">{questions.map(item => <details><summary>{item.question}</summary><p>{item.answer}{item.policyLink && <> <a class="info-link" href="/politicas-comerciales">Ver políticas comerciales</a></>}</p></details>)}</div>
 </div></section>

@@ -8,8 +8,6 @@ export const mountainPacking: Tour["packing"] = [
 ];
 
 export const paidConditions: Tour["conditions"] = [
-	{ title: "Reserva y anticipo", description: "Anticipo del 50% al confirmar; saldo restante hasta 24 horas antes de la salida. Consultar no confirma tu reserva." },
-	{ title: "Cancelaciones", description: "Consulta las condiciones de cancelación y los posibles gastos administrativos antes de confirmar tu reserva." },
 	{ title: "Salidas compartidas", description: "Operación con un mínimo de 4 pasajeros confirmados. El equipo te confirmará la salida y la tarifa aplicable." },
 ];
 

@@ -85,7 +85,7 @@ const schedule = isEnglish
 		</div>
 		<div class="footer-bottom">
 			<p>© {new Date().getFullYear()} {siteConfig.companyName}. {text.rights}</p>
-			<p>{text.tagline}</p>
+			<a href="/politicas-comerciales" aria-current={currentPath === "/politicas-comerciales" ? "page" : undefined}>{isEnglish ? "Commercial policies (Spanish)" : "Reservas, cancelaciones y pagos"}</a>
 		</div>
 	</ContainerHeader>
 </footer>
