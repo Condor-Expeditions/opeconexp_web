@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import blackLogoUrl from "@/assets/brand/complete/black.svg?url";
 import ContainerHeader from "@/components/shared/ContainerHeader";
 import SocialLinks from "@/components/shared/SocialLinks";
+import TourismRegistration from "@/components/shared/TourismRegistration";
 import { navigationLinks } from "@/data/navigation.config";
 import { siteConfig } from "@/data/site.config";
 import "./footer.css";
@@ -83,6 +84,7 @@ const schedule = isEnglish
 				<p class="footer-schedule">{schedule}</p>
 			</div>
 		</div>
+		<TourismRegistration lang={lang} />
 		<div class="footer-bottom">
 			<p>© {new Date().getFullYear()} {siteConfig.companyName}. {text.rights}</p>
 			<a href="/politicas-comerciales" aria-current={currentPath === "/politicas-comerciales" ? "page" : undefined}>{isEnglish ? "Commercial policies (Spanish)" : "Reservas, cancelaciones y pagos"}</a>

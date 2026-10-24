@@ -25,7 +25,7 @@ for (const route of routes) {
 		assert.match(footer, /https:\/\/wa\.me\/593995900614/);
 		assert.match(footer, /href="tel:\+593995900614"/);
 		assert.match(footer, /href="mailto:info@condorexpedition\.com"/);
-		assert.match(footer, /https:\/\/maps\.app\.goo\.gl\//);
+		assert.match(footer, /https:\/\/www\.google\.com\/maps\/search\/\?api=1&amp;query=Gran%20Colombia%201-82%20y%20Manuel%20Vega/);
 		assert.doesNotMatch(footer, /href="\/en\//, "Do not link to nonexistent translated routes");
 
 		const nav = footer.match(/<nav\b[\s\S]*?<\/nav>/)?.[0];

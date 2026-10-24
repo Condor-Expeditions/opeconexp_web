@@ -4,6 +4,7 @@ import { Icon } from "astro-icon/components";
 import Logo from "@/assets/logo.svg";
 import landscape from "@/assets/tours/cajas.jpg";
 import BaseHead from "@/components/shared/BaseHead";
+import TourismRegistration from "@/components/shared/TourismRegistration";
 import { siteConfig } from "@/data/site.config";
 
 const { companyInfo } = siteConfig;
@@ -182,6 +183,7 @@ const socials = ["instagram", "facebook", "tiktok"].flatMap((icon) =>
 					</section>
 				</div>
 				<footer class="flex flex-col items-center gap-4">
+					<TourismRegistration compact />
 					<Icon
 						name="brand/condor_color"
 						class="w-40 h-auto"

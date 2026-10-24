@@ -17,8 +17,9 @@ const availableTours = tours.filter(tour => !tour.provisional);
       <div class="contact-layout">
         <div class="contact-details">
           <a class="info-button" href={info.whatsApp} target="_blank" rel="noopener noreferrer"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar por WhatsApp<span class="sr-only"> (abre en otra pestaña)</span><Icon name="arrow-up-right" aria-hidden="true" /></a>
-          <dl><div><dt>También puedes llamarnos</dt><dd><a href={info.phone.href}>{info.phone.name}</a></dd></div><div><dt>Escríbenos por correo</dt><dd><a href={info.email.href}>{info.email.name}</a></dd></div><div><dt>Horario de atención</dt><dd>{info.scheduleWeekdays}</dd></div><div><dt>Nuestro punto de partida</dt><dd>{info.address}</dd></div></dl>
-          <p class="info-note">El punto de encuentro de cada tour puede ser distinto. Confirma la ubicación y la hora con el equipo; esta referencia no indica una oficina de atención presencial.</p>
+          <dl><div><dt>También puedes llamarnos</dt><dd><a href={info.phone.href}>{info.phone.name}</a></dd></div><div><dt>Escríbenos por correo</dt><dd><a href={info.email.href}>{info.email.name}</a></dd></div><div><dt>Horario de atención</dt><dd>{info.scheduleWeekdays}</dd></div><div><dt>Dirección del establecimiento</dt><dd>{info.address}</dd></div></dl>
+          <a class="info-link" href={info.location} target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps<span class="sr-only"> (abre en otra pestaña)</span><Icon name="arrow-up-right" aria-hidden="true" /></a>
+          <p class="info-note">El punto de encuentro de cada tour puede ser distinto de esta dirección. Confirma la ubicación y la hora con el equipo antes de salir.</p>
           <a class="info-link" href="/tours/">Prefiero explorar los tours <Icon name="arrow-up-right" aria-hidden="true" /></a>
         </div>
 
