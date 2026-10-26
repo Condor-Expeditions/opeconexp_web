@@ -2,6 +2,7 @@ import { source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
+	enabled: true,
 	id: "FWT-001", slug: "free-walking-tour-cuenca", title: "Free Walking Tour de Cuenca", signature: "La ciudad, paso a paso",
 	category: "Cultura · Recorrido a pie", location: "Centro Histórico de Cuenca",
 	destinations: ["cuenca"], experienceTypes: ["cultura", "recorrido-a-pie"],

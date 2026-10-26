@@ -13,6 +13,7 @@ import paute from "./paute-dinosaurios-naturaleza-y-sabores";
 import { itineraryDuration } from "./duration";
 
 export const tours: Tour[] = [cajas, ancestral, raices, pueblos, cascada, walking, aventura, artesanias, sigsig, guachapala, paute]
+	.filter(tour => tour.enabled)
 	.map(tour => ({ ...tour, duration: itineraryDuration(tour.itinerary) }));
 export const tourHref = (tour: Pick<Tour, "slug">) => `/tours/${tour.slug}/`;
 export const priceLabel = (tour: Pick<Tour, "price">) => tour.price.kind === "free"

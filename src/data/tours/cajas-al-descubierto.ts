@@ -2,6 +2,7 @@ import { mountainPacking, paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
+	enabled: true,
 	id: "NAT-001",
 	slug: "cajas-al-descubierto",
 	title: "Cajas al Descubierto",

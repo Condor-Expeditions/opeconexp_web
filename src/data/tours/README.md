@@ -2,6 +2,21 @@
 
 Cada archivo `.ts` con el nombre de un tour contiene su contenido público. Cambia textos, precio, itinerario, horarios, recomendaciones y fotos allí; no hace falta editar componentes. `types.ts` documenta los campos y detecta omisiones.
 
+## Activar o desactivar un tour
+
+Cada tour declara `enabled: true`. Cambia únicamente ese campo a `false` para despublicarlo de todo el sitio, sin borrar su contenido:
+
+```ts
+enabled: false, // true para volver a publicarlo
+```
+
+- `index.ts` filtra los tours una sola vez: hero, menú masonry, catálogo, filtros, destacados, relacionados y selector de contacto consumen únicamente los habilitados.
+- No se genera la página de detalle de un tour desactivado. Tras compilar y desplegar de nuevo, su URL devuelve 404.
+- Las slides del hero y las tarjetas del masonry representan destinos: desaparecen solo cuando ya no tienen ningún tour habilitado asociado. La slide introductoria de Ecuador permanece aunque todos estén desactivados.
+- `enabled` es independiente de `provisional`: el primero controla si se publica; el segundo indica que la experiencia está en preparación y mantiene sus restricciones de consulta.
+- Para añadir un tour, crea su archivo con `enabled: true` y regístralo en `index.ts`. Los destinos relacionados se incorporan automáticamente al hero y al menú si tienen su presentación definida.
+- Los cambios requieren volver a ejecutar `pnpm build` y desplegar el resultado actualizado.
+
 ### Duraciones y horarios de salida
 
 - Cada etapa del itinerario usa `durationMinutes`, por ejemplo `45`, `60` o `150`. Se muestra como **45 min**, **1 h** o **2 h 30 min**. No uses horas de reloj en los títulos, descripciones ni notas visibles.

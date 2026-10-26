@@ -2,6 +2,7 @@ import { mountainPacking, paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
+	enabled: true,
 	id: "CULT-001", slug: "pueblitos-magicos", title: "Pueblitos Mágicos: Historia, Oro y Tradición", signature: "Hecho a mano, vivido de cerca",
 	category: "Cultura · Artesanía · Arqueología", location: "Ingapirca · Chordeleg · Gualaceo",
 	destinations: ["ingapirca", "chordeleg", "gualaceo"], experienceTypes: ["cultura", "artesania", "arqueologia"],

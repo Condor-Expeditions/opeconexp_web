@@ -2,6 +2,7 @@ import { mountainPacking, paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
+	enabled: true,
 	id: "ARQ-001", slug: "raices-ancestrales-del-ecuador", title: "Raíces Ancestrales del Ecuador", signature: "Historias que siguen vivas",
 	category: "Arqueología · Historia · Cultura", location: "Pumapungo · Cojitambo · Coyoctor · Ingapirca",
 	destinations: ["cuenca", "canar", "ingapirca"], experienceTypes: ["arqueologia", "historia", "cultura"],

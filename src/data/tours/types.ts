@@ -9,6 +9,8 @@ export interface TourPhoto {
 
 export interface Tour {
 	id: string;
+	/** Global publication switch. Disabled tours have no public links or detail page. */
+	enabled: boolean;
 	slug: string;
 	title: string;
 	/** Short handwritten accent, not a replacement for the tour name. */

@@ -2,6 +2,7 @@ import { mountainPacking, paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
+	enabled: true,
 	id: "NAT-002", slug: "cajas-de-laguna-a-lo-ancestral",
 	title: "Cajas: El Secreto de los Andes", signature: "Otra forma de sentir los Andes",
 	category: "Naturaleza · Cultura · Gastronomía", location: "El Cajas · Cuenca",

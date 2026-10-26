@@ -2,6 +2,7 @@ import { mountainPacking, paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
+	enabled: true,
 	id: "NAT-004", slug: "aventura-en-cuadron", title: "Aventura en Girón: Cascada & Laguna", signature: "Un día para sentirlo todo",
 	category: "Naturaleza · Aventura · Historia", location: "Girón · San Fernando",
 	destinations: ["giron"], experienceTypes: ["naturaleza", "aventura", "historia"],
