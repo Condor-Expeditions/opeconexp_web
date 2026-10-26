@@ -43,7 +43,8 @@ for (const route of routes) {
 		const footerSocials = footer.match(socialPattern)?.[1];
 		assert.ok(headerSocials);
 		assert.equal(footerSocials, headerSocials, "Menu and footer render identical social links and SVGs");
-		assert.equal((footerSocials.match(/<svg\b/g) || []).length, 5);
+		assert.equal((footerSocials.match(/<svg\b/g) || []).length, 4);
+		assert.doesNotMatch(html, /youtube|youtu\.be/i);
 	});
 }
 

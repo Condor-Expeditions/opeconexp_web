@@ -19,7 +19,7 @@ export const commercialPolicies = [
 	{
 		id: "cancelaciones", title: "Política de cancelación y devoluciones", intro: "",
 		items: [
-			{ title: "Pago de reserva", text: "Se requiere el 100% de pago al momento de realizar la reserva para servicios en línea." },
+			// { title: "Pago de reserva", text: "Se requiere el 100% de pago al momento de realizar la reserva para servicios en línea." },
 			{ title: "Cancelación con más de 48 horas de anticipación", text: "Reembolso del 100%." },
 			{ title: "Cancelación entre 24 y 48 horas de anticipación", text: "Reembolso del 50%." },
 			{ title: "Cancelación con menos de 24 horas de anticipación", text: "Sin reembolso (100% de penalidad)." },

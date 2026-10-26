@@ -8,62 +8,370 @@ import { destinationHref } from "@/data/tours/taxonomy";
 import JourneySteps from "@/components/sections/information/JourneySteps";
 import TravelFAQ from "@/components/sections/information/TravelFAQ";
 
-const featured = ["cajas-al-descubierto", "pueblitos-magicos", "raices-ancestrales-del-ecuador", "free-walking-tour-cuenca"]
-  .flatMap(slug => tours.filter(tour => tour.slug === slug && !tour.provisional));
-const places = destinations.filter(place => tours.some(tour => !tour.provisional && tour.destinations.includes(place.id)));
+const featured = [
+  "cajas-al-descubierto",
+  "pueblitos-magicos",
+  "raices-ancestrales-del-ecuador",
+  "free-walking-tour-cuenca",
+].flatMap((slug) =>
+  tours.filter((tour) => tour.slug === slug && !tour.provisional),
+);
+const places = destinations.filter((place) =>
+  tours.some(
+    (tour) => !tour.provisional && tour.destinations.includes(place.id),
+  ),
+);
 const values = [
-  { title: "Menos coordinación, más descubrimiento", text: "Te ayudamos a organizar los servicios incluidos en tu experiencia, desde el punto de encuentro hasta el regreso." },
-  { title: "Conoce lo que vas a vivir", text: "Recorridos, precios de referencia, inclusiones y recomendaciones en cada ficha. Información para elegir con tranquilidad." },
-  { title: "Encuentra tu forma de viajar", text: "Una caminata por Cuenca, un encuentro con la artesanía o una salida al páramo. Cuéntanos tus intereses y te orientamos." },
+  {
+    title: "Menos coordinación, más descubrimiento",
+    text: "Te ayudamos a organizar los servicios incluidos en tu experiencia, desde el punto de encuentro hasta el regreso.",
+  },
+  {
+    title: "Conoce lo que vas a vivir",
+    text: "Recorridos, precios de referencia, inclusiones y recomendaciones en cada ficha. Información para elegir con tranquilidad.",
+  },
+  {
+    title: "Encuentra tu forma de viajar",
+    text: "Una caminata por Cuenca, un encuentro con la artesanía o una salida al páramo. Cuéntanos tus intereses y te orientamos.",
+  },
 ];
 ---
-<section class="info-section" aria-labelledby="featured-title"><div class="info-shell">
-  <div class="info-heading"><div><p class="info-eyebrow">Tu próximo recuerdo</p><h2 class="info-title" id="featured-title">Elige un camino.<br /><em>Hazlo tuyo.</em></h2></div><a class="info-link" href="/tours/">Ver todas las experiencias <Icon name="arrow-up-right" aria-hidden="true" /></a></div>
-  <div class="home-tour-grid">{featured.map(tour => <article class="home-tour">
-    <a href={tourHref(tour)} class="home-tour-image" tabindex="-1" aria-hidden="true"><Image src={getTourPhoto(tour.photos[0])} alt="" width={680} height={510} widths={[340, 510, 680]} sizes="(min-width: 1100px) 21vw, (min-width: 680px) 43vw, 88vw" format="webp" loading="lazy" style={`object-position: ${tour.photos[0].position ?? "50% 50%"}`} />{tour.illustrativePhotos && <span>Fotografía ilustrativa</span>}</a>
-    <div class="home-tour-copy"><p class="info-eyebrow">{tour.location}</p><h3><a href={tourHref(tour)}>{tour.title}</a></h3><p>{tour.summary}</p><div class="home-tour-facts"><span>{tour.duration}</span><span>{tour.difficulty}</span></div><div class="home-tour-bottom"><span>{priceLabel(tour)}{tour.price.kind === "free" ? <small>Aporte voluntario al guía</small> : <small>Por persona · sujeto a confirmación</small>}</span><a href={tourHref(tour)} aria-label={`Conocer ${tour.title}`}><Icon name="arrow-up-right" aria-hidden="true" /></a></div></div>
-  </article>)}</div>
-</div></section>
 
-<section class="info-section info-soft" aria-labelledby="places-title"><div class="info-shell">
-  <div class="info-heading"><div><p class="info-eyebrow">Cuenca, Azuay y Cañar</p><h2 class="info-title" id="places-title">Lugares que merecen<br /><em>más que una visita.</em></h2></div><p class="info-lead">Del páramo a los pueblos artesanos: descubre los lugares que forman parte de nuestros recorridos actuales.</p></div>
-  <div class="home-places">{places.map(place => <a class="home-place" href={destinationHref(place.id)}><Image src={place.image} alt={`Vista ilustrativa de ${place.title}`} width={800} height={600} widths={[400, 640, 800]} sizes="(min-width: 1024px) 28vw, (min-width: 680px) 43vw, 88vw" format="webp" loading="lazy" /><div><span>{place.id === "ingapirca" || place.id === "canar" ? "Cañar" : "Azuay"}</span><h3>{place.title}<Icon name="arrow-up-right" aria-hidden="true" /></h3><p>{place.caption}</p></div></a>)}</div>
-  <p class="info-note">Fotografías ilustrativas de los destinos. Consulta en cada tour los lugares y las actividades incluidos.</p>
-</div></section>
+<section class="info-section" aria-labelledby="featured-title">
+  <div class="info-shell">
+    <div class="info-heading">
+      <div>
+        <p class="info-eyebrow">Tu próximo recuerdo</p><h2
+          class="info-title"
+          id="featured-title"
+        >
+          Elige un camino.<br /><em>Hazlo tuyo.</em>
+        </h2>
+      </div><a class="info-link" href="/tours/"
+        >Ver todas las experiencias <Icon
+          name="arrow-up-right"
+          aria-hidden="true"
+        /></a>
+    </div>
+    <div class="home-tour-grid">
+      {
+        featured.map((tour) => (
+          <article class="home-tour">
+            <a
+              href={tourHref(tour)}
+              class="home-tour-image"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <Image
+                src={getTourPhoto(tour.photos[0])}
+                alt=""
+                width={680}
+                height={510}
+                widths={[340, 510, 680]}
+                sizes="(min-width: 1100px) 21vw, (min-width: 680px) 43vw, 88vw"
+                format="webp"
+                loading="lazy"
+                style={`object-position: ${tour.photos[0].position ?? "50% 50%"}`}
+              />
+            </a>
+            <div class="home-tour-copy">
+              <>
+                <p class="info-eyebrow">{tour.location}</p>
+                <h3>
+                  <a href={tourHref(tour)}>{tour.title}</a>
+                </h3>
+                <p>{tour.summary}</p>
+                <div class="home-tour-facts">
+                  <>
+                    <span>{tour.duration}</span>
+                    <span>{tour.difficulty}</span>
+                  </>
+                </div>
+                <div class="home-tour-bottom">
+                  <>
+                    <span>
+                      {priceLabel(tour)}
+                      {tour.price.kind === "free" ? (
+                        <small>Aporte voluntario al guía</small>
+                      ) : (
+                        <small>Por persona · sujeto a confirmación</small>
+                      )}
+                    </span>
+                    <a
+                      href={tourHref(tour)}
+                      aria-label={`Conocer ${tour.title}`}
+                    >
+                      <Icon name="arrow-up-right" aria-hidden="true" />
+                    </a>
+                  </>
+                </div>
+              </>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
 
-<section class="info-section" aria-labelledby="values-title"><div class="info-shell"><div class="info-heading"><div><p class="info-eyebrow">La forma Condor</p><h2 class="info-title" id="values-title">Más cerca del lugar.<br /><em>Menos complicaciones.</em></h2></div><a class="info-link" href="/sobre-nosotros/">Conoce nuestra propuesta <Icon name="arrow-up-right" aria-hidden="true" /></a></div><div class="info-values">{values.map((value, index) => <article class="info-value"><span>0{index + 1}</span><h3>{value.title}</h3><p>{value.text}</p></article>)}</div></div></section>
+<section class="info-section info-soft" aria-labelledby="places-title">
+  <div class="info-shell">
+    <div class="info-heading">
+      <div>
+        <p class="info-eyebrow">Cuenca, Azuay y Cañar</p><h2
+          class="info-title"
+          id="places-title"
+        >
+          Lugares que merecen<br /><em>más que una visita.</em>
+        </h2>
+      </div><p class="info-lead">
+        Del páramo a los pueblos artesanos: descubre los lugares que forman
+        parte de nuestros recorridos actuales.
+      </p>
+    </div>
+    <div class="home-places">
+      {
+        places.map((place) => (
+          <a class="home-place" href={destinationHref(place.id)}>
+            <>
+              <Image
+                src={place.image}
+                alt={`Vista ilustrativa de ${place.title}`}
+                width={800}
+                height={600}
+                widths={[400, 640, 800]}
+                sizes="(min-width: 1024px) 28vw, (min-width: 680px) 43vw, 88vw"
+                format="webp"
+                loading="lazy"
+              />
+              <div>
+                <>
+                  <span>
+                    {place.id === "ingapirca" || place.id === "canar"
+                      ? "Cañar"
+                      : "Azuay"}
+                  </span>
+                  <h3>
+                    {place.title}
+                    <Icon name="arrow-up-right" aria-hidden="true" />
+                  </h3>
+                  <p>{place.caption}</p>
+                </>
+              </div>
+            </>
+          </a>
+        ))
+      }
+    </div>
+    <p class="info-note">
+      Fotografías ilustrativas de los destinos. Consulta en cada tour los
+      lugares y las actividades incluidos.
+    </p>
+  </div>
+</section>
+
+<section class="info-section" aria-labelledby="values-title">
+  <div class="info-shell">
+    <div class="info-heading">
+      <div>
+        <p class="info-eyebrow">Nuestra forma</p><h2
+          class="info-title"
+          id="values-title"
+        >
+          Más cerca del lugar.<br /><em>Menos complicaciones.</em>
+        </h2>
+      </div><a class="info-link" href="/sobre-nosotros/"
+        >Conoce nuestra propuesta <Icon
+          name="arrow-up-right"
+          aria-hidden="true"
+        /></a>
+    </div><div class="info-values">
+      {
+        values.map((value, index) => (
+          <article class="info-value">
+            <>
+              <span>0{index + 1}</span>
+              <h3>{value.title}</h3>
+              <p>{value.text}</p>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
 <JourneySteps />
 <TravelFAQ />
 
 <style>
-  .home-tour-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
-  .home-tour { min-width: 0; display: flex; flex-direction: column; }
-  .home-tour-image { display: block; position: relative; overflow: hidden; border-radius: .5rem; }
-  .home-tour-image img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
-  .home-tour-image > span { position: absolute; bottom: .6rem; left: .6rem; padding: .3rem .5rem; background: color-mix(in srgb, var(--color-negro) 75%, transparent); color: var(--color-blanco); font-size: .6rem; }
-  .home-tour-copy { display: flex; flex-direction: column; flex: 1; padding-top: 1.25rem; }
-  .home-tour-copy .info-eyebrow { font-size: .6rem; letter-spacing: .06em; margin-bottom: .6rem; }
-  .home-tour-copy .info-eyebrow::before { display: none; }
-  .home-tour h3 { font-size: 1.35rem; line-height: 1.3; font-weight: 500; letter-spacing: -.03em; }
-  .home-tour h3 a:hover { color: var(--color-rojo); }
-  .home-tour-copy > p:not(.info-eyebrow) { margin-top: .8rem; color: var(--color-muted-foreground); font-size: .85rem; line-height: 1.8; }
-  .home-tour-facts { display: flex; flex-wrap: wrap; gap: .5rem 1rem; padding-block: 1.3rem; margin-top: auto; font-size: .75rem; color: var(--color-muted-foreground); }
-  .home-tour-bottom { display: flex; align-items: center; justify-content: space-between; gap: .5rem; border-top: 1px solid var(--color-border); padding-top: 1rem; font-size: .9rem; }
-  .home-tour-bottom small { display: block; margin-top: .3rem; color: var(--color-muted-foreground); font-size: .65rem; }
-  .home-tour-bottom a { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex-shrink: 0; border: 1px solid var(--color-border); border-radius: 50%; }
-  .home-tour-bottom a:hover { color: var(--color-blanco); background: var(--color-rojo); }
-  .home-tour-bottom svg { width: 1.2rem; height: 1.2rem; }
-  .home-places { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
-  .home-place { position: relative; display: block; overflow: hidden; border-radius: .5rem; background: var(--color-negro); color: var(--color-blanco); }
-  .home-place::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 20%, color-mix(in srgb, var(--color-negro) 85%, transparent)); }
-  .home-place img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
-  .home-place > div { position: absolute; inset: auto 1.5rem 1.5rem; z-index: 1; }
-  .home-place span { font-size: .65rem; text-transform: uppercase; letter-spacing: .15em; }
-  .home-place h3 { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-block: .5rem; font-size: 1.7rem; font-weight: 400; letter-spacing: -.04em; }
-  .home-place svg { width: 1.4rem; height: 1.4rem; }
-  .home-place p { font-size: .8rem; line-height: 1.5; }
-  .home-place:hover h3 { text-decoration: underline; text-underline-offset: .2em; }
-  @media (max-width: 1099px) { .home-tour-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 1.5rem; } }
-  @media (max-width: 1023px) { .home-places { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 679px) { .home-tour-grid, .home-places { grid-template-columns: 1fr; } }
+  .home-tour-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .home-tour {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-tour-image {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+  }
+  .home-tour-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .home-tour-copy {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-top: 1.25rem;
+  }
+  .home-tour-copy .info-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+  }
+  .home-tour-copy .info-eyebrow::before {
+    display: none;
+  }
+  .home-tour h3 {
+    font-size: 1.35rem;
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+  .home-tour h3 a:hover {
+    color: var(--color-rojo);
+  }
+  .home-tour-copy > p:not(.info-eyebrow) {
+    margin-top: 0.8rem;
+    color: var(--color-muted-foreground);
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+  .home-tour-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding-block: 1.3rem;
+    margin-top: auto;
+    font-size: 0.75rem;
+    color: var(--color-muted-foreground);
+  }
+  .home-tour-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .home-tour-bottom small {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--color-muted-foreground);
+    font-size: 0.65rem;
+  }
+  .home-tour-bottom a {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+  }
+  .home-tour-bottom a:hover {
+    color: var(--color-blanco);
+    background: var(--color-rojo);
+  }
+  .home-tour-bottom svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .home-places {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .home-place {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background: var(--color-negro);
+    color: var(--color-blanco);
+  }
+  .home-place::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      transparent 20%,
+      color-mix(in srgb, var(--color-negro) 85%, transparent)
+    );
+  }
+  .home-place img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .home-place > div {
+    position: absolute;
+    inset: auto 1.5rem 1.5rem;
+    z-index: 1;
+  }
+  .home-place span {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .home-place h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block: 0.5rem;
+    font-size: 1.7rem;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
+  .home-place svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .home-place p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  .home-place:hover h3 {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  @media (max-width: 1099px) {
+    .home-tour-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2.5rem 1.5rem;
+    }
+  }
+  @media (max-width: 1023px) {
+    .home-places {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 679px) {
+    .home-tour-grid,
+    .home-places {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

@@ -79,11 +79,6 @@ export const siteConfig: SiteConfig = {
 			icon: "tiktok",
 		},
 		{
-			name: "YouTube",
-			href: "https://www.youtube.com/@condorexpeditionscuenca",
-			icon: "youtube",
-		},
-		{
 			name: "WhatsApp",
 			href: "https://wa.me/593995900614?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20Condor%20Expeditions",
 			icon: "whatsapp",
