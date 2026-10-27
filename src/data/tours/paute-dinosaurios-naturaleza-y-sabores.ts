@@ -2,7 +2,7 @@ import { paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: true,
+	enabled: false,
 	id: "NAT-006", slug: "paute-dinosaurios-naturaleza-y-sabores", title: "Paute: Dinosaurios, Naturaleza y Sabores", signature: "Un valle para compartir",
 	category: "Naturaleza · Gastronomía", location: "Paute",
 	destinations: ["paute"], experienceTypes: ["naturaleza", "gastronomia"],

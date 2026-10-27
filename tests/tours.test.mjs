@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
+import { allTours } from "./helpers/tour-data.mjs";
 
 // Build first: pnpm build && node --test tests/*.test.mjs
 const cases = [
@@ -19,6 +20,11 @@ const cases = [
 
 for (const [id, slug, price, stops] of cases) {
 	test(`${id}: complete detail, gallery, price and inquiry`, async () => {
+		const tour = allTours.find(tour => tour.slug === slug);
+		if (!tour.enabled) {
+			await assert.rejects(readFile(new URL(`../dist/tours/${slug}/index.html`, import.meta.url)), { code: "ENOENT" });
+			return;
+		}
 		const html = await readFile(new URL(`../dist/tours/${slug}/index.html`, import.meta.url), "utf8");
 		assert.equal((html.match(/<h1\b/g) || []).length, 1);
 		const backLink = html.match(/<a class="tour-back-link" href="\/tours"[\s\S]*?<\/a>/)?.[0];
@@ -33,6 +39,7 @@ for (const [id, slug, price, stops] of cases) {
 		assert.equal((html.match(/class="tour-more-photo"/g) || []).length, 3);
 		const gallery = html.match(/<div class="tour-gallery"[\s\S]*?<\/section>/)?.[0];
 		assert.ok(gallery);
+		assert.equal((gallery.match(/class="gallery-photo\b/g) || []).length, tour.photos.length);
 		assert.ok((gallery.match(/data-pswp-width="\d+"/g) || []).length >= 5);
 		assert.ok((gallery.match(/data-pswp-height="\d+"/g) || []).length >= 5);
 		assert.match(gallery, /fetchpriority="high"/);

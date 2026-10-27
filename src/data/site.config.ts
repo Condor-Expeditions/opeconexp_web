@@ -60,7 +60,7 @@ export const siteConfig: SiteConfig = {
 			name: "info@condorexpedition.com",
 			href: "mailto:info@condorexpedition.com",
 		},
-		location: "https://www.google.com/maps/search/?api=1&query=Gran%20Colombia%201-82%20y%20Manuel%20Vega%2C%20Cuenca%2C%20Ecuador",
+		location: "https://maps.app.goo.gl/svLCXzi8TXEqzuRKA",
 	},
 	socials: [
 		{

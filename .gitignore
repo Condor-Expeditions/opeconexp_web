@@ -3,6 +3,8 @@
 /.omo/
 # build output
 dist/
+# Camera originals are backed up locally, never published or committed.
+/tmp/tour-photo-originals/
 # generated types
 .astro/
 
@@ -25,4 +27,3 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-

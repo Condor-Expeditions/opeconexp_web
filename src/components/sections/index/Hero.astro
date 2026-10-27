@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import ContainerHeader from "@/components/shared/ContainerHeader";
-import { getTourImage } from "@/utils";
+import heroLandscape from "@/assets/tours/mirador-tres-cruces/20261012_0233.webp";
 import { destinations } from "@/data/destinations";
 import { tours, tourHref } from "@/data/tours";
 import { experienceLabels } from "@/data/tours/taxonomy";
@@ -16,11 +16,11 @@ import {
 } from "./heroContentStyles";
 import "./hero.css";
 
-const heroWidths = [640, 960, 1280, 1920, 2560];
+const heroWidths = [640, 960, 1280, 1920, 2400];
 const data = [
   {
-    background: getTourImage("nevado.jpg"),
-    altImage: "Paisaje andino ecuatoriano",
+    background: heroLandscape,
+    altImage: "Paisaje de páramo y montañas de El Cajas desde el mirador Tres Cruces",
     title: "Ecuador",
     subtitle: "Vive lo que otros solo visitan.",
     description: "Somos Condor Expeditions. Descubre Ecuador con experiencias auténticas, paisajes que sorprenden y recuerdos que se quedan contigo.",
@@ -32,7 +32,7 @@ const data = [
   ...destinations.filter(place => tours.some(tour => tour.destinations.includes(place.id))).map(place => {
     const related = tours.filter(tour => tour.destinations.includes(place.id));
     return {
-      background: place.image, altImage: `Vista ilustrativa de ${place.title}`,
+      background: place.image, altImage: place.alt,
       title: "Descubre", subtitle: place.title, description: place.description,
       position: place.position ?? "50% 50%", portraitPosition: place.portraitPosition ?? "50% 50%",
       tours: related.map(tour => ({ slug: tourHref(tour), name: tour.title })),
@@ -53,7 +53,7 @@ const slides = data.map((slide) => {
             const Heading = index === 0 ? "h1" : "h2";
             return (
             <section class="embla__slide" role="group" aria-roledescription="diapositiva" aria-label={`${index + 1} de ${slides.length}: ${slide.title} ${slide.subtitle}`} aria-hidden={index !== 0 ? "true" : undefined} inert={index !== 0} style={`--hero-position: ${slide.position}; --hero-portrait-position: ${slide.portraitPosition}`}>
-              <Image src={slide.background} alt={slide.altImage} layout="full-width" widths={heroWidths} width={slide.renderWidth} quality={80} priority={index === 0} class="hero-image" draggable="false" />
+              <Image src={slide.background} alt={slide.altImage} layout="full-width" widths={heroWidths.filter(width => width <= slide.background.width)} width={slide.renderWidth} format="webp" quality={80} priority={index === 0} class="hero-image" draggable="false" />
               <div class="hero-shade" aria-hidden="true" />
               <ContainerHeader class="hero-shell">
                 <div class:list={["hero-content", { "hero-content-intro": index === 0 }]}>

@@ -31,6 +31,10 @@ for (const [slug, minutes] of Object.entries(stages)) {
 		const values = [...source.matchAll(/durationMinutes:\s*(\d+|null)/g)].map(match => match[1] === "null" ? null : Number(match[1]));
 		assert.deepEqual(values, minutes);
 		assert.doesNotMatch(source, /\btime:\s*"/);
+		if (/enabled:\s*false/.test(source)) {
+			await assert.rejects(readFile(new URL(`../dist/tours/${slug}/index.html`, import.meta.url)), { code: "ENOENT" });
+			return;
+		}
 		const html = await readFile(new URL(`../dist/tours/${slug}/index.html`, import.meta.url), "utf8");
 		const main = html.match(/<main\b[\s\S]*?<\/main>/)?.[0];
 		assert.ok(main);

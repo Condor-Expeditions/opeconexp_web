@@ -2,7 +2,7 @@ import { source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: true,
+	enabled: false,
 	id: "NAT-003", slug: "cascada-de-giron", title: "Cascada de Girón: Naturaleza & Historia", signature: "La historia encuentra su paisaje",
 	category: "Naturaleza · Historia · Cultura", location: "Girón",
 	destinations: ["giron"], experienceTypes: ["naturaleza", "historia", "cultura"],

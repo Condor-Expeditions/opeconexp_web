@@ -4,8 +4,7 @@ import type { TourPhoto } from "./types";
 const images = import.meta.glob<{ default: ImageMetadata }>([
 	"/public/assets/menu/tours/*.{jpg,jpeg,png,webp}",
 	"/public/assets/menu/destinos/*.{jpg,jpeg,png,webp}",
-	"/src/assets/tours/*.{jpg,jpeg,png,webp}",
-	"/src/assets/tours/demo/*.{jpg,jpeg,png,webp}",
+	"/src/assets/tours/**/*.{jpg,jpeg,png,webp}",
 ], { eager: true });
 
 /** Shared by the gallery and recommendations, so editing a tour's photos updates both. */

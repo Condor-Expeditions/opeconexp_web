@@ -2,7 +2,7 @@ import { paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: true,
+	enabled: false,
 	id: "ARQ-002", slug: "raices-ancestrales-sigsig", title: "Raíces Ancestrales: Sígsig y Chobshi", signature: "Un encuentro con la memoria",
 	category: "Arqueología · Historia · Cultura", location: "Sígsig · Chobshi",
 	destinations: ["sigsig"], experienceTypes: ["arqueologia", "historia", "cultura"],

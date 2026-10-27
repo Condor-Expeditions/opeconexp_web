@@ -1,5 +1,6 @@
 // Run with an Astro preview server; never sends a real inquiry.
 import assert from "node:assert/strict";
+import { publishedTours } from "./helpers/tour-data.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
 const base = process.env.BASE_URL || "http://localhost:4322";
 const browser = await chromium.launch();
@@ -12,10 +13,10 @@ const openFilter = key => page.locator(`[data-filter="${key}"] > .filter-toggle`
 
 try {
 	await page.goto(`${base}/tours/`, { waitUntil: "networkidle" });
-	await expectCards(11);
+	await expectCards(publishedTours.length);
 	const archaeologyPlace = "canar";
 	// Only cover images are downloaded before interaction; templates stay inert.
-	assert.equal(await page.locator(".card-slide img").count(), 11);
+	assert.equal(await page.locator(".card-slide img").count(), publishedTours.length);
 	for (const [width, height] of [[1440, 1000], [1024, 768], [768, 1024], [390, 844], [360, 740], [844, 390]]) {
 		await page.setViewportSize({ width, height });
 		assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `overflow ${width}×${height}`);
@@ -94,13 +95,13 @@ try {
 		await stress.waitForFunction(() => [...document.querySelectorAll("[data-tour-card]")].every(card => card.hidden !== card.hasAttribute("data-carousel-ready")));
 		assert.equal(await stress.locator("[data-tour-card][hidden][data-carousel-ready]").count(), 0);
 		await stress.locator(".catalog-clear").click();
-		assert.equal(await stress.locator("[data-carousel-ready]").count(), 11);
+		assert.equal(await stress.locator("[data-carousel-ready]").count(), publishedTours.length);
 	}
 	await stress.locator(".card-gallery").first().hover();
 	await stress.locator(".card-next").first().click();
 	await stress.waitForFunction(() => document.querySelector("[data-photo-current]").textContent === "2");
 	await stress.close();
-	console.log("PASS 1920×1080: 33 filter cycles during animation; hidden carousels destroyed and restored without duplicate handlers");
+	console.log(`PASS 1920×1080: ${destinations.length * 3} filter cycles during animation; hidden carousels destroyed and restored without duplicate handlers`);
 
 	await page.goto(`${base}/tours/?lugar=chordeleg`, { waitUntil: "networkidle" });
 	await expectCards(2);
@@ -124,7 +125,7 @@ try {
 	await page.locator('[aria-label="Quitar filtro Arqueología"]').click();
 	await expectCards(3);
 	await page.locator(".catalog-clear").click();
-	await expectCards(11);
+	await expectCards(publishedTours.length);
 	assert.equal(new URL(page.url()).search, "");
 	console.log("PASS filters: incoming URL, OR/AND, selection labels, detail/back restoration, clearing");
 
@@ -132,9 +133,9 @@ try {
 	await expectCards(0);
 	assert.equal(await page.locator("[data-empty-results]").isVisible(), true);
 	await page.locator("[data-empty-results] button").click();
-	await expectCards(11);
+	await expectCards(publishedTours.length);
 	await page.goto(`${base}/tours/?lugar=unknown&experiencia=unknown`, { waitUntil: "networkidle" });
-	await expectCards(11);
+	await expectCards(publishedTours.length);
 	console.log("PASS empty state, reset and unknown URL parameters");
 
 	await page.goto(`${base}/tours/?lugar=san-fernando`, { waitUntil: "networkidle" });
@@ -188,17 +189,17 @@ try {
 	assert.equal(await withoutCarousel.locator("[data-filter-section]").isVisible(), true);
 	assert.equal(await withoutCarousel.locator("[data-tour-card]:visible").count(), 2);
 	await withoutCarousel.locator(".catalog-clear").click();
-	assert.equal(await withoutCarousel.locator("[data-tour-card]:visible").count(), 11);
+	assert.equal(await withoutCarousel.locator("[data-tour-card]:visible").count(), publishedTours.length);
 	assert.equal(await withoutCarousel.locator(".card-gallery-controls").first().getAttribute("hidden"), null);
 	assert.equal(await withoutCarousel.locator(".card-next").first().isVisible(), true);
 	await withoutCarousel.close();
 	console.log("PASS filters and native galleries work without third-party carousel code");
 	const noJS = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
 	await noJS.goto(`${base}/tours/?lugar=chordeleg`);
-	assert.equal(await noJS.locator("[data-tour-card]:visible").count(), 11);
+	assert.equal(await noJS.locator("[data-tour-card]:visible").count(), publishedTours.length);
 	assert.equal(await noJS.locator(".catalog-filter-section").isVisible(), false);
 	assert.equal(await noJS.locator(".card-gallery-controls").first().isVisible(), false);
-	assert.equal(await noJS.locator(".card-cta").count(), 11);
+	assert.equal(await noJS.locator(".card-cta").count(), publishedTours.length);
 	await noJS.close();
 	assert.deepEqual(errors, []);
 	console.log("PASS updated Guachapala tour, no-JS fallback and zero browser errors");

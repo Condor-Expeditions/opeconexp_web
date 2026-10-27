@@ -1,16 +1,17 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { publishedTours } from "./helpers/tour-data.mjs";
 
 const load = path => readFile(new URL(`../dist/${path}`, import.meta.url), "utf8");
 // Destination assignments are editable content, not fixed test fixtures.
 const listing = await load("tours/index.html");
 const places = [...new Set([...listing.matchAll(/data-destinations="([^"]+)"/g)].flatMap(match => match[1].split(" ")))];
 
-test("catalog: eleven data-backed cards, destinations, experience filters and real links", async () => {
+test("catalog: enabled data-backed cards, destinations, experience filters and real links", async () => {
 	const html = await load("tours/index.html");
 	const cards = [...html.matchAll(/<article class="tour-card"[\s\S]*?<\/article>/g)].map(match => match[0]);
-	assert.equal(cards.length, 11);
+	assert.equal(cards.length, publishedTours.length);
 	assert.equal((html.match(/<h1\b/g) || []).length, 1);
 	for (const place of places) assert.match(html, new RegExp(`name="lugar" value="${place}"`));
 	for (const type of ["naturaleza", "aventura", "cultura", "historia", "arqueologia", "gastronomia", "artesania", "recorrido-a-pie"]) assert.match(html, new RegExp(`name="experiencia" value="${type}"`));
@@ -42,7 +43,7 @@ test("hero: intro without tours and exactly one slide per destination", async ()
 	}
 });
 
-test("hero and listing: all eleven updated tours have matching names and destination assignments", async () => {
+test("hero and listing: enabled tours have matching names and destination assignments", async () => {
 	const home = await load("index.html");
 	const cards = [...listing.matchAll(/<article class="tour-card"[\s\S]*?<\/article>/g)].map(match => match[0]);
 	const tours = cards.map(card => {
@@ -61,8 +62,8 @@ test("hero and listing: all eleven updated tours have matching names and destina
 		assert.deepEqual(actual, expected, `${label}: hero links match current catalog, without missing or stale tours`);
 		for (const link of actual) heroLinks.add(link.href);
 	}
-	assert.equal(places.length, 10);
-	assert.equal(heroLinks.size, 11);
+	assert.equal(places.length, new Set(publishedTours.flatMap(tour => tour.destinations)).size);
+	assert.equal(heroLinks.size, publishedTours.length);
 	for (const tour of tours) {
 		assert.ok(heroLinks.has(tour.href), `${tour.title} is reachable from the hero`);
 		const detail = await load(`${tour.href.slice(1)}index.html`);
@@ -75,7 +76,7 @@ test("hero and listing: all eleven updated tours have matching names and destina
 test("San Fernando is grouped under Girón without losing the Busa itinerary", async () => {
 	const home = await load("index.html");
 	const slides = [...home.matchAll(/<section class="embla__slide"[\s\S]*?<\/section>/g)].map(match => match[0]);
-	assert.equal(slides.length, 11, "Intro plus ten destinations");
+	assert.equal(slides.length, places.length + 1, "Intro plus enabled destinations");
 	assert.ok(!slides.some(slide => slide.includes(": Descubre San Fernando\"")));
 	const giron = slides.find(slide => slide.includes(": Descubre Girón\""));
 	assert.ok(giron);

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import { registerHooks } from "node:module";
 import test from "node:test";
+import { publishedTours } from "./helpers/tour-data.mjs";
 
 const catalogDirectory = new URL("../src/data/tours/", import.meta.url);
 
@@ -31,7 +32,7 @@ test("publication switch: the real catalog excludes disabled tours without editi
 	};
 	try {
 		const original = await loadCatalog([]);
-		assert.equal(original.length, 11);
+		assert.equal(original.length, publishedTours.length);
 		assert.ok(original.every(tour => tour.enabled === true));
 		const slugs = original.map(tour => tour.slug);
 		const oneDisabled = await loadCatalog([slugs[0]]);

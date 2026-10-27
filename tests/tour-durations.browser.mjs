@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
+import { publishedTours } from "./helpers/tour-data.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
 const base = process.env.BASE_URL || "http://localhost:4321";
-const routes = ["cajas-al-descubierto", "cajas-de-laguna-a-lo-ancestral", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "aventura-en-cuadron", "free-walking-tour-cuenca", "guachapala-entre-paisajes-y-tradicion", "cascada-de-giron", "compras-y-artesanias", "raices-ancestrales-sigsig", "paute-dinosaurios-naturaleza-y-sabores"];
+const routes = publishedTours.map(tour => tour.slug);
 const browser = await chromium.launch();
 try {
 	const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });

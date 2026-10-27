@@ -3,10 +3,9 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { siteConfig } from "../src/data/site.config.ts";
 
-test("business address and map use the supplied street, number and intersection", () => {
+test("business address and map use the supplied address and Google Maps link", () => {
 	assert.equal(siteConfig.companyInfo.address, "Gran Colombia 1-82 y Manuel Vega, Cuenca, Azuay, Ecuador");
-	const map = new URL(siteConfig.companyInfo.location);
-	assert.equal(map.searchParams.get("query"), "Gran Colombia 1-82 y Manuel Vega, Cuenca, Ecuador");
+	assert.equal(siteConfig.companyInfo.location, "https://maps.app.goo.gl/svLCXzi8TXEqzuRKA");
 });
 
 test("shared footer and contact page publish the updated business address", async () => {

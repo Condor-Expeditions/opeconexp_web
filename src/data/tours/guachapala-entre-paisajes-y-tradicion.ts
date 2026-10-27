@@ -2,7 +2,7 @@ import { paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: true,
+	enabled: false,
 	id: "CULT-002", slug: "guachapala-entre-paisajes-y-tradicion",
 	title: "Entre Montañas y Milagros", signature: "Fe, paisajes y aventura",
 	category: "Cultura · Naturaleza · Aventura", location: "Andacocha · Guachapala",

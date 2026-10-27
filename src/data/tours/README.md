@@ -36,12 +36,23 @@ enabled: false, // true para volver a publicarlo
 - San Fernando y la laguna de Busa se agrupan bajo **Girón** en el catálogo, Hero y menú, sin tarjeta de destino independiente. El detalle conserva los lugares reales visitados. Los enlaces antiguos con `?lugar=san-fernando` filtran Girón mediante `destinationAliases`.
 - Guachapala ya es `CULT-002`, **Entre Montañas y Milagros**, con ficha operativa. Se conservan las URL anteriores de Guachapala, Cajas NAT-002 y Aventura en Cuadrón para no romper enlaces existentes.
 - `photos`: rutas locales desde la raíz del proyecto, como `/public/assets/menu/tours/mi-foto.jpg` o `/src/assets/tours/mi-foto.jpg`. La galería obtiene dimensiones y genera versiones optimizadas automáticamente. Usa al menos cinco fotos, con textos alternativos descriptivos.
-- Para nuevas carpetas de imágenes, añade el patrón a `import.meta.glob` en `images.ts`. La primera foto de cada tour se utiliza también como miniatura en «Otra ruta, otra historia».
+- Las subcarpetas de `src/assets/tours/` se detectan automáticamente en `images.ts`. La primera foto de cada tour es la portada del listado, los destacados de inicio y las recomendaciones de «Otra ruta, otra historia».
 - Cambia `illustrativePhotos` a `false` únicamente cuando sean fotografías aprobadas del tour. Este campo identifica las fotos de ejemplo en las etiquetas accesibles, sin mostrar un aviso bajo la galería.
 - `operatingDays` describe días habituales (domingo=0), **no disponibilidad en tiempo real**. La consulta nunca confirma una reserva.
 - `source.pendingReview` conserva discrepancias por validar; no se renderiza ni se envía al navegador. Tras validarlas, actualiza el campo público y la nota.
 
 ## Fuente y trazabilidad
+
+### Fotografías propias
+
+Las 101 fotografías recibidas en octubre de 2026 están optimizadas como WebP en `src/assets/tours/`, organizadas por lugar. Máximo 2400 px en el lado largo, calidad 80, orientación corregida y sin metadatos EXIF/GPS. Astro genera las versiones responsive y las ampliaciones de galería; no se envían los originales de cámara al navegador.
+
+- Copia local de los originales: `tmp/tour-photo-originals/`, fuera de `public/` y excluida de Git. Conserva una copia de seguridad externa de esos originales.
+- Para regenerar: `node scripts/optimize-tour-photos.mjs`. También acepta otra carpeta de origen como primer argumento; la estructura debe conservar los nombres de las carpetas recibidas.
+- Las carpetas originales `Coyotor` y `El Abuelo` se normalizan a `coyoctor` y `casa-del-abuelo` en assets.
+- Asignaciones, selección y lugares aún sin fotografía propia: `docs/tour-photos.md`.
+
+### Fichas comerciales
 
 Los once JSON en `source/` conservan todas las celdas con contenido y fórmulas de **FICHA TOUR**, con nombre del Excel y coordenadas de celda. Son snapshots internos, no contenido para mostrar directamente. No contienen otras hojas. `tourId` identifica el código normalizado del catálogo; `cells.B6` conserva el original, aunque sea incorrecto.
 
@@ -53,7 +64,7 @@ Para volver a extraer los Excel: `python3 scripts/extract-tours.py`. Requiere Py
 
 No publicar números de soporte de plantilla, responsables internos, tarifas netas de agencias ni logística copiada de otros tours. Las políticas de cancelación ambiguas se consultan con el equipo en lugar de prometer cancelación gratuita.
 
-Los originales están en `public/tmp` por solicitud inicial; recuerda que cualquier archivo bajo `public` se publica en un despliegue de Astro. Antes de desplegar, retíralos de esa carpeta pública si contienen información interna. Los JSON de `src/data/tours/source` no se importan en la interfaz.
+Los Excel se cargaron inicialmente en `public/tmp`; no vuelvas a colocar documentos internos ni originales de cámara allí, porque cualquier archivo bajo `public` se publica sin procesar. Los JSON de `src/data/tours/source` no se importan en la interfaz.
 
 ## Comprobaciones
 
@@ -61,4 +72,5 @@ Los originales están en `public/tmp` por solicitud inicial; recuerda que cualqu
 - Pruebas de contenido, precios, procedencia y estilos: `node --test tests/*.test.mjs` (después de compilar).
 - Navegador: con Playwright y Chromium disponibles, inicia `pnpm preview --port 4322` y ejecuta `node tests/tours.browser.mjs`. También admite `BASE_URL` y `PLAYWRIGHT_MODULE` para usar otra URL o instalación externa de Playwright. No envía consultas reales.
 - Listado, filtros, carruseles, hero y masonry: `node tests/catalog.browser.mjs` con el mismo servidor y variables. Incluye navegación cliente, historial, táctil landscape y fallback sin JavaScript.
+- Fotografías propias: `node tests/tour-photos.browser.mjs` con el mismo servidor y variables. Comprueba hero, masonry, carga diferida de portadas y galerías en escritorio/móvil; guarda capturas en `/tmp/opencode/tour-photo-preview` (configurable con `SCREENSHOT_DIR`).
 - Los filtros usan botones accesibles (`aria-expanded`) y casillas; las galerías de las tarjetas usan scroll-snap nativo, sin Embla ni observadores de tamaño. Embla se mantiene únicamente en el hero.

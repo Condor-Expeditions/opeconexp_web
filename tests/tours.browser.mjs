@@ -1,9 +1,10 @@
 // Requires Playwright and Chromium. BASE_URL defaults to an Astro preview server.
 // PLAYWRIGHT_MODULE can point to an external Playwright installation.
 import assert from "node:assert/strict";
+import { publishedTours } from "./helpers/tour-data.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
 const base = process.env.BASE_URL || "http://localhost:4322";
-const routes = ["cajas-al-descubierto", "cajas-de-laguna-a-lo-ancestral", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "aventura-en-cuadron", "free-walking-tour-cuenca", "cascada-de-giron", "compras-y-artesanias", "raices-ancestrales-sigsig", "guachapala-entre-paisajes-y-tradicion", "paute-dinosaurios-naturaleza-y-sabores"];
+const routes = publishedTours.map(tour => tour.slug);
 const browser = await chromium.launch();
 const errors = [];
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce", locale: "es-EC" });
@@ -30,7 +31,7 @@ try {
 		assert.equal(await page.locator(".gallery-photo:visible").count(), 5);
 		await page.locator("[data-gallery-open]").click();
 		await page.waitForFunction(() => document.activeElement?.classList.contains("pswp"));
-		assert.equal(await page.locator(".pswp__counter").innerText(), `1 de ${route === "cajas-al-descubierto" ? 6 : 5}`);
+		assert.equal(await page.locator(".pswp__counter").innerText(), `1 de ${publishedTours.find(tour => tour.slug === route).photos.length}`);
 		await page.keyboard.press("ArrowRight");
 		await page.waitForFunction(() => document.querySelector(".pswp__counter")?.textContent?.startsWith("2 de"));
 		await page.keyboard.press("Escape");

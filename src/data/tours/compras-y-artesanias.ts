@@ -2,7 +2,7 @@ import { paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: true,
+	enabled: false,
 	id: "ARTE-001", slug: "compras-y-artesanias", title: "Compras y Artesanías", signature: "El valor de lo hecho a mano",
 	category: "Cultura · Artesanía · Compras", location: "Chordeleg · Gualaceo",
 	destinations: ["chordeleg", "gualaceo"], experienceTypes: ["cultura", "artesania"],
