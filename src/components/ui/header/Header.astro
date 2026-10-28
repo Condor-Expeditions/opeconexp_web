@@ -1,41 +1,74 @@
 ---
+import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import blackLogoUrl from "@/assets/brand/logotype/black.svg?url";
+import blackCondorUrl from "@/assets/brand/symbol/black.svg?url";
 import Logo from "@/assets/logo.svg";
 import ContainerHeader from "@/components/shared/ContainerHeader";
+import SocialLinks from "@/components/shared/SocialLinks";
+import { navigationLinks, featuredDestinations } from "@/data/navigation.config";
+import { siteConfig } from "@/data/site.config";
+import "./header.css";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
-<header
-	id="site-header"
-	class="header-top fixed top-0 left-0 right-0 z-50 transition-all duration-300"
->
-	<div
-		class="header-contrast-guard pointer-events-none absolute inset-0 z-0"
-		aria-hidden="true"
-	>
-	</div>
-	<section id="header-landscape">
+<header id="site-header" class="site-header" data-menu-state="closed" data-light-page={currentPath !== "/"} data-tour-page={currentPath === "/tours" || currentPath.startsWith("/tours/")}>
+	<div class="menu-curtain" aria-hidden="true"></div>
+	<section id="header-landscape" class="header-toolbar">
 		<ContainerHeader class="py-28">
-			<nav class="flex items-start gap-5">
-				<button
-					id="menu-button"
-					class="text-white cursor-pointer [&>svg]:size-6"
-				>
-					<Icon name="hamburger" />
+			<div class="header-brand-row">
+				<button id="menu-button" class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="fullscreen-menu">
+					<span></span><span></span><span></span>
 				</button>
-				<a
-					href="/"
-					class="relative z-10 flex items-center"
-					aria-label="Condor Expeditions Home"
-				>
-					<Logo class="w-auto h-14 md:h-20 lg:h-24 py-1" />
+				<a href="/" class="header-logo" aria-label="Condor Expeditions — Inicio">
+					<Logo class="logo-color w-auto h-14 md:h-20 lg:h-24 py-1" aria-hidden="true" />
+					<img class="logo-black" src={blackLogoUrl} alt="" width="443" height="169" aria-hidden="true" />
 				</a>
-			</nav>
+			</div>
 		</ContainerHeader>
 	</section>
+	<div id="fullscreen-menu" class="fullscreen-menu" inert aria-hidden="true">
+		<div class="menu-condor" aria-hidden="true">
+			<img src={blackCondorUrl} alt="" width="443" height="153" />
+		</div>
+		<div class="menu-socials" aria-label="Redes sociales">
+			<span class="menu-eyebrow">Sigue la aventura</span>
+			<SocialLinks />
+		</div>
+		<div class="menu-body">
+			<nav class="menu-navigation" aria-label="Navegación principal">
+				<p class="menu-eyebrow">Ecuador, por descubrir</p>
+				<ul>
+					{navigationLinks.map((link, index) => (
+						<li style={`--item-index: ${index}`}><a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}><span class="menu-number">0{index + 1}</span><span>{link.title}</span><Icon name="arrow-up-right" /></a></li>
+					))}
+				</ul>
+			</nav>
+			<div class="menu-destinations" aria-label="Destinos destacados">
+				<div class="destination-grid">
+				{featuredDestinations.map((tour, index) => (
+					<a href={tour.href} class={`destination destination-${index + 1}`} style={`--item-index: ${index + 2}`}>
+						<Image src={tour.image} alt="" widths={[320, 640, 960, 1280]} sizes={index === 0 ? "(max-width: 767px) 75vh, 120vh" : "(max-width: 767px) 40vw, (max-width: 1023px) 25vw, 20vw"} format="webp" quality={80} style={`object-position: ${tour.position ?? "50% 50%"}`} loading="lazy" />
+						<div class="destination-caption"><div><span>{tour.caption}</span><strong>{tour.title}</strong></div><Icon name="arrow-up-right" /></div>
+					</a>
+				))}
+				</div>
+			</div>
+		</div>
+		<div class="menu-footer"><span>Vive lo que otros solo visitan.</span><a href={siteConfig.companyInfo.email.href}>{siteConfig.companyInfo.email.name}</a></div>
+	</div>
 </header>
 
 <script>
 	import { HeaderController } from "./HeaderController";
-	const headerController = new HeaderController();
-	headerController.init();
+	let controller: HeaderController | undefined;
+	const initHeader = () => {
+		controller?.destroy();
+		controller = new HeaderController();
+		controller.init();
+	};
+	initHeader();
+	document.addEventListener("astro:page-load", initHeader);
+	document.addEventListener("astro:before-swap", () => controller?.destroy());
 </script>

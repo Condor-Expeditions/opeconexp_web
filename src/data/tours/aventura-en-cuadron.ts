@@ -1,0 +1,47 @@
+import { mountainPacking, paidConditions, source } from "./shared";
+import type { Tour } from "./types";
+
+export default {
+	enabled: false,
+	id: "NAT-004", slug: "aventura-en-cuadron", title: "Aventura en Girón: Cascada & Laguna", signature: "Un día para sentirlo todo",
+	category: "Naturaleza · Aventura · Historia", location: "Girón · San Fernando",
+	destinations: ["giron"], experienceTypes: ["naturaleza", "aventura", "historia"],
+	summary: "La fuerza de El Chorro, una aventura en cuadrón y la calma de Busa.",
+	description: "Combina historia, cascadas y paisajes andinos: recorre el Templete de Tarqui y la Casa de los Tratados, descubre el Centro Histórico de Girón, siente la adrenalina de 30 minutos en cuadrón, contempla El Chorro y relájate en la Laguna de Busa.",
+	duration: "8 h 15 min", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias, aventureros y grupos.", season: "Todo el año",
+	price: { kind: "paid", adult: 85 }, meeting: "Parque Calderón / Hotel Ensueños, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",
+	operation: "Viernes a domingo", operatingDays: [0, 5, 6], departures: ["08:30"], minimumPeople: 4,
+	transport: "Van turística de 12–16 plazas", transferDuration: "Aproximadamente 3 horas.",
+	highlights: [
+		{ title: "Historia en el camino", description: "El Templete de Tarqui y la Casa de los Tratados conectan el paisaje con su pasado." },
+		{ title: "Treinta minutos de aventura", description: "Un circuito en cuadrón con casco y equipo de seguridad en el entorno de El Chorro." },
+		{ title: "La calma de Busa", description: "Senderismo y tiempo libre junto a la laguna de San Fernando." },
+	],
+	itinerary: [
+		{ durationMinutes: 15, title: "Salida desde Cuenca", description: "Encuentro y traslado privado hacia Girón." },
+		{ durationMinutes: 40, title: "Templete de Tarqui", description: "Parada histórica y recorrido explicativo por el monumento de Portete de Tarqui." },
+		{ durationMinutes: 60, title: "Casa de los Tratados y Girón", description: "Visita guiada al museo y caminata por el centro histórico." },
+		{ durationMinutes: 140, title: "El Chorro y el cuadrón", description: "Caminata interpretativa y circuito de 30 minutos en ATV con instructor local." },
+		{ durationMinutes: 60, title: "Almuerzo tradicional", description: "Almuerzo completo en un restaurante de Girón o San Fernando, incluido en el programa." },
+		{ durationMinutes: 120, title: "Laguna de Busa", description: "Recorrido por el lago, senderismo y tiempo libre. El paseo en bote se paga aparte." },
+		{ durationMinutes: 60, title: "De vuelta en Cuenca", description: "Traslado y despedida en Parque Calderón / Hotel Ensueños." },
+	],
+	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional acreditado durante el recorrido.", "Entradas al Templete, Casa de los Tratados, El Chorro y Busa.", "Circuito de 30 minutos en cuadrón con casco y seguridad.", "Almuerzo tradicional completo, agua embotellada y snack."],
+	excludes: ["Alquiler opcional de bote o pato en Busa.", "Bebidas alcohólicas y consumos adicionales al menú.", "Propinas opcionales.", "Compras personales y souvenirs.", "Recogida personalizada puerta a puerta en hotel."],
+	packing: [...mountainPacking, { title: "Para el entorno natural", description: "Lleva repelente y protege tu cámara del agua." }],
+	restrictions: [
+		{ title: "Edad y caminatas", description: "Tour desde 5 años. Nivel regular a moderado para caminatas de 2–3 horas." },
+		{ title: "Salud", description: "No recomendado en embarazos avanzados o cardiopatías." },
+		{ title: "Respeto por la naturaleza", description: "No fumar, botar basura ni extraer especies." },
+	],
+	conditions: paidConditions,
+	practical: ["Lleva efectivo para actividades opcionales y compras."],
+	photos: [
+		{ src: "/src/assets/tours/demo/cascada.jpg", alt: "Una cascada entre rocas y vegetación" },
+		{ src: "/src/assets/tours/demo/laguna.jpg", alt: "Lago rodeado de montañas" },
+		{ src: "/public/assets/menu/tours/conoce-deleg.jpg", alt: "Sendero a través del bosque" },
+		{ src: "/src/assets/tours/nevado.jpg", alt: "Una cumbre nevada de los Andes" },
+		{ src: "/public/assets/menu/tours/walking-tour-gastronomico.webp", alt: "Una experiencia gastronómica local" },
+	], illustrativePhotos: true,
+	source: source("NAT-004", ["A69", "C69"], ["Código NAT-004 normalizado para evitar duplicación con Cascada de Girón; el interior del Excel aún dice NAT-003.", "No añadir condiciones de conducción ATV en esta actualización, por indicación del propietario.", "D10 contiene un encabezado en vez del idioma: español con inglés sujeto a disponibilidad, según indicación del propietario.", "Mínimo operativo B32: 4; no usar rentabilidad D15. Días según B14, no plantilla C69.", "Política de cancelación pendiente de revisión."]),
+} satisfies Tour;

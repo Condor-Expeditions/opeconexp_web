@@ -33,7 +33,7 @@ const units = [
 		ogImage={horizontal.src}
 		viewTransition={false}
 	/>
-	<body>
+	<body class="launch-body">
 		<div class="launch-page">
 			<picture class="landscape" aria-hidden="true">
 				<source
@@ -222,9 +222,9 @@ const units = [
 </script>
 
 <style>
-	:global(body) {
+	:global(body.launch-body) {
 		margin: 0;
-		background: #162522;
+		background: var(--color-negro);
 		color: #fff;
 	}
 	.launch-page {
@@ -313,14 +313,14 @@ const units = [
 		font-size: 10px;
 		font-weight: 500;
 		letter-spacing: 3px;
-		color: #f4efdc;
+		color: var(--color-blanco);
 	}
 	.eyebrow > span {
 		width: 5px;
 		height: 5px;
 		border-radius: 50%;
-		background: #f4efdc;
-		box-shadow: 0 0 0 4px #f4efdc16;
+		background: var(--color-blanco);
+		box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-blanco) 9%, transparent);
 	}
 	h1 {
 		font-family: "Red Hat Text", sans-serif;
@@ -370,12 +370,12 @@ const units = [
 		font-size: 10px;
 		text-transform: uppercase;
 		letter-spacing: 2.4px;
-		color: #f4efdc;
+		color: var(--color-blanco);
 	}
 	.date-line {
 		height: 1px;
 		width: 40px;
-		background: #f4efdc55;
+		background: color-mix(in srgb, var(--color-blanco) 33%, transparent);
 	}
 	launch-countdown {
 		display: block;
@@ -437,7 +437,7 @@ const units = [
 		gap: 12px;
 		padding: 14px 21px;
 		border-radius: 6px;
-		background: #f4efdc;
+		background: var(--color-blanco);
 		color: #243b34;
 		font-size: 12px;
 		font-weight: 600;
@@ -502,7 +502,7 @@ const units = [
 		background: #ffffff20;
 	}
 	a:focus-visible {
-		outline: 2px solid #f4efdc;
+		outline: 2px solid var(--color-blanco);
 		outline-offset: 5px;
 	}
 	@media (prefers-reduced-motion: no-preference) {

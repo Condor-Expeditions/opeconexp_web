@@ -1,0 +1,183 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { Tour } from "@/data/tours/types";
+import { getTourPhoto } from "@/data/tours/images";
+import { tourHref } from "@/data/tours";
+import { experienceLabels } from "@/data/tours/taxonomy";
+
+interface Props {
+	tour: Tour;
+	index: number;
+}
+const { tour, index } = Astro.props;
+const galleryId = `card-gallery-${tour.slug}`;
+const sizes = "(min-width: 1100px) 30vw, (min-width: 680px) 45vw, 92vw";
+---
+
+<article
+	class="tour-card"
+	data-tour-card
+	data-destinations={tour.destinations.join(" ")}
+	data-experiences={tour.experienceTypes.join(" ")}
+	aria-labelledby={`card-title-${tour.slug}`}
+>
+	<div
+		class="card-gallery"
+		role="region"
+		aria-roledescription="carrusel"
+		aria-label={`Fotografías de ${tour.title}`}
+	>
+		<div class="card-viewport" id={galleryId}>
+			<div class="card-track">
+				{
+					tour.photos.map((photo, photoIndex) => (
+						<div
+							class="card-slide"
+							role="group"
+							aria-roledescription="diapositiva"
+							aria-label={`${photoIndex + 1} de ${tour.photos.length}`}
+							aria-hidden={photoIndex !== 0 ? "true" : undefined}
+							style={`--card-photo-position: ${photo.position ?? "50% 50%"}`}
+						>
+							{photoIndex === 0 ? (
+								<Image
+									src={getTourPhoto(photo)}
+									alt={photo.alt}
+									width={800}
+									height={600}
+									fit="cover"
+									widths={[400, 640, 800]}
+									sizes={sizes}
+									format="webp"
+									quality={82}
+									loading={index < 3 ? "eager" : "lazy"}
+									draggable="false"
+								/>
+							) : (
+								<template data-card-image>
+									<Image
+										src={getTourPhoto(photo)}
+										alt={photo.alt}
+										width={800}
+										height={600}
+										fit="cover"
+										widths={[400, 640, 800]}
+										sizes={sizes}
+										format="webp"
+										quality={82}
+										loading="lazy"
+										draggable="false"
+									/>
+								</template>
+							)}
+						</div>
+					))
+				}
+			</div>
+		</div>
+		<div class="card-image-top">
+			<span class="card-category"
+				>{
+					tour.provisional
+						? "En preparación"
+						: experienceLabels[tour.experienceTypes[0]]
+				}</span
+			><span class="card-number" aria-hidden="true"
+				>{String(index + 1).padStart(2, "0")}</span
+			>
+		</div>
+		{
+			tour.photos.length > 1 && (
+				<div class="card-gallery-controls" hidden>
+					<button
+						class="card-arrow card-prev"
+						type="button"
+						aria-label={`Foto anterior de ${tour.title}`}
+						aria-controls={galleryId}
+					>
+						<Icon name="chevron-right" aria-hidden="true" />
+					</button>
+					<button
+						class="card-arrow card-next"
+						type="button"
+						aria-label={`Foto siguiente de ${tour.title}`}
+						aria-controls={galleryId}
+					>
+						<Icon name="chevron-right" aria-hidden="true" />
+					</button>
+					<span
+						class="sr-only"
+						aria-live="polite"
+						aria-atomic="true"
+					>
+						Foto <span data-photo-current>1</span> de
+						{tour.photos.length}
+					</span>
+				</div>
+			)
+		}
+	</div>
+	<div class="card-body">
+		<p class="card-location">
+			<Icon name="map-pin" aria-hidden="true" />{tour.location}
+		</p>
+		<h2 id={`card-title-${tour.slug}`}>
+			<a href={tourHref(tour)}>{tour.title}</a>
+		</h2>
+		<p class="card-summary">{tour.summary}</p>
+		<div class="card-facts">
+			<span><Icon name="clock" aria-hidden="true" />{tour.duration}</span
+			><span
+				><Icon name="mountain" aria-hidden="true" />{
+					tour.difficulty
+				}</span
+			>
+		</div>
+		<div class="card-bottom">
+			<div class="card-price">
+				{
+					tour.price.kind === "paid" ? (
+						<>
+							<>
+								<span>Desde</span>
+								<p>
+									<strong>
+										$
+										{tour.price.adult.toLocaleString(
+											"es-EC",
+										)}
+									</strong>{" "}
+									<span>USD / persona</span>
+								</p>
+							</>
+						</>
+					) : tour.price.kind === "free" ? (
+						<>
+							<>
+								<strong>Gratuito</strong>
+								<span>Aporte voluntario</span>
+							</>
+						</>
+					) : (
+						<>
+							<>
+								<strong>Precio por confirmar</strong>
+								<span>Propuesta provisional</span>
+							</>
+						</>
+					)
+				}
+			</div>
+			<a
+				class="card-cta"
+				href={tourHref(tour)}
+				aria-label={`Explorar ${tour.title}`}
+				><span>Explorar tour</span><Icon
+					name="arrow-up-right"
+					aria-hidden="true"
+				/></a
+			>
+		</div>
+	</div>
+</article>

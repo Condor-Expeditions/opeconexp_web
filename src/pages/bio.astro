@@ -2,8 +2,9 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import Logo from "@/assets/logo.svg";
-import landscape from "@/assets/tours/cajas.jpg";
+import landscape from "@/assets/tours/laguna-toreadora/20261012_0293.webp";
 import BaseHead from "@/components/shared/BaseHead";
+import TourismRegistration from "@/components/shared/TourismRegistration";
 import { siteConfig } from "@/data/site.config";
 
 const { companyInfo } = siteConfig;
@@ -182,6 +183,7 @@ const socials = ["instagram", "facebook", "tiktok"].flatMap((icon) =>
 					</section>
 				</div>
 				<footer class="flex flex-col items-center gap-4">
+					<TourismRegistration compact />
 					<Icon
 						name="brand/condor_color"
 						class="w-40 h-auto"
@@ -201,7 +203,7 @@ const socials = ["instagram", "facebook", "tiktok"].flatMap((icon) =>
 <style>
 	:global(body) {
 		margin: 0;
-		background: var(--color-crema);
+		background: var(--color-blanco);
 		color: #262822;
 	}
 	.link-page {
@@ -261,7 +263,7 @@ const socials = ["instagram", "facebook", "tiktok"].flatMap((icon) =>
 		width: 6px;
 		height: 6px;
 		border-radius: 50%;
-		background: var(--color-crema);
+		background: var(--color-blanco);
 	}
 	.intro {
 		position: relative;
@@ -337,7 +339,7 @@ const socials = ["instagram", "facebook", "tiktok"].flatMap((icon) =>
 	.link:hover {
 		transform: translateY(-2px);
 		border-color: #aea58e;
-		background: #f4efdc70;
+		background: color-mix(in srgb, var(--color-blanco) 44%, transparent);
 	}
 	.link-icon {
 		display: flex;
@@ -404,7 +406,7 @@ const socials = ["instagram", "facebook", "tiktok"].flatMap((icon) =>
 	}
 	.social .link-icon {
 		border-radius: 9px;
-		background: #f4efdc80;
+		background: color-mix(in srgb, var(--color-blanco) 50%, transparent);
 	}
 	.contact {
 		margin-top: 28px;

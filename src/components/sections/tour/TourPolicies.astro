@@ -1,0 +1,16 @@
+---
+import { commercialPolicies } from "@/data/commercial-policies";
+import PolicyContent from "@/components/shared/PolicyContent";
+interface Props { free: boolean; }
+const { free } = Astro.props;
+---
+<section id="politicas" class="tour-content-section" aria-labelledby="policies-title">
+	<p class="tour-eyebrow"><span>06</span> Antes de reservar</p>
+	<h2 id="policies-title">Reservas, cambios <em>y cancelaciones.</em></h2>
+	{free && <p class="tour-note">Este Free Walking Tour no tiene tarifa fija ni requiere anticipo. El aporte al guía es voluntario al finalizar. A continuación puedes consultar las políticas comerciales generales de la operadora.</p>}
+	<div class="tour-practical tour-policy-details">{commercialPolicies.map(section => <details open={!free && section.id === "cancelaciones"}>
+		<summary>{section.title}<span class="details-toggle" aria-hidden="true"></span></summary>
+		<PolicyContent sectionId={section.id} />
+	</details>)}</div>
+	<a class="tour-policy-link" href="/politicas-comerciales">Ver las políticas comerciales completas →</a>
+</section>

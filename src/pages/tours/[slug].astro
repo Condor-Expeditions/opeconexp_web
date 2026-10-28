@@ -1,0 +1,95 @@
+---
+import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout";
+import { tours, tourHref } from "@/data/tours";
+import type { Tour } from "@/data/tours/types";
+import { getTourPhoto } from "@/data/tours/images";
+import { formatStageDuration } from "@/data/tours/duration";
+import TourGallery from "../../components/sections/tour/TourGallery.astro";
+import TourInquiry from "../../components/sections/tour/TourInquiry.astro";
+import TourPrice from "../../components/sections/tour/TourPrice.astro";
+import TourPolicies from "../../components/sections/tour/TourPolicies.astro";
+// Shared styles keep all tour details consistent.
+import "../../components/sections/tour/tour.css";
+
+export const getStaticPaths = (() => tours.map(tour => ({ params: { slug: tour.slug }, props: { tour } }))) satisfies GetStaticPaths;
+interface Props { tour: Tour; }
+const { tour } = Astro.props;
+const related = tours.filter(item => item.id !== tour.id).slice(0, 3);
+const sections = [{ id: "experiencia", title: "La experiencia" }, { id: "itinerario", title: "Itinerario" }, { id: "incluye", title: "Qué incluye" }, { id: "preparacion", title: "Antes de ir" }, { id: "encuentro", title: "Punto de encuentro" }, { id: "politicas", title: "Políticas" }];
+const mapSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tour.meeting)}`;
+const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { icon: "mountain", label: "Dificultad", value: tour.difficulty }, { icon: "world", label: "Idiomas", value: tour.languages }, { icon: "map-pin", label: "Salida desde", value: "Cuenca, Ecuador" }];
+---
+
+<Layout title={tour.title} description={tour.description}>
+	<a class="tour-skip" href="#experiencia">Saltar al contenido del tour</a>
+	<main class="tour-detail">
+		<div class="tour-shell">
+			<header class="tour-heading">
+				<a class="tour-back-link" href="/tours"><Icon name="chevron-right" aria-hidden="true" /><span>Todos los tours</span></a>
+				<div class="tour-heading-meta"><p><Icon name="map-pin" aria-hidden="true" />{tour.location}</p><span>{tour.category}</span></div>
+				<div class="tour-title-row"><h1>{tour.title}</h1><button class="tour-share" type="button" data-tour-share hidden aria-label="Compartir este tour"><Icon name="share" aria-hidden="true" /><span>Compartir</span></button></div>
+				<div class="tour-signature-row"><p class="tour-signature">{tour.signature}</p><span class="tour-share-status" role="status"></span></div>
+				<div class="tour-share-fallback" hidden><label for="tour-share-url">Copia el enlace del tour</label><input id="tour-share-url" type="url" readonly /></div>
+			</header>
+			{tour.provisional && <aside class="tour-provisional-notice" role="note"><strong>Experiencia en preparación.</strong> Contenido provisional: precio, itinerario y servicios pendientes de validación. Todavía no hay salidas disponibles.</aside>}
+			<TourGallery tour={tour} />
+			<div class="tour-facts">{facts.map(fact => <div class="tour-fact"><Icon name={fact.icon} aria-hidden="true" /><div><span>{fact.label}</span><strong>{fact.value}</strong></div></div>)}</div>
+			<nav class="tour-section-nav" aria-label="Secciones del tour">{sections.map((section, i) => <a href={`#${section.id}`} aria-current={i === 0 ? "location" : undefined}>{section.title}</a>)}<a class="section-nav-cta" href="#consultar">Consultar salida <Icon name="arrow-up-right" aria-hidden="true" /></a></nav>
+			<div class="tour-content-layout">
+				<div class="tour-story">
+					<section id="experiencia" class="tour-content-section" aria-labelledby="experience-title">
+						<p class="tour-eyebrow"><span>01</span> La experiencia</p>
+						<h2 id="experience-title">No solo conocer.<br /><em>Sentir el lugar.</em></h2>
+						<p class="tour-intro">{tour.description}</p>
+						<div class="tour-highlights">{tour.highlights.map((highlight, i) => <div class="tour-highlight"><span class="highlight-number">0{i + 1}</span><div><h3>{highlight.title}</h3><p>{highlight.description}</p></div><Icon name="asterisk" aria-hidden="true" /></div>)}</div>
+						{tour.durationNote && <p class="tour-note"><Icon name="clock" aria-hidden="true" /><span>{tour.durationNote}</span></p>}
+						{tour.languageNote && <p class="tour-small-note">{tour.languageNote}</p>}
+					</section>
+					<section id="itinerario" class="tour-content-section" aria-labelledby="itinerary-title">
+						<div class="section-heading"><div><p class="tour-eyebrow"><span>02</span> El recorrido</p><h2 id="itinerary-title">Así se vive <em>el día.</em></h2></div><span class="section-aside">{tour.itinerary.length} momentos<br />Una experiencia</span></div>
+						<p class="section-description">{tour.provisional ? "Programa preliminar, pendiente de validación. No representa un itinerario confirmado." : "Duraciones aproximadas por etapa; incluyen los traslados indicados en cada actividad. Pueden variar según el ritmo del grupo y las condiciones de la ruta."}</p>
+						<ol class="tour-timeline">{tour.itinerary.map((stop, i) => <li><span class="timeline-dot" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><details open={i === 0}><summary><span class="timeline-duration">{formatStageDuration(stop.durationMinutes)}</span><h3>{stop.title}</h3><span class="details-toggle" aria-hidden="true"></span></summary><p>{stop.description}</p></details></li>)}</ol>
+					</section>
+					<section id="incluye" class="tour-content-section" aria-labelledby="includes-title">
+						<p class="tour-eyebrow"><span>03</span> Sin sorpresas</p><h2 id="includes-title">Todo <em>en claro.</em></h2>
+						<div class="tour-inclusions"><div><h3><span class="inclusion-symbol" aria-hidden="true">+</span>Tu experiencia incluye</h3><ul>{tour.includes.map(text => <li><span aria-hidden="true">✓</span>{text}</li>)}</ul></div><div><h3><span class="inclusion-symbol exclusion-symbol" aria-hidden="true">−</span>No está incluido</h3><ul>{tour.excludes.map(text => <li><span aria-hidden="true">−</span>{text}</li>)}</ul></div></div>
+					</section>
+					<section id="preparacion" class="tour-content-section" aria-labelledby="packing-title">
+						<p class="tour-eyebrow"><span>04</span> Viaja preparado</p><h2 id="packing-title">Lo esencial <em>va contigo.</em></h2>
+						<div class="tour-packing">{tour.packing.map((item, i) => <div><span>0{i + 1}</span><h3>{item.title}</h3><p>{item.description}</p></div>)}</div>
+						<div class="tour-practical"><h3>Ten en cuenta</h3>{tour.restrictions.map(item => <details><summary>{item.title}<span class="details-toggle" aria-hidden="true"></span></summary><p>{item.description}</p></details>)}</div>
+					</section>
+					<section id="encuentro" class="tour-content-section" aria-labelledby="meeting-title">
+						<p class="tour-eyebrow"><span>05</span> Aquí comienza</p><h2 id="meeting-title">Nos vemos <em>en Cuenca.</em></h2>
+						<div class="tour-meeting"><div class="meeting-icon"><Icon name="map-pin" aria-hidden="true" /></div><div><span class="tour-eyebrow">Punto de encuentro</span><h3>{tour.meeting}</h3><p>Confirma el punto exacto con nuestro equipo antes de salir.</p>{!tour.provisional && <a href={mapSearch} target="_blank" rel="noopener noreferrer">Buscar en Google Maps <Icon name="arrow-up-right" aria-hidden="true" /></a>}</div></div>
+						<dl class="tour-logistics"><div><dt>Salidas habituales</dt><dd>{tour.operation}</dd></div><div><dt>Horarios de salida</dt><dd>{tour.departures.join(" / ") || "Por confirmar"}</dd></div><div><dt>Regreso</dt><dd>{tour.returnPoint}</dd></div><div><dt>Cómo nos movemos</dt><dd>{tour.transport}</dd></div><div><dt>Grupo mínimo</dt><dd>{tour.provisional ? "Por confirmar" : `${tour.minimumPeople} personas confirmadas para operar`}</dd></div><div><dt>Temporada</dt><dd>{tour.season}</dd></div><div><dt>Para quién</dt><dd>{tour.audience}</dd></div></dl>
+						<ul class="tour-practical-list">{tour.practical.map(item => <li>{item}</li>)}</ul>
+						{tour.conditions.length > 0 && <div class="tour-practical tour-conditions"><h3>Antes de confirmar</h3>{tour.conditions.map(item => <details><summary>{item.title}<span class="details-toggle" aria-hidden="true"></span></summary><p>{item.description}</p></details>)}</div>}
+					</section>
+					<TourPolicies free={tour.price.kind === "free"} />
+				</div>
+				<div class="tour-inquiry-column"><TourInquiry tour={tour} /><p class="inquiry-signature">Menos prisa.<br />Más historias que contar.</p></div>
+			</div>
+			<section class="tour-more" aria-labelledby="more-title">
+				<div><p class="tour-eyebrow">El viaje no termina aquí</p><h2 id="more-title">Otra ruta, <em>otra historia.</em></h2></div>
+				<div class="tour-more-links">{related.map(item => <a href={tourHref(item)}>
+					<div class="tour-more-photo"><Image src={getTourPhoto(item.photos[0])} alt="" width={240} height={320} fit="cover" widths={[120, 240]} sizes="(max-width: 600px) 96px, 88px" format="webp" loading="lazy" style={`object-position: ${item.photos[0].position ?? "50% 50%"}`} /></div>
+					<div class="tour-more-content"><span class="tour-eyebrow">{item.location}</span><h3>{item.title}</h3><div class="tour-more-meta"><TourPrice price={item.price} compact /><Icon name="arrow-up-right" aria-hidden="true" /></div></div>
+				</a>)}</div>
+			</section>
+		</div>
+		<div class="tour-mobile-bar"><TourPrice price={tour.price} compact /><a href="#consultar" class="tour-button">Consultar <Icon name="arrow-up-right" aria-hidden="true" /></a></div>
+	</main>
+</Layout>
+
+<script>
+	import { initTourDetail } from "../../components/sections/tour/tour-interactions";
+	let cleanup: (() => void) | undefined;
+	const init = () => { cleanup?.(); cleanup = initTourDetail(); };
+	init();
+	document.addEventListener("astro:page-load", init);
+	document.addEventListener("astro:before-swap", () => cleanup?.());
+</script>

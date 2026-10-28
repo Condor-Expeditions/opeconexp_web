@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout";
+
+interface Props { title: string; }
+const { title } = Astro.props;
+---
+
+<Layout title={title}>
+	<main class="mx-auto flex min-h-svh w-[82%] items-center pt-64 pb-24">
+		<h1 class="text-5xl md:text-7xl">{title}</h1>
+	</main>
+</Layout>

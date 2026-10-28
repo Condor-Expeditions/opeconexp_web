@@ -1,8 +1,11 @@
 ---
 import HeroSection from "@/components/sections/index/Hero";
+import ContactCTA from "@/components/sections/index/ContactCTA";
 import Countdown from "@/components/sections/launch/Countdown";
 import { launchConfig } from "@/data/launch.config";
 import Layout from "@/layouts/Layout";
+import HomeInformation from "@/components/sections/index/HomeInformation";
+import "../styles/information.css";
 ---
 
 {
@@ -14,7 +17,11 @@ import Layout from "@/layouts/Layout";
 			description="Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala."
 			lang="es"
 		>
-			<HeroSection lang="es" />
+			<main>
+				<HeroSection lang="es" />
+				<HomeInformation />
+				<ContactCTA lang="es" />
+			</main>
 		</Layout>
 	)
 }
