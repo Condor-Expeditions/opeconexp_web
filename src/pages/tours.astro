@@ -63,6 +63,7 @@ const filters = [
 </Layout>
 
 <script>
+	import "../components/sections/tours/catalog-return";
 	import { initTourCatalog } from "../components/sections/tours/catalog-interactions";
 	let cleanup: (() => void) | undefined;
 	const init = () => { cleanup?.(); cleanup = initTourCatalog(); };

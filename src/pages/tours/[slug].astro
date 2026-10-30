@@ -28,7 +28,7 @@ const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { ic
 	<main class="tour-detail">
 		<div class="tour-shell">
 			<header class="tour-heading">
-				<a class="tour-back-link" href="/tours"><Icon name="chevron-right" aria-hidden="true" /><span>Todos los tours</span></a>
+				<a class="tour-back-link" href="/tours" data-catalog-return><Icon name="chevron-right" aria-hidden="true" /><span>Todos los tours</span></a>
 				<div class="tour-heading-meta"><p><Icon name="map-pin" aria-hidden="true" />{tour.location}</p><span>{tour.category}</span></div>
 				<div class="tour-title-row"><h1>{tour.title}</h1><button class="tour-share" type="button" data-tour-share hidden aria-label="Compartir este tour"><Icon name="share" aria-hidden="true" /><span>Compartir</span></button></div>
 				<div class="tour-signature-row"><p class="tour-signature">{tour.signature}</p><span class="tour-share-status" role="status"></span></div>
@@ -37,7 +37,7 @@ const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { ic
 			{tour.provisional && <aside class="tour-provisional-notice" role="note"><strong>Experiencia en preparación.</strong> Contenido provisional: precio, itinerario y servicios pendientes de validación. Todavía no hay salidas disponibles.</aside>}
 			<TourGallery tour={tour} />
 			<div class="tour-facts">{facts.map(fact => <div class="tour-fact"><Icon name={fact.icon} aria-hidden="true" /><div><span>{fact.label}</span><strong>{fact.value}</strong></div></div>)}</div>
-			<nav class="tour-section-nav" aria-label="Secciones del tour">{sections.map((section, i) => <a href={`#${section.id}`} aria-current={i === 0 ? "location" : undefined}>{section.title}</a>)}<a class="section-nav-cta" href="#consultar">Consultar salida <Icon name="arrow-up-right" aria-hidden="true" /></a></nav>
+			<nav class="tour-section-nav" aria-label="Secciones del tour">{sections.map((section, i) => <a href={`#${section.id}`} aria-current={i === 0 ? "location" : undefined}>{section.title}</a>)}</nav>
 			<div class="tour-content-layout">
 				<div class="tour-story">
 					<section id="experiencia" class="tour-content-section" aria-labelledby="experience-title">
@@ -86,6 +86,7 @@ const facts = [{ icon: "clock", label: "Duración", value: tour.duration }, { ic
 </Layout>
 
 <script>
+	import "../../components/sections/tours/catalog-return";
 	import { initTourDetail } from "../../components/sections/tour/tour-interactions";
 	let cleanup: (() => void) | undefined;
 	const init = () => { cleanup?.(); cleanup = initTourDetail(); };

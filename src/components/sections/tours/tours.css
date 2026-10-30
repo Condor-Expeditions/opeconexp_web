@@ -48,6 +48,8 @@
 .card-track { display: flex; }
 .card-slide { position: relative; flex: 0 0 100%; min-width: 0; aspect-ratio: 4 / 3; scroll-snap-align: start; }
 .card-slide img { width: 100%; height: 100%; object-fit: cover; object-position: var(--card-photo-position); }
+.card-photo-link { display: block; width: 100%; height: 100%; }
+.card-photo-link:focus-visible { outline: 2px solid var(--color-rojo); outline-offset: -5px; }
 .card-image-top { display: flex; align-items: center; justify-content: space-between; position: absolute; inset: 1rem 1rem auto; z-index: 1; pointer-events: none; }
 .card-category { background: rgb(255 255 255 / .95); color: black; border-radius: .2rem; padding: .4rem .65rem; font-size: .62rem; text-transform: uppercase; font-weight: 500; letter-spacing: .09em; }
 .card-number { font-size: .65rem; color: white; letter-spacing: .08em; }

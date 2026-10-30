@@ -93,7 +93,8 @@ test("hero, masonry and home feature cards render the new responsive photography
 	const menu = home.match(/<div class="destination-grid">[\s\S]*?<div class="menu-footer">/)[0];
 	for (const name of ["20261012_0293", "20261012_0101", "20261012_0167"]) assert.ok(menu.includes(name));
 	const featured = home.match(/<section[^>]*aria-labelledby="featured-title"[\s\S]*?<\/section>/)[0];
-	for (const slug of ["cajas-al-descubierto", "pueblitos-magicos", "raices-ancestrales-del-ecuador"]) {
+	assert.equal((featured.match(/<article\b/g) || []).length, 4);
+	for (const slug of ["cajas-al-descubierto", "pueblitos-magicos", "raices-ancestrales-del-ecuador", "aventura-en-cuadron"]) {
 		const tour = allTours.find(item => item.slug === slug);
 		assert.ok(featured.includes(path.parse(tour.photos[0].src).name));
 	}
