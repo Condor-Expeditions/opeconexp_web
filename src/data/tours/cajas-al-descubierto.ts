@@ -55,7 +55,7 @@ export default {
 	],
 	practical: ["Lleva efectivo desde Cuenca: no hay cajeros en la ruta.", "La ficha contempla una parada de servicios higiénicos en ruta.", "Si no se alcanza el mínimo de pasajeros, consulta reprogramación o servicio privado."],
 	photos: [
-		{ src: "/src/assets/tours/laguna-toreadora/20261012_0293.webp", alt: "Laguna Toreadora rodeada de montañas y vegetación de páramo en El Cajas", position: "50% 55%" },
+		{ src: "/src/assets/tours/laguna-toreadora/20261012_0308.webp", alt: "Aguas de la laguna Toreadora bajo las montañas del páramo y un cielo azul", position: "50% 55%" },
 		{ src: "/src/assets/tours/mirador-tres-cruces/20261012_0233.webp", alt: "Vista del páramo y la carretera desde el mirador Tres Cruces" },
 		{ src: "/src/assets/tours/virgen-del-cajas/20261012_0411.webp", alt: "Santuario de la Virgen del Cajas al pie de las montañas" },
 		{ src: "/src/assets/tours/dos-chorreras/20261012_0600.webp", alt: "Construcción de piedra y pequeñas cascadas en Dos Chorreras" },

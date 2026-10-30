@@ -2,7 +2,7 @@ import { mountainPacking, paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: false,
+	enabled: true,
 	id: "NAT-004", slug: "aventura-en-cuadron", title: "Aventura en Girón: Cascada & Laguna", signature: "Un día para sentirlo todo",
 	category: "Naturaleza · Aventura · Historia", location: "Girón · San Fernando",
 	destinations: ["giron"], experienceTypes: ["naturaleza", "aventura", "historia"],
@@ -37,11 +37,15 @@ export default {
 	conditions: paidConditions,
 	practical: ["Lleva efectivo para actividades opcionales y compras."],
 	photos: [
-		{ src: "/src/assets/tours/demo/cascada.jpg", alt: "Una cascada entre rocas y vegetación" },
-		{ src: "/src/assets/tours/demo/laguna.jpg", alt: "Lago rodeado de montañas" },
-		{ src: "/public/assets/menu/tours/conoce-deleg.jpg", alt: "Sendero a través del bosque" },
-		{ src: "/src/assets/tours/nevado.jpg", alt: "Una cumbre nevada de los Andes" },
-		{ src: "/public/assets/menu/tours/walking-tour-gastronomico.webp", alt: "Una experiencia gastronómica local" },
-	], illustrativePhotos: true,
+		{ src: "/src/assets/tours/busa/20261024_0227.webp", alt: "Montañas entre nubes reflejadas en las aguas de la laguna de Busa", position: "50% 55%" },
+		{ src: "/src/assets/tours/el-chorro/20261024_0088.webp", alt: "Cascada El Chorro de Girón junto a la pasarela de madera" },
+		{ src: "/src/assets/tours/el-chorro/20261024_0142.webp", alt: "Cuadrones estacionados en el entorno de El Chorro de Girón" },
+		{ src: "/src/assets/tours/busa/20261024_0187.webp", alt: "Pasarela de madera entre la laguna de Busa y las montañas de San Fernando" },
+		{ src: "/src/assets/tours/templete-de-tarqui/20261024_0013.webp", alt: "Escalinata y mural histórico del Templete de Tarqui" },
+		{ src: "/src/assets/tours/museo-de-los-tratados/20261024_0034.webp", alt: "Cañón y jardines frente al Museo Casa de los Tratados de Girón" },
+		{ src: "/src/assets/tours/iglesia-de-giron/20261024_0309.webp", alt: "Glorieta y jardines de la plaza central de Girón" },
+		{ src: "/src/assets/tours/busa/20261024_0222.webp", alt: "Sendero de madera entre la vegetación junto a la laguna de Busa" },
+		{ src: "/src/assets/tours/busa/20261024_0249.webp", alt: "Nubes y montañas reflejadas sobre la superficie de la laguna de Busa" },
+	], illustrativePhotos: false,
 	source: source("NAT-004", ["A69", "C69"], ["Código NAT-004 normalizado para evitar duplicación con Cascada de Girón; el interior del Excel aún dice NAT-003.", "No añadir condiciones de conducción ATV en esta actualización, por indicación del propietario.", "D10 contiene un encabezado en vez del idioma: español con inglés sujeto a disponibilidad, según indicación del propietario.", "Mínimo operativo B32: 4; no usar rentabilidad D15. Días según B14, no plantilla C69.", "Política de cancelación pendiente de revisión."]),
 } satisfies Tour;

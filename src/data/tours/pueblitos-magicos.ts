@@ -2,7 +2,7 @@ import { mountainPacking, paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: false,
+	enabled: true,
 	id: "CULT-001", slug: "pueblitos-magicos", title: "Pueblitos Mágicos: Historia, Oro y Tradición", signature: "Hecho a mano, vivido de cerca",
 	category: "Cultura · Artesanía · Arqueología", location: "Ingapirca · Chordeleg · Gualaceo",
 	destinations: ["ingapirca", "chordeleg", "gualaceo"], experienceTypes: ["cultura", "artesania", "arqueologia"],
@@ -43,12 +43,18 @@ export default {
 	conditions: paidConditions,
 	practical: ["Lleva efectivo en billetes pequeños para compras y talleres.", "Consulta con el guía la disponibilidad de servicios durante la ruta."],
 	photos: [
+		{ src: "/src/assets/tours/chordeleg/20261024_0537.webp", alt: "Paseo entre jardines y árboles de la plaza central de Chordeleg", position: "50% 55%" },
 		{ src: "/src/assets/tours/ingapirca/20261012_0101.webp", alt: "Templo del Sol de Ingapirca rodeado de vegetación bajo el cielo andino", position: "50% 60%" },
 		{ src: "/src/assets/tours/ingapirca/20261012_0021.webp", alt: "Vista general de los muros y recintos del Complejo Arqueológico Ingapirca" },
 		{ src: "/src/assets/tours/ingapirca/20261012_0017.webp", alt: "Sendero entre los vestigios arqueológicos y árboles de Ingapirca" },
 		{ src: "/src/assets/tours/ingapirca/20261012_0056.webp", alt: "Piedras labradas junto a los muros de Ingapirca" },
 		{ src: "/src/assets/tours/ingapirca/20261012_0090.webp", alt: "Terrazas y bloques de piedra del Templo del Sol en Ingapirca" },
 		{ src: "/src/assets/tours/ingapirca/20261012_0067.webp", alt: "Llamas pastando en las áreas verdes de Ingapirca" },
+		{ src: "/src/assets/tours/chordeleg/20261024_0596.webp", alt: "Artesano elaborando una pieza de filigrana en su taller de Chordeleg" },
+		{ src: "/src/assets/tours/chordeleg/20261024_0554.webp", alt: "Fachadas y balcones del centro histórico de Chordeleg" },
+		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0439.webp", alt: "Manos tejiendo sobre un telar tradicional en la Casa de la Makana" },
+		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0397.webp", alt: "Demostración de colorantes naturales durante la visita al Museo de la Makana" },
+		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0475.webp", alt: "Prendas, hilos y artesanías en el taller de la Casa de la Makana" },
 	], illustrativePhotos: false,
 	source: source("CULT-001", ["A75", "C75"], ["Ruta actualizada a Ingapirca, Gualaceo y Chordeleg según A22:A32; Sígsig ya no forma parte de este tour.", "Precio base adulto $35; no publicar promoción $32 ni tarifa infantil.", "D14 confunde duración total con traslados; estos se obtienen de las etapas de transporte del itinerario.", "D10 español; inglés sujeto a disponibilidad. Política de cancelación pendiente de revisión."]),
 } satisfies Tour;

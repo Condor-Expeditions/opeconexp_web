@@ -10,16 +10,23 @@ const folders = {
 	"caminata-cajas": 10, cojitambo: 11, coyoctor: 12, "dos-chorreras": 12,
 	"casa-del-abuelo": 10, ingapirca: 10, "laguna-toreadora": 11,
 	"mirador-tres-cruces": 13, "virgen-del-cajas": 12,
+	busa: 11, chordeleg: 12, chobshi: 18, "el-chorro": 11,
+	"iglesia-de-giron": 10, "museo-de-la-makana": 14,
+	"museo-de-los-tratados": 7, "pailon-de-chobshi": 11, "templete-de-tarqui": 10,
 };
 const assignments = {
 	"cajas-al-descubierto": ["laguna-toreadora", "mirador-tres-cruces", "virgen-del-cajas", "dos-chorreras"],
 	"cajas-de-laguna-a-lo-ancestral": ["caminata-cajas", "casa-del-abuelo", "virgen-del-cajas", "dos-chorreras"],
 	"raices-ancestrales-del-ecuador": ["ingapirca", "cojitambo", "coyoctor"],
-	"pueblitos-magicos": ["ingapirca"],
+	"pueblitos-magicos": ["ingapirca", "chordeleg", "museo-de-la-makana"],
+	"cascada-de-giron": ["el-chorro", "templete-de-tarqui", "museo-de-los-tratados", "iglesia-de-giron"],
+	"aventura-en-cuadron": ["busa", "el-chorro", "templete-de-tarqui", "museo-de-los-tratados", "iglesia-de-giron"],
+	"compras-y-artesanias": ["chordeleg", "museo-de-la-makana"],
+	"raices-ancestrales-sigsig": ["chobshi", "pailon-de-chobshi"],
 };
 const load = route => readFile(new URL(`dist/${route}`, root), "utf8");
 
-test("all 101 supplied photographs are WebP masters, bounded to 2400px and stripped of metadata", async () => {
+test("all 205 supplied photographs are WebP masters, bounded to 2400px and stripped of metadata", async () => {
 	let count = 0;
 	for (const [folder, expected] of Object.entries(folders)) {
 		const directory = new URL(`src/assets/tours/${folder}/`, root);
@@ -37,7 +44,18 @@ test("all 101 supplied photographs are WebP masters, bounded to 2400px and strip
 			count++;
 		}
 	}
-	assert.equal(count, 101);
+	assert.equal(count, 205);
+});
+
+test("newly photographed tours are enabled and their covers are distinct", () => {
+	const slugs = ["cajas-al-descubierto", "cajas-de-laguna-a-lo-ancestral", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "cascada-de-giron", "aventura-en-cuadron", "compras-y-artesanias", "raices-ancestrales-sigsig"];
+	const covers = slugs.map(slug => {
+		const tour = allTours.find(item => item.slug === slug);
+		assert.equal(tour.enabled, true, slug);
+		return tour.photos[0].src;
+	});
+	assert.equal(new Set(covers).size, covers.length);
+	assert.match(allTours.find(tour => tour.id === "NAT-002").photos[0].src, /dos-chorreras/);
 });
 
 test("updated galleries use only supplied photos from places on their own itinerary", async () => {

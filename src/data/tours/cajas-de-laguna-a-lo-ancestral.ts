@@ -39,10 +39,10 @@ export default {
 	conditions: paidConditions,
 	practical: ["Retira efectivo antes de salir de Cuenca; no hay cajeros en la ruta.", "Consulta las paradas de servicios higiénicos con el guía.", "Indica si prefieres Guavidula o el taller de arte y pizza en Dos Chorreras; ambas variantes tienen el mismo precio."],
 	photos: [
-		{ src: "/src/assets/tours/caminata-cajas/20261012_0560.webp", alt: "Laguna y montañas del páramo durante una caminata en El Cajas", position: "50% 55%" },
+		{ src: "/src/assets/tours/dos-chorreras/20261012_0674.webp", alt: "Casas de piedra y techos de teja del poblado en Dos Chorreras entre montañas", position: "50% 60%" },
 		{ src: "/src/assets/tours/casa-del-abuelo/20261012_0824.webp", alt: "Estanque y montañas en La Casa del Abuelo" },
 		{ src: "/src/assets/tours/virgen-del-cajas/20261012_0401.webp", alt: "Área de contemplación del Santuario de la Virgen del Cajas" },
-		{ src: "/src/assets/tours/dos-chorreras/20261012_0674.webp", alt: "Casa de piedra con techo de teja y vegetación en Dos Chorreras" },
+		{ src: "/src/assets/tours/dos-chorreras/20261012_0668.webp", alt: "Fachada de piedra y techo cubierto de vegetación en el poblado de Dos Chorreras" },
 		{ src: "/src/assets/tours/caminata-cajas/20261012_0532.webp", alt: "Caminantes por un sendero del páramo entre montañas y una laguna" },
 		{ src: "/src/assets/tours/casa-del-abuelo/20261012_0784.webp", alt: "Interior del restaurante de La Casa del Abuelo" },
 		{ src: "/src/assets/tours/casa-del-abuelo/20261012_0809.webp", alt: "Cascadas de piedra junto al estanque de La Casa del Abuelo" },
