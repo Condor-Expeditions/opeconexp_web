@@ -9,7 +9,7 @@ export default {
 	summary: "La fuerza de El Chorro, una aventura en cuadrón y la calma de Busa.",
 	description: "Combina historia, cascadas y paisajes andinos: recorre el Templete de Tarqui y la Casa de los Tratados, descubre el Centro Histórico de Girón, siente la adrenalina de 30 minutos en cuadrón, contempla El Chorro y relájate en la Laguna de Busa.",
 	duration: "8 h 15 min", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias, aventureros y grupos.", season: "Todo el año",
-	price: { kind: "paid", adult: 85 }, meeting: "Parque Calderón / Hotel Ensueños, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",
+	price: { kind: "paid", adult: 45 }, meeting: "Parque Calderón / Hotel Ensueños, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",
 	operation: "Viernes a domingo", operatingDays: [0, 5, 6], departures: ["08:30"], minimumPeople: 4,
 	transport: "Van turística de 12–16 plazas", transferDuration: "Aproximadamente 3 horas.",
 	highlights: [

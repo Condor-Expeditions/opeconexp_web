@@ -10,7 +10,7 @@ export default {
 	description: "Descubre la grandeza arqueológica de Ingapirca junto a la orfebrería en filigrana de Chordeleg y la tradición textil del Ikat en Gualaceo en una sola jornada.",
 	duration: "8 h 15 min", durationNote: "La duración incluye las visitas, los traslados y el tiempo libre para almorzar.",
 	difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias, aventureros, amantes de la cultura y la fotografía y grupos.", season: "Todo el año",
-	price: { kind: "paid", adult: 35 },
+	price: { kind: "paid", adult: 40 },
 	meeting: "San Blas / Parque Calderón, Cuenca", returnPoint: "San Blas / Parque Calderón, Cuenca",
 	operation: "Miércoles a domingo", operatingDays: [0, 3, 4, 5, 6], departures: ["08:30"], minimumPeople: 4,
 	transport: "Transporte turístico privado · van de 12–16 plazas", transferDuration: "3 h 30 min de traslados indicados en el itinerario.",
@@ -56,5 +56,5 @@ export default {
 		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0397.webp", alt: "Demostración de colorantes naturales durante la visita al Museo de la Makana" },
 		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0475.webp", alt: "Prendas, hilos y artesanías en el taller de la Casa de la Makana" },
 	], illustrativePhotos: false,
-	source: source("CULT-001", ["A75", "C75"], ["Ruta actualizada a Ingapirca, Gualaceo y Chordeleg según A22:A32; Sígsig ya no forma parte de este tour.", "Precio base adulto $35; no publicar promoción $32 ni tarifa infantil.", "D14 confunde duración total con traslados; estos se obtienen de las etapas de transporte del itinerario.", "D10 español; inglés sujeto a disponibilidad. Política de cancelación pendiente de revisión."]),
+	source: source("CULT-001", ["A75", "C75"], ["Ruta actualizada a Ingapirca, Gualaceo y Chordeleg según A22:A32; Sígsig ya no forma parte de este tour.", "Precio base adulto $40 actualizado por indicación del propietario; prevalece sobre las tarifas del Excel. No publicar promoción ni tarifa infantil.", "D14 confunde duración total con traslados; estos se obtienen de las etapas de transporte del itinerario.", "D10 español; inglés sujeto a disponibilidad. Política de cancelación pendiente de revisión."]),
 } satisfies Tour;

@@ -11,7 +11,7 @@ export default {
 	description: "Combina la devoción en el Santuario del Señor de los Milagros de Andacocha con el ecoturismo y la aventura en Guachaventura. Descubre miradores, el Sendero de los Duendes y un museo de antigüedades; disfruta del puente tibetano y el columpio del barranco antes de relajarte en piscinas temperadas y baño turco.",
 	duration: "9 h 15 min", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
 	audience: "Familias, aventureros y grupos.", season: "Todo el año",
-	price: { kind: "paid", adult: 40 }, meeting: "Parque Calderón / San Blas, Centro Histórico de Cuenca",
+	price: { kind: "paid", adult: 45 }, meeting: "Parque Calderón / San Blas, Centro Histórico de Cuenca",
 	returnPoint: "Parque Calderón, Centro Histórico de Cuenca", operation: "Viernes a domingo", operatingDays: [0, 5, 6],
 	departures: ["08:30"], minimumPeople: 4, transport: "Transporte turístico privado de 12–16 plazas", transferDuration: "Aproximadamente 3 horas según ficha.",
 	highlights: [

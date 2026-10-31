@@ -11,7 +11,7 @@ export default {
 	description: "Redescubre el Cajas desde una perspectiva ancestral y vivencial: la Laguna de Patoquinoa, el Santuario de la Virgen y una experiencia entre arte y pizza artesanal en Dos Chorreras o el Poblado de Guavidula. El día continúa con pesca deportiva en La Casa del Abuelo.",
 	duration: "6 h 25 min", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
 	audience: "Familias y aventureros.", season: "Todo el año",
-	price: { kind: "paid", adult: 40 },
+	price: { kind: "paid", adult: 45 },
 	meeting: "Parque Calderón / San Blas, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",
 	operation: "Miércoles a domingo", operatingDays: [0, 3, 4, 5, 6], departures: ["08:30"], minimumPeople: 4,
 	transport: "Transporte turístico privado · van de 12–16 plazas", transferDuration: "4 horas según ficha.",

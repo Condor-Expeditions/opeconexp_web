@@ -26,6 +26,7 @@ enabled: false, // true para volver a publicarlo
 - `departures` contiene las horas de salida de **FICHA TOUR**, en formato de 24 horas (`08:30`, `14:00`). Se comparten entre el selector, la logística y la consulta de WhatsApp. Para NAT-002 se usa la salida oficial `08:30`, no el inicio del encuentro `08:15`. Free Walking Tour indica salida flexible, por lo que se muestra `Horario a convenir` sin inventar horas. Las salidas siguen sujetas a confirmación, no son disponibilidad en tiempo real.
 
 - `price: { kind: "paid", adult: 25 }` → **Desde $25 USD por persona**. Solo se publica un precio base, sin promociones condicionadas ni tarifas infantiles. El importe puede tomarse de las plantillas comerciales de **FICHA TOUR**, pero no sus promesas ni condiciones.
+- Las tarifas actualizadas por el propietario prevalecen sobre los snapshots del Excel: FWT-001 gratuito; NAT-001 y ARTE-001 $25; NAT-003 $35; ARQ-001 y CULT-001 $40; CULT-002, NAT-002 y NAT-004 $45. Esta actualización no modifica los precios de ARQ-002 ni NAT-006 ni activa tours despublicados.
 - `price: { kind: "free" }` → **Gratuito**, con «Aporte voluntario al finalizar» en pequeño.
 - `price: { kind: "pending" }` → **Precio por confirmar** en el listado. Úsalo con `provisional: true` mientras se prepara una propuesta: no se muestran formularios de fechas ni se prometen salidas.
 - `summary`: frase breve para la tarjeta; evita copiar la descripción completa.

@@ -10,7 +10,7 @@ export default {
 	description: "Descubre la orfebrería en filigrana de Chordeleg, el calzado artesanal de Gualaceo y el tejido tradicional de la makana. Un recorrido cultural con demostraciones de los artesanos y tiempo organizado para compras directas.",
 	duration: "4 h", difficulty: "Fácil", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
 	audience: "Familias, grupos y viajeros.", season: "Todo el año",
-	price: { kind: "paid", adult: 35 }, meeting: "Parque Calderón, Centro Histórico de Cuenca", returnPoint: "Parque Calderón, Centro Histórico de Cuenca",
+	price: { kind: "paid", adult: 25 }, meeting: "Parque Calderón, Centro Histórico de Cuenca", returnPoint: "Parque Calderón, Centro Histórico de Cuenca",
 	operation: "Viernes a domingo", operatingDays: [0, 5, 6], departures: ["08:30", "14:00"], minimumPeople: 4,
 	transport: "Van turística de 12–16 plazas", transferDuration: "Aproximadamente 1,5 horas.",
 	highlights: [
