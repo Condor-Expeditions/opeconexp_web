@@ -45,8 +45,8 @@ try {
 		await page.getByRole("button", { name: "Cerrar galería", exact: true }).click();
 		await page.waitForFunction(() => !document.querySelector(".pswp"));
 		const free = route === "free-walking-tour-cuenca";
-		const thirtyFive = ["pueblitos-magicos", "cascada-de-giron", "compras-y-artesanias", "paute-dinosaurios-naturaleza-y-sabores"];
-		assert.equal(await page.locator(".tour-inquiry .tour-price strong").innerText(), free ? "Gratuito" : thirtyFive.includes(route) ? "$35" : route === "aventura-en-cuadron" ? "$85" : route === "cajas-al-descubierto" ? "$25" : "$40");
+		const price = publishedTours.find(tour => tour.slug === route).price;
+		assert.equal(await page.locator(".tour-inquiry .tour-price strong").innerText(), price.kind === "free" ? "Gratuito" : `$${price.adult}`);
 		assert.equal(await page.locator(".child-price").count(), 0);
 		if (free) {
 			assert.equal(await page.locator(".tour-inquiry .tour-price small").innerText(), "Aporte voluntario al finalizar");

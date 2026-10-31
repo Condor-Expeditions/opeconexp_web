@@ -181,7 +181,7 @@ try {
 	await page.goto(`${base}/tours/guachapala-entre-paisajes-y-tradicion/`, { waitUntil: "networkidle" });
 	assert.equal(await page.locator(".tour-provisional-notice").count(), 0);
 	assert.equal(await page.locator(".inquiry-form").isVisible(), true);
-	assert.equal(await page.locator(".tour-inquiry .tour-price strong").innerText(), "$40");
+	assert.equal(await page.locator(".tour-inquiry .tour-price strong").innerText(), "$45");
 	const withoutCarousel = await browser.newPage();
 	withoutCarousel.on("pageerror", error => errors.push(error.message));
 	await withoutCarousel.route(/embla-carousel.*\.js/, route => route.abort());

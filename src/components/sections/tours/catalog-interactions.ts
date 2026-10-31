@@ -26,6 +26,8 @@ export function initTourCatalog() {
 		const galleryOptions = { signal: galleryAbort.signal };
 		let current = 0;
 		let frame = 0;
+		let pointerStart: { x: number; y: number } | undefined;
+		let dragged = false;
 		const load = (index: number) => {
 			const template = slides[(index + slides.length) % slides.length]?.querySelector<HTMLTemplateElement>("template");
 			if (template) template.replaceWith(template.content.cloneNode(true));
@@ -36,6 +38,8 @@ export function initTourCatalog() {
 			for (const [i, slide] of slides.entries()) {
 				if (i === index) slide.removeAttribute("aria-hidden");
 				else slide.setAttribute("aria-hidden", "true");
+				const link = slide.querySelector<HTMLAnchorElement>(".card-photo-link");
+				if (link) link.tabIndex = i === index ? 0 : -1;
 			}
 			const indicator = controls.querySelector<HTMLElement>("[data-photo-current]");
 			if (indicator) indicator.textContent = String(index + 1);
@@ -59,7 +63,27 @@ export function initTourCatalog() {
 				if (index !== current) update(index);
 			});
 		}, { ...galleryOptions, passive: true });
-		viewport.addEventListener("pointerdown", () => { load(current - 1); load(current + 1); }, galleryOptions);
+		viewport.addEventListener("pointerdown", event => {
+			pointerStart = { x: event.clientX, y: event.clientY };
+			dragged = false;
+			load(current - 1);
+			load(current + 1);
+		}, galleryOptions);
+		viewport.addEventListener("pointermove", event => {
+			if (pointerStart && Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) > 8) dragged = true;
+		}, { ...galleryOptions, passive: true });
+		viewport.addEventListener("pointercancel", () => {
+			dragged = true;
+			pointerStart = undefined;
+		}, galleryOptions);
+		window.addEventListener("pointerup", () => { pointerStart = undefined; }, galleryOptions);
+		viewport.addEventListener("click", event => {
+			// Keep native link behavior (including keyboard and modifier clicks), except after a swipe.
+			if (dragged && event.detail !== 0) {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+		}, { ...galleryOptions, capture: true });
 		card.querySelector(".card-prev")?.addEventListener("click", () => move(-1), galleryOptions);
 		card.querySelector(".card-next")?.addEventListener("click", () => move(1), galleryOptions);
 		controls.addEventListener("keydown", event => {

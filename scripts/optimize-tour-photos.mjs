@@ -1,4 +1,4 @@
-import { mkdir, readdir, stat } from "node:fs/promises";
+import { mkdir, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
@@ -15,6 +15,15 @@ const folders = {
 	"Laguna Toreadora": "laguna-toreadora",
 	"Mirador Tres Cruces": "mirador-tres-cruces",
 	"Virgen del Cajas": "virgen-del-cajas",
+	Busa: "busa",
+	Chordeleg: "chordeleg",
+	"Complejo Arqueológico Chobsi": "chobshi",
+	"El Chorro": "el-chorro",
+	"Iglesia de Girón": "iglesia-de-giron",
+	"Museo de la Makana": "museo-de-la-makana",
+	"Museo de los Tratados": "museo-de-los-tratados",
+	"Pailon del Chobsi": "pailon-de-chobshi",
+	Templete: "templete-de-tarqui",
 };
 
 let originalBytes = 0;
@@ -22,7 +31,12 @@ let optimizedBytes = 0;
 let count = 0;
 for (const [folder, slug] of Object.entries(folders)) {
 	const directory = path.join(source, folder);
-	const files = (await readdir(directory)).filter(name => /\.(jpe?g|png)$/i.test(name)).sort();
+	const entries = await readdir(directory).catch(error => {
+		if (error.code === "ENOENT") return [];
+		throw error;
+	});
+	const files = entries.filter(name => /\.(jpe?g|png)$/i.test(name)).sort();
+	if (!files.length) continue;
 	await mkdir(path.join(output, slug), { recursive: true });
 	let folderBytes = 0;
 	for (const file of files) {
@@ -30,8 +44,14 @@ for (const [folder, slug] of Object.entries(folders)) {
 		const destination = path.join(output, slug, `${path.parse(file).name}.webp`);
 		// Auto-orient, preserve the full composition, never upscale, strip EXIF/GPS.
 		// Astro generates smaller responsive variants from these WebP masters.
-		await sharp(input).rotate().resize(2400, 2400, { fit: "inside", withoutEnlargement: true })
-			.webp({ quality: 80, effort: 6 }).toFile(destination);
+		let size = 2400;
+		let optimized;
+		do {
+			optimized = await sharp(input).rotate().resize(size, size, { fit: "inside", withoutEnlargement: true })
+				.webp({ quality: 80, effort: 6 }).toBuffer();
+			size = Math.floor(size * 0.9);
+		} while (optimized.length >= 1024 * 1024);
+		await writeFile(destination, optimized);
 		originalBytes += (await stat(input)).size;
 		folderBytes += (await stat(destination)).size;
 		count++;

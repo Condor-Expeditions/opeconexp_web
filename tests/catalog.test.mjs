@@ -106,6 +106,6 @@ test("Guachapala: updated operational itinerary, starting price and inquiry", as
 	assert.match(html, /id="tour-date"/);
 	assert.match(html, /Puente tibetano y columpio/);
 	const inquiry = html.match(/<aside id="consultar"[\s\S]*?<\/aside>/)?.[0];
-	assert.match(inquiry, /\$40/);
+	assert.match(inquiry, /\$45/);
 	assert.match(inquiry, /inquiry-fallback/);
 });

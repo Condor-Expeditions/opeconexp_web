@@ -2,7 +2,7 @@ import { paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: false,
+	enabled: true,
 	id: "ARTE-001", slug: "compras-y-artesanias", title: "Compras y Artesanías", signature: "El valor de lo hecho a mano",
 	category: "Cultura · Artesanía · Compras", location: "Chordeleg · Gualaceo",
 	destinations: ["chordeleg", "gualaceo"], experienceTypes: ["cultura", "artesania"],
@@ -10,7 +10,7 @@ export default {
 	description: "Descubre la orfebrería en filigrana de Chordeleg, el calzado artesanal de Gualaceo y el tejido tradicional de la makana. Un recorrido cultural con demostraciones de los artesanos y tiempo organizado para compras directas.",
 	duration: "4 h", difficulty: "Fácil", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
 	audience: "Familias, grupos y viajeros.", season: "Todo el año",
-	price: { kind: "paid", adult: 35 }, meeting: "Parque Calderón, Centro Histórico de Cuenca", returnPoint: "Parque Calderón, Centro Histórico de Cuenca",
+	price: { kind: "paid", adult: 25 }, meeting: "Parque Calderón, Centro Histórico de Cuenca", returnPoint: "Parque Calderón, Centro Histórico de Cuenca",
 	operation: "Viernes a domingo", operatingDays: [0, 5, 6], departures: ["08:30", "14:00"], minimumPeople: 4,
 	transport: "Van turística de 12–16 plazas", transferDuration: "Aproximadamente 1,5 horas.",
 	highlights: [
@@ -41,11 +41,14 @@ export default {
 	conditions: paidConditions,
 	practical: ["Hay baños en la plaza central de Chordeleg y Casa de la Makana.", "Retira efectivo en Cuenca; también hay cajeros en el centro de Chordeleg.", "Los talleres y las compras menores manejan preferentemente efectivo."],
 	photos: [
-		{ src: "/public/assets/menu/tours/chordeleg-joyeria.jpg", alt: "Vista ilustrativa de joyería artesanal" },
-		{ src: "/public/assets/menu/tours/gualaceo-textiles.jpg", alt: "Vista ilustrativa de textiles tradicionales" },
-		{ src: "/src/assets/tours/demo/joyeria.jpg", alt: "Detalle ilustrativo de piezas de joyería" },
-		{ src: "/src/assets/tours/demo/tejidos.jpg", alt: "Texturas y colores de prendas textiles" },
-		{ src: "/public/assets/menu/tours/ruta-artesano.jpg", alt: "Utensilios de colores en un mercado" },
-	], illustrativePhotos: true,
-	source: source("ARTE-001", ["A69", "C69"], ["Total calculado con A22:A27. Precio desde la tarifa general, sin tarifas infantiles.", "Política de cancelación y fotografías aprobadas pendientes de revisión."]),
+		{ src: "/src/assets/tours/chordeleg/20261024_0596.webp", alt: "Manos de un artesano trabajando una pieza de filigrana en Chordeleg", position: "50% 55%" },
+		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0439.webp", alt: "Demostración de tejido en telar en el Museo de la Makana" },
+		{ src: "/src/assets/tours/chordeleg/20261024_0605.webp", alt: "Collares y piezas de joyería en una vitrina de Chordeleg" },
+		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0368.webp", alt: "Semillas y materiales para la demostración de tintes naturales en la Makana" },
+		{ src: "/src/assets/tours/chordeleg/20261024_0562.webp", alt: "Tiendas de artesanías y fachadas del centro de Chordeleg" },
+		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0462.webp", alt: "Prendas de colores y demostración de una makana en el taller artesanal" },
+		{ src: "/src/assets/tours/museo-de-la-makana/20261024_0470.webp", alt: "Textiles y prendas expuestos en el interior de la Casa de la Makana" },
+		{ src: "/src/assets/tours/chordeleg/20261024_0533.webp", alt: "Letras de Chordeleg y arquitectura alrededor de la plaza central" },
+	], illustrativePhotos: false,
+	source: source("ARTE-001", ["A69", "C69"], ["Total calculado con A22:A27. Precio desde la tarifa general, sin tarifas infantiles.", "Política de cancelación pendiente de revisión."]),
 } satisfies Tour;

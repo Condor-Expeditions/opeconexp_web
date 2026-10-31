@@ -39,6 +39,7 @@ const photos = await Promise.all(tour.photos.map(async (photo) => {
 <script>
 	import PhotoSwipeLightbox from "photoswipe/lightbox";
 	import "photoswipe/style.css";
+	import "./tour-lightbox.css";
 
 	let lightbox: PhotoSwipeLightbox | undefined;
 	let abort: AbortController | undefined;
@@ -49,13 +50,26 @@ const photos = await Promise.all(tour.photos.map(async (photo) => {
 		if (!gallery) return;
 		abort = new AbortController();
 		const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const arrowSVG = '<svg aria-hidden="true" class="pswp__icn" viewBox="0 0 32 32" fill="none"><path d="m19 8-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 		lightbox = new PhotoSwipeLightbox({
 			gallery, children: "a", pswpModule: () => import("photoswipe"),
+			mainClass: "tour-lightbox",
+			paddingFn: (viewport) => {
+				const styles = getComputedStyle(gallery);
+				const safe = (edge: string) => parseFloat(styles.getPropertyValue(`--gallery-safe-${edge}`)) || 0;
+				const compact = viewport.x < 768;
+				const vertical = Math.max(viewport.y * 0.14, 80 + safe("top"), 32 + safe("bottom"));
+				const horizontal = Math.max(compact ? 16 : 88, (viewport.x - 1200) / 2, safe("left") + 16, safe("right") + 16);
+				return { top: vertical, bottom: vertical, left: horizontal, right: horizontal };
+			},
 			showHideAnimationType: reduced ? "none" : "zoom",
-			bgOpacity: 0.96, closeTitle: "Cerrar galería", zoomTitle: "Ampliar imagen",
+			bgOpacity: 1, closeTitle: "Cerrar galería", zoomTitle: "Ampliar imagen",
+			arrowPrevSVG: arrowSVG, arrowNextSVG: arrowSVG,
+			zoomSVG: '<svg aria-hidden="true" class="pswp__icn" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="7"/><path d="m19 19 6 6M11 14h6"/><path class="pswp__zoom-icn-bar-v" d="M14 11v6"/></g></svg>',
 			arrowPrevTitle: "Foto anterior", arrowNextTitle: "Foto siguiente",
+			tapAction: false,
 			errorMsg: "No se pudo cargar la imagen. Intenta abrir otra foto.",
-			indexIndicatorSep: " de ",
+			indexIndicatorSep: " / ",
 		});
 		lightbox.init();
 		const button = gallery.querySelector<HTMLButtonElement>("[data-gallery-open]");

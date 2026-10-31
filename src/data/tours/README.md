@@ -26,6 +26,7 @@ enabled: false, // true para volver a publicarlo
 - `departures` contiene las horas de salida de **FICHA TOUR**, en formato de 24 horas (`08:30`, `14:00`). Se comparten entre el selector, la logística y la consulta de WhatsApp. Para NAT-002 se usa la salida oficial `08:30`, no el inicio del encuentro `08:15`. Free Walking Tour indica salida flexible, por lo que se muestra `Horario a convenir` sin inventar horas. Las salidas siguen sujetas a confirmación, no son disponibilidad en tiempo real.
 
 - `price: { kind: "paid", adult: 25 }` → **Desde $25 USD por persona**. Solo se publica un precio base, sin promociones condicionadas ni tarifas infantiles. El importe puede tomarse de las plantillas comerciales de **FICHA TOUR**, pero no sus promesas ni condiciones.
+- Las tarifas actualizadas por el propietario prevalecen sobre los snapshots del Excel: FWT-001 gratuito; NAT-001 y ARTE-001 $25; NAT-003 $35; ARQ-001 y CULT-001 $40; CULT-002, NAT-002 y NAT-004 $45. Esta actualización no modifica los precios de ARQ-002 ni NAT-006 ni activa tours despublicados.
 - `price: { kind: "free" }` → **Gratuito**, con «Aporte voluntario al finalizar» en pequeño.
 - `price: { kind: "pending" }` → **Precio por confirmar** en el listado. Úsalo con `provisional: true` mientras se prepara una propuesta: no se muestran formularios de fechas ni se prometen salidas.
 - `summary`: frase breve para la tarjeta; evita copiar la descripción completa.
@@ -45,12 +46,14 @@ enabled: false, // true para volver a publicarlo
 
 ### Fotografías propias
 
-Las 101 fotografías recibidas en octubre de 2026 están optimizadas como WebP en `src/assets/tours/`, organizadas por lugar. Máximo 2400 px en el lado largo, calidad 80, orientación corregida y sin metadatos EXIF/GPS. Astro genera las versiones responsive y las ampliaciones de galería; no se envían los originales de cámara al navegador.
+Las 205 fotografías recibidas en octubre de 2026 están optimizadas como WebP en `src/assets/tours/`, organizadas por lugar. Máximo 2400 px en el lado largo, calidad 80, orientación corregida y sin metadatos EXIF/GPS. El optimizador reduce las dimensiones de las imágenes más pesadas hasta dejarlas por debajo de 1 MiB sin bajar la calidad configurada. Astro genera las versiones responsive y las ampliaciones de galería; no se envían los originales de cámara al navegador.
 
 - Copia local de los originales: `tmp/tour-photo-originals/`, fuera de `public/` y excluida de Git. Conserva una copia de seguridad externa de esos originales.
-- Para regenerar: `node scripts/optimize-tour-photos.mjs`. También acepta otra carpeta de origen como primer argumento; la estructura debe conservar los nombres de las carpetas recibidas.
+- Para regenerar: `node scripts/optimize-tour-photos.mjs`. También acepta otra carpeta de origen como primer argumento; la estructura debe conservar los nombres de las carpetas recibidas. Las carpetas ausentes se omiten para admitir entregas parciales.
 - Las carpetas originales `Coyotor` y `El Abuelo` se normalizan a `coyoctor` y `casa-del-abuelo` en assets.
-- Asignaciones, selección y lugares aún sin fotografía propia: `docs/tour-photos.md`.
+- La segunda entrega incorpora 104 fotos de Busa, Chordeleg, Chobshi, El Chorro, la iglesia de Girón, la Makana, la Casa de los Tratados, el Pailón de Chobshi y el Templete de Tarqui: 2797,03 MiB originales → 49,24 MiB WebP (98,2 % menos).
+- Se habilitan Cascada de Girón, Aventura en Girón, Compras y Artesanías, Pueblitos Mágicos y Sígsig–Chobshi. Cada galería selecciona fotografías de sus propias paradas. Los originales de ambas entregas se conservan juntos en la carpeta local indicada arriba.
+- Portadas diferenciadas: Toreadora para NAT-001, casas de piedra de Dos Chorreras para NAT-002, El Chorro para NAT-003, Busa para NAT-004, plaza de Chordeleg para CULT-001, filigrana para ARTE-001 y muros de Chobshi para ARQ-002. Las portadas de destino de Girón, Chordeleg, Gualaceo y Sígsig también usan fotos propias.
 
 ### Fichas comerciales
 

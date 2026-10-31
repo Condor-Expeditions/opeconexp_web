@@ -2,7 +2,7 @@ import { source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: false,
+	enabled: true,
 	id: "NAT-003", slug: "cascada-de-giron", title: "Cascada de Girón: Naturaleza & Historia", signature: "La historia encuentra su paisaje",
 	category: "Naturaleza · Historia · Cultura", location: "Girón",
 	destinations: ["giron"], experienceTypes: ["naturaleza", "historia", "cultura"],
@@ -41,11 +41,14 @@ export default {
 	conditions: [],
 	practical: ["La salida se realiza desde el punto de encuentro, sin recogida personalizada en hotel.", "Lleva efectivo para compras y gastos personales."],
 	photos: [
-		{ src: "/public/assets/menu/tours/chorro-de-giron.jpg", alt: "Vista ilustrativa de la cascada El Chorro de Girón" },
-		{ src: "/src/assets/tours/demo/cascada.jpg", alt: "Una cascada entre rocas y vegetación" },
-		{ src: "/public/assets/menu/destinos/azuay.jpg", alt: "Paisaje ilustrativo de Azuay" },
-		{ src: "/public/assets/menu/tours/conoce-deleg.jpg", alt: "Sendero ilustrativo entre árboles" },
-		{ src: "/public/assets/menu/tours/ruta-artesano.jpg", alt: "Artesanías ilustrativas de un mercado" },
-	], illustrativePhotos: true,
-	source: source("NAT-003", ["A56", "C56"], ["Total calculado con A22:A26; D14 contiene la duración comercial, no un traslado desglosado.", "FICHA TOUR no incluye sección de condiciones operativas: no importar políticas desde las plantillas comerciales.", "Política de cancelación y fotografías aprobadas pendientes de revisión."]),
+		{ src: "/src/assets/tours/el-chorro/20261024_0088.webp", alt: "Cascada El Chorro de Girón y pasarela de madera al pie de la pared rocosa", position: "50% 45%" },
+		{ src: "/src/assets/tours/templete-de-tarqui/20261024_0008.webp", alt: "Escalinata y murales del Templete de Tarqui" },
+		{ src: "/src/assets/tours/museo-de-los-tratados/20261024_0037.webp", alt: "Monumento frente a la fachada del Museo Casa de los Tratados en Girón" },
+		{ src: "/src/assets/tours/iglesia-de-giron/20261024_0304.webp", alt: "Jardines, árboles y senderos de la plaza central de Girón" },
+		{ src: "/src/assets/tours/iglesia-de-giron/20261024_0324.webp", alt: "Nave central y altar de la iglesia de Girón" },
+		{ src: "/src/assets/tours/el-chorro/20261024_0047.webp", alt: "Escalinata de madera entre la vegetación del sendero de El Chorro" },
+		{ src: "/src/assets/tours/el-chorro/20261024_0079.webp", alt: "Caída de agua de El Chorro sobre las rocas cubiertas de vegetación" },
+		{ src: "/src/assets/tours/templete-de-tarqui/20261024_0030.webp", alt: "Valle y montañas vistos desde el entorno del Templete de Tarqui" },
+	], illustrativePhotos: false,
+	source: source("NAT-003", ["A56", "C56"], ["Total calculado con A22:A26; D14 contiene la duración comercial, no un traslado desglosado.", "FICHA TOUR no incluye sección de condiciones operativas: no importar políticas desde las plantillas comerciales.", "Política de cancelación pendiente de revisión."]),
 } satisfies Tour;

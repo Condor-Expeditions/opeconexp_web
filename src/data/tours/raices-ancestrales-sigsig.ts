@@ -2,8 +2,8 @@ import { paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: false,
-	id: "ARQ-002", slug: "raices-ancestrales-sigsig", title: "Raíces Ancestrales: Sígsig y Chobshi", signature: "Un encuentro con la memoria",
+	enabled: true,
+	id: "ARQ-002", slug: "raices-ancestrales-sigsig", title: "El Origen de los Ancestros", signature: "Un encuentro con la memoria",
 	category: "Arqueología · Historia · Cultura", location: "Sígsig · Chobshi",
 	destinations: ["sigsig"], experienceTypes: ["arqueologia", "historia", "cultura"],
 	summary: "Cueva Negra, Castillo de Duma, museo y caminata por el Pailón de Chobshi.",
@@ -42,11 +42,15 @@ export default {
 	conditions: paidConditions,
 	practical: ["Lleva efectivo para el almuerzo y gastos personales."],
 	photos: [
-		{ src: "/public/assets/menu/tours/ruta-artesano.jpg", alt: "Imagen ilustrativa de artesanías del Austro" },
-		{ src: "/public/assets/menu/destinos/azuay.jpg", alt: "Paisaje ilustrativo de Azuay" },
-		{ src: "/public/assets/menu/tours/conoce-deleg.jpg", alt: "Sendero ilustrativo entre árboles" },
-		{ src: "/src/assets/tours/demo/tejidos.jpg", alt: "Textiles ilustrativos de la tradición artesanal" },
-		{ src: "/public/assets/menu/tours/walking-tour-gastronomico.webp", alt: "Gastronomía ilustrativa del Austro" },
-	], illustrativePhotos: true,
-	source: source("ARQ-002", ["A69", "C69"], ["Se conserva la dificultad fácil de D7 por indicación del propietario.", "Tiempo para almorzar confirmado, coste excluido según C47; se elimina la referencia errónea a media jornada.", "B37:B38 y B61:E64 contienen logística de Chordeleg/Gualaceo: no usar. D52/D54 contienen texto de talleres: no trasladarlo a la ruta arqueológica.", "A70/C70 son plantillas ajenas de ARTE-001; se ignoran. C69 usa código ARQ-001 incorrecto.", "Política de cancelación y fotografías aprobadas pendientes de revisión."]),
+		{ src: "/src/assets/tours/chobshi/20261024_0794.webp", alt: "Muros de piedra del complejo arqueológico de Chobshi frente al paisaje andino", position: "50% 60%" },
+		{ src: "/src/assets/tours/chobshi/20261024_0740.webp", alt: "Pared rocosa y acceso a la Cueva Negra de Chobshi" },
+		{ src: "/src/assets/tours/chobshi/20261024_0750.webp", alt: "Interior del abrigo rocoso de la Cueva Negra de Chobshi" },
+		{ src: "/src/assets/tours/chobshi/20261024_0708.webp", alt: "Edificio del museo de sitio de Chobshi y montañas de los alrededores" },
+		{ src: "/src/assets/tours/chobshi/20261024_0788.webp", alt: "Recintos y muros de piedra del complejo arqueológico de Chobshi" },
+		{ src: "/src/assets/tours/pailon-de-chobshi/20261024_0649.webp", alt: "Caminantes en el valle entre las paredes rocosas del Pailón de Chobshi" },
+		{ src: "/src/assets/tours/pailon-de-chobshi/20261024_0654.webp", alt: "Pradera y paredes de roca del cañón del Pailón de Chobshi" },
+		{ src: "/src/assets/tours/pailon-de-chobshi/20261024_0700.webp", alt: "Grupo recorriendo un paso estrecho entre las paredes del Pailón de Chobshi" },
+		{ src: "/src/assets/tours/chobshi/20261024_0828.webp", alt: "Valle andino y sendero del entorno arqueológico de Chobshi" },
+	], illustrativePhotos: false,
+	source: source("ARQ-002", ["A69", "C69"], ["Se conserva la dificultad fácil de D7 por indicación del propietario.", "Tiempo para almorzar confirmado, coste excluido según C47; se elimina la referencia errónea a media jornada.", "B37:B38 y B61:E64 contienen logística de Chordeleg/Gualaceo: no usar. D52/D54 contienen texto de talleres: no trasladarlo a la ruta arqueológica.", "A70/C70 son plantillas ajenas de ARTE-001; se ignoran. C69 usa código ARQ-001 incorrecto.", "Política de cancelación pendiente de revisión."]),
 } satisfies Tour;
