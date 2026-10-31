@@ -3,7 +3,7 @@ import type { Tour } from "./types";
 
 export default {
 	enabled: true,
-	id: "ARQ-002", slug: "raices-ancestrales-sigsig", title: "Raíces Ancestrales: Sígsig y Chobshi", signature: "Un encuentro con la memoria",
+	id: "ARQ-002", slug: "raices-ancestrales-sigsig", title: "El Origen de los Ancestros", signature: "Un encuentro con la memoria",
 	category: "Arqueología · Historia · Cultura", location: "Sígsig · Chobshi",
 	destinations: ["sigsig"], experienceTypes: ["arqueologia", "historia", "cultura"],
 	summary: "Cueva Negra, Castillo de Duma, museo y caminata por el Pailón de Chobshi.",

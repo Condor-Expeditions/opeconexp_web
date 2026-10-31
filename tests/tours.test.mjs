@@ -25,6 +25,19 @@ test("catalog prices follow the owner's latest rates, including disabled tours",
 	}
 });
 
+test("Sígsig uses its corrected title without changing its existing URL", async () => {
+	const tour = allTours.find(tour => tour.id === "ARQ-002");
+	assert.equal(tour.title, "El Origen de los Ancestros");
+	assert.equal(tour.slug, "raices-ancestrales-sigsig");
+	assert.equal(allTours.find(tour => tour.id === "ARQ-001").title, "Raíces Ancestrales del Ecuador");
+	if (!tour.enabled) return;
+	for (const route of ["tours/index.html", `tours/${tour.slug}/index.html`]) {
+		const html = await readFile(new URL(`../dist/${route}`, import.meta.url), "utf8");
+		assert.match(html, /El Origen de los Ancestros/);
+		assert.doesNotMatch(html, /Raíces Ancestrales: Sígsig y Chobshi/);
+	}
+});
+
 for (const [id, slug, price, stops] of cases) {
 	test(`${id}: complete detail, gallery, price and inquiry`, async () => {
 		const tour = allTours.find(tour => tour.slug === slug);
