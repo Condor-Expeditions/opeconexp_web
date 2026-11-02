@@ -5,6 +5,11 @@ import type { Tour } from "@/data/tours/types";
 import TourPrice from "./TourPrice.astro";
 interface Props { tour: Tour; }
 const { tour } = Astro.props;
+const isPaid = tour.price.kind === "paid";
+const adultPrice = isPaid ? tour.price.adult : 0;
+const seniorPrice = isPaid ? Math.max(0, tour.price.adult - 5) : 0;
+const childPrice = isPaid ? Math.max(0, tour.price.adult - 5) : 0;
+const babyPrice = 0;
 const message = tour.provisional
 	? `Hola, quisiera conocer los avances de la propuesta ${tour.title} (${tour.id}). Entiendo que todavía está en preparación.`
 	: `Hola, quisiera consultar una salida para ${tour.title} (${tour.id}). ¿Me ayudan con disponibilidad y detalles?`;
@@ -12,7 +17,16 @@ const contact = new URL(siteConfig.companyInfo.whatsApp);
 contact.searchParams.set("text", message);
 ---
 
-<aside id="consultar" class="tour-inquiry" aria-labelledby="inquiry-title" data-tour-title={tour.title} data-tour-id={tour.id} data-operating-days={JSON.stringify(tour.operatingDays)}>
+<aside id="consultar" class="tour-inquiry" aria-labelledby="inquiry-title"
+	data-tour-title={tour.title}
+	data-tour-id={tour.id}
+	data-operating-days={JSON.stringify(tour.operatingDays)}
+	data-price-kind={tour.price.kind}
+	data-adult-price={adultPrice}
+	data-senior-price={seniorPrice}
+	data-kid-price={childPrice}
+	data-baby-price={babyPrice}
+>
 	<div class="inquiry-top"><span class="tour-eyebrow">Tu próxima experiencia</span><Icon name="asterisk" aria-hidden="true" /></div>
 	<h2 id="inquiry-title" class="sr-only">{tour.provisional ? "Consulta esta propuesta" : "Consulta una salida"}</h2>
 	<TourPrice price={tour.price} />
@@ -52,23 +66,80 @@ contact.searchParams.set("text", message);
 			</div>
 		</div>
 		<p id="date-help" class="field-help">{tour.operation}. Sujeto a confirmación.</p>
-		<div class="inquiry-passengers">
-			<div class="inquiry-field">
-				<label for="tour-adults">{tour.price.kind === "free" ? "Personas" : "Adultos"}</label>
-				<div class="stepper-control">
-					<button type="button" class="stepper-btn" data-step-target="tour-adults" data-step-dir="-1" aria-label="Reducir adultos">−</button>
-					<input id="tour-adults" type="number" min="0" max="100" value="1" required class="stepper-input" />
-					<button type="button" class="stepper-btn" data-step-target="tour-adults" data-step-dir="1" aria-label="Aumentar adultos">+</button>
+		<div class="inquiry-field passengers-picker-box" id="passengers-picker-box">
+			<label class="sr-only" for="tour-adults">Selecciona pasajeros</label>
+			<button type="button" class="passengers-picker-trigger" id="passengers-picker-trigger" aria-expanded="false" aria-controls="tour-passengers-panel">
+				<span class="passengers-trigger-eyebrow">Selecciona viajeros</span>
+				<span class="passengers-trigger-row">
+					<Icon name="users" aria-hidden="true" class="passengers-trigger-icon" />
+					<span id="passengers-trigger-label" class="passengers-trigger-value">1 Adulto</span>
+					<Icon name="chevron-right" aria-hidden="true" class="passengers-trigger-chevron" />
+				</span>
+			</button>
+			<div class="passengers-picker-panel" id="tour-passengers-panel" hidden>
+				<div class="passenger-row">
+					<div class="passenger-info">
+						<strong class="passenger-type">{isPaid ? "Adultos" : "Personas"}</strong>
+						<span class="passenger-sub">{isPaid ? "De 11 a 64 años" : "General"}</span>
+						<span class="passenger-fare">{isPaid ? `$${adultPrice} USD` : "Gratis"}</span>
+					</div>
+					<div class="stepper-control">
+						<button type="button" class="stepper-btn" data-step-target="tour-adults" data-step-dir="-1" aria-label="Reducir adultos">−</button>
+						<input id="tour-adults" type="number" min="0" max="100" value="1" required class="stepper-input" />
+						<button type="button" class="stepper-btn" data-step-target="tour-adults" data-step-dir="1" aria-label="Aumentar adultos">+</button>
+					</div>
+				</div>
+
+				{isPaid && <>
+					<div class="passenger-row">
+						<div class="passenger-info">
+							<strong class="passenger-type">Tercera edad</strong>
+							<span class="passenger-sub">65 años o más</span>
+							<span class="passenger-fare">${seniorPrice} USD <span class="discount-badge">-$5</span></span>
+						</div>
+						<div class="stepper-control">
+							<button type="button" class="stepper-btn" data-step-target="tour-seniors" data-step-dir="-1" aria-label="Reducir tercera edad">−</button>
+							<input id="tour-seniors" type="number" min="0" max="100" value="0" class="stepper-input" />
+							<button type="button" class="stepper-btn" data-step-target="tour-seniors" data-step-dir="1" aria-label="Aumentar tercera edad">+</button>
+						</div>
+					</div>
+
+					<div class="passenger-row">
+						<div class="passenger-info">
+							<strong class="passenger-type">Niños</strong>
+							<span class="passenger-sub">De 3 a 10 años</span>
+							<span class="passenger-fare">${childPrice} USD <span class="discount-badge">-$5</span></span>
+						</div>
+						<div class="stepper-control">
+							<button type="button" class="stepper-btn" data-step-target="tour-children" data-step-dir="-1" aria-label="Reducir niños">−</button>
+							<input id="tour-children" type="number" min="0" max="20" value="0" class="stepper-input" />
+							<button type="button" class="stepper-btn" data-step-target="tour-children" data-step-dir="1" aria-label="Aumentar niños">+</button>
+						</div>
+					</div>
+
+					<div class="passenger-row">
+						<div class="passenger-info">
+							<strong class="passenger-type">Bebés</strong>
+							<span class="passenger-sub">De 0 a 2 años · En brazos</span>
+							<span class="passenger-fare passenger-free">Gratis</span>
+						</div>
+						<div class="stepper-control">
+							<button type="button" class="stepper-btn" data-step-target="tour-babies" data-step-dir="-1" aria-label="Reducir bebés">−</button>
+							<input id="tour-babies" type="number" min="0" max="10" value="0" class="stepper-input" />
+							<button type="button" class="stepper-btn" data-step-target="tour-babies" data-step-dir="1" aria-label="Aumentar bebés">+</button>
+						</div>
+					</div>
+				</>}
+				<div class="passengers-panel-footer">
+					{isPaid && (
+						<div class="passengers-panel-total">
+							<span>Total:</span>
+							<strong id="passengers-panel-total-amount">${adultPrice} USD</strong>
+						</div>
+					)}
+					<button type="button" class="passengers-done-btn" id="passengers-done-btn">Listo</button>
 				</div>
 			</div>
-			{tour.price.kind === "paid" && <div class="inquiry-field">
-				<label for="tour-children">Niños</label>
-				<div class="stepper-control">
-					<button type="button" class="stepper-btn" data-step-target="tour-children" data-step-dir="-1" aria-label="Reducir niños">−</button>
-					<input id="tour-children" type="number" min="0" max="20" value="0" class="stepper-input" />
-					<button type="button" class="stepper-btn" data-step-target="tour-children" data-step-dir="1" aria-label="Aumentar niños">+</button>
-				</div>
-			</div>}
 		</div>
 		<div id="large-group-warning" class="large-group-warning" hidden>
 			<p><strong>Aviso para grupos grandes:</strong> Para más de 44 personas se coordina transporte múltiple o bus interprovincial privado.</p>
@@ -76,10 +147,9 @@ contact.searchParams.set("text", message);
 				<input type="checkbox" id="confirm-large-group" /> Confirmo que solicito cotización para más de 44 pasajeros.
 			</label>
 		</div>
-		{tour.price.kind === "paid" && <>
-			<div id="children-ages-container" class="children-ages-container" hidden></div>
-			<p class="field-help">Infantes (0–2 años) viajan gratis en brazos. De 3 a 11 años aplica tarifa preferencial con asiento propio.</p>
-		</>}
+		{isPaid && (
+			<p class="field-help">Bebés (0–2 años) viajan gratis en brazos. De 3 a 10 años y adultos mayores disfrutan de $5 de descuento por persona.</p>
+		)}
 		<div class="inquiry-field">
 			<span class="field-label">Horario de salida</span>
 			<select id="tour-departure" class="sr-only" tabindex="-1" aria-hidden="true">{tour.departures.map(departure => <option>{departure}</option>)}<option value="Horario personalizado">Horario personalizado</option></select>
@@ -91,6 +161,15 @@ contact.searchParams.set("text", message);
 			</div>
 		</div>
 		<p id="departure-help" class="field-help">Horario sujeto a confirmación de disponibilidad con el equipo.</p>
+		{isPaid && (
+			<div class="inquiry-price-summary" id="inquiry-price-summary">
+				<div class="summary-breakdown" id="summary-breakdown"></div>
+				<div class="summary-total-row">
+					<span class="summary-total-label">Total estimado</span>
+					<strong class="summary-total-amount" id="summary-total-amount">$0 USD</strong>
+				</div>
+			</div>
+		)}
 		<button type="submit" class="tour-button inquiry-submit"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar salida<Icon name="arrow-up-right" aria-hidden="true" /></button>
 	</form>}
 	<a class="tour-button inquiry-fallback" href={contact.href} target="_blank" rel="noopener noreferrer"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar por WhatsApp<Icon name="arrow-up-right" aria-hidden="true" /></a>
