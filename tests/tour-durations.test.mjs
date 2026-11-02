@@ -64,9 +64,35 @@ for (const [slug, minutes] of Object.entries(stages)) {
 }
 
 test("total duration follows itinerary edits, including pauses, and handles pending stages", () => {
-	assert.equal(itineraryDuration([{ durationMinutes: 45 }, { durationMinutes: 60 }]), "1 h 45 min");
+	assert.equal(itineraryDuration([{ durationMinutes: 45 }, { durationMinutes: 60 }]), "Aprox. 2 horas");
+	for (const [minutes, expected] of [[1, "Aprox. 0.5 horas"], [60, "Aprox. 1 hora"], [240, "Aprox. 4 horas"], [254, "Aprox. 4 horas"], [255, "Aprox. 4.5 horas"], [270, "Aprox. 4.5 horas"], [284, "Aprox. 4.5 horas"], [285, "Aprox. 5 horas"], [495, "Aprox. 8.5 horas"]]) {
+		assert.equal(itineraryDuration([{ durationMinutes: minutes }]), expected);
+	}
+	for (const invalid of [0, -15, 1.5, Number.NaN]) assert.throws(() => itineraryDuration([{ durationMinutes: invalid }]));
 	assert.equal(itineraryDuration([{ durationMinutes: 45 }, { durationMinutes: null }]), "Por confirmar");
 	assert.equal(itineraryDuration([]), "Por confirmar");
+});
+
+test("approximate totals are shared by the catalog, home features and detail pages", async () => {
+	const { publishedTours } = await import("./helpers/tour-data.mjs");
+	const listing = await readFile(new URL("../dist/tours/index.html", import.meta.url), "utf8");
+	const home = await readFile(new URL("../dist/index.html", import.meta.url), "utf8");
+	for (const tour of publishedTours) {
+		const total = itineraryDuration(tour.itinerary);
+		const card = [...listing.matchAll(/<article class="tour-card"[\s\S]*?<\/article>/g)].find(match => match[0].includes(`/tours/${tour.slug}/`))?.[0];
+		assert.ok(card?.includes(total), `${tour.slug}: approximate duration on catalog card`);
+		const featured = [...home.matchAll(/<article class="home-tour"[\s\S]*?<\/article>/g)].find(match => match[0].includes(`/tours/${tour.slug}/`))?.[0];
+		if (featured) assert.ok(featured.includes(total), `${tour.slug}: same duration on home card`);
+	}
+});
+
+test("Cajas al Descubierto keeps Dos Chorreras without gastronomic promotion", async () => {
+	const { allTours } = await import("./helpers/tour-data.mjs");
+	const tour = allTours.find(tour => tour.id === "NAT-001");
+	assert.doesNotMatch([tour.summary, tour.description, ...tour.highlights.map(item => item.description), ...tour.itinerary.map(item => item.description)].join(" "), /gastronom|sabores|degustación/i);
+	assert.ok(tour.itinerary.some(stage => stage.title === "Chocolatería Dos Chorreras" && stage.durationMinutes === 45));
+	assert.ok(tour.photos.some(photo => photo.src.includes("/dos-chorreras/")));
+	assert.ok(!tour.experienceTypes.includes("gastronomia"));
 });
 
 test("every tour data file is covered by the duration migration", async () => {
