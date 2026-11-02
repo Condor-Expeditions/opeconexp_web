@@ -3,7 +3,7 @@ import type { Tour } from "./types";
 
 export default {
 	enabled: true,
-	id: "NAT-002", slug: "cajas-de-laguna-a-lo-ancestral",
+	id: "NAT-002", slug: "cajas-el-secreto-de-los-andes",
 	title: "Cajas: El Secreto de los Andes", signature: "Otra forma de sentir los Andes",
 	category: "Naturaleza · Cultura · Gastronomía", location: "El Cajas · Cuenca",
 	destinations: ["el-cajas"], experienceTypes: ["naturaleza", "cultura", "gastronomia"],
@@ -28,7 +28,7 @@ export default {
 		{ durationMinutes: 160, title: "La Casa del Abuelo", description: "Pesca deportiva de trucha andina y degustación campestre tradicional." },
 		{ durationMinutes: 30, title: "Regreso a Cuenca", description: "Retorno y despedida en Parque Calderón / Hotel Ensueños." },
 	],
-	includes: ["Transporte turístico privado ida y vuelta con conductor profesional.", "Guía profesional naturalista y cultural acreditado.", "Visita a Patoquinoa y al Santuario de la Virgen del Cajas.", "Una variante a elegir al mismo precio: visita al Poblado Guavidula o taller de arte con materiales y pizza artesanal en Dos Chorreras.", "Pesca deportiva con equipo y cañas en La Casa del Abuelo.", "Agua y snacks."],
+	includes: ["Transporte turístico privado ida y vuelta con conductor profesional.", "Guía profesional naturalista y cultural acreditado.", "Visita a Patoquinoa y al Santuario de la Virgen del Cajas.", "Una variante a elegir al mismo precio: visita al Poblado Guavidula o taller de arte con materiales y pizza artesanal en Dos Chorreras.", "Pesca deportiva con equipo y cañas en La Casa del Abuelo.", "Hidratación y snacks."],
 	excludes: ["Propinas voluntarias.", "Bebidas especiales, alcohólicas y consumos adicionales.", "Piezas o combos de arte fuera del paquete base.", "Recogida personalizada en hotel, disponible con recargo.", "Seguro de viaje o asistencia médica personal.", "Compras personales y actividades no especificadas."],
 	packing: mountainPacking,
 	restrictions: [

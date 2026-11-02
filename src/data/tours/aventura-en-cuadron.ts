@@ -26,7 +26,7 @@ export default {
 		{ durationMinutes: 120, title: "Laguna de Busa", description: "Recorrido por el lago, senderismo y tiempo libre. El paseo en bote se paga aparte." },
 		{ durationMinutes: 60, title: "De vuelta en Cuenca", description: "Traslado y despedida en Parque Calderón / Hotel Ensueños." },
 	],
-	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional acreditado durante el recorrido.", "Entradas al Templete, Casa de los Tratados, El Chorro y Busa.", "Circuito de 30 minutos en cuadrón con casco y seguridad.", "Almuerzo tradicional completo, agua embotellada y snack."],
+	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional acreditado durante el recorrido.", "Entradas al Templete, Casa de los Tratados, El Chorro y Busa.", "Circuito de 30 minutos en cuadrón con casco y seguridad.", "Almuerzo tradicional completo, hidratación y snack."],
 	excludes: ["Alquiler opcional de bote o pato en Busa.", "Bebidas alcohólicas y consumos adicionales al menú.", "Propinas opcionales.", "Seguro de viaje o asistencia médica personal.", "Compras personales y souvenirs.", "Recogida personalizada puerta a puerta en hotel."],
 	packing: [...mountainPacking, { title: "Para el entorno natural", description: "Lleva repelente y protege tu cámara del agua." }],
 	restrictions: [

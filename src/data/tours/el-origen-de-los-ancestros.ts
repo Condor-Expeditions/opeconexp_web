@@ -3,7 +3,7 @@ import type { Tour } from "./types";
 
 export default {
 	enabled: true,
-	id: "ARQ-002", slug: "raices-ancestrales-sigsig", title: "El Origen de los Ancestros", signature: "Un encuentro con la memoria",
+	id: "ARQ-002", slug: "el-origen-de-los-ancestros", title: "El Origen de los Ancestros", signature: "Un encuentro con la memoria",
 	category: "Arqueología · Historia · Cultura", location: "Sígsig · Chobshi",
 	destinations: ["sigsig"], experienceTypes: ["arqueologia", "historia", "cultura"],
 	summary: "Cueva Negra, Castillo de Duma, museo y caminata por el Pailón de Chobshi.",
@@ -27,7 +27,7 @@ export default {
 		{ durationMinutes: 105, title: "Cañón del Pailón de Chobshi", description: "Caminata interpretativa por el cañón y el ancestral camino cañari." },
 		{ durationMinutes: 90, title: "Regreso a Cuenca", description: "Traslado de retorno a la ciudad de Cuenca." },
 	],
-	includes: ["Transporte turístico ida y vuelta desde Cuenca con conductor profesional.", "Guía acreditado especializado en arqueología y patrimonio andino.", "Entradas y visitas guiadas a Cueva Negra, Castillo de Duma y Museo de Chobshi.", "Caminata guiada por el ancestral camino cañari y cañón del Pailón.", "Botiquín de primeros auxilios.", "Refrigerio ligero y botella de agua purificada."],
+	includes: ["Transporte turístico ida y vuelta desde Cuenca con conductor profesional.", "Guía acreditado especializado en arqueología y patrimonio andino.", "Entradas y visitas guiadas a Cueva Negra, Castillo de Duma y Museo de Chobshi.", "Caminata guiada por el ancestral camino cañari y cañón del Pailón.", "Botiquín de primeros auxilios.", "Refrigerio ligero e hidratación."],
 	excludes: ["Propinas voluntarias.", "Gastos personales, artesanías y compras no especificadas.", "Bebidas alcohólicas o consumos fuera del itinerario.", "Transportes adicionales o actividades fuera de ruta.", "Seguro de viaje o asistencia médica particular.", "Almuerzo completo; se reserva tiempo para almorzar por cuenta propia."],
 	packing: [
 		{ title: "Vestimenta y calzado", description: "Ropa cómoda, abrigo ligero y calzado cómodo para caminar." },

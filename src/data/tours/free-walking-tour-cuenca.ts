@@ -25,7 +25,7 @@ export default {
 		{ durationMinutes: 30, title: "Palacio de Justicia y eje patrimonial", description: "Arquitectura neoclásica e historia institucional republicana." },
 		{ durationMinutes: 45, title: "Museo del Cacao y despedida", description: "Historia del cacao y cierre del recorrido con aporte voluntario. Las entradas a interiores con costo no están incluidas." },
 	],
-	includes: ["Acompañamiento de un guía turístico local profesional y calificado.", "Recorrido interpretativo e interactivo por el Centro Histórico.", "Flexibilidad del itinerario y personalización de paradas.", "Orientación turística, datos históricos y recomendaciones.", "Acompañamiento y orientación durante el recorrido.", "Degustación introductoria en el Museo del Cacao."],
+	includes: ["Acompañamiento de un guía turístico local profesional y calificado.", "Recorrido interpretativo e interactivo por el Centro Histórico.", "Flexibilidad del itinerario y personalización de paradas.", "Orientación turística, datos históricos y recomendaciones.", "Acompañamiento y orientación durante el recorrido.", "Degustación introductoria en el Museo del Cacao.", "Hidratación."],
 	excludes: ["Entradas a museos e iglesias con costo.", "Alimentos y bebidas fuera de la degustación introductoria.", "Transporte o traslados vehiculares.", "Aporte voluntario al guía, que tú decides al finalizar.", "Seguro de viaje o asistencia médica.", "Visitas vinculadas a otros tours comerciales.", "Compras personales de chocolate o souvenirs."],
 	packing: [
 		{ title: "Camina con comodidad", description: "Calzado cómodo para adoquines, ropa liviana por capas e impermeable." },

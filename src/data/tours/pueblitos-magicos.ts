@@ -32,7 +32,7 @@ export default {
 		{ durationMinutes: 15, title: "Centro histórico de Chordeleg", description: "Recorrido por la plaza central y la iglesia matriz." },
 		{ durationMinutes: 45, title: "Regreso a Cuenca", description: "Retorno y despedida en el punto de encuentro." },
 	],
-	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional de turismo acreditado.", "Ingreso al Complejo Arqueológico de Ingapirca y Museo de Sitio.", "Ingreso al Museo de Chordeleg y Casa Museo de la Macana.", "Microtours artesanales de filigrana e Ikat.", "Botella de agua y snack."],
+	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional de turismo acreditado.", "Ingreso al Complejo Arqueológico de Ingapirca y Museo de Sitio.", "Ingreso al Museo de Chordeleg y Casa Museo de la Macana.", "Microtours artesanales de filigrana e Ikat.", "Hidratación y snack."],
 	excludes: ["Almuerzo y consumos de alimentos.", "Compras de joyería, macanas y souvenirs.", "Propinas voluntarias.", "Seguro particular o gastos médicos no contemplados.", "Actividades o traslados fuera del itinerario."],
 	packing: mountainPacking,
 	restrictions: [

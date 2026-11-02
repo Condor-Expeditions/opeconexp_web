@@ -26,7 +26,7 @@ export default {
 		{ durationMinutes: 45, title: "Casa de la Makana en Bullcay", description: "Demostración de tintes naturales y técnica Ikat en el Museo Taller Casa de la Makana." },
 		{ durationMinutes: 30, title: "Regreso a Cuenca", description: "Traslado de retorno y despedida en el punto de encuentro central." },
 	],
-	includes: ["Transporte turístico ida y vuelta desde Cuenca con conductor profesional.", "Guía acreditado especializado en artesanías y cultura.", "Entradas y visitas al Museo Comunitario y Museo Casa de la Makana.", "Demostraciones de orfebrería en filigrana y técnica textil Ikat.", "Botiquín de primeros auxilios.", "Tiempo organizado para compras en centros históricos y fábricas."],
+	includes: ["Transporte turístico ida y vuelta desde Cuenca con conductor profesional.", "Guía acreditado especializado en artesanías y cultura.", "Entradas y visitas al Museo Comunitario y Museo Casa de la Makana.", "Demostraciones de orfebrería en filigrana y técnica textil Ikat.", "Botiquín de primeros auxilios.", "Hidratación.", "Tiempo organizado para compras en centros históricos y fábricas."],
 	excludes: ["Propinas voluntarias.", "Compras personales de joyas, calzado y souvenirs.", "Bebidas alcohólicas y consumos no estipulados.", "Actividades o traslados fuera del itinerario.", "Seguro de viaje o asistencia médica particular.", "Almuerzo formal."],
 	packing: [
 		{ title: "Camina con comodidad", description: "Ropa ligera y cómoda, abrigo ligero y calzado cómodo para caminar." },

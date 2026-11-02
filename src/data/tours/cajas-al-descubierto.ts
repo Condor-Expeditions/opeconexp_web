@@ -42,7 +42,7 @@ export default {
 		{ durationMinutes: 45, title: "Chocolatería Dos Chorreras", description: "Parada con tiempo libre para descansar y realizar compras. Consumos por cuenta del viajero." },
 		{ durationMinutes: 40, title: "Volvemos a Cuenca", description: "Traslado de retorno y despedida en Parque Calderón / San Blas." },
 	],
-	includes: ["Transporte turístico ida y vuelta desde el punto de encuentro en Cuenca.", "Guía profesional naturalista acreditado.", "Registro en el Parque Nacional El Cajas y Centro de Interpretación Toreadora.", "Visita guiada al Santuario de la Virgen del Cajas.", "Botella de agua, certificado digital y botiquín de primeros auxilios."],
+	includes: ["Transporte turístico ida y vuelta desde el punto de encuentro en Cuenca.", "Guía profesional naturalista acreditado.", "Registro en el Parque Nacional El Cajas y Centro de Interpretación Toreadora.", "Visita guiada al Santuario de la Virgen del Cajas.", "Hidratación."],
 	excludes: ["Compras y consumos en Chocolatería Dos Chorreras.", "Actividades opcionales: cabalgatas, pesca o deportes de aventura.", "Propinas voluntarias.", "Recogida en hotel, disponible con costo adicional.", "Seguro de viaje o asistencia médica personal.", "Gastos personales y consumos no especificados."],
 	packing: mountainPacking,
 	restrictions: [

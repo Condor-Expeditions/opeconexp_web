@@ -10,7 +10,7 @@ export default {
 	description: "Sumérgete en las huellas vivas de las civilizaciones cañari e inca: desde los vestigios de Tomebamba en Pumapungo y la fortaleza del Cerro Cojitambo, hasta los Baños del Inca en Coyoctor y el emblemático Templo del Sol en Ingapirca.",
 	duration: "8 h", durationNote: "La duración incluye las visitas, los traslados y la pausa para almorzar del itinerario.",
 	difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias, aventureros, amantes de la cultura y la fotografía, viajeros y grupos.", season: "Todo el año",
-	price: { kind: "paid", adult: 40 },
+	price: { kind: "paid", adult: 45 },
 	meeting: "Parque Calderón / San Blas, Cuenca", returnPoint: "Parque Calderón / Cuenca centro",
 	operation: "Miércoles a domingo", operatingDays: [0, 3, 4, 5, 6], departures: ["08:30"], minimumPeople: 4,
 	transport: "SUV o van turística con aire acondicionado", transferDuration: "Aproximadamente 3,5–4 horas de traslados según ficha.",
@@ -29,7 +29,7 @@ export default {
 		{ durationMinutes: 120, title: "Complejo de Ingapirca", description: "Recorrido por el Templo del Sol, Pilaloma y la Cara del Inca." },
 		{ durationMinutes: 75, title: "Retorno a Cuenca", description: "Regreso a Parque Calderón / Cuenca centro y despedida." },
 	],
-	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional especializado en arqueología e historia prehispánica.", "Entradas a Pumapungo, Cojitambo, Coyoctor e Ingapirca.", "Snack andino de bienvenida y agua embotellada.", "Bastones de trekking y botiquín de primeros auxilios."],
+	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional especializado en arqueología e historia prehispánica.", "Entradas a Pumapungo, Cojitambo, Coyoctor e Ingapirca.", "Snack andino de bienvenida e hidratación.", "Bastones de trekking y botiquín de primeros auxilios."],
 	excludes: ["Almuerzo tradicional y consumos adicionales.", "Bebidas alcohólicas.", "Compras de artesanías y souvenirs.", "Propinas opcionales.", "Seguro de viaje o asistencia médica personal.", "Recogida personalizada en hotel, disponible con recargo."],
 	packing: mountainPacking,
 	restrictions: [

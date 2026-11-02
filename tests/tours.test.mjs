@@ -6,14 +6,14 @@ import { allTours } from "./helpers/tour-data.mjs";
 // Build first: pnpm build && node --test tests/*.test.mjs
 const cases = [
 	["NAT-001", "cajas-al-descubierto", "25", 7],
-	["NAT-002", "cajas-de-laguna-a-lo-ancestral", "45", 6],
-	["ARQ-001", "raices-ancestrales-del-ecuador", "40", 8],
+	["NAT-002", "cajas-el-secreto-de-los-andes", "45", 6],
+	["ARQ-001", "raices-ancestrales-del-ecuador", "45", 8],
 	["CULT-001", "pueblitos-magicos", "40", 11],
 	["NAT-003", "cascada-de-giron", "35", 5],
 	["NAT-004", "aventura-en-cuadron", "45", 7],
 	["FWT-001", "free-walking-tour-cuenca", null, 5],
 	["ARTE-001", "compras-y-artesanias", "25", 6],
-	["ARQ-002", "raices-ancestrales-sigsig", "40", 7],
+	["ARQ-002", "el-origen-de-los-ancestros", "40", 7],
 	["CULT-002", "guachapala-entre-paisajes-y-tradicion", "45", 7],
 	["NAT-006", "paute-dinosaurios-naturaleza-y-sabores", "35", 7],
 ];
@@ -28,7 +28,7 @@ test("catalog prices follow the owner's latest rates, including disabled tours",
 test("Sígsig uses its corrected title without changing its existing URL", async () => {
 	const tour = allTours.find(tour => tour.id === "ARQ-002");
 	assert.equal(tour.title, "El Origen de los Ancestros");
-	assert.equal(tour.slug, "raices-ancestrales-sigsig");
+	assert.equal(tour.slug, "el-origen-de-los-ancestros");
 	assert.equal(allTours.find(tour => tour.id === "ARQ-001").title, "Raíces Ancestrales del Ecuador");
 	if (!tour.enabled) return;
 	for (const route of ["tours/index.html", `tours/${tour.slug}/index.html`]) {
@@ -113,9 +113,9 @@ test("catalog IDs, one starting price, updated routes and source cells", async (
 	const story = pueblos.match(/<div class="tour-story">[\s\S]*?<div class="tour-inquiry-column">/)?.[0];
 	assert.match(story, /Ingapirca/);
 	assert.doesNotMatch(story, /Sígsig|Chobshi|Castillo de Duma/);
-	const sigsig = await readFile(new URL("../dist/tours/raices-ancestrales-sigsig/index.html", import.meta.url), "utf8");
+	const sigsig = await readFile(new URL("../dist/tours/el-origen-de-los-ancestros/index.html", import.meta.url), "utf8");
 	assert.match(sigsig, /almuerzo se paga por separado/);
-	const cajas = await readFile(new URL("../dist/tours/cajas-de-laguna-a-lo-ancestral/index.html", import.meta.url), "utf8");
+	const cajas = await readFile(new URL("../dist/tours/cajas-el-secreto-de-los-andes/index.html", import.meta.url), "utf8");
 	assert.match(cajas, /dos variantes al mismo precio/i);
 	for (const [id, slug] of cases) {
 		const content = await readFile(new URL(`../src/data/tours/${slug}.ts`, import.meta.url), "utf8");

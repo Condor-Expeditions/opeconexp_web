@@ -1,6 +1,6 @@
 import aventura from "./aventura-en-cuadron";
 import cajas from "./cajas-al-descubierto";
-import ancestral from "./cajas-de-laguna-a-lo-ancestral";
+import ancestral from "./cajas-el-secreto-de-los-andes";
 import walking from "./free-walking-tour-cuenca";
 import pueblos from "./pueblitos-magicos";
 import raices from "./raices-ancestrales-del-ecuador";
@@ -8,7 +8,7 @@ import type { Tour } from "./types";
 import guachapala from "./guachapala-entre-paisajes-y-tradicion";
 import cascada from "./cascada-de-giron";
 import artesanias from "./compras-y-artesanias";
-import sigsig from "./raices-ancestrales-sigsig";
+import sigsig from "./el-origen-de-los-ancestros";
 import paute from "./paute-dinosaurios-naturaleza-y-sabores";
 import { itineraryDuration } from "./duration";
 

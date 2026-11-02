@@ -27,7 +27,7 @@ export default {
 		{ durationMinutes: 45, title: "Almuerzo y sabores locales", description: "Almuerzo típico incluido y degustación de dulces y conservas del cantón." },
 		{ durationMinutes: 45, title: "Regreso a Cuenca", description: "Traslado de retorno y desembarque en Parque Calderón." },
 	],
-	includes: ["Transporte turístico ida y vuelta en van climatizada con conductor profesional.", "Guía profesional acreditado en español.", "Entradas a Jurassic Paute y Animal Paute.", "Almuerzo tradicional pauteño y refrigerio de agua.", "Botiquín de primeros auxilios.", "Visita guiada a La Cuchara de Palo y degustación tradicional de dulces."],
+	includes: ["Transporte turístico ida y vuelta en van climatizada con conductor profesional.", "Guía profesional acreditado en español.", "Entradas a Jurassic Paute y Animal Paute.", "Almuerzo tradicional pauteño e hidratación.", "Botiquín de primeros auxilios.", "Visita guiada a La Cuchara de Palo y degustación tradicional de dulces."],
 	excludes: ["Propinas voluntarias.", "Compras de artesanías en madera, recuerdos y gastos personales.", "Bebidas alcohólicas y consumos fuera del menú acordado.", "Actividades opcionales, desvíos y traslados fuera del itinerario.", "Seguro de viaje o gastos médicos particulares.", "Recogida personalizada fuera del punto de encuentro."],
 	packing: [
 		{ title: "Ropa y calzado", description: "Ropa ligera para clima cálido, gorra y calzado deportivo cómodo." },

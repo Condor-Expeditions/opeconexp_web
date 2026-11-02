@@ -16,13 +16,13 @@ const folders = {
 };
 const assignments = {
 	"cajas-al-descubierto": ["laguna-toreadora", "mirador-tres-cruces", "virgen-del-cajas", "dos-chorreras"],
-	"cajas-de-laguna-a-lo-ancestral": ["caminata-cajas", "casa-del-abuelo", "virgen-del-cajas", "dos-chorreras"],
+	"cajas-el-secreto-de-los-andes": ["caminata-cajas", "casa-del-abuelo", "virgen-del-cajas", "dos-chorreras"],
 	"raices-ancestrales-del-ecuador": ["ingapirca", "cojitambo", "coyoctor"],
 	"pueblitos-magicos": ["ingapirca", "chordeleg", "museo-de-la-makana"],
 	"cascada-de-giron": ["el-chorro", "templete-de-tarqui", "museo-de-los-tratados", "iglesia-de-giron"],
 	"aventura-en-cuadron": ["busa", "el-chorro", "templete-de-tarqui", "museo-de-los-tratados", "iglesia-de-giron"],
 	"compras-y-artesanias": ["chordeleg", "museo-de-la-makana"],
-	"raices-ancestrales-sigsig": ["chobshi", "pailon-de-chobshi"],
+	"el-origen-de-los-ancestros": ["chobshi", "pailon-de-chobshi"],
 };
 const load = route => readFile(new URL(`dist/${route}`, root), "utf8");
 
@@ -48,7 +48,7 @@ test("all 205 supplied photographs are WebP masters, bounded to 2400px and strip
 });
 
 test("newly photographed tours are enabled and their covers are distinct", () => {
-	const slugs = ["cajas-al-descubierto", "cajas-de-laguna-a-lo-ancestral", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "cascada-de-giron", "aventura-en-cuadron", "compras-y-artesanias", "raices-ancestrales-sigsig"];
+	const slugs = ["cajas-al-descubierto", "cajas-el-secreto-de-los-andes", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "cascada-de-giron", "aventura-en-cuadron", "compras-y-artesanias", "el-origen-de-los-ancestros"];
 	const covers = slugs.map(slug => {
 		const tour = allTours.find(item => item.slug === slug);
 		assert.equal(tour.enabled, true, slug);
