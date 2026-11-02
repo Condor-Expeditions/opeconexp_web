@@ -8,7 +8,7 @@ export default {
 	destinations: ["giron"], experienceTypes: ["naturaleza", "aventura", "historia"],
 	summary: "La fuerza de El Chorro, una aventura en cuadrón y la calma de Busa.",
 	description: "Combina historia, cascadas y paisajes andinos: recorre el Templete de Tarqui y la Casa de los Tratados, descubre el Centro Histórico de Girón, siente la adrenalina de 30 minutos en cuadrón, contempla El Chorro y relájate en la Laguna de Busa.",
-	duration: "8 h 15 min", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias, aventureros y grupos.", season: "Todo el año",
+	duration: "8 h", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias, aventureros y grupos.", season: "Todo el año",
 	price: { kind: "paid", adult: 45 }, meeting: "Parque Calderón / Hotel Ensueños, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",
 	operation: "Viernes a domingo", operatingDays: [0, 5, 6], departures: ["08:30"], minimumPeople: 4,
 	transport: "Van turística de 12–16 plazas", transferDuration: "Aproximadamente 3 horas.",
@@ -27,7 +27,7 @@ export default {
 		{ durationMinutes: 60, title: "De vuelta en Cuenca", description: "Traslado y despedida en Parque Calderón / Hotel Ensueños." },
 	],
 	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional acreditado durante el recorrido.", "Entradas al Templete, Casa de los Tratados, El Chorro y Busa.", "Circuito de 30 minutos en cuadrón con casco y seguridad.", "Almuerzo tradicional completo, agua embotellada y snack."],
-	excludes: ["Alquiler opcional de bote o pato en Busa.", "Bebidas alcohólicas y consumos adicionales al menú.", "Propinas opcionales.", "Compras personales y souvenirs.", "Recogida personalizada puerta a puerta en hotel."],
+	excludes: ["Alquiler opcional de bote o pato en Busa.", "Bebidas alcohólicas y consumos adicionales al menú.", "Propinas opcionales.", "Seguro de viaje o asistencia médica personal.", "Compras personales y souvenirs.", "Recogida personalizada puerta a puerta en hotel."],
 	packing: [...mountainPacking, { title: "Para el entorno natural", description: "Lleva repelente y protege tu cámara del agua." }],
 	restrictions: [
 		{ title: "Edad y caminatas", description: "Tour desde 5 años. Nivel regular a moderado para caminatas de 2–3 horas." },

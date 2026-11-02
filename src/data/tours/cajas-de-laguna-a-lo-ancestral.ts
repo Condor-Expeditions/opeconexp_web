@@ -9,7 +9,7 @@ export default {
 	destinations: ["el-cajas"], experienceTypes: ["naturaleza", "cultura", "gastronomia"],
 	summary: "Un día entre paisajes andinos, tradiciones y experiencias del campo.",
 	description: "Redescubre el Cajas desde una perspectiva ancestral y vivencial: la Laguna de Patoquinoa, el Santuario de la Virgen y una experiencia entre arte y pizza artesanal en Dos Chorreras o el Poblado de Guavidula. El día continúa con pesca deportiva en La Casa del Abuelo.",
-	duration: "6 h 25 min", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
+	duration: "8 h", difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
 	audience: "Familias y aventureros.", season: "Todo el año",
 	price: { kind: "paid", adult: 45 },
 	meeting: "Parque Calderón / San Blas, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",
@@ -29,7 +29,7 @@ export default {
 		{ durationMinutes: 30, title: "Regreso a Cuenca", description: "Retorno y despedida en Parque Calderón / Hotel Ensueños." },
 	],
 	includes: ["Transporte turístico privado ida y vuelta con conductor profesional.", "Guía profesional naturalista y cultural acreditado.", "Visita a Patoquinoa y al Santuario de la Virgen del Cajas.", "Una variante a elegir al mismo precio: visita al Poblado Guavidula o taller de arte con materiales y pizza artesanal en Dos Chorreras.", "Pesca deportiva con equipo y cañas en La Casa del Abuelo.", "Agua y snacks."],
-	excludes: ["Propinas voluntarias.", "Bebidas especiales, alcohólicas y consumos adicionales.", "Piezas o combos de arte fuera del paquete base.", "Recogida personalizada en hotel, disponible con recargo.", "Compras personales y actividades no especificadas."],
+	excludes: ["Propinas voluntarias.", "Bebidas especiales, alcohólicas y consumos adicionales.", "Piezas o combos de arte fuera del paquete base.", "Recogida personalizada en hotel, disponible con recargo.", "Seguro de viaje o asistencia médica personal.", "Compras personales y actividades no especificadas."],
 	packing: mountainPacking,
 	restrictions: [
 		{ title: "Edad y esfuerzo", description: "Desde 3 años. Condición física regular a moderada para caminatas suaves y aclimatación." },

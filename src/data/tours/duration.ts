@@ -11,11 +11,17 @@ export function formatStageDuration(minutes: number | null): string {
 /** Approximate total from the itinerary, including pauses and transfers.
  * Round to the nearest half hour; quarter-hour ties round up. */
 export function itineraryDuration(stages: { durationMinutes: number | null }[]): string {
+	// Si la lista está vacía o alguna etapa carece de duración, devolvemos "Por confirmar"
 	if (!stages.length || stages.some(stage => stage.durationMinutes === null)) return "Por confirmar";
+
+	// Sumar los minutos de todas las etapas (asumiendo que ya fueron validados por formatStageDuration)
 	const minutes = stages.reduce((total, stage) => {
+		// Llamamos a formatStageDuration solo para validar que el valor sea entero positivo o null.
 		formatStageDuration(stage.durationMinutes);
 		return total + (stage.durationMinutes ?? 0);
 	}, 0);
-	const hours = Math.max(0.5, Math.round(minutes / 30) / 2);
-	return `Aprox. ${hours} ${hours === 1 ? "hora" : "horas"}`;
+
+	// En lugar de redondear a medio‑hora, devolvemos la duración exacta usando formatStageDuration.
+	// Esto mostrará "4 h 30 min", "8 h", "45 min", etc.
+	return formatStageDuration(minutes);
 }
