@@ -8,10 +8,10 @@ export default {
 	destinations: ["giron"], experienceTypes: ["naturaleza", "historia", "cultura"],
 	summary: "Templete de Tarqui, memoria de Girón y senderismo hacia El Chorro.",
 	description: "Combina memoria histórica, arquitectura colonial y naturaleza: visita el Templete de Tarqui, explora la Casa de los Tratados y el Centro Histórico de Girón y admira la Cascada El Chorro con una caminata guiada.",
-	duration: "4 h 15 min", difficulty: "Fácil", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
+	duration: "4 h 30 min", difficulty: "Fácil", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
 	audience: "Familias, aventureros, amantes de la cultura y la fotografía y grupos.", season: "Todo el año",
 	price: { kind: "paid", adult: 35 }, meeting: "Parque Calderón / San Blas, Cuenca", returnPoint: "Parque Calderón / Hotel Ensueños, Cuenca",
-	operation: "Martes a domingo", operatingDays: [0, 2, 3, 4, 5, 6], departures: ["08:30"], minimumPeople: 4,
+	operation: "Martes a domingo", operatingDays: [0, 2, 3, 4, 5, 6], departures: ["08:30", "14:00"], minimumPeople: 4,
 	transport: "Transporte turístico privado · van de 12–16 plazas", transferDuration: "No desglosado en la ficha.",
 	highlights: [
 		{ title: "Memoria en Tarqui", description: "Una parada en el Templete de Tarqui para conocer la historia de la Batalla de 1829." },
@@ -25,8 +25,8 @@ export default {
 		{ durationMinutes: 105, title: "Cascada El Chorro de Girón", description: "Caminata interpretativa por los senderos y observación de la caída de agua de 70 metros." },
 		{ durationMinutes: 45, title: "Regreso a Cuenca", description: "Traslado panorámico de retorno al punto de encuentro y fin del recorrido." },
 	],
-	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional acreditado en historia, patrimonio y naturaleza.", "Entradas al Templete de Tarqui, Casa de los Tratados y El Chorro.", "Refrigerio ligero y agua purificada embotellada.", "Botiquín de primeros auxilios y seguro de asistencia en viaje."],
-	excludes: ["Almuerzo y bebidas alcohólicas.", "Propinas voluntarias.", "Gastos personales, artesanías y souvenirs.", "Actividades opcionales o desvíos fuera del itinerario.", "Recogida personalizada en hotel."],
+	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional acreditado en historia, patrimonio y naturaleza.", "Entradas al Templete de Tarqui, Casa de los Tratados y El Chorro.", "Refrigerio ligero e hidratación.", "Botiquín de primeros auxilios."],
+	excludes: ["Almuerzo y bebidas alcohólicas.", "Propinas voluntarias.", "Seguro de viaje o asistencia médica personal.", "Gastos personales, artesanías y souvenirs.", "Actividades opcionales o desvíos fuera del itinerario.", "Recogida personalizada en hotel."],
 	packing: [
 		{ title: "Vestimenta y calzado", description: "Ropa abrigada e impermeable y calzado de trekking." },
 		{ title: "Protección solar", description: "Protector solar FPS 50+, gorra y gafas UV." },

@@ -19,15 +19,78 @@ contact.searchParams.set("text", message);
 	<div class="inquiry-divider"></div>
 	{!tour.provisional && <form class="inquiry-form" action={contact.origin + contact.pathname} method="get" target="_blank" hidden>
 		<input type="hidden" name="text" value={message} />
-		<label class="inquiry-field" for="tour-date">¿Cuándo te gustaría ir?<span class="field-control"><Icon name="calendar" aria-hidden="true" /><input id="tour-date" type="date" required aria-describedby="date-help" /></span></label>
+		<div class="inquiry-field date-picker-box" id="date-picker-box">
+			<label class="sr-only" for="tour-date">¿Cuándo te gustaría ir?</label>
+			<input id="tour-date" type="date" required aria-describedby="date-help" class="sr-only" tabindex="-1" />
+			<button type="button" class="date-picker-trigger" id="date-picker-trigger" aria-expanded="false" aria-controls="tour-calendar-panel">
+				<span class="date-trigger-eyebrow">Selecciona una fecha</span>
+				<span class="date-trigger-row">
+					<Icon name="calendar" aria-hidden="true" class="date-trigger-icon" />
+					<span id="date-trigger-label" class="date-trigger-value">Seleccionar fecha</span>
+					<Icon name="chevron-right" aria-hidden="true" class="date-trigger-chevron" />
+				</span>
+			</button>
+			<div class="date-picker-panel" id="tour-calendar-panel" hidden>
+				<div class="calendar-header">
+					<button type="button" class="calendar-nav-btn is-prev" id="calendar-prev" aria-label="Mes anterior">
+						<Icon name="chevron-right" aria-hidden="true" />
+					</button>
+					<strong id="calendar-month-label" class="calendar-month-title"></strong>
+					<button type="button" class="calendar-nav-btn is-next" id="calendar-next" aria-label="Mes siguiente">
+						<Icon name="chevron-right" aria-hidden="true" />
+					</button>
+				</div>
+				<div class="calendar-weekdays" aria-hidden="true">
+					<span>LU</span><span>MA</span><span>MI</span><span>JU</span><span>VI</span><span>SÁ</span><span>DO</span>
+				</div>
+				<div class="calendar-days-grid" id="calendar-days-grid" role="grid" aria-label="Calendario de disponibilidad"></div>
+				<div class="calendar-legend" aria-hidden="true">
+					<span class="legend-item"><i class="legend-swatch is-selected"></i> Seleccionado</span>
+					<span class="legend-item"><i class="legend-swatch is-today"></i> Hoy</span>
+					<span class="legend-item"><i class="legend-swatch is-unavailable">—</i> No disponible</span>
+				</div>
+			</div>
+		</div>
 		<p id="date-help" class="field-help">{tour.operation}. Sujeto a confirmación.</p>
 		<div class="inquiry-passengers">
-			<label class="inquiry-field" for="tour-adults">{tour.price.kind === "free" ? "Personas" : "Adultos"}<select id="tour-adults">{Array.from({ length: 16 }, (_, i) => <option value={i + 1} selected={i === 1}>{i + 1}</option>)}</select></label>
-			{tour.price.kind === "paid" && <label class="inquiry-field" for="tour-children">Niños<select id="tour-children">{Array.from({ length: 13 }, (_, i) => <option value={i}>{i}</option>)}</select></label>}
+			<div class="inquiry-field">
+				<label for="tour-adults">{tour.price.kind === "free" ? "Personas" : "Adultos"}</label>
+				<div class="stepper-control">
+					<button type="button" class="stepper-btn" data-step-target="tour-adults" data-step-dir="-1" aria-label="Reducir adultos">−</button>
+					<input id="tour-adults" type="number" min="0" max="100" value="1" required class="stepper-input" />
+					<button type="button" class="stepper-btn" data-step-target="tour-adults" data-step-dir="1" aria-label="Aumentar adultos">+</button>
+				</div>
+			</div>
+			{tour.price.kind === "paid" && <div class="inquiry-field">
+				<label for="tour-children">Niños</label>
+				<div class="stepper-control">
+					<button type="button" class="stepper-btn" data-step-target="tour-children" data-step-dir="-1" aria-label="Reducir niños">−</button>
+					<input id="tour-children" type="number" min="0" max="20" value="0" class="stepper-input" />
+					<button type="button" class="stepper-btn" data-step-target="tour-children" data-step-dir="1" aria-label="Aumentar niños">+</button>
+				</div>
+			</div>}
 		</div>
-		{tour.price.kind === "paid" && <p class="field-help">Indícanos las edades de los niños por WhatsApp para confirmar su tarifa.</p>}
-		<label class="inquiry-field" for="tour-departure">Horario de salida<select id="tour-departure">{tour.departures.map(departure => <option>{departure}</option>)}</select></label>
-		<p class="field-help">Horario sujeto a confirmación de disponibilidad con el equipo.</p>
+		<div id="large-group-warning" class="large-group-warning" hidden>
+			<p><strong>Aviso para grupos grandes:</strong> Para más de 44 personas se coordina transporte múltiple o bus interprovincial privado.</p>
+			<label class="confirm-checkbox-label">
+				<input type="checkbox" id="confirm-large-group" /> Confirmo que solicito cotización para más de 44 pasajeros.
+			</label>
+		</div>
+		{tour.price.kind === "paid" && <>
+			<div id="children-ages-container" class="children-ages-container" hidden></div>
+			<p class="field-help">Infantes (0–2 años) viajan gratis en brazos. De 3 a 11 años aplica tarifa preferencial con asiento propio.</p>
+		</>}
+		<div class="inquiry-field">
+			<span class="field-label">Horario de salida</span>
+			<select id="tour-departure" class="sr-only" tabindex="-1" aria-hidden="true">{tour.departures.map(departure => <option>{departure}</option>)}<option value="Horario personalizado">Horario personalizado</option></select>
+			<div class="departure-toggles" role="radiogroup" aria-label="Horario de salida">
+				{tour.departures.map((departure, i) => (
+					<button type="button" class:list={["departure-toggle-btn", { active: i === 0 }]} data-departure={departure} role="radio" aria-checked={i === 0 ? "true" : "false"}>{departure}</button>
+				))}
+				<button type="button" class="departure-toggle-btn departure-custom-btn" data-departure="Horario personalizado" role="radio" aria-checked="false" hidden>Horario personalizado</button>
+			</div>
+		</div>
+		<p id="departure-help" class="field-help">Horario sujeto a confirmación de disponibilidad con el equipo.</p>
 		<button type="submit" class="tour-button inquiry-submit"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar salida<Icon name="arrow-up-right" aria-hidden="true" /></button>
 	</form>}
 	<a class="tour-button inquiry-fallback" href={contact.href} target="_blank" rel="noopener noreferrer"><Icon name="brand-whatsapp" aria-hidden="true" />Consultar por WhatsApp<Icon name="arrow-up-right" aria-hidden="true" /></a>

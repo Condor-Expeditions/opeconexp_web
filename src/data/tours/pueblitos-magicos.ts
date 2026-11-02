@@ -8,7 +8,7 @@ export default {
 	destinations: ["ingapirca", "chordeleg", "gualaceo"], experienceTypes: ["cultura", "artesania", "arqueologia"],
 	summary: "Filigrana, tejidos y memoria: tres pueblos para conocer sin prisa.",
 	description: "Descubre la grandeza arqueológica de Ingapirca junto a la orfebrería en filigrana de Chordeleg y la tradición textil del Ikat en Gualaceo en una sola jornada.",
-	duration: "8 h 15 min", durationNote: "La duración incluye las visitas, los traslados y el tiempo libre para almorzar.",
+	duration: "8 h", durationNote: "La duración incluye las visitas, los traslados y el tiempo libre para almorzar.",
 	difficulty: "Intermedia", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.", audience: "Familias, aventureros, amantes de la cultura y la fotografía y grupos.", season: "Todo el año",
 	price: { kind: "paid", adult: 40 },
 	meeting: "San Blas / Parque Calderón, Cuenca", returnPoint: "San Blas / Parque Calderón, Cuenca",
@@ -32,7 +32,7 @@ export default {
 		{ durationMinutes: 15, title: "Centro histórico de Chordeleg", description: "Recorrido por la plaza central y la iglesia matriz." },
 		{ durationMinutes: 45, title: "Regreso a Cuenca", description: "Retorno y despedida en el punto de encuentro." },
 	],
-	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional de turismo acreditado.", "Ingreso al Complejo Arqueológico de Ingapirca y Museo de Sitio.", "Ingreso al Museo de Chordeleg y Casa Museo de la Macana.", "Microtours artesanales de filigrana e Ikat.", "Botella de agua y snack."],
+	includes: ["Transporte turístico privado ida y vuelta desde Cuenca.", "Guía profesional de turismo acreditado.", "Ingreso al Complejo Arqueológico de Ingapirca y Museo de Sitio.", "Ingreso al Museo de Chordeleg y Casa Museo de la Macana.", "Microtours artesanales de filigrana e Ikat.", "Hidratación y snack."],
 	excludes: ["Almuerzo y consumos de alimentos.", "Compras de joyería, macanas y souvenirs.", "Propinas voluntarias.", "Seguro particular o gastos médicos no contemplados.", "Actividades o traslados fuera del itinerario."],
 	packing: mountainPacking,
 	restrictions: [

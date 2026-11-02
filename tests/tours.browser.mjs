@@ -76,8 +76,8 @@ try {
 	console.log("PASS inquiry: date, passengers, shift, past-date validation; no message sent");
 
 	// Test Astro client-side navigation: old handlers and lightboxes must be destroyed.
-	await page.locator('.tour-more-links a[href="/tours/cajas-de-laguna-a-lo-ancestral/"]').click();
-	await page.waitForURL("**/tours/cajas-de-laguna-a-lo-ancestral/");
+	await page.locator('.tour-more-links a[href="/tours/cajas-el-secreto-de-los-andes/"]').click();
+	await page.waitForURL("**/tours/cajas-el-secreto-de-los-andes/");
 	await page.locator("[data-gallery-open]").click();
 	await page.waitForFunction(() => document.activeElement?.classList.contains("pswp"));
 	assert.equal(await page.locator(".pswp").count(), 1);
