@@ -104,6 +104,8 @@ export function initTourDetail() {
 			calendarDaysGrid.innerHTML = html;
 		};
 
+		let togglePassengers = (_open?: boolean) => {};
+
 		const toggleCalendar = (open?: boolean) => {
 			if (!calendarPanel || !dateTrigger || !datePickerBox) return;
 			const shouldOpen = open ?? calendarPanel.hidden;
@@ -111,6 +113,7 @@ export function initTourDetail() {
 			dateTrigger.setAttribute("aria-expanded", String(shouldOpen));
 			datePickerBox.classList.toggle("is-open", shouldOpen);
 			if (shouldOpen) {
+				togglePassengers(false);
 				renderCalendar();
 			}
 		};
@@ -160,17 +163,65 @@ export function initTourDetail() {
 			date.dispatchEvent(new Event("change", { bubbles: true }));
 		}, options);
 
-		document.addEventListener("click", (event) => {
-			if (!calendarPanel || calendarPanel.hidden || !datePickerBox) return;
-			if (!datePickerBox.contains(event.target as Node)) {
+		const passengersPickerBox = inquiry.querySelector<HTMLElement>("#passengers-picker-box");
+		const passengersTrigger = inquiry.querySelector<HTMLButtonElement>("#passengers-picker-trigger");
+		const passengersTriggerLabel = inquiry.querySelector<HTMLElement>("#passengers-trigger-label");
+		const passengersPanel = inquiry.querySelector<HTMLElement>("#tour-passengers-panel");
+		const passengersDoneBtn = inquiry.querySelector<HTMLButtonElement>("#passengers-done-btn");
+
+		const adultsInput = inquiry.querySelector<HTMLInputElement>("#tour-adults");
+		const seniorsInput = inquiry.querySelector<HTMLInputElement>("#tour-seniors");
+		const childrenInput = inquiry.querySelector<HTMLInputElement>("#tour-children");
+		const babiesInput = inquiry.querySelector<HTMLInputElement>("#tour-babies");
+
+		const departureSelect = inquiry.querySelector<HTMLSelectElement>("#tour-departure");
+		const departureBtns = inquiry.querySelectorAll<HTMLButtonElement>(".departure-toggle-btn");
+		const customDepartureBtn = inquiry.querySelector<HTMLButtonElement>(".departure-custom-btn");
+		const largeGroupWarning = inquiry.querySelector<HTMLElement>("#large-group-warning");
+		const confirmLargeGroup = inquiry.querySelector<HTMLInputElement>("#confirm-large-group");
+
+		const breakdownContainer = inquiry.querySelector<HTMLElement>("#summary-breakdown");
+		const totalAmountEl = inquiry.querySelector<HTMLElement>("#summary-total-amount");
+
+		const isPaid = inquiry.dataset.priceKind === "paid";
+		const adultPrice = parseFloat(inquiry.dataset.adultPrice || "0") || 0;
+		const seniorPrice = parseFloat(inquiry.dataset.seniorPrice || "0") || 0;
+		const childPrice = parseFloat(inquiry.dataset.kidPrice || "0") || 0;
+
+		togglePassengers = (open?: boolean) => {
+			if (!passengersPanel || !passengersTrigger || !passengersPickerBox) return;
+			const shouldOpen = open ?? passengersPanel.hidden;
+			passengersPanel.hidden = !shouldOpen;
+			passengersTrigger.setAttribute("aria-expanded", String(shouldOpen));
+			passengersPickerBox.classList.toggle("is-open", shouldOpen);
+			if (shouldOpen) {
 				toggleCalendar(false);
+			}
+		};
+
+		passengersTrigger?.addEventListener("click", () => togglePassengers(), options);
+		passengersDoneBtn?.addEventListener("click", () => togglePassengers(false), options);
+
+		document.addEventListener("click", (event) => {
+			const target = event.target as Node;
+			if (calendarPanel && !calendarPanel.hidden && datePickerBox && !datePickerBox.contains(target)) {
+				toggleCalendar(false);
+			}
+			if (passengersPanel && !passengersPanel.hidden && passengersPickerBox && !passengersPickerBox.contains(target)) {
+				togglePassengers(false);
 			}
 		}, options);
 
 		document.addEventListener("keydown", (event) => {
-			if (event.key === "Escape" && calendarPanel && !calendarPanel.hidden) {
-				toggleCalendar(false);
-				dateTrigger?.focus();
+			if (event.key === "Escape") {
+				if (calendarPanel && !calendarPanel.hidden) {
+					toggleCalendar(false);
+					dateTrigger?.focus();
+				}
+				if (passengersPanel && !passengersPanel.hidden) {
+					togglePassengers(false);
+					passengersTrigger?.focus();
+				}
 			}
 		}, options);
 
@@ -191,47 +242,6 @@ export function initTourDetail() {
 			syncTriggerLabel();
 		}, options);
 
-		const adultsInput = inquiry.querySelector<HTMLInputElement>("#tour-adults");
-		const childrenInput = inquiry.querySelector<HTMLInputElement>("#tour-children");
-		const departureSelect = inquiry.querySelector<HTMLSelectElement>("#tour-departure");
-		const departureBtns = inquiry.querySelectorAll<HTMLButtonElement>(".departure-toggle-btn");
-		const customDepartureBtn = inquiry.querySelector<HTMLButtonElement>(".departure-custom-btn");
-		const largeGroupWarning = inquiry.querySelector<HTMLElement>("#large-group-warning");
-		const confirmLargeGroup = inquiry.querySelector<HTMLInputElement>("#confirm-large-group");
-		const childrenAgesContainer = inquiry.querySelector<HTMLElement>("#children-ages-container");
-
-		const checkGroupSizeAndSchedule = () => {
-			const adults = Math.max(0, parseInt(adultsInput?.value || "0", 10) || 0);
-			const children = Math.max(0, parseInt(childrenInput?.value || "0", 10) || 0);
-			const total = adults + children;
-
-			// Validar más de 44 adultos
-			if (largeGroupWarning) {
-				if (adults > 44) {
-					largeGroupWarning.hidden = false;
-				} else {
-					largeGroupWarning.hidden = true;
-					if (confirmLargeGroup) confirmLargeGroup.checked = false;
-				}
-			}
-
-			// Regla de más de 10 personas para horario personalizado
-			if (customDepartureBtn) {
-				if (total > 10) {
-					customDepartureBtn.hidden = false;
-				} else {
-					customDepartureBtn.hidden = true;
-					if (customDepartureBtn.classList.contains("active")) {
-						// Si estaba activo el personalizado y baja de 10 personas, volver al primer horario
-						const firstBtn = inquiry.querySelector<HTMLButtonElement>(".departure-toggle-btn:not(.departure-custom-btn)");
-						if (firstBtn) {
-							selectDepartureBtn(firstBtn);
-						}
-					}
-				}
-			}
-		};
-
 		const selectDepartureBtn = (targetBtn: HTMLButtonElement) => {
 			departureBtns.forEach(btn => {
 				btn.classList.remove("active");
@@ -249,6 +259,111 @@ export function initTourDetail() {
 			btn.addEventListener("click", () => selectDepartureBtn(btn), options);
 		});
 
+		const updatePassengersAndPricing = () => {
+			const adults = Math.max(0, parseInt(adultsInput?.value || "0", 10) || 0);
+			const seniors = Math.max(0, parseInt(seniorsInput?.value || "0", 10) || 0);
+			const children = Math.max(0, parseInt(childrenInput?.value || "0", 10) || 0);
+			const babies = Math.max(0, parseInt(babiesInput?.value || "0", 10) || 0);
+			const total = adults + seniors + children + babies;
+
+			// Actualizar texto del botón disparador
+			if (passengersTriggerLabel) {
+				if (!isPaid) {
+					passengersTriggerLabel.textContent = `${adults} persona${adults !== 1 ? "s" : ""}`;
+				} else if (total === 0) {
+					passengersTriggerLabel.textContent = "Seleccionar viajeros";
+				} else {
+					const parts: string[] = [];
+					if (adults > 0) parts.push(`${adults} Adulto${adults > 1 ? "s" : ""}`);
+					if (seniors > 0) parts.push(`${seniors} 3ra edad`);
+					if (children > 0) parts.push(`${children} Niño${children > 1 ? "s" : ""}`);
+					if (babies > 0) parts.push(`${babies} Bebé${babies > 1 ? "s" : ""}`);
+
+					if (parts.length <= 2) {
+						passengersTriggerLabel.textContent = parts.join(", ");
+					} else {
+						passengersTriggerLabel.textContent = `${total} Viajeros (${parts.join(", ")})`;
+					}
+				}
+			}
+
+			// Validar más de 44 personas en transporte regular
+			if (largeGroupWarning) {
+				if ((adults + seniors + children) > 44) {
+					largeGroupWarning.hidden = false;
+				} else {
+					largeGroupWarning.hidden = true;
+					if (confirmLargeGroup) confirmLargeGroup.checked = false;
+				}
+			}
+
+			// Regla de más de 10 personas para horario personalizado
+			if (customDepartureBtn) {
+				if (total > 10) {
+					customDepartureBtn.hidden = false;
+				} else {
+					customDepartureBtn.hidden = true;
+					if (customDepartureBtn.classList.contains("active")) {
+						const firstBtn = inquiry.querySelector<HTMLButtonElement>(".departure-toggle-btn:not(.departure-custom-btn)");
+						if (firstBtn) {
+							selectDepartureBtn(firstBtn);
+						}
+					}
+				}
+			}
+
+			// Actualizar desglose de precios y total estimado
+			if (isPaid) {
+				const adultSubtotal = adults * adultPrice;
+				const seniorSubtotal = seniors * seniorPrice;
+				const childSubtotal = children * childPrice;
+				const grandTotal = adultSubtotal + seniorSubtotal + childSubtotal;
+
+				if (breakdownContainer && totalAmountEl) {
+					let breakdownHtml = "";
+					if (adults > 0) {
+						breakdownHtml += `<div class="summary-line"><span>${adults} Adulto${adults > 1 ? "s" : ""} ($${adultPrice} USD c/u)</span><strong>$${adultSubtotal}</strong></div>`;
+					}
+					if (seniors > 0) {
+						breakdownHtml += `<div class="summary-line"><span>${seniors} Tercera edad ($${seniorPrice} USD c/u)</span><strong>$${seniorSubtotal}</strong></div>`;
+					}
+					if (children > 0) {
+						breakdownHtml += `<div class="summary-line"><span>${children} Niño${children > 1 ? "s" : ""} ($${childPrice} USD c/u)</span><strong>$${childSubtotal}</strong></div>`;
+					}
+					if (babies > 0) {
+						breakdownHtml += `<div class="summary-line"><span>${babies} Bebé${babies > 1 ? "s" : ""} (en brazos)</span><strong>Gratis</strong></div>`;
+					}
+					if (!breakdownHtml) {
+						breakdownHtml = `<div class="summary-line"><span>Sin pasajeros seleccionados</span><strong>$0</strong></div>`;
+					}
+					breakdownContainer.innerHTML = breakdownHtml;
+					totalAmountEl.textContent = `$${grandTotal} USD`;
+				}
+
+				// Actualizar total en el panel desplegable de pasajeros
+				const panelTotalEl = inquiry.querySelector<HTMLElement>("#passengers-panel-total-amount");
+				if (panelTotalEl) {
+					panelTotalEl.textContent = `$${grandTotal} USD`;
+				}
+
+				// Actualizar precio en la cabecera del tour si hay más de 1 pasajero
+				const topPriceStrong = inquiry.querySelector<HTMLElement>(".tour-price strong");
+				const topPriceFrom = inquiry.querySelector<HTMLElement>(".tour-price .price-from");
+				const topPriceCurrency = inquiry.querySelector<HTMLElement>(".tour-price .price-currency");
+				if (topPriceStrong) {
+					if (total > 1) {
+						if (topPriceFrom) topPriceFrom.textContent = "Total estimado";
+						topPriceStrong.textContent = `$${grandTotal}`;
+						if (topPriceCurrency) topPriceCurrency.innerHTML = `USD <span>(${total} personas)</span>`;
+					} else {
+						if (topPriceFrom) topPriceFrom.textContent = "Desde";
+						topPriceStrong.textContent = `$${adultPrice}`;
+						if (topPriceCurrency) topPriceCurrency.innerHTML = `USD <span>/ persona</span>`;
+					}
+				}
+			}
+		};
+
 		// Manejo de steppers (+ y -)
 		const stepperBtns = inquiry.querySelectorAll<HTMLButtonElement>(".stepper-btn");
 		stepperBtns.forEach(btn => {
@@ -261,97 +376,41 @@ export function initTourDetail() {
 				let current = parseInt(targetInput.value || "0", 10);
 				if (isNaN(current)) current = 0;
 
-				if (targetId === "tour-adults") {
-					if (dir > 0) {
-						if (current >= 44 && !confirmLargeGroup?.checked) {
+				const maxVal = targetId === "tour-children" ? 20 : targetId === "tour-babies" ? 10 : 100;
+
+				if (dir > 0) {
+					if (targetId === "tour-adults" || targetId === "tour-seniors") {
+						const adults = parseInt(adultsInput?.value || "0", 10) || 0;
+						const seniors = parseInt(seniorsInput?.value || "0", 10) || 0;
+						if ((adults + seniors) >= 44 && !confirmLargeGroup?.checked) {
 							if (largeGroupWarning) largeGroupWarning.hidden = false;
 							confirmLargeGroup?.focus();
 							return;
 						}
-						if (current < 100) targetInput.value = String(current + 1);
-					} else {
-						if (current > 0) targetInput.value = String(current - 1);
 					}
-				} else if (targetId === "tour-children") {
-					if (dir > 0) {
-						if (current < 20) targetInput.value = String(current + 1);
-					} else {
-						if (current > 0) targetInput.value = String(current - 1);
-					}
+					if (current < maxVal) targetInput.value = String(current + 1);
+				} else {
+					if (current > 0) targetInput.value = String(current - 1);
 				}
 
+				updatePassengersAndPricing();
 				targetInput.dispatchEvent(new Event("input", { bubbles: true }));
 				targetInput.dispatchEvent(new Event("change", { bubbles: true }));
 			}, options);
 		});
 
-		// Inputs de edades para niños (1 a 4 niños validados de 0 a 11 años)
-		const updateChildrenAges = () => {
-			if (!childrenAgesContainer || !childrenInput) return;
-			const count = parseInt(childrenInput.value || "0", 10) || 0;
-
-			// Guardar valores previos si existen
-			const prevValues: string[] = [];
-			childrenAgesContainer.querySelectorAll<HTMLInputElement>(".child-age-input").forEach(inp => {
-				prevValues.push(inp.value);
-			});
-
-			if (count <= 0) {
-				childrenAgesContainer.hidden = true;
-				childrenAgesContainer.innerHTML = "";
-			} else if (count >= 1 && count <= 4) {
-				childrenAgesContainer.hidden = false;
-				let html = '<p class="ages-title">Edades de los niños (0 a 11 años):</p><div class="ages-grid">';
-				for (let i = 1; i <= count; i++) {
-					const val = prevValues[i - 1] ?? "";
-					html += `
-						<div class="age-field">
-							<label for="child-age-${i}">Niño ${i}</label>
-							<div class="age-input-row">
-								<input type="number" id="child-age-${i}" class="child-age-input" min="0" max="11" placeholder="Edad" value="${val}" required />
-								<span>años</span>
-							</div>
-						</div>
-					`;
-				}
-				html += "</div>";
-				childrenAgesContainer.innerHTML = html;
-
-				// Añadir validación individual de 0 a 11 años
-				childrenAgesContainer.querySelectorAll<HTMLInputElement>(".child-age-input").forEach(input => {
-					input.addEventListener("input", () => {
-						const val = parseInt(input.value, 10);
-						if (isNaN(val) || val < 0 || val > 11) {
-							input.setCustomValidity("La edad debe estar comprendida entre 0 y 11 años.");
-						} else {
-							input.setCustomValidity("");
-						}
-					}, options);
-				});
-			} else {
-				// Más de 4 niños
-				childrenAgesContainer.hidden = false;
-				childrenAgesContainer.innerHTML = '<p class="ages-notice">Para grupos de más de 4 niños, coordinaremos las edades y tarifas directamente por WhatsApp.</p>';
-			}
-		};
-
-		if (adultsInput) {
-			adultsInput.addEventListener("input", () => {
-				let val = parseInt(adultsInput.value, 10);
-				if (!isNaN(val) && val > 100) adultsInput.value = "100";
-				if (!isNaN(val) && val < 0) adultsInput.value = "0";
-				checkGroupSizeAndSchedule();
-			}, options);
-		}
-
-		if (childrenInput) {
-			childrenInput.addEventListener("input", () => {
-				let val = parseInt(childrenInput.value, 10);
-				if (!isNaN(val) && val < 0) childrenInput.value = "0";
-				checkGroupSizeAndSchedule();
-				updateChildrenAges();
-			}, options);
-		}
+		[adultsInput, seniorsInput, childrenInput, babiesInput].forEach(inp => {
+			if (!inp) return;
+			const onValChange = () => {
+				let val = parseInt(inp.value, 10);
+				const max = inp.id === "tour-children" ? 20 : inp.id === "tour-babies" ? 10 : 100;
+				if (!isNaN(val) && val > max) inp.value = String(max);
+				if (!isNaN(val) && val < 0) inp.value = "0";
+				updatePassengersAndPricing();
+			};
+			inp.addEventListener("input", onValChange, options);
+			inp.addEventListener("change", onValChange, options);
+		});
 
 		if (confirmLargeGroup) {
 			confirmLargeGroup.addEventListener("change", () => {
@@ -359,13 +418,17 @@ export function initTourDetail() {
 			}, options);
 		}
 
+		updatePassengersAndPricing();
+
 		form.addEventListener("submit", (event) => {
 			validateDate();
 			if (!form.reportValidity()) { event.preventDefault(); return; }
 
 			const adults = Math.max(0, parseInt(adultsInput?.value || "0", 10) || 0);
-			const children = childrenInput ? Math.max(0, parseInt(childrenInput.value || "0", 10) || 0) : undefined;
-			const total = adults + (children ?? 0);
+			const seniors = Math.max(0, parseInt(seniorsInput?.value || "0", 10) || 0);
+			const children = childrenInput ? Math.max(0, parseInt(childrenInput.value || "0", 10) || 0) : 0;
+			const babies = babiesInput ? Math.max(0, parseInt(babiesInput.value || "0", 10) || 0) : 0;
+			const total = adults + seniors + children + babies;
 
 			if (total === 0) {
 				if (adultsInput) {
@@ -374,31 +437,23 @@ export function initTourDetail() {
 				}
 				event.preventDefault();
 				return;
+			} else if (isPaid && adults === 0 && seniors === 0 && (children > 0 || babies > 0)) {
+				if (adultsInput) {
+					adultsInput.setCustomValidity("Los menores deben viajar acompañados por al menos un adulto o adulto mayor.");
+					adultsInput.reportValidity();
+				}
+				event.preventDefault();
+				return;
 			} else if (adultsInput) {
 				adultsInput.setCustomValidity("");
 			}
 
-			// Validar confirmación de más de 44 adultos
-			if (adults > 44 && confirmLargeGroup && !confirmLargeGroup.checked) {
+			// Validar confirmación de más de 44 personas
+			if ((adults + seniors + children) > 44 && confirmLargeGroup && !confirmLargeGroup.checked) {
 				confirmLargeGroup.setCustomValidity("Por favor confirma que solicitas cotización para más de 44 personas.");
 				confirmLargeGroup.reportValidity();
 				event.preventDefault();
 				return;
-			}
-
-			// Validar edades de niños (0 a 11)
-			if (children && children >= 1 && children <= 4 && childrenAgesContainer) {
-				const ageInputs = childrenAgesContainer.querySelectorAll<HTMLInputElement>(".child-age-input");
-				for (const input of ageInputs) {
-					const val = parseInt(input.value, 10);
-					if (isNaN(val) || val < 0 || val > 11) {
-						input.setCustomValidity("La edad del niño debe estar entre 0 y 11 años.");
-						input.reportValidity();
-						event.preventDefault();
-						return;
-					}
-					input.setCustomValidity("");
-				}
 			}
 
 			const activeBtn = inquiry.querySelector<HTMLButtonElement>(".departure-toggle-btn.active");
@@ -409,30 +464,33 @@ export function initTourDetail() {
 				departureMessage = `Horario de salida solicitado: Horario personalizado (grupo privado de ${total} personas).`;
 			}
 
-			let passengersMessage = `Personas: ${adults}.`;
-			if (children !== undefined) {
-				if (children === 0) {
-					passengersMessage = `Adultos: ${adults}. Niños: 0.`;
-				} else if (children >= 1 && children <= 4 && childrenAgesContainer) {
-					const ageInputs = childrenAgesContainer.querySelectorAll<HTMLInputElement>(".child-age-input");
-					const ages = Array.from(ageInputs).map(inp => `${inp.value} años`);
-					const agesStr = ages.length === 1 ? ages[0] : `${ages.slice(0, -1).join(", ")} y ${ages[ages.length - 1]}`;
-					passengersMessage = `Adultos: ${adults}. Niños: ${children} (edades: ${agesStr}).`;
-				} else {
-					passengersMessage = `Adultos: ${adults}. Niños: ${children} (edades a coordinar por WhatsApp).`;
-				}
-			}
-
 			const formattedDate = new Intl.DateTimeFormat("es-EC", { dateStyle: "long" }).format(new Date(`${date.value}T12:00:00`));
-			const message = [
+
+			const messageLines = [
 				`Hola, quisiera consultar una salida para ${inquiry.dataset.tourTitle} (${inquiry.dataset.tourId}).`,
 				`Fecha propuesta: ${formattedDate}.`,
 				departureMessage,
-				passengersMessage,
-				"¿Podrían confirmarme disponibilidad, condiciones y tarifa aplicable? Entiendo que esta consulta no confirma una reserva.",
-			].join("\n");
+			];
+
+			if (isPaid) {
+				const passengerLines: string[] = [];
+				if (adults > 0) passengerLines.push(`• ${adults} Adulto${adults > 1 ? "s" : ""} ($${adultPrice} c/u): $${adults * adultPrice} USD`);
+				if (seniors > 0) passengerLines.push(`• ${seniors} Tercera edad ($${seniorPrice} c/u): $${seniors * seniorPrice} USD`);
+				if (children > 0) passengerLines.push(`• ${children} Niño${children > 1 ? "s" : ""} (3–10 años, $${childPrice} c/u): $${children * childPrice} USD`);
+				if (babies > 0) passengerLines.push(`• ${babies} Bebé${babies > 1 ? "s" : ""} (en brazos): Gratis`);
+
+				const grandTotal = (adults * adultPrice) + (seniors * seniorPrice) + (children * childPrice);
+				messageLines.push(`\nPasajeros (${total} en total):\n${passengerLines.join("\n")}`);
+				messageLines.push(`Total estimado: $${grandTotal} USD.`);
+			} else {
+				messageLines.push(`Pasajeros: ${adults} personas.`);
+				messageLines.push(`Modalidad: Tour a base de aporte voluntario.`);
+			}
+
+			messageLines.push("¿Podrían confirmarme disponibilidad, condiciones y tarifa aplicable? Entiendo que esta consulta no confirma una reserva.");
+
 			const text = form.querySelector<HTMLInputElement>('input[name="text"]');
-			if (text) text.value = message;
+			if (text) text.value = messageLines.join("\n");
 		}, options);
 		form.hidden = false;
 		const fallback = inquiry.querySelector<HTMLElement>(".inquiry-fallback");
