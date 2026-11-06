@@ -13,7 +13,7 @@ test("stage durations are readable minutes/hours, never clock times", () => {
 // Exact stage durations from the updated FICHA TOUR sheets.
 const stages = {
 	"cajas-al-descubierto": [15, 45, 40, 60, 40, 45, 40],
-	"cajas-de-laguna-a-lo-ancestral": [15, 50, 40, 90, 160, 30],
+	"cajas-el-secreto-de-los-andes": [15, 50, 40, 90, 160, 30],
 	"raices-ancestrales-del-ecuador": [15, 60, 60, 90, 75, 60, 120, 75],
 	"pueblitos-magicos": [15, 75, 90, 75, 60, 45, 15, 25, 35, 15, 45],
 	"aventura-en-cuadron": [15, 40, 60, 140, 60, 120, 60],
@@ -21,7 +21,7 @@ const stages = {
 	"guachapala-entre-paisajes-y-tradicion": [15, 90, 45, 135, 75, 75, 120],
 	"cascada-de-giron": [15, 45, 45, 105, 45],
 	"compras-y-artesanias": [45, 60, 15, 45, 45, 30],
-	"raices-ancestrales-sigsig": [90, 75, 75, 75, 60, 105, 90],
+	"el-origen-de-los-ancestros": [90, 75, 75, 75, 60, 105, 90],
 	"paute-dinosaurios-naturaleza-y-sabores": [15, 60, 60, 45, 45, 45, 45],
 };
 

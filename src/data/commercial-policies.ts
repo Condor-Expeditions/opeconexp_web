@@ -6,6 +6,7 @@ export const commercialPolicies = [
 			{ title: "Confirmación de reserva", text: "La reserva queda asegurada mediante un pago inicial flexible del 50% del valor total (o el 100% del pago al momento de reservar para determinados tours, servicios en línea o reservas de última hora) y la emisión formal del comprobante o voucher de servicio." },
 			{ title: "Saldos Pendientes", text: "El 50% restante se puede cancelar hasta 24 horas antes del inicio de la actividad o al momento de abordar, según el tipo de tour o paquete contratado." },
 			{ title: "Métodos de Pago", text: "Aceptamos transferencias bancarias locales, pago en efectivo en la oficina, tarjetas de crédito/débito y pagos digitales (PayPal, Payphone). Todos los métodos ofrecen facilidades de confirmación inmediata." },
+			{ title: "Tarifas y Menores de Edad", text: "Infantes de 0 a 2 años viajan en brazos sin costo (sin ocupar asiento individual ni porción propia de alimentación). Niños de 3 a 11 años aplican a tarifa preferencial infantil con derecho a asiento asignado conforme a normativas de transporte turístico. A partir de 12 años aplica tarifa regular de adulto." },
 		],
 	},
 	{

@@ -3,12 +3,12 @@ import type { Tour } from "./types";
 
 export default {
 	enabled: true,
-	id: "ARQ-002", slug: "raices-ancestrales-sigsig", title: "El Origen de los Ancestros", signature: "Un encuentro con la memoria",
+	id: "ARQ-002", slug: "el-origen-de-los-ancestros", title: "El Origen de los Ancestros", signature: "Un encuentro con la memoria",
 	category: "Arqueología · Historia · Cultura", location: "Sígsig · Chobshi",
 	destinations: ["sigsig"], experienceTypes: ["arqueologia", "historia", "cultura"],
 	summary: "Cueva Negra, Castillo de Duma, museo y caminata por el Pailón de Chobshi.",
 	description: "Viaja desde Cuenca hacia Sígsig y Chobshi para descubrir la Cueva Negra, las ruinas del Castillo del Cacique Duma y el Museo de Sitio. La jornada incluye una pausa para almorzar en Sígsig y una caminata interpretativa por el Cañón del Pailón de Chobshi.",
-	duration: "9 h 30 min", difficulty: "Fácil", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
+	duration: "8 h", difficulty: "Fácil", languages: "Español", languageNote: "Consulta disponibilidad de guía en inglés.",
 	audience: "Familias, grupos y viajeros.", season: "Todo el año",
 	price: { kind: "paid", adult: 40 }, meeting: "Parque Calderón, Centro Histórico de Cuenca", returnPoint: "Parque Calderón, Centro Histórico de Cuenca",
 	operation: "Viernes a domingo", operatingDays: [0, 5, 6], departures: ["08:30"], minimumPeople: 4,
@@ -27,8 +27,8 @@ export default {
 		{ durationMinutes: 105, title: "Cañón del Pailón de Chobshi", description: "Caminata interpretativa por el cañón y el ancestral camino cañari." },
 		{ durationMinutes: 90, title: "Regreso a Cuenca", description: "Traslado de retorno a la ciudad de Cuenca." },
 	],
-	includes: ["Transporte turístico ida y vuelta desde Cuenca con conductor profesional.", "Guía acreditado especializado en arqueología y patrimonio andino.", "Entradas y visitas guiadas a Cueva Negra, Castillo de Duma y Museo de Chobshi.", "Caminata guiada por el ancestral camino cañari y cañón del Pailón.", "Botiquín de primeros auxilios y póliza de asistencia médica en ruta.", "Refrigerio ligero y botella de agua purificada."],
-	excludes: ["Propinas voluntarias.", "Gastos personales, artesanías y compras no especificadas.", "Bebidas alcohólicas o consumos fuera del itinerario.", "Transportes adicionales o actividades fuera de ruta.", "Seguros especiales de aventura extrema.", "Almuerzo completo; se reserva tiempo para almorzar por cuenta propia."],
+	includes: ["Transporte turístico ida y vuelta desde Cuenca con conductor profesional.", "Guía acreditado especializado en arqueología y patrimonio andino.", "Entradas y visitas guiadas a Cueva Negra, Castillo de Duma y Museo de Chobshi.", "Caminata guiada por el ancestral camino cañari y cañón del Pailón.", "Botiquín de primeros auxilios.", "Refrigerio ligero e hidratación."],
+	excludes: ["Propinas voluntarias.", "Gastos personales, artesanías y compras no especificadas.", "Bebidas alcohólicas o consumos fuera del itinerario.", "Transportes adicionales o actividades fuera de ruta.", "Seguro de viaje o asistencia médica particular.", "Almuerzo completo; se reserva tiempo para almorzar por cuenta propia."],
 	packing: [
 		{ title: "Vestimenta y calzado", description: "Ropa cómoda, abrigo ligero y calzado cómodo para caminar." },
 		{ title: "Protección solar", description: "Protector solar, sombrero o gorra y gafas UV." },
