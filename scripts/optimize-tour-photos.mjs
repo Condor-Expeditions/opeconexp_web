@@ -24,6 +24,9 @@ const folders = {
 	"Museo de los Tratados": "museo-de-los-tratados",
 	"Pailon del Chobsi": "pailon-de-chobshi",
 	Templete: "templete-de-tarqui",
+	Andacocha: "andacocha",
+	Guachaventura: "guachaventura",
+	"Paute La Cuchara de Palo": "paute-la-cuchara-de-palo",
 };
 
 let originalBytes = 0;
