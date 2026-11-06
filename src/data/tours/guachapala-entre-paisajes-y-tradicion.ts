@@ -2,7 +2,7 @@ import { paidConditions, source } from "./shared";
 import type { Tour } from "./types";
 
 export default {
-	enabled: false,
+	enabled: true,
 	id: "CULT-002", slug: "guachapala-entre-paisajes-y-tradicion",
 	title: "Entre Montañas y Milagros", signature: "Fe, paisajes y aventura",
 	category: "Cultura · Naturaleza · Aventura", location: "Andacocha · Guachapala",
@@ -43,11 +43,18 @@ export default {
 	conditions: paidConditions,
 	practical: ["Hay baños en el Santuario de Andacocha y en Guachaventura.", "Retira efectivo en Cuenca o Paute; no hay cajeros en Andacocha.", "Lleva efectivo en billetes pequeños para la feria artesanal."],
 	photos: [
-		{ src: "/public/assets/menu/tours/guachapala-andacocha.jpg", alt: "Vista ilustrativa del entorno de Guachapala y Andacocha" },
-		{ src: "/public/assets/menu/destinos/azuay.jpg", alt: "Paisaje ilustrativo del Austro ecuatoriano" },
-		{ src: "/src/assets/tours/demo/laguna.jpg", alt: "Paisaje ilustrativo de agua y montañas" },
-		{ src: "/public/assets/menu/tours/conoce-deleg.jpg", alt: "Sendero ilustrativo entre vegetación" },
-		{ src: "/public/assets/menu/tours/walking-tour-gastronomico.webp", alt: "Gastronomía ilustrativa del Austro" },
-	], illustrativePhotos: true,
-	source: source("CULT-002", ["A69", "C69"], ["Se adopta CULT-002 de B6; el nombre del archivo aún usa NAT-005.", "Puente tibetano y columpio descritos en B27, incluidos por confirmación del propietario.", "Total suma A22:A28; no se añade un tiempo de regreso que la ficha no separa.", "Política de cancelación y fotografías aprobadas pendientes de revisión."]),
+		{ src: "/src/assets/tours/andacocha/20261029_0216.webp", alt: "Santuario de Andacocha y puestos de la feria bajo el cielo azul" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0019.webp", alt: "Vista de Guachapala entre montañas desde Guachaventura" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0081.webp", alt: "Puente de tablas multicolores suspendido en Guachaventura" },
+		{ src: "/src/assets/tours/andacocha/20261029_0270.webp", alt: "Visitantes frente a la gruta interior del Santuario de Andacocha" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0127.webp", alt: "Letras de Guachapala junto al sendero de Guachaventura" },
+		{ src: "/src/assets/tours/andacocha/20261029_0276.webp", alt: "Puestos de recuerdos y artículos religiosos en la feria de Andacocha" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0031.webp", alt: "Sendero con barandas blancas y jardines en Guachaventura" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0054.webp", alt: "Casita de madera elevada entre árboles en Guachaventura" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0099.webp", alt: "Figura de gorila gigante frente a las montañas de Guachapala" },
+		{ src: "/src/assets/tours/andacocha/20261029_0285.webp", alt: "Interior del Santuario de Andacocha con lámparas y vitrales" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0158.webp", alt: "Muebles de madera tallada y mural de vasijas en Guachaventura" },
+		{ src: "/src/assets/tours/guachaventura/20261029_0049.webp", alt: "Zona cubierta con hamacas junto a la piscina de Guachaventura" },
+	], illustrativePhotos: false,
+	source: source("CULT-002", ["A69", "C69"], ["Se adopta CULT-002 de B6; el nombre del archivo aún usa NAT-005.", "Puente tibetano y columpio descritos en B27, incluidos por confirmación del propietario.", "Total suma A22:A28; no se añade un tiempo de regreso que la ficha no separa.", "Política de cancelación pendiente de revisión."]),
 } satisfies Tour;

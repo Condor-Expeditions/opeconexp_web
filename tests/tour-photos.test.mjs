@@ -13,6 +13,7 @@ const folders = {
 	busa: 11, chordeleg: 12, chobshi: 18, "el-chorro": 11,
 	"iglesia-de-giron": 10, "museo-de-la-makana": 14,
 	"museo-de-los-tratados": 7, "pailon-de-chobshi": 11, "templete-de-tarqui": 10,
+	andacocha: 13, guachaventura: 16, "paute-la-cuchara-de-palo": 16,
 };
 const assignments = {
 	"cajas-al-descubierto": ["laguna-toreadora", "mirador-tres-cruces", "virgen-del-cajas", "dos-chorreras"],
@@ -23,10 +24,12 @@ const assignments = {
 	"aventura-en-cuadron": ["busa", "el-chorro", "templete-de-tarqui", "museo-de-los-tratados", "iglesia-de-giron"],
 	"compras-y-artesanias": ["chordeleg", "museo-de-la-makana"],
 	"raices-ancestrales-sigsig": ["chobshi", "pailon-de-chobshi"],
+	"guachapala-entre-paisajes-y-tradicion": ["andacocha", "guachaventura"],
+	"paute-dinosaurios-naturaleza-y-sabores": ["paute-la-cuchara-de-palo"],
 };
 const load = route => readFile(new URL(`dist/${route}`, root), "utf8");
 
-test("all 205 supplied photographs are WebP masters, bounded to 2400px and stripped of metadata", async () => {
+test("all 250 supplied photographs are WebP masters, bounded to 2400px and stripped of metadata", async () => {
 	let count = 0;
 	for (const [folder, expected] of Object.entries(folders)) {
 		const directory = new URL(`src/assets/tours/${folder}/`, root);
@@ -44,11 +47,11 @@ test("all 205 supplied photographs are WebP masters, bounded to 2400px and strip
 			count++;
 		}
 	}
-	assert.equal(count, 205);
+	assert.equal(count, 250);
 });
 
 test("newly photographed tours are enabled and their covers are distinct", () => {
-	const slugs = ["cajas-al-descubierto", "cajas-de-laguna-a-lo-ancestral", "raices-ancestrales-del-ecuador", "pueblitos-magicos", "cascada-de-giron", "aventura-en-cuadron", "compras-y-artesanias", "raices-ancestrales-sigsig"];
+	const slugs = Object.keys(assignments).filter(slug => slug !== "paute-dinosaurios-naturaleza-y-sabores");
 	const covers = slugs.map(slug => {
 		const tour = allTours.find(item => item.slug === slug);
 		assert.equal(tour.enabled, true, slug);
@@ -62,6 +65,7 @@ test("updated galleries use only supplied photos from places on their own itiner
 	const listing = await load("tours/index.html");
 	for (const [slug, allowed] of Object.entries(assignments)) {
 		const tour = allTours.find(item => item.slug === slug);
+		if (!tour.enabled) continue;
 		assert.equal(tour.illustrativePhotos, false, slug);
 		assert.ok(tour.photos.length >= 5);
 		assert.equal(new Set(tour.photos.map(photo => photo.src)).size, tour.photos.length);
@@ -89,9 +93,10 @@ test("hero, masonry and home feature cards render the new responsive photography
 	assert.match(hero, /20261012_0293/);
 	assert.match(hero, /20261012_0101/);
 	assert.match(hero, /20261012_0167/);
+	assert.match(hero, /20261029_0019/);
 	assert.doesNotMatch(hero, /nevado\./);
 	const menu = home.match(/<div class="destination-grid">[\s\S]*?<div class="menu-footer">/)[0];
-	for (const name of ["20261012_0293", "20261012_0101", "20261012_0167"]) assert.ok(menu.includes(name));
+	for (const name of ["20261012_0293", "20261012_0101", "20261012_0167", "20261029_0019"]) assert.ok(menu.includes(name));
 	const featured = home.match(/<section[^>]*aria-labelledby="featured-title"[\s\S]*?<\/section>/)[0];
 	assert.equal((featured.match(/<article\b/g) || []).length, 4);
 	for (const slug of ["cajas-al-descubierto", "pueblitos-magicos", "raices-ancestrales-del-ecuador", "aventura-en-cuadron"]) {

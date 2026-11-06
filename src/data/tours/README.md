@@ -46,7 +46,7 @@ enabled: false, // true para volver a publicarlo
 
 ### Fotografías propias
 
-Las 205 fotografías recibidas en octubre de 2026 están optimizadas como WebP en `src/assets/tours/`, organizadas por lugar. Máximo 2400 px en el lado largo, calidad 80, orientación corregida y sin metadatos EXIF/GPS. El optimizador reduce las dimensiones de las imágenes más pesadas hasta dejarlas por debajo de 1 MiB sin bajar la calidad configurada. Astro genera las versiones responsive y las ampliaciones de galería; no se envían los originales de cámara al navegador.
+Las 250 fotografías recibidas en octubre de 2026 están optimizadas como WebP en `src/assets/tours/`, organizadas por lugar. Máximo 2400 px en el lado largo, calidad 80, orientación corregida y sin metadatos EXIF/GPS. El optimizador reduce las dimensiones de las imágenes más pesadas hasta dejarlas por debajo de 1 MiB sin bajar la calidad configurada. Astro genera las versiones responsive y las ampliaciones de galería; no se envían los originales de cámara al navegador.
 
 - Copia local de los originales: `tmp/tour-photo-originals/`, fuera de `public/` y excluida de Git. Conserva una copia de seguridad externa de esos originales.
 - Para regenerar: `node scripts/optimize-tour-photos.mjs`. También acepta otra carpeta de origen como primer argumento; la estructura debe conservar los nombres de las carpetas recibidas. Las carpetas ausentes se omiten para admitir entregas parciales.
@@ -54,6 +54,8 @@ Las 205 fotografías recibidas en octubre de 2026 están optimizadas como WebP e
 - La segunda entrega incorpora 104 fotos de Busa, Chordeleg, Chobshi, El Chorro, la iglesia de Girón, la Makana, la Casa de los Tratados, el Pailón de Chobshi y el Templete de Tarqui: 2797,03 MiB originales → 49,24 MiB WebP (98,2 % menos).
 - Se habilitan Cascada de Girón, Aventura en Girón, Compras y Artesanías, Pueblitos Mágicos y Sígsig–Chobshi. Cada galería selecciona fotografías de sus propias paradas. Los originales de ambas entregas se conservan juntos en la carpeta local indicada arriba.
 - Portadas diferenciadas: Toreadora para NAT-001, casas de piedra de Dos Chorreras para NAT-002, El Chorro para NAT-003, Busa para NAT-004, plaza de Chordeleg para CULT-001, filigrana para ARTE-001 y muros de Chobshi para ARQ-002. Las portadas de destino de Girón, Chordeleg, Gualaceo y Sígsig también usan fotos propias.
+- La tercera entrega incorpora 45 fotos de Andacocha (13), Guachaventura (16) y Paute La Cuchara de Palo (16): 1205,56 MiB originales → 22,55 MiB WebP (98,1 % menos). Los originales se conservan junto a las entregas anteriores fuera de `public/`.
+- Se habilita Entre Montañas y Milagros (CULT-002). Paute: Dinosaurios, Naturaleza y Sabores (NAT-006) permanece desactivado por indicación del propietario. Sus galerías seleccionan 12 y 9 fotos propias respectivamente; las de Paute corresponden a La Cuchara de Palo, no se presentan como fotografías de Jurassic Paute ni Animal Paute. Las portadas de destino de Guachapala y Paute también usan esta entrega; Paute no aparece públicamente mientras su tour esté desactivado.
 
 ### Fichas comerciales
 
