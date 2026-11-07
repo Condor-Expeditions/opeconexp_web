@@ -22,12 +22,12 @@ const data = [
   {
     background: heroLandscape,
     altImage: "Paisaje de páramo y montañas de El Cajas desde el mirador Tres Cruces",
-    title: "Operadora turística",
-    subtitle: "en Cuenca, Ecuador.",
+    title: "Tours en Ecuador",
+    subtitle: "Vive lo que otros solo visitan.",
     description: homeSeo.directAnswer,
     position: "50% 45%",
     portraitPosition: "55% 40%",
-    tours: [{ slug: "/tours/", name: "Ver tours desde Cuenca" }],
+    tours: [{ slug: "/tours/", name: "Explorar tours por Ecuador" }],
     tags: ["Naturaleza", "Aventura", "Senderismo", "Fotografía"],
   },
   ...destinations.filter(place => tours.some(tour => tour.destinations.includes(place.id))).map(place => {

@@ -3,17 +3,17 @@ import type { TravelQuestion } from "../travel-faq";
 
 // Editorial search labels cover disabled tours too, without changing publication.
 const searchTitles: Record<string, string> = {
-	"cajas-al-descubierto": "Tour al Cajas desde Cuenca: Cajas al Descubierto",
-	"cajas-el-secreto-de-los-andes": "Tour vivencial al Cajas desde Cuenca: El Secreto de los Andes",
-	"raices-ancestrales-del-ecuador": "Tour a Ingapirca desde Cuenca: Raíces Ancestrales del Ecuador",
-	"pueblitos-magicos": "Tour a Ingapirca, Gualaceo y Chordeleg desde Cuenca",
-	"cascada-de-giron": "Tour a la Cascada de Girón desde Cuenca",
-	"aventura-en-cuadron": "Tour a Girón y Busa desde Cuenca: aventura en cuadrón",
+	"cajas-al-descubierto": "Tour al Cajas: Cajas al Descubierto",
+	"cajas-el-secreto-de-los-andes": "Tour vivencial al Cajas: El Secreto de los Andes",
+	"raices-ancestrales-del-ecuador": "Tour a Ingapirca: Raíces Ancestrales del Ecuador",
+	"pueblitos-magicos": "Tour a Ingapirca, Gualaceo y Chordeleg: Pueblitos Mágicos",
+	"cascada-de-giron": "Tour a la Cascada de Girón: naturaleza e historia",
+	"aventura-en-cuadron": "Tour a Girón y Busa: aventura en cuadrón",
 	"free-walking-tour-cuenca": "Free Walking Tour de Cuenca: recorrido por el centro histórico",
-	"compras-y-artesanias": "Tour de compras y artesanías desde Cuenca",
-	"el-origen-de-los-ancestros": "Tour a Sígsig y Chobshi desde Cuenca: El Origen de los Ancestros",
-	"guachapala-entre-paisajes-y-tradicion": "Tour a Andacocha y Guachapala desde Cuenca: Entre Montañas y Milagros",
-	"paute-dinosaurios-naturaleza-y-sabores": "Tour a Paute desde Cuenca: dinosaurios, naturaleza y sabores",
+	"compras-y-artesanias": "Tour de compras y artesanías en Chordeleg y Gualaceo",
+	"el-origen-de-los-ancestros": "Tour a Sígsig y Chobshi: El Origen de los Ancestros",
+	"guachapala-entre-paisajes-y-tradicion": "Tour a Andacocha y Guachapala: Entre Montañas y Milagros",
+	"paute-dinosaurios-naturaleza-y-sabores": "Tour a Paute: dinosaurios, naturaleza y sabores",
 };
 
 const directDescriptions: Record<string, string> = {
@@ -37,8 +37,8 @@ const quote = (tour: Tour) => tour.price.kind === "paid"
 		: "El precio está pendiente de confirmación.";
 
 export function tourSeo(tour: Tour) {
-	const title = searchTitles[tour.slug] ?? `${tour.title} desde Cuenca`;
-	const introduction = directDescriptions[tour.slug] ?? `${tour.title} es una excursión desde Cuenca. ${tour.summary}`;
+	const title = searchTitles[tour.slug] ?? `${tour.title} en Ecuador`;
+	const introduction = directDescriptions[tour.slug] ?? `${tour.title} es una experiencia turística en Ecuador. ${tour.summary}`;
 	const directAnswer = tour.price.kind === "free" ? introduction : `${introduction} ${quote(tour)}`;
 	const questions: TravelQuestion[] = [
 		{ question: "¿Cuánto cuesta esta experiencia?", answer: `${quote(tour)} ${tour.price.kind === "free" ? "Las entradas opcionales con costo y los consumos personales se pagan por separado." : "Revisa las inclusiones y exclusiones para conocer los gastos que se pagan por separado."}` },

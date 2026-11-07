@@ -35,7 +35,7 @@ test("hero: catalog call to action and exactly one slide per destination", async
 	const slides = [...html.matchAll(/<section class="embla__slide"[\s\S]*?<\/section>/g)].map(match => match[0]);
 	assert.equal(slides.length, places.length + 1);
 	assert.match(slides[0], /href="\/tours\/"/);
-	assert.match(slides[0], /Ver tours desde Cuenca/);
+	assert.match(slides[0], /Explorar tours por Ecuador/);
 	assert.equal((html.match(/<h1\b/g) || []).length, 1);
 	for (const slide of slides.slice(1)) {
 		assert.match(slide, /hero-tours/);

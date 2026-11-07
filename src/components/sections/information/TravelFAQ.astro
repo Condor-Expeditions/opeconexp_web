@@ -3,6 +3,6 @@ import { travelQuestions as questions } from "@/data/travel-faq";
 ---
 <section class="info-section" aria-labelledby="faq-title"><div class="info-shell">
   <p class="info-eyebrow">Antes de hacer la mochila</p>
-  <h2 class="info-title" id="faq-title">Preguntas frecuentes<br /><em>sobre los tours desde Cuenca.</em></h2>
+  <h2 class="info-title" id="faq-title">Preguntas frecuentes<br /><em>sobre los tours en Ecuador.</em></h2>
   <div class="info-faq">{questions.map(item => <details><summary>{item.question}</summary><p>{item.answer}{item.policyLink && <> <a class="info-link" href="/politicas-comerciales">Ver políticas comerciales</a></>}</p></details>)}</div>
 </div></section>

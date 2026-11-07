@@ -8,15 +8,15 @@ export const absoluteUrl = (path: string) => new URL(path, publicSite).href;
 export const organizationId = absoluteUrl("#organization");
 
 export const homeSeo = {
-	title: "Operadora turística en Cuenca",
-	description: "Descubre El Cajas, Ingapirca y los pueblos del Azuay con Condor Expeditions. Compara recorridos desde Cuenca y consulta precios y disponibilidad.",
-	directAnswer: "Condor Expeditions es una operadora turística en Cuenca, Ecuador, que organiza excursiones de naturaleza, aventura y cultura por Azuay y Cañar. Explora El Cajas, Ingapirca, Girón y pueblos artesanos con recorridos que detallan precios, duración e inclusiones. Consulta disponibilidad con nuestro equipo antes de confirmar tu reserva.",
+	title: "Operadora turística en Ecuador",
+	description: "Descubre Ecuador con Condor Expeditions. Explora nuestros tours de naturaleza, aventura y cultura en Azuay y Cañar y consulta precios y disponibilidad.",
+	directAnswer: "Condor Expeditions es una operadora turística en Ecuador, con sede en Cuenca. Nuestra oferta actual reúne experiencias de naturaleza, aventura y cultura en Azuay y Cañar: El Cajas, Ingapirca, Girón y pueblos artesanos. Compara recorridos, precios e inclusiones y consulta disponibilidad con nuestro equipo antes de confirmar tu reserva.",
 };
 
 export const catalogSeo = {
-	title: "Tours desde Cuenca, Ecuador",
-	description: "Compara tours desde Cuenca al Cajas, Ingapirca, Girón y pueblos artesanos. Revisa precios, duración e inclusiones y consulta disponibilidad.",
-	directAnswer: "Los tours desde Cuenca de Condor Expeditions incluyen excursiones al Parque Nacional El Cajas, rutas arqueológicas hacia Ingapirca, visitas a pueblos artesanos y aventuras en Girón. Compara destinos, precios de referencia y servicios incluidos para elegir tu experiencia y consultar disponibilidad según la fecha de viaje.",
+	title: "Tours por Ecuador",
+	description: "Explora tours por Ecuador con Condor Expeditions. Descubre nuestra oferta actual en Azuay y Cañar, compara precios e inclusiones y consulta disponibilidad.",
+	directAnswer: "Descubre Ecuador con los tours de Condor Expeditions. Nuestra oferta actual abarca Azuay y Cañar, con experiencias en El Cajas, Ingapirca, Girón y pueblos artesanos. Compara destinos, precios de referencia y servicios incluidos para elegir tu recorrido. Consulta en cada ficha el punto de salida y la disponibilidad para tu viaje.",
 };
 
 export function organizationSchema() {
@@ -44,7 +44,7 @@ export function catalogSchema(tours: Tour[]) {
 		"@type": "CollectionPage", "@id": absoluteUrl("/tours/#webpage"), url: absoluteUrl("/tours/"),
 		name: catalogSeo.title, description: catalogSeo.description, inLanguage: "es-EC",
 		mainEntity: {
-			"@type": "ItemList", name: "Tours desde Cuenca", numberOfItems: tours.length,
+			"@type": "ItemList", name: "Tours por Ecuador", numberOfItems: tours.length,
 			itemListElement: tours.map((tour, index) => ({ "@type": "ListItem", position: index + 1, name: tour.title, url: absoluteUrl(`/tours/${tour.slug}/`) })),
 		},
 	};

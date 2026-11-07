@@ -13,7 +13,8 @@ test("every editable tour, including disabled walking, has a 40–60-word direct
     const seo = tourSeo(tour);
     const words = seo.directAnswer.split(/\s+/).length;
     assert.ok(words >= 40 && words <= 60, `${tour.slug}: ${words} words`);
-    assert.match(seo.title, /Cuenca/);
+    assert.match(seo.title, /Tour|tour/);
+    assert.doesNotMatch(seo.title, /desde Cuenca/);
     assert.ok(seo.description.length > 60);
     assert.ok(seo.questions.length >= 6);
     assert.doesNotMatch(JSON.stringify(seo), /pendingReview|snapshot/);
@@ -28,7 +29,12 @@ test("home and catalog expose factual headings, direct answers and consistent ca
   for (const route of ["", "tours/"]) {
     const html = await load(route);
     assert.equal((html.match(/<h1\b/g) || []).length, 1);
-    assert.match(text(html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)[0]), /Cuenca/);
+    const heading = text(html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)[0]);
+    assert.match(heading, /Ecuador/);
+    assert.doesNotMatch(heading, /Cuenca/);
+    assert.match(html.match(/<title>(.*?)<\/title>/)[1], /Ecuador/);
+    assert.doesNotMatch(html.match(/<title>(.*?)<\/title>/)[1], /Cuenca/);
+    assert.match(html, /oferta actual.*Azuay y Cañar/);
     const canonical = `https://condorexpedition.com/${route}`;
     assert.ok(html.includes(`<link rel="canonical" href="${canonical}">`));
     assert.ok(html.includes(`<meta property="og:url" content="${canonical}">`));
@@ -45,6 +51,7 @@ test("published tour schemas match visible answers, prices and ordered itinerari
     const nodes = graph(html);
     const trip = nodes.find(node => node["@type"] === "TouristTrip");
     assert.equal(trip.description, tourSeo(tour).directAnswer);
+    assert.equal(trip.tripOrigin.name, "Cuenca, Ecuador", "Keep the actual departure city, not the national brand scope");
     assert.equal(trip.name, text(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]));
     assert.equal(trip.description, text(html.match(/<p class="tour-direct-answer">([\s\S]*?)<\/p>/)[1]));
     assert.equal(trip.itinerary.itemListElement.length, tour.itinerary.length);
@@ -76,6 +83,7 @@ test("catalog structured list and comparison include only published tours", asyn
   const html = await load("tours/");
   const list = graph(html).find(node => node["@type"] === "CollectionPage").mainEntity;
   assert.equal(list.numberOfItems, publishedTours.length);
+  assert.equal(list.name, "Tours por Ecuador");
   const visiblePaths = [...html.matchAll(/<article class="tour-card"[\s\S]*?<h2[^>]*>\s*<a href="([^"]+)"/g)].map(match => match[1]);
   assert.deepEqual(list.itemListElement.map(item => new URL(item.url).pathname), visiblePaths);
   assert.deepEqual([...visiblePaths].sort(), publishedTours.map(tour => `/tours/${tour.slug}/`).sort());
