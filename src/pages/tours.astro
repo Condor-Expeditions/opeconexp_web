@@ -6,6 +6,8 @@ import { destinations } from "@/data/destinations";
 import { destinationAliases, experienceLabels } from "@/data/tours/taxonomy";
 import TourCard from "@/components/sections/tours/TourCard";
 import "../components/sections/tours/tours.css";
+import CatalogGuide from "@/components/sections/tours/CatalogGuide";
+import { catalogSeo, catalogSchema } from "@/data/seo";
 
 const places = destinations.filter(place => tours.some(tour => tour.destinations.includes(place.id)));
 const experiences = Object.entries(experienceLabels).filter(([id]) => tours.some(tour => tour.experienceTypes.some(type => type === id)));
@@ -15,12 +17,12 @@ const filters = [
 ];
 ---
 
-<Layout title="Tours por Ecuador" description="Encuentra tu próxima experiencia con Condor Expeditions. Explora tours por El Cajas, Cuenca, Ingapirca y los pueblos del Austro; filtra por lugar y tipo de experiencia.">
+<Layout title={catalogSeo.title} description={catalogSeo.description} structuredData={[catalogSchema(tours)]}>
 	<main class="tour-catalog" data-tour-catalog data-destination-aliases={JSON.stringify(destinationAliases)}>
 		<div class="catalog-shell">
 			<header class="catalog-heading">
-				<div><p class="catalog-eyebrow"><span></span> Ecuador, de cerca</p><h1>Tu próxima historia<br /><em>empieza aquí.</em></h1></div>
-				<div class="catalog-intro"><p>Hay un Ecuador que se descubre caminando, compartiendo y dejándose sorprender. Encuentra tu forma de vivirlo.</p><span>Rutas locales. Historias que se quedan.</span></div>
+				<div><p class="catalog-eyebrow"><span></span> Ecuador, de cerca</p><h1>Tours desde Cuenca,<br /><em>Ecuador.</em></h1></div>
+				<div class="catalog-intro"><p>{catalogSeo.directAnswer}</p><span>Rutas locales. Historias que se quedan.</span></div>
 			</header>
 			<section class="catalog-filter-section" aria-label="Filtrar tours" hidden data-filter-section>
 				<div class="catalog-filter-bar">
@@ -39,6 +41,7 @@ const filters = [
 				<div class="catalog-empty" hidden data-empty-results><Icon name="map-pin" aria-hidden="true" /><h2>Otro camino te espera.</h2><p>No encontramos tours con esa combinación. Prueba otro lugar o quita algún filtro.</p><button type="button" data-clear-filters>Ver todas las experiencias <Icon name="arrow-up-right" aria-hidden="true" /></button></div>
 			</div>
 			<noscript><p class="catalog-noscript">Estás viendo todas las experiencias. Activa JavaScript para filtrar por lugar y navegar por las fotos de cada tarjeta.</p></noscript>
+			<CatalogGuide />
 			<div class="catalog-closing"><Icon name="asterisk" aria-hidden="true" /><p>Menos prisa.<br /><span>Más historias que contar.</span></p><a href="/contacto">¿No sabes por dónde empezar? <span>Hablemos de tu viaje <Icon name="arrow-up-right" aria-hidden="true" /></span></a></div>
 		</div>
 		<script is:inline>

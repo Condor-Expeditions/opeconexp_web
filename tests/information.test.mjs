@@ -26,12 +26,12 @@ for (const route of ["", "sobre-nosotros/", "contacto/"]) {
   });
 }
 
-test("home: current catalog links, clear imagery and contribution notice", async () => {
+test("home: current catalog links, clear imagery and reference-price notice", async () => {
   const html = await load("");
   const section = html.match(/<section[^>]*aria-labelledby="featured-title"[\s\S]*?<\/section>/)[0];
   assert.equal((section.match(/<article\b/g) || []).length, 4);
   assert.doesNotMatch(section, /Guachapala|Precio por confirmar/);
-  assert.match(section, /Aporte voluntario al guía/);
+  assert.match(section, /Por persona · sujeto a confirmación/);
   assert.doesNotMatch(section, /Fotografía ilustrativa/);
   for (const [, slug] of section.matchAll(/href="\/tours\/([^/"?]+)\//g)) await assert.doesNotReject(load(`tours/${slug}/`));
   assert.match(html, /<details>/);

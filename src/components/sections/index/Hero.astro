@@ -6,6 +6,7 @@ import heroLandscape from "@/assets/tours/mirador-tres-cruces/20261012_0233.webp
 import { destinations } from "@/data/destinations";
 import { tours, tourHref } from "@/data/tours";
 import { experienceLabels } from "@/data/tours/taxonomy";
+import { homeSeo } from "@/data/seo";
 import {
   HERO_CHIP_ANIMATION_CLASS,
   HERO_CHIP_STAGGER_MS,
@@ -21,12 +22,12 @@ const data = [
   {
     background: heroLandscape,
     altImage: "Paisaje de páramo y montañas de El Cajas desde el mirador Tres Cruces",
-    title: "Ecuador",
-    subtitle: "Vive lo que otros solo visitan.",
-    description: "Somos Condor Expeditions. Descubre Ecuador con experiencias auténticas, paisajes que sorprenden y recuerdos que se quedan contigo.",
+    title: "Operadora turística",
+    subtitle: "en Cuenca, Ecuador.",
+    description: homeSeo.directAnswer,
     position: "50% 45%",
     portraitPosition: "55% 40%",
-    tours: [] as { slug: string; name: string }[],
+    tours: [{ slug: "/tours/", name: "Ver tours desde Cuenca" }],
     tags: ["Naturaleza", "Aventura", "Senderismo", "Fotografía"],
   },
   ...destinations.filter(place => tours.some(tour => tour.destinations.includes(place.id))).map(place => {
@@ -73,7 +74,7 @@ const slides = data.map((slide) => {
                     </div>
                   </div>
                   {slide.tours.length > 0 && <div class="hero-tours">
-                    <p class="hero-eyebrow">Explora nuestros tours</p>
+                    <p class="hero-eyebrow">{index === 0 ? "Vive lo que otros solo visitan" : "Explora nuestros tours"}</p>
                     <div class="hero-tour-list">
                       {slide.tours.map((tour, tourIndex) => (
                         <a href={tour.slug} class={`${HERO_TOUR_BUTTON_CLASSES} ${HERO_CHIP_ANIMATION_CLASS}`} style={`animation-delay: ${tourIndex * HERO_CHIP_STAGGER_MS}ms`}>

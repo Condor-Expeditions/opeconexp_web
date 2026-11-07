@@ -13,6 +13,7 @@ export interface Props {
   articleDate?: string;
   viewTransition?: boolean;
   lang?: "es" | "en";
+  structuredData?: Record<string, unknown>[];
 }
 
 const {
@@ -22,6 +23,7 @@ const {
   articleDate,
   viewTransition = true,
   lang = "es",
+  structuredData = [],
 } = Astro.props;
 ---
 
@@ -32,6 +34,7 @@ const {
     ogImage={image}
     articleDate={articleDate}
     viewTransition={viewTransition}
+    structuredData={structuredData}
   />
 
   <body class="font-sans bg-background text-foreground">

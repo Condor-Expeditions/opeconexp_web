@@ -1,0 +1,51 @@
+---
+import { tours, tourHref, priceLabel } from "@/data/tours";
+const comparable = tours.filter(tour => !tour.provisional);
+const groups = [
+  { title: "Naturaleza y senderismo", text: "Explora lagunas, páramos y cascadas. Compara las caminatas, la altitud y las recomendaciones: una salida corta no siempre supone un esfuerzo menor." },
+  { title: "Cultura, pueblos y artesanías", text: "Acércate al patrimonio y los oficios de la región. Revisa el itinerario para distinguir las visitas incluidas del tiempo libre y las compras personales." },
+  { title: "Arqueología e historia", text: "Conoce las huellas cañaris e incas en los sitios del catálogo. Consulta las entradas, las caminatas y los días de operación de cada ruta." },
+  { title: "Aventura", text: "Combina paisaje y actividades al aire libre. Consulta los requisitos de participación y las condiciones de cada actividad antes de reservar." },
+];
+---
+<section class="catalog-guide" aria-labelledby="comparison-title">
+  <p class="catalog-eyebrow">Información para decidir</p>
+  <h2 id="comparison-title">Compara destinos, <em>precios y duración.</em></h2>
+  <p>Tarifas de referencia para adultos por persona, en dólares estadounidenses, sujetas a confirmación. No implican disponibilidad para una fecha concreta. Las duraciones indicadas en las fichas son aproximadas; confirma el horario de regreso antes de reservar.</p>
+  <div class="catalog-comparison" role="region" aria-label="Comparativa de tours desde Cuenca" tabindex="0">
+    <table>
+      <caption>Recorridos del catálogo: consulta cada ficha para ver las inclusiones y exclusiones completas.</caption>
+      <thead><tr><th scope="col">Experiencia</th><th scope="col">Destino</th><th scope="col">Duración de referencia</th><th scope="col">Precio por adulto</th><th scope="col">Dificultad indicada</th></tr></thead>
+      <tbody>{comparable.map(tour => <tr><th scope="row"><a href={tourHref(tour)}>{tour.title}</a></th><td>{tour.location}</td><td>{tour.duration}</td><td>{priceLabel(tour)}{tour.price.kind === "free" && <small> · Aporte voluntario</small>}</td><td>{tour.difficulty}</td></tr>)}</tbody>
+    </table>
+  </div>
+  <h2>Encuentra una experiencia <em>según tus intereses.</em></h2>
+  <div class="catalog-guide-groups">{groups.map(group => <div><h3>{group.title}</h3><p>{group.text}</p></div>)}</div>
+  <h2>¿Qué revisar <em>antes de elegir un tour?</em></h2>
+  <ul>
+    <li><strong>Tiempo disponible:</strong> duración, horario y traslado de regreso.</li>
+    <li><strong>Esfuerzo y altitud:</strong> caminatas, dificultad y restricciones de salud.</li>
+    <li><strong>Precio final:</strong> tarifa aplicable, grupo mínimo y posibles extras.</li>
+    <li><strong>Servicios:</strong> transporte, guía, entradas y alimentación según la ficha.</li>
+    <li><strong>Logística y reserva:</strong> encuentro, idioma, pagos y condiciones de cambio y cancelación.</li>
+  </ul>
+  <p><a href="/contacto/">Consulta con el equipo qué recorrido se ajusta a tu viaje →</a></p>
+</section>
+<style>
+  .catalog-guide { padding-block: 3rem; border-top: 1px solid var(--color-border); }
+  .catalog-guide h2 { font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.2; margin-block: 2rem 1rem; }
+  .catalog-guide h2 em { color: var(--color-rojo); font-style: normal; }
+  .catalog-guide p, .catalog-guide li { color: var(--color-muted-foreground); font-size: .9rem; line-height: 1.8; }
+  .catalog-guide a { color: var(--color-foreground); text-decoration: underline; text-underline-offset: .2em; }
+  .catalog-guide a:hover { color: var(--color-rojo); }
+  .catalog-guide :is(a, [tabindex]):focus-visible { outline: 2px solid var(--color-rojo); outline-offset: 4px; }
+  .catalog-comparison { overflow-x: auto; margin-block: 1.5rem 3rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; text-align: left; }
+  caption { text-align: left; padding-bottom: .75rem; color: var(--color-muted-foreground); }
+  th, td { padding: 1rem; border-bottom: 1px solid var(--color-border); vertical-align: top; min-width: 9rem; }
+  thead { background: var(--color-foreground); color: var(--color-background); }
+  .catalog-guide-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
+  .catalog-guide h3 { font-size: 1.15rem; margin-bottom: .5rem; }
+  .catalog-guide ul { padding-left: 1.25rem; list-style: disc; margin-block: 1rem; }
+  @media (max-width: 640px) { .catalog-guide-groups { grid-template-columns: 1fr; } }
+</style>

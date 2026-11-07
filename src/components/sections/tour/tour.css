@@ -25,7 +25,10 @@
 .tour-heading-meta p svg { width: .9rem; height: .9rem; color: var(--color-rojo); }
 .tour-heading-meta > span { font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; text-align: right; }
 .tour-title-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-top: .95rem; }
-.tour-title-row h1 { max-width: 25ch; font-size: clamp(2rem, 3.65vw, 3.75rem); font-weight: 650; line-height: 1.1; letter-spacing: -.055em; text-wrap: balance; }
+.tour-title-row h1 { max-width: 30ch; font-size: clamp(2rem, 3.65vw, 3.75rem); font-weight: 650; line-height: 1.1; letter-spacing: -.055em; text-wrap: balance; }
+.tour-direct-answer { max-width: 80ch; margin-top: 1.5rem; color: var(--color-muted-foreground); line-height: 1.8; font-size: 1rem; }
+.tour-price-summary { display: grid; gap: 1.25rem; margin-block: 1.5rem; }
+.tour-price-summary p { color: var(--color-muted-foreground); line-height: 1.8; }
 .tour-share { flex-shrink: 0; display: flex; gap: .5rem; align-items: center; padding: .7rem 0 .7rem .7rem; font-size: .75rem; background: transparent; border: 0; }
 .tour-share svg { width: 1rem; height: 1rem; }
 .tour-share:hover { color: var(--color-rojo); }

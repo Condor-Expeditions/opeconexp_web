@@ -4,6 +4,7 @@ import "../../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { join } from "node:path";
 import { AstroFont } from "astro-font";
+import { organizationSchema, publicSite } from "@/data/seo";
 
 export interface Props {
 	title: string;
@@ -11,6 +12,7 @@ export interface Props {
 	ogImage?: string | undefined;
 	articleDate?: string | undefined;
 	viewTransition: boolean;
+	structuredData?: Record<string, unknown>[];
 }
 
 const {
@@ -19,12 +21,15 @@ const {
 	ogImage,
 	articleDate,
 	viewTransition = true,
+	structuredData = [],
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pathname = Astro.url.pathname;
+const canonicalPath = pathname === "/" || /\.[a-z0-9]+$/i.test(pathname) ? pathname : `${pathname.replace(/\/$/, "")}/`;
+const canonicalURL = new URL(canonicalPath, publicSite);
 const socialImageURL = new URL(
 	ogImage ? ogImage : "/open-graph.webp",
-	Astro.url,
+	publicSite,
 ).href;
 
 const titleSeparator = "•";
@@ -32,6 +37,8 @@ const titleSeparator = "•";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.companyName}`;
 
 const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+// Escape '<' so content can never terminate the JSON-LD script element.
+const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": [organizationSchema(), ...structuredData] }).replace(/</g, "\\u003c");
 ---
 
 <head>
@@ -67,15 +74,13 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
   <meta name="title" content={siteTitle} />
   <meta name="description" content={description} />
   <meta name="author" content={siteConfig.companyName} />
-  <!-- Keywords -->
-  <meta
-    name="keywords"
-    content="operadora turística Cuenca, tours Azuay, Parque Nacional El Cajas, Ingapirca, Girón, Déleg, Guachapala, tours Cuenca, Condor Expeditions, turismo de aventura Ecuador, expediciones Cuenca, turismo responsable Ecuador"
-  />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <script is:inline type="application/ld+json" set:html={jsonLd} />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content={articleDate ? "article" : "website"} />
-  <meta property="og:url" content={Astro.url} />
-  <meta property="og:title" content={title} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={siteTitle} />
+  <meta property="og:locale" content="es_EC" />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={socialImageURL} />
   {
@@ -89,8 +94,8 @@ const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={Astro.url} />
-  <meta property="twitter:title" content={title} />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={siteTitle} />
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={socialImageURL} />
 
