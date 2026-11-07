@@ -38,7 +38,7 @@ export const siteConfig: SiteConfig = {
 	companyName: "Condor Expeditions",
 	seo: {
 		description:
-			"Condor Expeditions es una operadora turística en Cuenca, Ecuador. Ofrecemos expediciones auténticas al Parque Nacional El Cajas, Ingapirca, Girón, Déleg y Guachapala. Ecuador: Vive lo que otros solo visitan.",
+			"Condor Expeditions es una operadora turística en Ecuador, con sede en Cuenca. Nuestra oferta actual reúne experiencias de naturaleza, aventura y cultura en Azuay y Cañar. Consulta recorridos, precios e inclusiones.",
 	},
 	companyInfo: {
 		tourismRegistration: {

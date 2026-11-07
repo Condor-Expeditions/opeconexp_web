@@ -11,9 +11,10 @@ import { siteConfig } from "@/data/site.config";
 import "./header.css";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isCompactPage = currentPath === "/tours" || currentPath.startsWith("/tours/") || currentPath.startsWith("/dev");
 ---
 
-<header id="site-header" class="site-header" data-menu-state="closed" data-light-page={currentPath !== "/"} data-tour-page={currentPath === "/tours" || currentPath.startsWith("/tours/")}>
+<header id="site-header" class="site-header" data-menu-state="closed" data-light-page={currentPath !== "/"} data-tour-page={isCompactPage}>
 	<div class="menu-curtain" aria-hidden="true"></div>
 	<section id="header-landscape" class="header-toolbar">
 		<ContainerHeader class="py-28">

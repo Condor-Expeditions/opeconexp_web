@@ -13,6 +13,8 @@ export interface Props {
   articleDate?: string;
   viewTransition?: boolean;
   lang?: "es" | "en";
+  structuredData?: Record<string, unknown>[];
+  hideHeader?: boolean;
 }
 
 const {
@@ -22,6 +24,8 @@ const {
   articleDate,
   viewTransition = true,
   lang = "es",
+  structuredData = [],
+  hideHeader = false,
 } = Astro.props;
 ---
 
@@ -32,13 +36,15 @@ const {
     ogImage={image}
     articleDate={articleDate}
     viewTransition={viewTransition}
+    structuredData={structuredData}
   />
 
   <body class="font-sans bg-background text-foreground">
-    <Header />
+    {!hideHeader && <Header />}
     <slot />
     <Footer lang={lang} />
     <!-- <WhatsAppFloat /> -->
     <SizeIndicator />
   </body>
 </html>
+

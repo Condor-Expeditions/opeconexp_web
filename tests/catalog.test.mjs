@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { publishedTours } from "./helpers/tour-data.mjs";
+import { tourSeo } from "../src/data/tours/seo.ts";
 
 const load = path => readFile(new URL(`../dist/${path}`, import.meta.url), "utf8");
 // Destination assignments are editable content, not fixed test fixtures.
@@ -14,7 +15,7 @@ test("catalog: enabled data-backed cards, destinations, experience filters and r
 	assert.equal(cards.length, publishedTours.length);
 	assert.equal((html.match(/<h1\b/g) || []).length, 1);
 	for (const place of places) assert.match(html, new RegExp(`name="lugar" value="${place}"`));
-	for (const type of ["naturaleza", "aventura", "cultura", "historia", "arqueologia", "gastronomia", "artesania", "recorrido-a-pie"]) assert.match(html, new RegExp(`name="experiencia" value="${type}"`));
+	for (const type of new Set(publishedTours.flatMap(tour => tour.experienceTypes))) assert.match(html, new RegExp(`name="experiencia" value="${type}"`));
 	for (const card of cards) {
 		assert.match(card, /data-destinations="[^"]+"/);
 		assert.match(card, /data-experiences="[^"]+"/);
@@ -25,15 +26,16 @@ test("catalog: enabled data-backed cards, destinations, experience filters and r
 		assert.ok(href);
 		await assert.doesNotReject(load(`${href.slice(1)}index.html`));
 	}
-	assert.match(cards.find(card => card.includes("free-walking-tour")), /Aporte voluntario/);
+	for (const tour of publishedTours.filter(tour => tour.price.kind === "free")) assert.match(cards.find(card => card.includes(tour.slug)), /Aporte voluntario/);
 	assert.match(html, /<noscript>/);
 });
 
-test("hero: intro without tours and exactly one slide per destination", async () => {
+test("hero: catalog call to action and exactly one slide per destination", async () => {
 	const html = await load("index.html");
 	const slides = [...html.matchAll(/<section class="embla__slide"[\s\S]*?<\/section>/g)].map(match => match[0]);
 	assert.equal(slides.length, places.length + 1);
-	assert.doesNotMatch(slides[0], /hero-tours|Explora nuestros tours/);
+	assert.match(slides[0], /href="\/tours\/"/);
+	assert.match(slides[0], /Explorar tours por Ecuador/);
 	assert.equal((html.match(/<h1\b/g) || []).length, 1);
 	for (const slide of slides.slice(1)) {
 		assert.match(slide, /hero-tours/);
@@ -67,7 +69,7 @@ test("hero and listing: enabled tours have matching names and destination assign
 	for (const tour of tours) {
 		assert.ok(heroLinks.has(tour.href), `${tour.title} is reachable from the hero`);
 		const detail = await load(`${tour.href.slice(1)}index.html`);
-		assert.equal(detail.match(/<h1[^>]*>([^<]+)<\/h1>/)?.[1], tour.title);
+		assert.equal(detail.match(/<h1[^>]*>([^<]+)<\/h1>/)?.[1], tourSeo(publishedTours.find(item => tour.href.includes(`/${item.slug}/`))).title);
 	}
 	assert.doesNotMatch(listing, /USD \/ adulto|child-price|En preparación/);
 	assert.doesNotMatch(home, /Por adulto · sujeto a confirmación/);
