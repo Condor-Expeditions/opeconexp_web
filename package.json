@@ -14,7 +14,7 @@
 		"lint:fix": "biome check --write ."
 	},
 	"dependencies": {
-		"astro": "^7.3.2",
+		"astro": "7.4.13",
 		"astro-icon": "^1.2.0",
 		"embla-carousel": "^8.6.0",
 		"embla-carousel-fade": "^8.6.0",
